@@ -1,0 +1,326 @@
+<!-- 课程四 · 01 导入 -->
+  <section id="sec4-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#0e7490 0%,transparent 58%),linear-gradient(160deg,#0b1b3a,#123061 55%,#0f3a52)">
+      <div class="badge">🛢️ UNIT-5 · 第 4 课</div>
+      <h1>润滑与冷却系统 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Lubrication and Cooling System</em></h1>
+      <p class="sub">发动机不只要"吃饭"，还要"血液"和"空调"——机油与冷却液的循环</p>
+      <div class="meta"><span>🧩 18 零件爆炸图</span><span>🧊 3D 模型</span><span>🌡️ 节温器动画</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — WHY AN ENGINE NEEDS OIL AND COOLANT</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>🛢️ 发动机的两套"生命保障"</h4>
+          <p>发动机除了需要供给足量的燃料之外，还需要进行<b>润滑</b>与<b>冷却</b>：润滑不良或者冷却效果不佳，同样会严重影响发动机的正常工作。金属零件在高温下高速相对运动，没有机油会瞬间"烧瓦"；燃烧产生的大量热量带不走，发动机很快就会<b>过热变形</b>。这节课我们把这两套系统一次讲清。</p>
+          <div class="keyline"><span>lubrication 润滑</span><span>coolant 冷却液</span><span>thermostat 节温器</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>机油从<b>油底壳</b>出发，要经过哪些部件才能到达曲轴轴承？<b>节温器</b>为什么在冷车时要"关着"？为什么冷却系统要<b>加压</b>？机油压力在怠速和高速时一样吗？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 26 个专业单词 &amp; 短语（含音标）</span>
+          <span>✅ 润滑系统 11 个主要部件</span>
+          <span>✅ 冷却系统 7 个主要部件</span>
+          <span>✅ 机油循环 8 步 + 冷却液循环 8 步</span>
+          <span>✅ 零件爆炸图 + 3D 模型 + 节温器动画</span>
+        </div>
+        <div class="typed" id="typedIntro4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 02 单词与短语 -->
+  <section id="sec4-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab4Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>本课 26 个词分为"润滑"与"冷却"两组：润滑组围绕 <b>oil</b>（油底壳、油泵、滤清器、油道），冷却组围绕 <b>coolant / water</b>（冷却液、水泵、水套、散热器）。建议结合下一页的<b>爆炸图</b>和<b>循环动画</b>一起记忆。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 03 零件动画 -->
+  <section id="sec4-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 润滑与冷却<small>PARTS ANIMATION — 爆炸图 + 循环动画 + 节温器 + 3D 模型</small></h2></div>
+
+      <div class="card">
+        <h3>🧩 润滑与冷却系统零件爆炸图 <span class="en">Exploded View — 18 Parts 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnLubeExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnLubeTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">共 <b>18</b> 个零件 · 1~11 润滑系统 / 12~18 冷却系统</span>
+        </div>
+        <svg id="lubeSvg" viewBox="-120 -80 960 1000"></svg>
+        <div class="info-panel" id="lubeInfo">
+          <div class="n" id="lubeInfoN">?</div>
+          <div><div class="e" id="lubeInfoE">点击零件编号</div>
+          <div class="z" id="lubeInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="lubeInfoD">润滑与冷却系统由油底壳、机油泵、集滤器、机油滤清器、限压阀、机油冷却器、主油道、缸盖油道、回油孔、机油压力传感器、机油尺、水泵、水套、节温器、散热器、散热器软管、散热器盖、冷却风扇与皮带等 18 个主要部件组成，按"润滑 1→11、冷却 12→18"编号。</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🔄 机油循环动画 <span class="en">Lubrication Circuit — 油底壳 → 油泵 → 滤清器 → 主油道 → 各轴承 → 回油</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnOilPlay" style="padding:8px 16px;font-size:13px">⏸ 暂停</button>
+          <span class="parts-hint" id="oilStepTip">机油正在被机油泵从油底壳吸出并加压</span>
+        </div>
+        <svg id="oilFlowSvg" viewBox="0 0 680 430"></svg>
+        <p class="stage-note" style="margin-top:8px">① 储存 ② 吸取 ③ 加压 ④ 过滤 ⑤ 分配 ⑥ 润滑轴承 ⑦ 供缸盖 ⑧ 回油 —— 八步循环，压力润滑取代了早期的飞溅润滑。</p>
+      </div>
+
+      <div class="card">
+        <h3>🌡️ 节温器工作原理动画 <span class="en">Thermostat — 冷车关闭走旁通 / 热车打开走散热器</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnThermoPlay" style="padding:8px 16px;font-size:13px">⏸ 暂停自动演示</button>
+          <span class="parts-hint" id="thermoState">当前：冷车 · 节温器关闭 · 冷却液只走旁通（短路）循环</span>
+        </div>
+        <svg id="thermoSvg" viewBox="0 0 680 300"></svg>
+        <p class="stage-note" style="margin-top:8px">节温器决定工作温度的<b>下限</b>：冷态关闭以快速暖机，达到开启温度后打开走散热器。常见标定 82 ℃／87 ℃／92 ℃。</p>
+      </div>
+
+      <div class="card">
+        <h3>🧊 3D 润滑与冷却系统模型 <span class="en">3D Model — 点击按钮加载</span></h3>
+        <button class="btn" id="btnLube3D">▶ 加载 3D 模型</button>
+        <div id="lube3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px;position:relative"></div>
+        <p class="stage-note" id="lube3dNote">点击按钮后加载 three.js 组件（需联网），加载失败会给出提示，不影响其他内容。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 04 课文学习 -->
+  <section id="sec4-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 润滑与冷却系统<small>READING — LUBRICATION AND COOLING SYSTEM</small></h2></div>
+      <div class="card reading">
+        <h3>📖 课文 1 · 为什么需要润滑 <span class="en">Why Lubrication Is Needed</span></h3>
+        <div class="en-text">There are a great many moving metal parts in the engine. These parts must be protected by <span class="hl">lubricating oil</span>. The <span class="hl">lubrication</span> system is adopted to supply oil to the moving parts of the engine; the oil keeps moving parts from wearing excessively.</div>
+        <div class="zh-text">发动机内有很多运动的金属部件，这些零件必须用<b>润滑油</b>保护。<b>润滑</b>系统为发动机的运动部件提供机油，防止零件过度<b>磨损</b>。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 2 · 润滑系统的组成 <span class="en">Composition of the Lubrication System</span></h3>
+        <div class="en-text">The lubrication system is composed of <span class="hl">oil pan</span>, <span class="hl">oil pump</span>, oil <span class="hl">filters</span>, oil <span class="hl">pressure regulators</span>, oil coolers and oil <span class="hl">sensors</span>. These parts make the lubrication system operate correctly.</div>
+        <div class="zh-text">润滑系统由<b>油底壳</b>、<b>机油泵</b>、机油<b>滤清器</b>、机油<b>压力调节器</b>、机油冷却器和机油<b>传感器</b>组成。这些零件保证了润滑系统的正常运转。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 3 · 机油是怎样流动的 <span class="en">How the Oil Flows</span></h3>
+        <div class="en-text">The oil is stored and cooled in the pan. The oil is drawn into the oil pump from the oil pan, pressurized and sent into the filter to be cleaned. From the oil filter the oil is sent into passages in the block of the engine; these are referred to as the <span class="hl">main oil gallery</span>. From the main oil gallery, oil is sent to all other parts of the engine.</div>
+        <div class="zh-text">机油在<b>油底壳</b>中储存和冷却。机油泵把机油从油底壳中抽出，加压后送入<b>滤清器</b>清洁。从滤清器出来的机油被送入发动机缸体的油道中，这些油道称为<b>主油道</b>。机油从主油道被送往发动机的其他各部位。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 4 · 冷却系统的目的 <span class="en">Purpose of the Cooling System</span></h3>
+        <div class="en-text">The purpose of the cooling system is to <span class="hl">maintain</span> the most efficient operating temperature within the engine. The cooling system moves excess heat from the engine and brings the engine up to the operating temperature as quickly as possible.</div>
+        <div class="zh-text">冷却系统的目的是使发动机保持在最有效的<b>工作温度</b>。冷却系统不仅把多余的热量从发动机中带走，而且使发动机尽可能快地达到最有效的运行温度。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 5 · 冷却系统的组成 <span class="en">Parts of the Cooling System</span></h3>
+        <div class="en-text">1. <b>Water pump</b>: used to make the water go through the cooling system. 2. <b>Water jackets</b>: the open space within the cylinder block and cylinder head where <span class="hl">coolant</span> flows. 3. <b>Thermostat</b>: one of the important parts of the cooling system; it is used to keep the engine coolant at the most efficient temperature. 4. <b>Radiator</b>: its purpose is to reduce the temperature of the coolant. 5. <b>Relief valve</b>: its purpose is to maintain the correct and constant pressure on the cooling system. 6. <b>Fan and belt</b>: they are to draw air through the radiator for cooling during low-speed and <span class="hl">idle</span> operation.</div>
+        <div class="zh-text">1、<b>水泵</b>：使水在冷却系统中循环。2、<b>水套</b>：气缸体和气缸盖内的空腔，冷却液在其中流动。3、<b>节温器</b>：冷却系统的重要部件，用于使冷却液保持在最佳温度。4、<b>散热器</b>：作用是降低冷却液的温度。5、<b>泄压阀</b>：保持冷却系统压力正确、恒定。6、<b>风扇和皮带</b>：发动机在低速和<b>怠速</b>运行时，使空气通过散热器以达到冷却目的。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 6 · 为什么用压力润滑 <span class="en">Why Pressure Lubrication</span></h3>
+        <div class="en-text">Early engines used <b>splash lubrication</b>: dippers on the connecting rod threw oil around the crankcase. Delivery was uncontrolled and depended on engine speed, so bearings could starve at low speed. Modern engines use <b>pressure lubrication</b>: the oil pump delivers metered, filtered oil under pressure to every bearing and to the valve train. The oil film itself is generated by <b>hydrodynamic</b> pressure inside the bearing — the supply system only has to keep the bearing full of oil.</div>
+        <div class="zh-text">早期发动机采用<b>飞溅润滑</b>：连杆上的甩油勺把机油甩到曲轴箱各处。这种方式供油不可控且随转速变化，低速时轴承可能缺油。现代发动机采用<b>压力润滑</b>：机油泵把定量、经过滤的机油在压力下送到每个轴承和配气机构。油膜本身由轴承内部的<b>流体动压</b>建立——供油系统只需要保证轴承始终充满机油。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>润滑 = 油底壳 → 集滤器 → 机油泵（含限压阀）→ 滤清器 → 主油道 → 曲轴/凸轮轴轴承 → 缸盖油道 → 回油孔；冷却 = 水泵 → 水套 → 节温器 →（热车）散热器 → 回水泵。机油不仅润滑，还负责<b>冷却、清洁、密封、防锈和液压</b>。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 05 拓展知识 -->
+  <section id="sec4-deep" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>拓展知识 · 润滑与冷却深挖<small>DEEP DIVE — 双循环八步 · 关键数据 · 常见误区</small></h2></div>
+
+      <div class="card">
+        <h3>🔬 一、机油循环的八步 <span class="en">Lubrication Circuit — 8 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Storage &amp; cooling 储存与散热</span><span class="zhs">机油聚集在<b>油底壳（sump）</b>内，并在每次循环的间隙中散发热量。</span></li>
+          <li><span class="en">Suction 吸取</span><span class="zhs">机油泵经<b>吸油管 + 集滤器（suction strainer）</b>从油底壳吸油。粗滤网阻挡大颗粒杂质，同时不能明显限制流量。</span></li>
+          <li><span class="en">Pressurization &amp; limiting 加压与限压</span><span class="zhs">机油泵（现代发动机多为曲轴驱动的<b>转子泵 gerotor</b>）对机油加压；泵内集成的<b>限压阀</b>把多余油量泄回油底壳，使压力在转速变化时仍保持在规定范围。</span></li>
+          <li><span class="en">Filtration 过滤</span><span class="zhs">泵的全部出油都经过<b>全流式滤清器</b>清除有害杂质。滤芯一旦堵塞，滤清器内的<b>旁通阀</b>会自动打开，让未过滤的机油继续流向轴承——<b>脏油远胜于无油</b>。</span></li>
+          <li><span class="en">Distribution 分配</span><span class="zhs">清洁机油进入缸体油道，再进入凸轮轴上方钻出的<b>主油道（main oil gallery）</b>。</span></li>
+          <li><span class="en">Crankshaft &amp; rod bearings 曲轴与连杆轴承</span><span class="zhs">曲轴上的斜油道把机油从主轴颈送到连杆轴颈，形成把金属表面隔开的<b>流体动压油膜</b>。</span></li>
+          <li><span class="en">Valve train 配气机构</span><span class="zhs">上油道同时给液力挺柱供压，机油经推杆上行润滑摇臂和气门杆，这条通道就是<b>缸盖油道</b>。</span></li>
+          <li><span class="en">Drain-back 回油</span><span class="zhs">完成工作的机油经<b>回油孔</b>在曲轴挡油板导流下靠重力返回油底壳，循环重复。</span></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>🔬 二、冷却液循环的八步 <span class="en">Cooling Circuit — 8 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Circulation 循环</span><span class="zhs">水泵持续驱动冷却液循环，它是系统中<b>唯一产生流动</b>的部件。</span></li>
+          <li><span class="en">Heat absorption 吸热</span><span class="zhs">冷却液流过缸体和缸盖内的<b>水套（water jacket）</b>，吸收金属的热量。</span></li>
+          <li><span class="en">Cold start — bypass only 冷车旁通</span><span class="zhs">发动机冷态时<b>节温器关闭</b>，冷却液<b>不流经散热器</b>，只在发动机内部循环（旁通/短路循环）——这正是发动机能迅速升温的原因。</span></li>
+          <li><span class="en">Wax pellet opens 蜡丸开启</span><span class="zhs">节温器内的蜡丸在标定温度熔化膨胀，顶开阀门。<b>常见标定：82 ℃ 型 81~83 ℃ 开始开启、90~94 ℃ 全开；87 ℃ 型 86~88 ℃ 开启、97 ℃ 全开；92 ℃ 型 91~93 ℃ 开启、102 ℃ 全开。</b></span></li>
+          <li><span class="en">Hot engine — radiator path 热车走散热器</span><span class="zhs">节温器打开后，冷却液经<b>上水管</b>进入散热器；许多系统仍并联保留一部分旁通流量。</span></li>
+          <li><span class="en">Heat rejection 散热</span><span class="zhs">散热器把热量传给流过的空气。低速和怠速时迎风不足，由<b>冷却风扇或风扇离合器</b>强制抽风；节温器反复开闭把温度稳定在工作区间。</span></li>
+          <li><span class="en">Return to the pump 回到水泵</span><span class="zhs">冷却后的冷却液经<b>下水管</b>回到水泵，再次进入水套，闭合循环。</span></li>
+          <li><span class="en">Pressure raises the boiling point 加压提高沸点</span><span class="zhs">密封系统由<b>散热器盖</b>建立压力，从而提高冷却液沸点、允许更高的安全工作温度；压力过高时盖子泄压，保护软管、垫片与密封件。</span></li>
+        </ol>
+        <div class="tip">💡 <span><b>一个阀门，两条回路：</b>冷机 = 只走旁通（短路）；热机 = 走散热器。节温器决定工作温度的<b>下限</b>，散热器和风扇共同决定<b>上限</b>。</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📊 三、关键数据一览 <span class="en">Key Figures</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>项目 Item</th><th>数值 Figure</th><th>说明 Note</th></tr></thead>
+          <tbody>
+            <tr><td class="en">机油压力（怠速）<br><span class="zh">Oil pressure at idle</span></td><td><b>约 34 kPa（5 psi）</b></td><td>某原厂规范实例（2000 款克莱斯勒 300M 3.5 L）：同一台发动机怠速与 3000 r/min 相差约十倍</td></tr>
+            <tr><td class="en">机油压力（3000 r/min）<br><span class="zh">Oil pressure at speed</span></td><td><b>205～724 kPa<br>（30～106 psi）</b></td><td>容积式机油泵的压力随转速升高，由限压阀决定上限。<b>该数值因机型而异，不可当作通用标准。</b></td></tr>
+            <tr><td class="en">正常工作温度<br><span class="zh">Normal coolant temperature</span></td><td><b>约 80～100 ℃</b></td><td>仪表"正常"区间即在此范围；持续高于该区间说明冷却系统能力不足</td></tr>
+            <tr><td class="en">节温器开启温度<br><span class="zh">Thermostat opening</span></td><td>82 ℃ / 87 ℃ / 92 ℃</td><td>常见标定；82 ℃ 型在 90~94 ℃ 全开</td></tr>
+            <tr><td class="en">沸点随压力上升<br><span class="zh">Boiling point vs pressure</span></td><td>约 <b>每 1 psi 升 3 °F</b></td><td>50/50 冷却液常压约 106 ℃ 沸腾；15 psi 的散热器盖约提高 45 °F，上限约 131 ℃</td></tr>
+            <tr><td class="en">散热器盖标定<br><span class="zh">Radiator cap rating</span></td><td>约 <b>0.9～1.1 bar<br>（13～16 psi）</b></td><td>更高压力的盖子不能解决过热问题，主要用于少用防冻液的赛车发动机</td></tr>
+            <tr><td class="en">冷却液配比<br><span class="zh">Coolant mix</span></td><td><b>50 / 50</b></td><td>防冻液与水的标准配比：兼顾冰点、沸点、传热与防腐</td></tr>
+            <tr><td class="en">机油等级 5W-30<br><span class="zh">Oil grade 5W-30</span></td><td>低温 CCS ≤ 6600 mPa·s（−30 ℃）<br>100 ℃ 运动黏度 9.3～12.5 mm²/s</td><td>SAE J300 标准。"5W" 关系冷启动泵送性，"30" 关系工作温度下的油膜强度</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note"><b>数据来源：</b>美国 DOE/EPA fueleconomy.gov；DieselNet 技术手册（SAE 出版）；原厂维修手册（克莱斯勒 300M 油压规范、沃尔沃 240 节温器标定）；ENEOS 石油便覧 SAE J300-2021 黏度等级表；Summit Racing 冷却系统技术资料。<b>说明：</b>"每 psi 升 3 °F"与散热器盖相关数值来自零售商技术资料库，非 ASTM／SAE 原始标准，引用时请注意。</p>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 四、机油与冷却液 <span class="en">Engine Oil vs Coolant</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>对比项</th><th>机油 Engine Oil</th><th>冷却液 Coolant</th></tr></thead>
+          <tbody>
+            <tr><td class="en">主要作用<br><span class="zh">Main job</span></td><td>润滑减摩、冷却活塞、清洁、密封、防腐蚀、液压介质</td><td>带走燃烧产生的多余热量，并把发动机尽快带到工作温度</td></tr>
+            <tr><td class="en">循环动力<br><span class="zh">Circulation</span></td><td>机油泵（容积式，曲轴驱动）</td><td>水泵（离心式，皮带/链条驱动）</td></tr>
+            <tr><td class="en">冷却方式<br><span class="zh">Heat rejection</span></td><td>由<b>机油冷却器</b>（油-水或油-空气）冷却；部分靠油底壳自然散热</td><td>由<b>散热器</b>把热量传给空气，风扇在低速时辅助</td></tr>
+            <tr><td class="en">温度调节<br><span class="zh">Temperature control</span></td><td>无专门调温阀，靠冷却器和油底壳</td><td>由<b>节温器</b>控制走旁通还是走散热器</td></tr>
+            <tr><td class="en">压力特性<br><span class="zh">Pressure</span></td><td>随转速升高，由限压阀封顶；怠速最低</td><td>由散热器盖建立并封顶（约 0.9～1.1 bar）</td></tr>
+            <tr><td class="en">消耗与更换<br><span class="zh">Service</span></td><td>会正常消耗，需按里程/时间更换机油与滤芯</td><td>正常不漏则基本不消耗，需按周期更换或冲洗</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 五、常见误区辨析 <span class="en">Common Misconceptions</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>常见错误理解</th><th>正确认识</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mis-x">✗</span> 机油越黏越好。</td><td><span class="mis-v">✓</span> 黏度必须符合厂家规定并与发动机间隙匹配。过黏会冷启动供油不足、泵送损失增大、油耗上升（在指定 5W-30 的发动机里用 10W-30 会多耗 1%～2% 燃油）；过稀则在高温高负荷下无法维持油膜。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 节温器只在热了以后打开，平时没有作用。</td><td><span class="mis-v">✓</span> 它的积极作用是<b>防止过冷</b>：冷态阻断通往散热器的水流，让发动机迅速升温并保持温度。它决定工作温度的<b>下限</b>，不是上限。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 冷却液就是水。</td><td><span class="mis-v">✓</span> 水传热好但会腐蚀系统、润滑性差（垫片、密封件和水泵会损坏），且冰点高、沸点低。冷却液是含缓蚀剂和润滑剂的乙二醇基液体，通常按 <b>50/50</b> 与水混合。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 散热器冷却的是机油。</td><td><span class="mis-v">✓</span> 散热器冷却的是<b>冷却液</b>。机油由独立的<b>机油冷却器</b>冷却；变速器油冷却器是第三条独立回路，常集成在散热器水室内。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 怠速和高速时机油压力一样。</td><td><span class="mis-v">✓</span> 压力由发动机驱动的容积式机油泵产生，在限压阀上限内<b>随转速变化</b>。某原厂规范为怠速 5 psi、3000 r/min 时 30～106 psi——怠速时油压过低最容易显现、也最易造成损坏。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 拆掉节温器照样开，没什么影响。</td><td><span class="mis-v">✓</span> 没有节温器时冷却液始终流经散热器，暖机时间大大延长。发动机磨损多发生在冷态，长期低温运行还会促成油泥、燃油稀释、暖风失效和排放升高，而且<b>解决不了过热</b>。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 风扇一直转。</td><td><span class="mis-v">✓</span> 只有迎风不足时（低速、怠速）才需要风扇。离合器风扇会接合/分离，柔性风扇在高转速时叶片变平，电动风扇由 ECU 控制启停。风扇常转既费功率、增大噪声，又加剧水泵磨损。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 缺冷却液时加纯防冻液。</td><td><span class="mis-v">✓</span> 纯防冻液传热比水差，浓度过高反而会提高冰点、降低冷却性能。正确做法是加入系统原本使用的同种<b>预混冷却液</b>（通常 50/50）。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 机油只有润滑一个作用。</td><td><span class="mis-v">✓</span> 机油还要<b>冷却</b>活塞、<b>清洁</b>内部表面、<b>密封</b>活塞环、<b>防腐蚀</b>，并作为可变气门正时相位器等部件的<b>液压介质</b>。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 全流式滤清器堵塞时机油就完全断供了。</td><td><span class="mis-v">✓</span> 滤清器内设<b>旁通阀</b>：滤芯堵塞（冷机机油黏稠、滤纸堵塞）时阀门打开，未过滤的机油仍能到达轴承。脏油远胜于无油。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>🔧 六、维修与故障判断 <span class="en">Maintenance &amp; Fault Diagnosis</span></h3>
+        <ul class="kv-list">
+          <li><b>机油压力报警灯亮起必须立即停机。</b>该灯监测的是<b>压力</b>而非油位。压力过低可能源于：油位过低、传感器故障、滤清器堵塞、泵零件磨损、机油过稀或被燃油稀释、轴承间隙过大、限压阀卡滞，以及吸油管松动/弯折/堵塞。<span class="zhs">The oil pressure warning light responds to pressure, not level — if it stays on, stop the engine at once.</span></li>
+          <li><b>缸垫烧穿（blown head gasket）。</b>燃气窜入冷却液（膨胀水箱冒泡、系统持续串气）、冷却液进入气缸（排气冒白烟）或机油与冷却液互窜。<span class="zhs">Combustion gases in the coolant, white exhaust smoke, or oil and coolant mixing all point to a failed head gasket.</span></li>
+          <li><b>节温器卡滞。</b>卡在关闭位置会迅速过热；卡在打开位置则发动机长期过冷——暖风不足、油泥增多、油耗升高。<span class="zhs">Stuck closed causes rapid overheating; stuck open makes the engine run cold, with poor heater output and sludge.</span></li>
+          <li><b>水泵漏水。</b>冷却液从泄水孔滴漏并伴随异响，最终轴承损坏；皮带打滑会使水泵转速下降，加剧过热。<span class="zhs">Coolant weeping from the pump hole plus noise means the bearing is failing.</span></li>
+          <li><b>散热器堵塞或散热片倒伏。</b>管路堵塞或散热片弯曲、腐蚀都会降低散热能力，使发动机在负荷下过热。<span class="zhs">Blocked tubes or bent fins reduce heat rejection and cause overheating under load.</span></li>
+          <li><b>短途行驶属于严苛工况。</b>发动机始终达不到正常工作温度，燃油和水分凝结进入曲轴箱，机油被稀释乳化、添加剂消耗更快。除里程外，<b>时间</b>也是换油依据，因为静置时机油同样会氧化。<span class="zhs">Short-trip driving is severe service — fuel and water condense in the crankcase and the oil never fully warms up.</span></li>
+          <li><b>直喷发动机的机油稀释。</b>燃油喷溅到缸壁会被活塞环刮入曲轴箱，使机油变稀、抗磨添加剂被稀释、闪点下降。对策：按严苛工况缩短换油周期、使用规定的低挥发性机油、避免过多短途行驶。<span class="zhs">In GDI engines fuel dilution thins the oil and consumes anti-wear additives.</span></li>
+          <li><b>暖风不热也是冷却系统故障。</b>暖风芯体是空调箱内的小散热器，由热冷却液供热。冷却液不足、系统内有空气或节温器卡在关闭位置都会使暖风失效。<span class="zhs">A cold heater often points to low coolant, air in the system or a stuck-closed thermostat.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 06 闯关练习 -->
+  <section id="sec4-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线配对 + 读音练习 + 选择题 + 判断题（25 题）</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <div class="match-wrap" id="matchBox4"></div>
+        <div class="msgline" id="matchMsg4">已配对 0 / 8</div>
+      </div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 25 题 · 选项全英文 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar4" style="width:0%"></i></div>
+          <div id="quizBox4"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud</span></h3>
+        <div class="keyline" id="readBox4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程四 · 07 总结 -->
+  <section id="sec4-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Lubrication &amp; Cooling System</span></h3>
+        <div class="tree">
+          <div class="tree-root">🛢️ 润滑与冷却系统 Lubrication &amp; Cooling</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>润滑系统 Lubrication</b>
+              <ul>
+                <li>油底壳 oil pan <span class="tz">储存与散热</span></li>
+                <li>机油泵 oil pump <span class="tz">吸油加压</span></li>
+                <li>集滤器 suction strainer <span class="tz">阻挡大颗粒</span></li>
+                <li>机油滤清器 oil filter <span class="tz">全流式过滤 + 旁通阀</span></li>
+                <li>限压阀 relief valve <span class="tz">限制最高油压</span></li>
+                <li>机油冷却器 oil cooler <span class="tz">给机油降温</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>油路 Oil Circuit</b>
+              <ul>
+                <li>主油道 main oil gallery <span class="tz">分配到各轴承</span></li>
+                <li>缸盖油道 head oil gallery <span class="tz">供配气机构</span></li>
+                <li>回油孔 return hole <span class="tz">重力回油</span></li>
+                <li>机油压力传感器 oil pressure sensor <span class="tz">驱动仪表/报警灯</span></li>
+                <li>机油尺 dipstick <span class="tz">检查油位</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>冷却系统 Cooling</b>
+              <ul>
+                <li>水泵 water pump <span class="tz">唯一产生流动</span></li>
+                <li>水套 water jacket <span class="tz">冷却液流过的空腔</span></li>
+                <li>节温器 thermostat <span class="tz">决定温度下限</span></li>
+                <li>散热器 radiator <span class="tz">把热量交给空气</span></li>
+                <li>散热器软管 hose <span class="tz">连接发动机与散热器</span></li>
+                <li>散热器盖 radiator cap <span class="tz">建立压力、提高沸点</span></li>
+                <li>风扇与皮带 fan and belt <span class="tz">低速强制抽风</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>关键结论 Key Points</b>
+              <ul>
+                <li>两条回路 two paths <span class="tz">冷车旁通 / 热车散热器</span></li>
+                <li>机油压力随转速变化 <span class="tz">怠速最低，限压阀封顶</span></li>
+                <li>机油五大作用 <span class="tz">润滑、冷却、清洁、密封、防腐蚀</span></li>
+                <li>压力润滑优于飞溅润滑 <span class="tz">定量、过滤、带压</span></li>
+                <li>冷却液 50/50 <span class="tz">不可加纯防冻液</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚀 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 润滑系统组成：油底壳、油泵、滤清器、压力调节器、油冷器、传感器</span>
+          <span>② 机油循环八步：储存→吸取→加压→过滤→分配→润滑轴承→供缸盖→回油</span>
+          <span>③ 冷却系统六部件：水泵、水套、节温器、散热器、泄压阀、风扇与皮带</span>
+          <span>④ 冷却目的：保持最佳工作温度 + 尽快升温</span>
+          <span>⑤ 节温器：决定工作温度下限，冷车关闭走旁通</span>
+          <span>⑥ 加压：提高沸点，允许更高的安全工作温度</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「润滑与冷却系统」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
