@@ -230,6 +230,10 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 .stage-tools .t{color:#9db8e6;font-size:13px;margin-right:auto}
 #explodeSvg{width:100%;height:auto;display:block}
 #fuelSvg{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
+#lubeSvg,#oilFlowSvg,#thermoSvg{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
+/* 循环流动虚线动画 */
+@keyframes oilFlow{to{stroke-dashoffset:-220}}
+.oil-flow{animation:oilFlow 3.2s linear infinite}
 /* 爆炸图交互与动画（架构重构时曾被漏掉，此处恢复） */
 .pt{transition:transform .55s cubic-bezier(.5,0,.2,1);transform-box:view-box;cursor:pointer}
 .pt .shp{transition:stroke .2s,filter .2s}
@@ -759,7 +763,14 @@ const COURSES=[
     file:'courses/efi.js', html:'courses/efi.html',
     pages:['sec3-intro','sec3-vocab','sec3-parts','sec3-text','sec3-deep','sec3-quiz','sec3-summary'],
     tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
-    bank:[{en:'carburetor',zh:'化油器'},{en:'injection',zh:'喷射；注射'},{en:'supply',zh:'供给，补给'},{en:'combustible',zh:'易燃的'},{en:'injector',zh:'喷油器'},{en:'contaminant',zh:'污染物；致污物'},{en:'subsystem',zh:'子系统；次要系统'},{en:'sensor',zh:'传感器'},{en:'hose',zh:'软管'},{en:'preset',zh:'预先装置的；预先调整的'},{en:'energize',zh:'供给……能量'},{en:'spring',zh:'弹簧'},{en:'current',zh:'（水、气、电）流'},{en:'coil',zh:'卷；线圈'},{en:'solenoid',zh:'螺线管'},{en:'magnetic',zh:'有磁性的'},{en:'armature',zh:'（电机的）转子，电枢'},{en:'squirt',zh:'注射；喷射'},{en:'throttle',zh:'节流阀、节气门'},{en:'pedal',zh:'踏板'},{en:'depress',zh:'压低'},{en:'circuit',zh:'电路'},{en:'resistance',zh:'抵抗；电阻；阻力'},{en:'voltage',zh:'[电]电压'}] }
+    bank:[{en:'carburetor',zh:'化油器'},{en:'injection',zh:'喷射；注射'},{en:'supply',zh:'供给，补给'},{en:'combustible',zh:'易燃的'},{en:'injector',zh:'喷油器'},{en:'contaminant',zh:'污染物；致污物'},{en:'subsystem',zh:'子系统；次要系统'},{en:'sensor',zh:'传感器'},{en:'hose',zh:'软管'},{en:'preset',zh:'预先装置的；预先调整的'},{en:'energize',zh:'供给……能量'},{en:'spring',zh:'弹簧'},{en:'current',zh:'（水、气、电）流'},{en:'coil',zh:'卷；线圈'},{en:'solenoid',zh:'螺线管'},{en:'magnetic',zh:'有磁性的'},{en:'armature',zh:'（电机的）转子，电枢'},{en:'squirt',zh:'注射；喷射'},{en:'throttle',zh:'节流阀、节气门'},{en:'pedal',zh:'踏板'},{en:'depress',zh:'压低'},{en:'circuit',zh:'电路'},{en:'resistance',zh:'抵抗；电阻；阻力'},{en:'voltage',zh:'[电]电压'}] },
+  { id:'lube', icon:'🛢️', name:'润滑与冷却系统',
+    en:'UNIT-5 · Lubrication and Cooling System',
+    desc:'发动机的"血液"与"空调"：26 个专业单词、18 个零件的润滑+冷却系统爆炸图、机油循环与节温器动画、3D 模型、25 题闯关，外加拓展知识页（双循环八步、关键数据、常见误区）。',
+    file:'courses/lube.js', html:'courses/lube.html',
+    pages:['sec4-intro','sec4-vocab','sec4-parts','sec4-text','sec4-deep','sec4-quiz','sec4-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
+    bank:[{en:'lubrication',zh:'润滑'},{en:'lubricant',zh:'润滑剂'},{en:'friction',zh:'摩擦'},{en:'wear',zh:'磨损'},{en:'viscosity',zh:'黏度'},{en:'multigrade oil',zh:'多级油'},{en:'oil pan',zh:'油底壳'},{en:'oil pump',zh:'机油泵'},{en:'filter',zh:'滤清器'},{en:'suction strainer',zh:'集滤器'},{en:'oil pressure regulator',zh:'机油压力调节器'},{en:'relief valve',zh:'限压阀'},{en:'oil gallery',zh:'油道'},{en:'main oil gallery',zh:'主油道'},{en:'oil cooler',zh:'机油冷却器'},{en:'dipstick',zh:'机油尺'},{en:'sensor',zh:'传感器'},{en:'maintain',zh:'维持；维修'},{en:'jacket',zh:'（水）套'},{en:'coolant',zh:'冷却液'},{en:'antifreeze',zh:'防冻液'},{en:'water pump',zh:'水泵'},{en:'thermostat',zh:'节温器'},{en:'radiator',zh:'散热器'},{en:'radiator hose',zh:'散热器软管'},{en:'idle operation',zh:'怠速工况'}] }
 ];
 const REG={};
 window.__COURSE_REGISTER=(id,mod)=>{ REG[id]=mod||{}; };
