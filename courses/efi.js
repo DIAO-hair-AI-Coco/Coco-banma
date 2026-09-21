@@ -89,50 +89,226 @@ const VOCAB3=[
   box.innerHTML=html;
   box.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
 })();
-/* ---------- 燃油系统零件爆炸图 ---------- */
+/* ---------- 数据：燃油系统零件爆炸图（18 个零件，按燃油走向编号，全部矢量绘制） ---------- */
 const FUEL_PARTS=[
- {id:1,en:'fuel tank',zh:'燃油箱',desc:'储存汽油（stores gasoline），是燃油系统的起点。',b:[110,300],ex:[-40,-70],ico:'🛢️'},
- {id:2,en:'fuel pump',zh:'燃油泵',desc:'从油箱吸出燃油并加压送入燃油计量装置（draws and forces fuel）。',b:[215,300],ex:[0,-110],ico:'⛽'},
- {id:3,en:'fuel filter',zh:'燃油滤清器',desc:'滤除燃油中的污染物（removes contaminants in the fuel）。',b:[320,300],ex:[0,-150],ico:'🧯'},
- {id:4,en:'fuel line',zh:'油管',desc:'在油箱、油泵与其他部件之间输送燃油（carries fuel）。',b:[425,300],ex:[0,-110],ico:'🧵'},
- {id:5,en:'fuel pressure regulator',zh:'燃油压力调节器',desc:'控制进入喷油阀的压力；压力足够时把多余燃油送回油箱。',b:[530,300],ex:[0,-70],ico:'🎛️'},
- {id:6,en:'fuel injector',zh:'喷油器',desc:'由线圈/螺线管操纵的燃油阀，把燃油喷入进气歧管。',b:[620,300],ex:[0,-30],ico:'💉'},
- {id:7,en:'fuel return line',zh:'回油管',desc:'把多余的燃油送回油箱（returns excess fuel to the tank）。',b:[110,470],ex:[-40,70],ico:'↩️'},
- {id:8,en:'computer (ECU)',zh:'控制器',desc:'计算机控制系统，根据传感器信号控制喷油量与喷油时刻。',b:[215,470],ex:[0,110],ico:'💻'},
- {id:9,en:'manifold pressure sensor',zh:'进气歧管压力传感器',desc:'监测进气歧管压力，为控制器提供负荷信息。',b:[320,470],ex:[0,150],ico:'📉'},
- {id:10,en:'intake air temperature sensor',zh:'进气温度传感器',desc:'监测进气温度，修正喷油量。',b:[425,470],ex:[0,150],ico:'🌡️'},
- {id:11,en:'throttle valve position sensor',zh:'节气门位置传感器',desc:'监测节气门开度，反映发动机负荷与工况。',b:[530,470],ex:[0,110],ico:'📐'},
- {id:12,en:'intake airflow meter',zh:'空气流量计',desc:'测量进入发动机的空气量，是电控喷油的基本信号。',b:[620,470],ex:[0,70],ico:'🌬️'}
+ {id:1,en:'fuel tank',zh:'燃油箱',b:[140,628],side:'l',ex:[0,88],
+  desc:'储存汽油的容器（stores gasoline）。现代轿车油箱多由多层塑料吹塑成型，内部设隔板抑制油液晃动，并集成油泵与油位传感器。',
+  draw(g,H){
+    H.path(g,'M130 648 Q130 620 158 620 L492 620 Q520 620 520 648 L520 752 Q520 780 492 780 L158 780 Q130 780 130 752 Z','#334155',{stroke:'#475569','stroke-width':2});
+    H.path(g,'M144 708 L506 708 L506 750 Q506 766 490 766 L160 766 Q144 766 144 750 Z','#1d4ed8',{opacity:.4});
+    H.line(g,144,708,506,708,'#38bdf8',2);
+    H.rect(g,264,620,48,14,'#64748b',{rx:4});
+  }},
+ {id:2,en:'electric fuel pump',zh:'电动燃油泵',b:[208,668],side:'l',ex:[-52,132],
+  desc:'浸在油箱内的电动泵（in-tank electric fuel pump），把燃油加压后送出。汽油机供油压力约 0.25～0.4 MPa，靠燃油本身冷却与润滑。',
+  draw(g,H){
+    H.rect(g,204,664,86,106,'#64748b',{rx:12});
+    H.rect(g,214,674,66,30,'#94a3b8',{rx:6});
+    H.circ(g,247,730,17,'#475569');
+    H.circ(g,247,730,7,'#1e293b');
+    H.line(g,247,664,247,614,'#94a3b8',6);
+    H.circ(g,247,612,8,'#cbd5e1');
+    H.rect(g,236,644,22,14,'#334155',{rx:3});
+  }},
+ {id:3,en:'fuel level sending unit',zh:'油位传感器',b:[314,668],side:'l',ex:[72,132],
+  desc:'由浮子、摆臂和可变电阻组成（float, arm and variable resistor），随油面高度改变电阻值，把油量信号送给仪表。',
+  draw(g,H){
+    H.rect(g,310,664,16,92,'#94a3b8',{rx:5});
+    H.circ(g,318,676,10,'#64748b');
+    H.line(g,318,682,374,712,'#cbd5e1',5);
+    H.circ(g,378,716,14,'#f59e0b');
+    H.circ(g,378,716,6,'#fbbf24',{opacity:.6});
+  }},
+ {id:4,en:'fuel filter',zh:'燃油滤清器',b:[96,472],side:'l',ex:[-86,-34],
+  desc:'滤除燃油中的杂质与水分（removes contaminants and water）。滤芯堵塞会造成供油不足、加速无力，需按里程更换。',
+  draw(g,H){
+    H.rect(g,88,468,78,58,'#475569',{rx:11});
+    H.rect(g,96,478,62,10,'#64748b',{rx:4});
+    H.rect(g,96,506,62,10,'#64748b',{rx:4});
+    H.circ(g,127,497,11,'#334155');
+    H.line(g,127,468,127,440,'#94a3b8',6);
+    H.line(g,127,526,127,554,'#94a3b8',6);
+  }},
+ {id:5,en:'fuel feed line',zh:'供油管',b:[200,586],side:'l',ex:[-70,10],
+  desc:'把加压后的燃油从滤清器输送到燃油导轨（delivers pressurized fuel to the rail）。多为钢制或尼龙管，带快速接头。',
+  draw(g,H){
+    H.path(g,'M247 612 L247 586 L127 586 L127 554','none',{stroke:'#38bdf8','stroke-width':7,fill:'none','stroke-linecap':'round'});
+    H.path(g,'M127 440 L127 325 L172 325','none',{stroke:'#38bdf8','stroke-width':7,fill:'none','stroke-linecap':'round'});
+    H.circ(g,247,612,5,'#0ea5e9');
+  }},
+ {id:6,en:'fuel rail',zh:'燃油导轨',b:[262,314],side:'l',ex:[0,-6],
+  desc:'储存高压燃油并均匀分配到各缸喷油器（distributes fuel to each injector）。导轨上装有压力调节器与脉动阻尼器。',
+  draw(g,H){
+    H.rect(g,250,310,190,32,'#94a3b8',{rx:16});
+    H.rect(g,258,318,174,8,'#cbd5e1',{rx:4,opacity:.5});
+    [270,315,360,405].forEach(x=>H.rect(g,x,336,20,16,'#64748b',{rx:4}));
+    H.circ(g,250,326,10,'#475569');
+    H.circ(g,440,326,10,'#475569');
+  }},
+ {id:7,en:'fuel pressure regulator',zh:'燃油压力调节器',b:[468,304],side:'r',ex:[86,-12],
+  desc:'把油轨压力稳定在设定值（keeps rail pressure constant）。压力过高时旁通多余燃油回油箱，保证喷油量只由喷油脉宽决定。',
+  draw(g,H){
+    H.rect(g,462,306,72,40,'#64748b',{rx:9});
+    H.path(g,'M470 306 Q498 280 526 306','#94a3b8');
+    H.circ(g,498,282,7,'#cbd5e1');
+    H.line(g,498,268,498,258,'#94a3b8',4);
+    H.rect(g,472,344,52,10,'#475569',{rx:4});
+    H.circ(g,498,326,9,'#334155');
+  }},
+ {id:8,en:'fuel damper',zh:'燃油脉动阻尼器',b:[178,306],side:'l',ex:[-80,-6],
+  desc:'吸收喷油器开闭引起的高频压力脉动（absorbs pressure pulsation），降低供油系统噪声，让各缸喷油量更一致。',
+  draw(g,H){
+    H.rect(g,172,308,70,36,'#52525b',{rx:9});
+    H.circ(g,207,326,11,'#71717a');
+    H.circ(g,207,326,5,'#a1a1aa',{opacity:.7});
+    H.circ(g,172,326,9,'#475569');
+    H.circ(g,242,326,9,'#475569');
+  }},
+ {id:9,en:'fuel injector',zh:'喷油器',b:[268,240],side:'l',ex:[0,-40],
+  desc:'电磁阀式喷油器（solenoid fuel injector）：ECU 通电时电磁线圈吸起针阀开始喷油，断电时弹簧关闭。喷油脉宽决定喷油量。',
+  draw(g,H){
+    [268,313,358,403].forEach(x=>{
+      H.rect(g,x,300,18,36,'#cbd5e1',{rx:4});
+      H.rect(g,x+3,240,12,62,'#e2e8f0',{rx:3});
+      H.rect(g,x+5,272,8,16,'#64748b',{rx:2});
+      H.rect(g,x,232,18,10,'#94a3b8',{rx:3});
+      H.path(g,'M'+(x+2)+' 236 L'+(x+16)+' 236','none',{stroke:'#f59e0b','stroke-width':3});
+    });
+  }},
+ {id:10,en:'engine cylinder',zh:'发动机气缸',b:[258,66],side:'l',ex:[0,-78],
+  desc:'燃油最终喷入的地方（where fuel is finally injected）。汽油与空气在这里混合、压缩，被火花塞点燃后膨胀做功。',
+  draw(g,H){
+    H.rect(g,250,62,196,116,'#334155',{rx:11,stroke:'#475569','stroke-width':2});
+    H.rect(g,424,86,22,68,'#475569',{rx:5});
+    H.rect(g,268,80,120,80,'none',{stroke:'#38bdf8','stroke-width':2,'stroke-dasharray':'6 5',rx:7});
+    H.rect(g,286,120,84,30,'#94a3b8',{rx:4});
+    H.rect(g,318,96,20,26,'#64748b',{rx:3});
+    H.line(g,328,96,328,78,'#94a3b8',3);
+    H.circ(g,328,74,6,'#e2e8f0');
+  }},
+ {id:11,en:'fuel return line',zh:'回油管',b:[496,532],side:'r',ex:[64,44],
+  desc:'把压力调节器旁通的燃油送回油箱（returns excess fuel to the tank）。回油还能带走热量、排出油路中的气泡。',
+  draw(g,H){
+    H.path(g,'M498 354 L498 560 L470 560 L470 618','none',{stroke:'#f59e0b','stroke-width':6,fill:'none','stroke-dasharray':'13 8','stroke-linecap':'round'});
+    H.rect(g,486,348,24,14,'#94a3b8',{rx:4});
+    H.rect(g,458,606,24,14,'#94a3b8',{rx:4});
+    H.rect(g,486,548,24,16,'#64748b',{rx:4});
+  }},
+ {id:12,en:'EVAP canister',zh:'碳罐',b:[562,390],side:'r',ex:[74,10],
+  desc:'内装活性炭，吸附油箱蒸发的汽油蒸气（adsorbs fuel vapor），再由进气管吸入燃烧，防止碳氢化合物排入大气。',
+  draw(g,H){
+    H.rect(g,556,386,110,74,'#3f3f46',{rx:13});
+    [402,420,438].forEach(y=>H.line(g,568,y,654,y,'#71717a',3,{opacity:.85}));
+    H.circ(g,611,386,8,'#a1a1aa');
+    H.path(g,'M611 460 L611 500','none',{stroke:'#a1a1aa','stroke-width':5,'stroke-dasharray':'9 6',fill:'none'});
+  }},
+ {id:13,en:'purge valve',zh:'碳罐电磁阀',b:[576,330],side:'r',ex:[78,-22],
+  desc:'由 ECU 按工况开启，把碳罐里收集的汽油蒸气定量吸入进气管（purges vapor into the intake）。',
+  draw(g,H){
+    H.rect(g,566,330,90,44,'#52525b',{rx:9});
+    H.rect(g,578,340,60,24,'#71717a',{rx:5});
+    H.rect(g,596,316,24,14,'#94a3b8',{rx:3});
+    H.line(g,611,374,611,386,'#a1a1aa',5);
+    H.line(g,566,352,548,352,'#a1a1aa',5);
+  }},
+ {id:14,en:'air filter',zh:'空气滤清器',b:[566,176],side:'r',ex:[78,-52],
+  desc:'滤除进气中的灰尘与砂粒（removes dust from intake air）。堵塞会使进气阻力增大、混合气变浓、动力下降。',
+  draw(g,H){
+    H.rect(g,556,172,116,76,'#475569',{rx:13});
+    for(let i=0;i<7;i++)H.line(g,570+i*14,184,570+i*14,236,'#94a3b8',4,{opacity:.75});
+    H.circ(g,614,248,8,'#64748b');
+    H.rect(g,596,282,36,16,'#64748b',{rx:4});
+  }},
+ {id:15,en:'mass airflow sensor',zh:'空气流量计',b:[572,118],side:'r',ex:[78,-74],
+  desc:'测量单位时间进入发动机的空气量（measures intake air mass），是 ECU 计算基本喷油量的最主要信号。',
+  draw(g,H){
+    H.rect(g,556,118,116,42,'#64748b',{rx:10});
+    H.rect(g,592,104,44,22,'#94a3b8',{rx:5});
+    H.circ(g,614,139,11,'#334155');
+    H.line(g,604,139,624,139,'#f59e0b',3);
+    H.line(g,614,130,614,148,'#f59e0b',3);
+  }},
+ {id:16,en:'throttle body',zh:'节气门体',b:[572,282],side:'r',ex:[78,-34],
+  desc:'内含由油门踏板（或电机）控制的蝶形阀，改变进气通道截面积，从而控制进气量与发动机功率。',
+  draw(g,H){
+    H.rect(g,556,282,116,60,'#52525b',{rx:11});
+    H.circ(g,614,312,22,'#0f172a',{stroke:'#f59e0b','stroke-width':2});
+    H.line(g,596,312,632,312,'#94a3b8',5);
+    H.circ(g,614,312,5,'#94a3b8');
+    H.rect(g,600,268,28,14,'#94a3b8',{rx:3});
+  }},
+ {id:17,en:'intake manifold',zh:'进气歧管',b:[262,194],side:'l',ex:[0,-58],
+  desc:'把空气均匀分配到各缸（distributes air to each cylinder）。歧管长度与容积会影响不同转速下的进气惯性增压效果。',
+  draw(g,H){
+    H.rect(g,258,196,164,30,'#475569',{rx:14});
+    [276,319,362,405].forEach(x=>{
+      H.path(g,'M'+x+' 196 L'+x+' 182','none',{stroke:'#64748b','stroke-width':15,'stroke-linecap':'round'});
+    });
+    H.path(g,'M422 211 L540 211','none',{stroke:'#475569','stroke-width':24,'stroke-linecap':'round'});
+    H.circ(g,262,211,10,'#64748b');
+  }},
+ {id:18,en:'filler cap and neck',zh:'加油口盖与加油管',b:[548,582],side:'r',ex:[84,26],
+  desc:'加油口盖带压力阀与真空阀（pressure and vacuum relief valves），既防止汽油蒸气外泄，又能在油路真空过大时补气。',
+  draw(g,H){
+    H.path(g,'M600 596 Q600 660 536 686','none',{stroke:'#64748b','stroke-width':17,fill:'none','stroke-linecap':'round'});
+    H.rect(g,586,572,52,30,'#94a3b8',{rx:9});
+    H.rect(g,594,562,36,12,'#64748b',{rx:5});
+    H.line(g,600,572,600,562,'#cbd5e1',3);
+  }}
 ];
 let fuelExploded=false, fuelTour=null;
 function buildFuelAnim(){
   const svg=$('#fuelSvg'); if(!svg)return;
   svg.innerHTML='';
-  el('text',{x:340,y:60,text:'燃油供给路径 Fuel Delivery Path',fill:'#7dd3fc','font-size':15,'font-weight':800,'text-anchor':'middle'},svg);
-  el('path',{d:'M110 340 L620 340',stroke:'#2a3f6e','stroke-width':6,'stroke-dasharray':'10 8'},svg);
-  el('text',{x:340,y:226,text:'电控部分 Electronic Control',fill:'#fbbf24','font-size':15,'font-weight':800,'text-anchor':'middle'},svg);
+  /* 通用绘图助手（带 .shp 类，便于悬停/选中发光） */
+  const H={
+    rect(g,x,y,w,h,fill,ex){const r=el('rect',Object.assign({x,y,width:w,height:h,fill},ex||{}),g);r.classList.add('shp');return r;},
+    circ(g,cx,cy,r,fill,ex){const c=el('circle',Object.assign({cx,cy,r,fill},ex||{}),g);c.classList.add('shp');return c;},
+    path(g,d,fill,ex){const p=el('path',Object.assign({d,fill},ex||{}),g);p.classList.add('shp');return p;},
+    line(g,x1,y1,x2,y2,stroke,w,ex){const l=el('line',Object.assign({x1,y1,x2,y2,stroke,'stroke-width':w||2},ex||{}),g);l.classList.add('shp');return l;}
+  };
+  /* 背景与网格（viewBox 四周留出内边距，保证爆炸态零件与标签不被裁切） */
+  el('rect',{x:-70,y:-80,width:860,height:1070,fill:'#0d1b36'},svg);
+  const grid=el('g',{opacity:.05,stroke:'#7dd3fc'},svg);
+  for(let x=-70;x<=790;x+=34)el('line',{x1:x,y1:-80,x2:x,y2:990},grid);
+  for(let y=-80;y<=990;y+=34)el('line',{x1:-70,y1:y,x2:790,y2:y},grid);
+  /* 分区标题（标题上移到内边距区，避免爆炸态零件标签压住标题） */
+  el('text',{x:340,y:-36,text:'FUEL SYSTEM · EXPLODED VIEW 燃油系统爆炸图',fill:'#7dd3fc','font-size':15,'font-weight':800,'text-anchor':'middle'},svg);
+  el('text',{x:-56,y:210,text:'AIR INTAKE',fill:'#3b5b8f','font-size':12,'font-weight':800},svg);
+  el('text',{x:-56,y:226,text:'进气',fill:'#2f4a75','font-size':11,'font-weight':700},svg);
+  el('text',{x:-56,y:410,text:'FUEL DELIVERY',fill:'#3b5b8f','font-size':12,'font-weight':800},svg);
+  el('text',{x:-56,y:426,text:'供油',fill:'#2f4a75','font-size':11,'font-weight':700},svg);
+  el('text',{x:-56,y:610,text:'TANK & EVAP',fill:'#3b5b8f','font-size':12,'font-weight':800},svg);
+  el('text',{x:-56,y:626,text:'油箱与蒸发排放',fill:'#2f4a75','font-size':11,'font-weight':700},svg);
+  /* 零件 */
   FUEL_PARTS.forEach(p=>{
-    const g=el('g',{'class':'part','data-id':p.id},svg);
-    const isFlow=p.id<=6;
-    el('rect',{class:'shp',x:p.b[0]-52,y:p.b[1]-42,width:104,height:84,rx:14,fill:isFlow?'#1e3a5f':'#3a2f14',stroke:isFlow?'#38bdf8':'#fbbf24','stroke-width':2},g);
-    el('text',{x:p.b[0],y:p.b[1]-6,text:p.ico,'font-size':26,'text-anchor':'middle'},g);
-    el('text',{x:p.b[0],y:p.b[1]+22,text:p.zh,fill:'#e2e8f0','font-size':11.5,'font-weight':700,'text-anchor':'middle'},g);
+    const g=el('g',{'class':'pt','data-id':p.id},svg);
+    if(p.draw)p.draw(g,H);
+    /* 编号徽标 */
     const bg=el('g',{},g);
-    el('circle',{class:'badge-circle',cx:p.b[0]-52,cy:p.b[1]-42,r:12},bg);
-    el('text',{class:'badge-text',x:p.b[0]-52,y:p.b[1]-42,text:p.id},bg);
+    el('circle',{class:'badge-circle',cx:p.b[0],cy:p.b[1],r:11},bg);
+    el('text',{class:'badge-text',x:p.b[0],y:p.b[1],text:p.id},bg);
+    /* 爆炸态标签（居中于徽标下方，避免与零件图形打架） */
+    const lg=el('g',{'class':'pt-label'},g);
+    const t1=el('text',{class:'part-label',x:p.b[0],y:p.b[1]+26,text:p.en},lg);
+    t1.setAttribute('text-anchor','middle');
+    const t2=el('text',{class:'part-label zh',x:p.b[0],y:p.b[1]+39,text:p.zh},lg);
+    t2.setAttribute('text-anchor','middle');
     g.addEventListener('click',()=>selectFuelPart(p.id));
   });
 }
 function selectFuelPart(id){
-  $$('#fuelSvg .part').forEach(g=>g.classList.toggle('sel',g.dataset.id==String(id)));
+  $$('#fuelSvg .pt').forEach(g=>g.classList.toggle('sel',g.dataset.id==String(id)));
   const n=$('#fuelInfoN'),e=$('#fuelInfoE'),z=$('#fuelInfoZ'),d=$('#fuelInfoD');
-  if(id==null){ n.textContent='?'; e.textContent='点击零件编号'; z.textContent='查看中英文名称与说明'; d.textContent='燃油系统由油箱、燃油泵、滤清器、油管、喷油器等部件组成。'; return; }
+  if(id==null){ n.textContent='?'; e.textContent='点击零件编号'; z.textContent='查看中英文名称与说明'; d.textContent='燃油系统由燃油箱、电动燃油泵、滤清器、供油管、燃油导轨、喷油器、压力调节器、碳罐等 18 个主要部件组成，按燃油走向编号 1→18。'; return; }
   const p=FUEL_PARTS.find(x=>x.id===id);
   n.textContent=p.id; e.textContent=p.en; z.textContent=p.zh; d.textContent=p.desc;
 }
 function setFuelExplode(on){
   fuelExploded=on;
-  FUEL_PARTS.forEach(p=>{ const g=$('#fuelSvg .part[data-id="'+p.id+'"]'); if(g)g.style.transform=on?('translate('+p.ex[0]+'px,'+p.ex[1]+'px)'):''; });
+  const svg=$('#fuelSvg');
+  if(svg)svg.classList.toggle('exploded',on);
+  FUEL_PARTS.forEach(p=>{ const g=$('#fuelSvg .pt[data-id="'+p.id+'"]'); if(g)g.style.transform=on?('translate('+p.ex[0]+'px,'+p.ex[1]+'px)'):''; });
   const b=$('#btnFuelExplode'); if(b)b.textContent=on?'🔩 重新组装':'💥 爆炸拆解';
 }
 /* ---------- 喷油器工作原理动画（断面） ---------- */
