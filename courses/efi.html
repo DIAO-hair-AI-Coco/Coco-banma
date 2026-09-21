@@ -47,18 +47,18 @@
     <div class="page-inner">
       <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 燃油系统<small>PARTS ANIMATION — 爆炸图 + 3D 模型 + 喷油器动画</small></h2></div>
       <div class="card">
-        <h3>🧩 燃油系统零件爆炸图 <span class="en">Exploded View — 点数字看零件名称</span></h3>
+        <h3>🧩 燃油系统零件爆炸图 <span class="en">Exploded View — 18 Parts 点数字看零件名称</span></h3>
         <div class="parts-tools">
           <button class="btn ghost" id="btnFuelExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
           <button class="btn ghost" id="btnFuelTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
-          <span class="parts-hint">点击编号可查看中英文名称</span>
+          <span class="parts-hint">共 <b>18</b> 个零件 · 点击编号看中英文名称与功能</span>
         </div>
-        <svg id="fuelSvg" viewBox="0 0 680 660"></svg>
+        <svg id="fuelSvg" viewBox="-70 -80 860 1070"></svg>
         <div class="info-panel" id="fuelInfo">
           <div class="n" id="fuelInfoN">?</div>
           <div><div class="e" id="fuelInfoE">点击零件编号</div>
           <div class="z" id="fuelInfoZ">查看中英文名称与说明</div>
-          <div class="d" id="fuelInfoD">燃油系统由油箱、燃油泵、滤清器、油管、喷油器等部件组成。</div></div>
+          <div class="d" id="fuelInfoD">燃油系统由燃油箱、电动燃油泵、滤清器、供油管、燃油导轨、喷油器、压力调节器、碳罐等 18 个主要部件组成，按燃油走向编号 1→18。</div></div>
         </div>
       </div>
       <div class="card">
@@ -113,10 +113,122 @@
     </div>
   </section>
 
-  <!-- 课程三 · 05 练习 -->
+  <!-- 课程三 · 05 拓展知识 -->
+  <section id="sec3-deep" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>拓展知识 · 燃油系统深挖<small>DEEP DIVE — 供油原理 · 关键数据 · 常见误区</small></h2></div>
+
+      <div class="card">
+        <h3>🔬 一、燃油从油箱到燃烧室要走多少步？<span class="en">From Tank to Combustion Chamber</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Storage &amp; pickup 储存与吸取</span><span class="zhs">燃油储存在油箱内，内置式涡轮泵经粗滤网（strainer）吸油并加压，其<b>供油量大于发动机使用量</b>；多余燃油在箱内回流（无回油系统）或经回油管返回（有回油系统）。</span></li>
+          <li><span class="en">Filtration &amp; regulation 过滤与调压</span><span class="zhs">燃油经过高压滤清器与压力调节器，把供油压力稳定在设定值，使<b>喷油量只取决于喷油器开启时间</b>，而不受油量波动影响。无回油系统把调压器集成在油箱内的泵总成上。</span></li>
+          <li><span class="en">Air measurement 进气测量</span><span class="zhs">空气经空气滤清器、空气流量计（MAF）、节气门体进入进气歧管。MAF 传感器以<b>克/秒</b>为单位测量进气<b>质量</b>——注意是质量不是体积，这是 ECU 计算喷油量的主要负荷信号。</span></li>
+          <li><span class="en">Load calculation 负荷换算</span><span class="zhs">ECU 依据驾驶员踏板需求和实测进气量，按目标空燃比换算成<b>所需喷油质量</b>。汽油的理论空燃比（stoichiometric ratio）约为 <b>14.7 : 1</b>。</span></li>
+          <li><span class="en">Pulse-width calculation 脉宽计算</span><span class="zhs">ECU 把所需油量换算为以毫秒计的<b>喷油脉宽（injector pulse width）</b>，并修正电源电压（无效喷射时间）、油压、油温与已学习的燃油修正值。</span></li>
+          <li><span class="en">Injection timing 喷油时刻</span><span class="zhs">进气道喷射（PFI）在<b>进气冲程</b>喷油；均质直喷（GDI）在进气冲程早期喷油；分层直喷则在<b>压缩冲程后期</b>喷油，以实现稀薄燃烧。</span></li>
+          <li><span class="en">Atomisation &amp; combustion 雾化与燃烧</span><span class="zhs">喷嘴孔把燃油雾化成细小油滴（atomisation）与空气混合后燃烧。直喷系统以高压喷射，使油束在气缸内部贯穿并充分混合。</span></li>
+          <li><span class="en">Closed-loop correction 闭环修正</span><span class="zhs">冷却液温度达标后 ECU 进入<b>闭环控制</b>：前氧／λ 传感器报告排气偏浓或偏稀，ECU 调整<b>短期燃油修正（STFT）</b>；长期持续的偏差被学习为<b>长期燃油修正（LTFT）</b>。冷启动及部分全负荷工况则处于<b>开环控制</b>。</span></li>
+        </ol>
+        <div class="tip">💡 <span><b>为什么偏偏是 14.7 : 1？</b>因为 14.7 kg 空气所含的氧刚好能完全燃烧 1 kg 汽油。而且在 λ = 1 附近，<b>三元催化转化器</b>对 CO、HC 和 NOx 的转化效率同时达到最高。所以 ECU 是在 λ = 1 附近小幅浓／稀摆动，而不是把空燃比固定在一个点上。</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📊 二、关键数据一览 <span class="en">Key Figures</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>项目 Item</th><th>数值 Figure</th><th>说明 Note</th></tr></thead>
+          <tbody>
+            <tr><td class="en">汽油理论空燃比<br><span class="zh">Gasoline AFR</span></td><td><b>约 14.7 : 1</b></td><td>14.7 kg 空气 : 1 kg 汽油，完全燃烧的化学理想质量比</td></tr>
+            <tr><td class="en">乙醇 E85 理论空燃比<br><span class="zh">Ethanol AFR</span></td><td><b>约 9 : 1</b></td><td>乙醇含氧、单位体积能量低，所以灵活燃料车油耗明显上升</td></tr>
+            <tr><td class="en">柴油理论空燃比<br><span class="zh">Diesel AFR</span></td><td>约 14.5 : 1</td><td>但柴油机<b>始终稀薄燃烧</b>，实际空燃比远大于此，靠喷油量控制负荷</td></tr>
+            <tr><td class="en">汽油缸内直喷压力<br><span class="zh">GDI pressure</span></td><td><b>最高约 200 bar</b>（20 MPa）</td><td>博世（Bosch）高压喷油阀 HDEV 5.2 的公开数据</td></tr>
+            <tr><td class="en">柴油共轨压力<br><span class="zh">Diesel common-rail</span></td><td><b>可达 300 MPa</b>（约 3000 bar）</td><td>重型柴油共轨系统，共轨本身是厚壁蓄压器</td></tr>
+            <tr><td class="en">燃油能量到达车轮的比例<br><span class="zh">Energy to the road</span></td><td>约 <b>12%～30%</b></td><td>美国 DOE/EPA 数据；其余以散热、摩擦、泵气损失和排气形式损失</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note"><b>数据来源：</b>美国能源部/环保署 fueleconomy.gov；博世（Bosch）HDEV 5.2 高压喷油阀产品资料；DieselNet 共轨系统技术页；x-engineer.org 空燃比专题。</p>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 三、进气道喷射 vs 缸内直喷 <span class="en">PFI vs GDI</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>对比项</th><th>PFI 进气道喷射</th><th>GDI 缸内直喷</th></tr></thead>
+          <tbody>
+            <tr><td class="en">喷油位置<br><span class="zh">Where</span></td><td>喷入进气歧管／进气道，在气缸<b>外</b>与空气混合</td><td>直接喷入<b>气缸内</b>燃烧室</td></tr>
+            <tr><td class="en">喷射压力<br><span class="zh">Pressure</span></td><td>较低（低压供油）</td><td>高得多，最高约 <b>200 bar</b></td></tr>
+            <tr><td class="en">混合气形成<br><span class="zh">Mixing</span></td><td>时间充裕，混合均匀</td><td>时间短，可做<b>分层稀薄燃烧</b></td></tr>
+            <tr><td class="en">充气冷却<br><span class="zh">Charge cooling</span></td><td>降温效果有限</td><td>燃油汽化吸热使充气降温，<b>允许更高压缩比</b></td></tr>
+            <tr><td class="en">颗粒物排放<br><span class="zh">Particulates</span></td><td>较少</td><td>混合时间短，颗粒物通常<b>更多</b>，故汽油机颗粒捕集器日益普及</td></tr>
+            <tr><td class="en">典型问题<br><span class="zh">Typical issue</span></td><td>喷油器积碳、怠速抖动</td><td>进气门背部积碳、低速早燃（LSPI）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>🎛️ 四、燃油系统主要传感器 <span class="en">Key Sensors &amp; What They Tell the ECU</span></h3>
+        <p style="font-size:14px;color:var(--muted)">电控燃油喷射的核心逻辑是"<b>测进气 → 算油量 → 控脉宽 → 看结果再修正</b>"。下面这些传感器就是 ECU 的"感官"：</p>
+        <table class="vocab-table">
+          <thead><tr><th>传感器 Sensor</th><th>测什么 Measures</th><th>作用 Role</th></tr></thead>
+          <tbody>
+            <tr><td class="en">MAF 空气流量计<br><span class="zh">Mass airflow sensor</span></td><td>进气<b>质量</b>流量（克/秒）</td><td>ECU 计算基本喷油量的<b>主要负荷信号</b></td></tr>
+            <tr><td class="en">MAP 进气歧管绝对压力传感器<br><span class="zh">Manifold absolute pressure</span></td><td>进气歧管绝对压力</td><td>速度密度式系统用它<b>推算进气量</b>与发动机负荷</td></tr>
+            <tr><td class="en">IAT 进气温度传感器<br><span class="zh">Intake air temperature</span></td><td>进气温度</td><td>空气密度随温度变化，用于<b>修正喷油量</b></td></tr>
+            <tr><td class="en">TPS 节气门位置传感器<br><span class="zh">Throttle position sensor</span></td><td>节气门开度与变化速率</td><td>判断怠速、部分负荷、全负荷与<b>急加速加浓</b></td></tr>
+            <tr><td class="en">前氧 / λ 传感器<br><span class="zh">Upstream oxygen / lambda</span></td><td>排气中的<b>含氧量</b>（λ 值）</td><td>闭环控制的<b>反馈信号</b>；宽域式输出连续 λ 值</td></tr>
+            <tr><td class="en">后氧传感器<br><span class="zh">Downstream oxygen sensor</span></td><td>催化器后含氧量</td><td>监测<b>三元催化器转化效率</b>是否下降</td></tr>
+            <tr><td class="en">燃油压力传感器<br><span class="zh">Fuel pressure sensor</span></td><td>油轨实际压力</td><td>让 ECU 对油轨压力做<b>闭环控制</b>（无回油系统常用）</td></tr>
+            <tr><td class="en">爆震传感器<br><span class="zh">Knock sensor</span></td><td>缸体异常振动</td><td>检测到爆震即<b>推迟点火角</b>，保护发动机</td></tr>
+            <tr><td class="en">油箱压力传感器<br><span class="zh">Fuel tank pressure sensor</span></td><td>油箱内压力变化</td><td>供 ECU 执行 <b>EVAP 系统泄漏监测</b></td></tr>
+          </tbody>
+        </table>
+        <p class="src-note"><b>易错点：</b>氧传感器测的是排气中的<b>含氧量</b>，不是"排气里有多少汽油"——ECU 只是由含氧量反推混合气偏浓还是偏稀。</p>
+      </div>
+
+      <div class="card">
+        <h3>🌱 五、为什么要有 EVAP 蒸发排放系统？<span class="en">Why EVAP Exists</span></h3>
+        <ul class="kv-list">
+          <li><b>汽油会蒸发。</b>油箱里的汽油在常温下就会挥发出碳氢化合物（HC），直接排入大气既浪费燃料又污染空气，还会形成光化学烟雾。<span class="zhs">Gasoline evaporates at ambient temperature; hydrocarbon vapour is both a waste of fuel and an air pollutant.</span></li>
+          <li><b>活性炭罐负责"存"。</b>油箱蒸气经通气管进入碳罐，被活性炭吸附储存，而不是排到大气中。<span class="zhs">Activated carbon in the canister adsorbs and stores the vapour instead of venting it.</span></li>
+          <li><b>清污电磁阀负责"烧"。</b>ECU 在合适工况下打开清污阀（purge valve），利用进气歧管真空把蒸气吸入气缸烧掉——既回收了燃料，又清洁了碳罐。<span class="zhs">The purge valve uses manifold vacuum to draw stored vapour into the engine, recovering the fuel and regenerating the canister.</span></li>
+          <li><b>无回油系统也是为了排放。</b>回油会把热燃油带回油箱，抬高油箱温度、增加蒸发量。无回油设计（returnless）让调压器留在油箱内，从而降低油箱温度和蒸发排放。<span class="zhs">A returnless design keeps hot fuel out of the tank, lowering tank temperature and evaporative emissions.</span></li>
+          <li><b>油箱盖没拧紧会报警。</b>油箱盖带压力阀与真空阀，密封失效会造成蒸气泄漏，ECU 通过油箱压力传感器执行泄漏监测并点亮故障灯。<span class="zhs">A loose or faulty filler cap breaks the seal; the ECU detects the leak via the tank pressure sensor and sets a fault code.</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 六、常见误区辨析 <span class="en">Common Misconceptions</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>常见错误理解</th><th>正确认识</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mis-x">✗</span> 理论空燃比 14.7:1 意味着发动机一直在这个比例下运行。</td><td><span class="mis-v">✓</span> 14.7:1 只是汽油的<b>化学理想质量比</b>。实际大负荷加浓、巡航偏稀，闭环时在 λ=1 附近摆动。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 氧传感器是测量排气里有多少燃油。</td><td><span class="mis-v">✓</span> 它测量的是排气中的<b>含氧量</b>，ECU 由此推断混合气偏浓还是偏稀。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 油压越高，发动机功率越大。</td><td><span class="mis-v">✓</span> 油压过高会使混合气<b>过浓</b>、污染火花塞、排放恶化。调压器与 ECU 必须让油压与脉宽匹配。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 发动机始终处于闭环控制。</td><td><span class="mis-v">✓</span> 冷启动、清除故障码后以及部分全负荷工况下处于<b>开环控制</b>，只按预设图谱喷油。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 活性炭罐就是一个滤清器。</td><td><span class="mis-v">✓</span> 它是<b>蒸气储存装置</b>，会被定期清污并烧掉；饱和或泄漏的碳罐会导致排放检测不合格。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 清污电磁阀应该一直打开，越多越好。</td><td><span class="mis-v">✓</span> 怠速时持续清污会让混合气过稀甚至<b>熄火</b>，ECU 只在安全工况下才清污。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 空气流量计测的是空气体积（升/分钟）。</td><td><span class="mis-v">✓</span> 热线式／热膜式 MAF 测的是空气质量流量（<b>克/秒</b>）；只有老式翼片式流量计才偏重体积计量。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 柴油共轨喷油器和汽油进气道喷油器的工作油压差不多。</td><td><span class="mis-v">✓</span> 柴油共轨轨压可达 <b>300 MPa（约 3000 bar）</b>，而汽油进气道喷射只有几 bar 量级，相差数百倍。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>🔧 七、维修与保养要点 <span class="en">Maintenance Points</span></h3>
+        <ul class="kv-list">
+          <li><b>喷油器积碳（injector clogging）。</b>喷孔与针阀座生成沉积物会破坏喷雾形状，导致怠速抖动、加速无力、单缸失火。对策：使用含清净剂的合格燃油、定期清洗，必要时超声波／台架清洗或更换。<span class="zhs">Deposits on the nozzle holes and needle seat distort the spray pattern, causing rough idle and lean misfires.</span></li>
+          <li><b>燃油滤清器要按里程更换。</b>滤芯堵塞会造成供油不足、高速无力，严重时油压过低无法启动。<span class="zhs">A clogged filter causes fuel starvation, poor high-speed performance and hard starting.</span></li>
+          <li><b>长期燃油修正值是最好的"体检指标"。</b>LTFT 明显偏正说明 ECU 一直在加浓，通常意味着漏气、油压不足或喷油器堵塞；明显偏负则可能是油压过高或喷油器滴漏。<span class="zhs">Large positive LTFT suggests a vacuum leak, low fuel pressure or clogged injectors; large negative LTFT suggests excess pressure or leaking injectors.</span></li>
+          <li><b>气阻（vapour lock）。</b>高温下燃油在油路中汽化形成气泡，使液态燃油无法到达喷油器，造成热车启动困难。无回油系统与油箱内调压器有助于抑制气阻。<span class="zhs">Vapour bubbles in the fuel line can stop liquid fuel reaching the injectors, causing hot-start problems.</span></li>
+          <li><b>拆装喷油器必须更换 O 形圈。</b>密封圈老化会造成燃油渗漏，既是火灾隐患，也会导致混合气异常。<span class="zhs">Always renew the injector O-rings; hardened seals leak fuel and upset the mixture.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 06 练习 -->
   <section id="sec3-quiz" class="page">
     <div class="page-inner">
-      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>QUIZ — 连线 + 选择题 + 判断题（25 题）</small></h2></div>
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习 · 学完测一测<small>QUIZ — 连线 + 选择题 + 判断题（25 题）</small></h2></div>
       <div class="card">
         <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
         <div class="match-wrap" id="matchBox3"></div>
@@ -139,7 +251,7 @@
   <!-- 课程三 · 06 总结 -->
   <section id="sec3-summary" class="page">
     <div class="page-inner">
-      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
       <div class="card">
         <h3>🌳 知识树 <span class="en">Fuel System</span></h3>
         <div class="tree">
