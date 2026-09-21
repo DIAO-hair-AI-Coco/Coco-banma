@@ -1,0 +1,204 @@
+<!-- 课程三 · 01 导入 -->
+  <section id="sec3-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#b45309 0%,transparent 58%),linear-gradient(160deg,#0b1b3a,#3a2a12 60%,#0f3a52)">
+      <div class="badge">⛽ UNIT-4 · 第 3 课</div>
+      <h1>燃油系统 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Fuel System</em></h1>
+      <p class="sub">发动机"喝"什么？——可燃混合气的供给与电控燃油喷射</p>
+      <div class="meta"><span>🧩 零件爆炸图</span><span>🧊 3D 模型</span><span>⚡ 喷油器动画</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — WHAT DOES AN ENGINE "DRINK"?</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>⛽ 发动机"吃"什么？</h4>
+          <p>俗话说"<b>人是铁，饭是钢，一顿不吃饿得慌</b>"。那发动机吃什么呢？有人说发动机不吃东西，但是喝一种液体——对，这就是今天我们要学习的<b style="color:var(--primary-d)">燃料系统（Fuel System）</b>。</p>
+          <div class="keyline"><span>fuel 燃料</span><span>carburetor 化油器</span><span>injector 喷油器</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>燃油系统由哪些部件组成？电控燃油喷射（<b>EFI</b>）系统分为哪几个子系统？<b style="color:var(--power)">喷油器</b>是怎样把燃油喷进进气歧管的？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 24 个专业单词 &amp; 短语</span>
+          <span>✅ 燃油供给系统 4 大部件</span>
+          <span>✅ EFI 的 4 个子系统</span>
+          <span>✅ 喷油器工作原理（通电 → 磁场 → 喷油）</span>
+          <span>✅ 零件爆炸图 + 3D 模型 + 动画</span>
+        </div>
+        <div class="typed" id="typedIntro3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 02 单词与短语 -->
+  <section id="sec3-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab3Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>本课 24 个词集中在燃油供给与电控喷射，建议结合下一页的<b>零件爆炸图</b>与<b>喷油器动画</b>一起记忆。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 03 零件动画 -->
+  <section id="sec3-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 燃油系统<small>PARTS ANIMATION — 爆炸图 + 3D 模型 + 喷油器动画</small></h2></div>
+      <div class="card">
+        <h3>🧩 燃油系统零件爆炸图 <span class="en">Exploded View — 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnFuelExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnFuelTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">点击编号可查看中英文名称</span>
+        </div>
+        <svg id="fuelSvg" viewBox="0 0 680 660"></svg>
+        <div class="info-panel" id="fuelInfo">
+          <div class="n" id="fuelInfoN">?</div>
+          <div><div class="e" id="fuelInfoE">点击零件编号</div>
+          <div class="z" id="fuelInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="fuelInfoD">燃油系统由油箱、燃油泵、滤清器、油管、喷油器等部件组成。</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>⚡ 喷油器工作原理动画 <span class="en">Fuel Injector — 通电喷油 / 断电关闭</span></h3>
+        <p style="font-size:14px;color:var(--muted)">喷油器是一个由<b>线圈（coil）/螺线管（solenoid）</b>操纵的燃油阀：断电时<b>弹簧</b>压紧针阀关闭；通电时<b>磁场</b>吸引<b>电枢</b>，针阀打开喷油。</p>
+        <div class="parts-tools" style="margin-top:10px">
+          <button class="btn" id="btnInjectorToggle">⚡ 通电（喷油）</button>
+          <span class="parts-hint" id="injectorState">当前状态：断电 · 弹簧关闭</span>
+        </div>
+        <svg id="injectorSvg" viewBox="0 0 640 420"></svg>
+      </div>
+      <div class="card">
+        <h3>🧊 3D 燃油系统模型 <span class="en">3D Fuel System — 拖拽旋转 · 燃油流动</span></h3>
+        <p style="font-size:14px;color:var(--muted)">观察燃油从<b>油箱 → 燃油泵 → 滤清器 → 油管 → 喷油器</b>的流动路径。</p>
+        <div class="center" style="margin-top:10px"><button class="btn" id="btnFuel3D">▶ 加载 3D 模型</button></div>
+        <div id="fuel3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px"></div>
+        <p class="stage-note" id="fuel3dNote">点击按钮加载 three.js 3D 模型（需联网）。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 04 课文 -->
+  <section id="sec3-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 燃油系统 <small>READING — FUEL SYSTEM</small></h2></div>
+      <div class="card reading">
+        <h3>📖 课文 1 · 燃油系统的功用 <span class="en">Function of the Fuel System</span></h3>
+        <div class="en-text">The function of both the <span class="hl">carburetor</span> fuel system and the fuel <span class="hl">injection</span> system is to <span class="hl">supply</span> a <span class="hl">combustible</span> mixture of air and fuel to the engine. A gasoline fuel system draws fuel from the tank and forces it into the fuel-metering device (carburetor, gasoline injectors), using either a mechanical (engine-driven) or electric fuel pump.</div>
+        <div class="zh-text">化油器燃油系统和燃油喷射系统的共同功用，都是向发动机供给<b>可燃混合气</b>。汽油机燃油系统从油箱吸取燃油，利用机械式（发动机驱动）或电动式燃油泵加压，把燃油送入燃油计量装置（化油器、汽油喷射器）。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 2 · 燃油供给系统的基本部件 <span class="en">Basic Parts of a Fuel Supply System</span></h3>
+        <div class="en-text"><b>Fuel Tank:</b> stores gasoline. <b>Fuel Pump:</b> draws fuel from the tank and forces it to the fuel-metering device. <b>Fuel Filter:</b> removes <span class="hl">contaminants</span> in the fuel. <b>Fuel Line:</b> carries fuel between the tank, the pump, and other parts.</div>
+        <div class="zh-text"><b>油箱：</b>储存燃油。<b>燃油泵：</b>从油箱吸取燃油并加压送入燃油计量装置。<b>燃油滤清器：</b>滤除燃油中的杂质（污染物）。<b>油管：</b>在油箱、油泵与其他部件之间输送燃油。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 3 · EFI 的四个子系统 <span class="en">Four Subsystems of EFI</span></h3>
+        <div class="en-text">The more common type of timed fuel injection is the electronic-timed fuel injection, also known as <span class="hl">electronic fuel injection (EFI)</span>. An EFI system can be divided into four <span class="hl">subsystems</span>: (1) Fuel delivery system; (2) Air induction system; (3) <span class="hl">Sensor</span> system; (4) Computer control system.</div>
+        <div class="zh-text">最常见的定时喷射是电子定时燃油喷射，又称<b>电控燃油喷射（EFI）</b>。电控燃油喷射系统可分为四个<b>子系统</b>：（1）燃油传输系统；（2）空气供给系统；（3）传感器系统；（4）计算机控制系统。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 4 · 喷油器的工作原理 <span class="en">How the Fuel Injector Works</span></h3>
+        <div class="en-text">The fuel injector for an EFI system is a <span class="hl">coil</span> or <span class="hl">solenoid</span>-operated fuel valve. When not energized, the <span class="hl">spring</span> pressure keeps the injector closed, keeping fuel from entering the engine. When <span class="hl">current</span> flows through the injector coil, the <span class="hl">magnetic</span> field attracts the injector <span class="hl">armature</span>. The injector opens, <span class="hl">squirting</span> fuel into the intake manifold under pressure.</div>
+        <div class="zh-text">电控喷射系统的喷油器是一个由<b>线圈/螺线管</b>操纵的燃油阀。未通电时，<b>弹簧</b>压力使喷油器保持关闭，燃油不能进入发动机；当<b>电流</b>通过线圈时，<b>磁场</b>吸引喷油器<b>电枢</b>，喷油器打开，把燃油在压力下<b>喷入</b>进气歧管。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 5 · 空气供给与传感器系统 <span class="en">Air Induction &amp; Sensor System</span></h3>
+        <div class="en-text">The air induction system typically consists of a <span class="hl">throttle</span> valve, sensors, an air filter and connecting ducts. The throttle valve regulates how much air flows into the engine; in turn, it controls engine power output. When the <span class="hl">pedal</span> is <span class="hl">depressed</span>, the throttle valve swings open to allow more air into the engine. The sensor system monitors engine conditions and reports to the computer. A sensor changes circuit <span class="hl">resistance</span> or <span class="hl">voltage</span> with a change in a condition.</div>
+        <div class="zh-text">空气供给系统通常包括<b>节气门</b>、传感器、空气滤清器和连接导管。节气门调节进气量，进而控制发动机输出功率；踩下<b>踏板</b>时节气门开大，更多空气进入发动机。传感器系统监测发动机运行状态并反馈给控制器——传感器会随条件变化而改变电路<b>电阻</b>或<b>电压</b>。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>供给系统 4 部件 = 油箱 + 油泵 + 滤清器 + 油管；EFI 4 子系统 = 燃油传输 + 空气供给 + 传感器 + 计算机控制；喷油器 = 线圈 + 弹簧 + 电枢 + 针阀。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 05 练习 -->
+  <section id="sec3-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>QUIZ — 连线 + 选择题 + 判断题（25 题）</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <div class="match-wrap" id="matchBox3"></div>
+        <div class="msgline" id="matchMsg3">已配对 0 / 8</div>
+      </div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 25 题 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar3" style="width:0%"></i></div>
+          <div id="quizBox3"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud</span></h3>
+        <div class="keyline" id="readBox3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 06 总结 -->
+  <section id="sec3-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Fuel System</span></h3>
+        <div class="tree">
+          <div class="tree-root">⛽ 燃油系统 Fuel System</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>燃油供给系统 Fuel Supply</b>
+              <ul>
+                <li>燃油箱 fuel tank <span class="tz">储存燃油</span></li>
+                <li>燃油泵 fuel pump <span class="tz">吸油加压</span></li>
+                <li>燃油滤清器 fuel filter <span class="tz">滤除杂质</span></li>
+                <li>油管 fuel line <span class="tz">输送燃油</span></li>
+                <li>燃油压力调节器 pressure regulator <span class="tz">保持预设压力</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>EFI 四个子系统</b>
+              <ul>
+                <li>燃油传输 fuel delivery</li>
+                <li>空气供给 air induction <span class="tz">节气门 throttle</span></li>
+                <li>传感器系统 sensor system</li>
+                <li>计算机控制 computer control</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>喷油器 Fuel Injector</b>
+              <ul>
+                <li>线圈/螺线管 coil / solenoid</li>
+                <li>弹簧 spring <span class="tz">断电关闭</span></li>
+                <li>电枢 armature <span class="tz">受磁场吸引</span></li>
+                <li>针阀与喷孔 nozzle <span class="tz">喷油</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>典型传感器 Sensors</b>
+              <ul>
+                <li>氧传感器 oxygen sensor</li>
+                <li>歧管压力传感器 manifold pressure</li>
+                <li>节气门位置传感器 throttle position</li>
+                <li>冷却液温度 / 进气温度传感器</li>
+                <li>空气流量计 air flow meter</li>
+                <li>曲轴位置 / 发动机转速传感器</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📌 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 燃油系统的功用：供给可燃混合气 combustible mixture</span>
+          <span>② 供给系统 4 部件：油箱、油泵、滤清器、油管</span>
+          <span>③ EFI = Electronic Fuel Injection 电控燃油喷射</span>
+          <span>④ EFI 4 子系统：燃油传输、空气供给、传感器、计算机控制</span>
+          <span>⑤ 压力调节器：压力足够时把多余燃油送回油箱</span>
+          <span>⑥ 喷油器：断电弹簧关闭，通电磁场吸引电枢喷油</span>
+          <span>⑦ 传感器：随温度/压力/位置变化改变电阻或电压</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「燃油系统」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
