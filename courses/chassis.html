@@ -1,0 +1,366 @@
+<!-- 课程五 · 01 导入 -->
+  <section id="sec5-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#0b1b3a,#2a1245 55%,#123061)">
+      <div class="badge">🔗 UNIT-1 · 第 5 课 · 底盘模块</div>
+      <h1>离合器 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Clutch</em></h1>
+      <p class="sub">发动机与变速器之间的"开关"——靠摩擦力传递动力，靠分离实现换挡</p>
+      <div class="meta"><span>🧩 18 零件爆炸图</span><span>🧊 3D 模型</span><span>🔀 接合/分离动画</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — WHY A CAR NEEDS A CLUTCH</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>🔗 发动机一直在转，车轮却要停</h4>
+          <p>发动机只要启动就在不停旋转，但汽车起步时是从静止开始的，换挡时又必须把动力<b>切断</b>。那么发动机和变速器之间靠什么"又连又断"？答案就是<b>离合器（Clutch）</b>。它没有齿轮啮合，而是<b>靠摩擦力</b>把动力"摩擦"过去的——这正是本节课最关键的一句话。</p>
+          <div class="keyline"><span>clutch 离合器</span><span>torque 扭矩</span><span>friction 摩擦</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>离合器由哪<b>四个基本部分</b>组成？它为什么要"打滑"？<b>膜片弹簧</b>为什么取代了螺旋弹簧？踩下踏板时，力是怎样一步步传到压盘上的？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 28 个专业单词 &amp; 短语（含音标）</span>
+          <span>✅ 离合器的三大功用</span>
+          <span>✅ 四大组成部分（主动/从动/压紧/操纵）</span>
+          <span>✅ 接合与分离的完整传力路线</span>
+          <span>✅ 零件爆炸图 + 3D 模型 + 接合/分离动画</span>
+        </div>
+        <div class="typed" id="typedIntro5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 02 单词与短语 -->
+  <section id="sec5-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab5Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>本课 28 个词按"四大组成部分"分组记忆最高效：<b>主动部分</b>（flywheel、pressure plate、clutch cover）、<b>从动部分</b>（driven disc、friction disc、splined hub、input shaft）、<b>压紧装置</b>（diaphragm spring、coil spring）、<b>操纵机构</b>（pedal、return spring、linkage、release fork、release bearing）。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 03 零件动画 -->
+  <section id="sec5-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 离合器<small>PARTS ANIMATION — 爆炸图 + 接合/分离动画 + 3D 模型</small></h2></div>
+
+      <div class="card">
+        <h3>🧩 离合器零件爆炸图 <span class="en">Exploded View — 18 Parts 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnClutchExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnClutchTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">共 <b>18</b> 个零件 · 按"主动 / 从动 / 压紧 / 操纵"四组编号</span>
+        </div>
+        <svg id="clutchSvg" viewBox="-130 -90 1100 1040"></svg>
+        <div class="info-panel" id="clutchInfo">
+          <div class="n" id="clutchInfoN">?</div>
+          <div><div class="e" id="clutchInfoE">点击零件编号</div>
+          <div class="z" id="clutchInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="clutchInfoD">离合器由四个基本部分组成：<b>主动部分</b>（1 飞轮、2 齿圈、3 离合器盖、4 压盘）、<b>从动部分</b>（6 从动盘、7 摩擦衬片、8 减震弹簧、9 花键毂、10 输入轴）、<b>压紧装置</b>（5 膜片弹簧）、<b>操纵机构</b>（13 分离轴承、14 分离叉、15 支点球、16 踏板、17 回位弹簧、18 工作缸），另有 11 曲轴、12 导向轴承作为连接件。</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🔀 离合器接合 / 分离工作原理动画 <span class="en">Engaged vs Disengaged — 拖动滑块或播放自动演示</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnClutchPlay" style="padding:8px 16px;font-size:13px">⏸ 暂停自动演示</button>
+          <span class="parts-hint" id="clutchState">当前：踏板完全松开 · 离合器接合 · 动力经摩擦力传给变速器</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 4px 2px">
+          <span style="font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap">踏板行程 Pedal</span>
+          <input type="range" id="clutchPedalRange" min="0" max="100" value="0" style="flex:1;accent-color:var(--primary)">
+          <span style="font-size:12.5px;font-weight:800;color:var(--primary-d);width:64px;text-align:right" id="clutchPedalVal">松开 0%</span>
+        </div>
+        <svg id="clutchSvg2" viewBox="0 0 720 380"></svg>
+        <p class="stage-note" style="margin-top:8px">松开踏板 → 膜片弹簧压紧压盘 → 从动盘被夹在压盘与飞轮之间 → 靠<b>摩擦力</b>把扭矩传给变速器输入轴；踩下踏板 → 分离叉推动分离轴承 → 膜片弹簧指端被推 → 压盘后移松开从动盘 → 动力被切断，可以换挡。</p>
+      </div>
+
+      <div class="card">
+        <h3>🧊 3D 离合器总成模型 <span class="en">3D Model — 点击按钮加载</span></h3>
+        <button class="btn" id="btnClutch3D">▶ 加载 3D 模型</button>
+        <div id="clutch3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px;position:relative"></div>
+        <p class="stage-note" id="clutch3dNote">点击按钮后加载 three.js 组件（需联网），加载失败会给出提示，不影响其他内容。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 04 课文学习 -->
+  <section id="sec5-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 离合器<small>READING — CLUTCH</small></h2></div>
+      <div class="card reading">
+        <h3>📖 课文 1 · 什么是离合器 <span class="en">What a Clutch Is</span></h3>
+        <div class="en-text">In automotive applications, a <span class="hl">clutch</span> is a mechanism used to provide smooth engagement and disengagement of the engine and manual <span class="hl">transmission</span>. Three types of clutches are used in cars: they are <span class="hl">coil-pressure-spring type</span>, <span class="hl">diaphragm-spring type</span>, and <span class="hl">semi-centrifugal type</span>.</div>
+        <div class="zh-text">在汽车应用中，<b>离合器</b>是一种用于平顺地接合和断开发动机与<b>变速器</b>之间动力传递的机械装置。用于汽车的离合器有三类：<b>螺旋簧式</b>、<b>膜片簧式</b>和<b>半离心式</b>。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 2 · 离合器的三大功用 <span class="en">Functions of the Clutch</span></h3>
+        <div class="en-text">A clutch performs three tasks: 1. It <span class="hl">engages</span> the engine to the <span class="hl">transmission system</span> gradually to make sure the vehicle can be moved from rest smoothly; 2. It <span class="hl">disengages</span> the engine from the <span class="hl">gearbox</span> to allow for gear changing; 3. It limits the <span class="hl">torque</span> to prevent the transmission system from <span class="hl">overloading</span>.</div>
+        <div class="zh-text">离合器有三个功用：1、使发动机与<b>传动系</b>逐渐结合，保证汽车平稳起步；2、把发动机与<b>变速箱</b>分离（切断动力），便于换挡；3、限制<b>扭矩</b>，防止传动系<b>过载</b>。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 3 · 四个基本部分 <span class="en">Four Basic Parts</span></h3>
+        <div class="en-text">The clutch system includes four basic parts: <span class="hl">driving member</span>, <span class="hl">driven member</span>, <span class="hl">pressing device</span>, and <span class="hl">operating member</span>. The driving member mainly consists of three parts: the <span class="hl">flywheel</span>, the <span class="hl">pressure plate</span>, and the <span class="hl">clutch cover</span>. They rotate together when the engine <span class="hl">crankshaft</span> turns.</div>
+        <div class="zh-text">离合器系统包括四个基本部分：<b>主动部分</b>、<b>从动部分</b>、<b>压紧装置</b>和<b>操纵机构</b>。主动部分主要由三个零件组成：<b>飞轮</b>、<b>压盘</b>和<b>离合器盖</b>——它们随发动机<b>曲轴</b>一起转动。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 4 · 从动部分 <span class="en">Driven Member</span></h3>
+        <div class="en-text">The driven member, also named as <span class="hl">driven disc</span> or <span class="hl">friction disc</span>, is located between the flywheel and pressure plate. The disc has a <span class="hl">splined hub</span> that locks to the splined <span class="hl">input shaft</span> on the gearbox. There are some springs between the hub and the disc to absorb the shock when the clutch is engaged.</div>
+        <div class="zh-text">从动部分又称<b>从动盘</b>或<b>摩擦盘</b>，位于飞轮和压盘之间。从动盘通过<b>花键毂</b>装在变速器带花键的<b>输入轴</b>上。花键毂与从动盘之间装有弹簧，用来吸收离合器接合时产生的冲击振动。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 5 · 压紧装置与操纵机构 <span class="en">Pressing Device &amp; Operating Members</span></h3>
+        <div class="en-text">A <span class="hl">spring</span> arrangement presses the pressure plate and the driven disc tightly against the flywheel. The operating members are used to release pressure from the clutch disc. This part consists of the <span class="hl">clutch pedal</span>, <span class="hl">return spring</span>, <span class="hl">clutch linkage</span>, <span class="hl">release fork</span> and <span class="hl">release bearing</span> (throw-out bearing).</div>
+        <div class="zh-text"><b>弹簧</b>装置把压盘和从动盘紧紧压向飞轮。<b>操纵机构</b>用来释放从动盘上的压力，由<b>离合器踏板</b>、<b>回位弹簧</b>、<b>离合器联动装置</b>、<b>分离叉</b>和<b>分离轴承</b>（推力轴承）等组成。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 6 · 工作原理 <span class="en">Working Principle</span></h3>
+        <div class="en-text">The clutch utilizes <span class="hl">friction</span> for its operation. A clutch works because of friction between a driven disc and flywheel. As we know, in a car's clutch, a flywheel connects to the engine, and a driven disc connects to the transmission. When the driver's foot is off the clutch pedal, the springs push the pressure plate against the driven disc, which in turn presses against the flywheel. It causes that the torque is transmitted owing to friction forces from the engine to the input shaft of the transmission.</div>
+        <div class="zh-text">离合器的工作依靠<b>摩擦</b>力——它是通过从动盘和飞轮之间的摩擦来工作的。如我们所知，离合器中飞轮连接着发动机，从动盘连接着变速器。当驾驶员的脚离开离合器踏板时，弹簧推着压盘压向从动盘，从动盘再被压向飞轮。于是发动机的<b>扭矩</b>就通过摩擦力传递到变速器的输入轴。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>四大组成部分 = <b>主动</b>（飞轮+压盘+离合器盖，随曲轴转）+ <b>从动</b>（从动盘+花键毂，随输入轴转）+ <b>压紧</b>（弹簧）+ <b>操纵</b>（踏板→联动装置→分离叉→分离轴承）。一句话总结原理：<b>压紧就接合、分离就断开，全靠摩擦力传扭矩。</b></span></div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 05 拓展知识 -->
+  <section id="sec5-deep" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>拓展知识 · 离合器深挖<small>DEEP DIVE — 三种型式 · 传力路线 · 关键数据 · 常见误区</small></h2></div>
+
+      <div class="card">
+        <h3>🔬 一、接合状态：动力是怎么传过去的 <span class="en">Engaged — Power Flow in 6 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Pedal released 踏板松开</span><span class="zhs">驾驶员完全松开<b>离合器踏板</b>，操纵机构不再对分离轴承施加推力。</span></li>
+          <li><span class="en">Spring clamps 弹簧压紧</span><span class="zhs"><b>膜片弹簧</b>（或螺旋弹簧）以其弹力把<b>压盘</b>压向从动盘。</span></li>
+          <li><span class="en">Disc clamped 从动盘被夹紧</span><span class="zhs">从动盘被夹在<b>压盘与飞轮</b>两个摩擦面之间，产生法向压紧力（clamping force）。</span></li>
+          <li><span class="en">Friction transmits torque 摩擦力传递扭矩</span><span class="zhs">飞轮转动时，靠两个摩擦面上的<b>摩擦力</b>带动从动盘一起转——这就是"离合器靠摩擦工作"的含义。</span></li>
+          <li><span class="en">Hub drives the shaft 花键毂驱动输入轴</span><span class="zhs">从动盘通过<b>花键毂</b>把扭矩传给变速器的<b>输入轴</b>，花键允许轴向滑动但传递扭矩。</span></li>
+          <li><span class="en">Damper absorbs shock 减震弹簧吸收冲击</span><span class="zhs">花键毂与盘体之间的<b>扭转减震弹簧</b>吸收接合瞬间的冲击，降低传动系噪声与顿挫。</span></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>🔬 二、分离状态：踩下踏板后发生了什么 <span class="en">Disengaged — 6 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Pedal pressed 踩下踏板</span><span class="zhs">驾驶员踩下踏板，力通过机械拉索/连杆或<b>液压操纵机构</b>（主缸→工作缸）放大后传出。</span></li>
+          <li><span class="en">Fork moves 分离叉摆动</span><span class="zhs"><b>分离叉</b>绕<b>支点球</b>摆动，推动<b>分离轴承</b>向飞轮方向移动。</span></li>
+          <li><span class="en">Bearing pushes the spring fingers 分离轴承顶住弹簧指端</span><span class="zhs">分离轴承压住膜片弹簧的<b>指端</b>（内圈），而弹簧外缘支承在离合器盖上。</span></li>
+          <li><span class="en">Spring pivots 弹簧翻转</span><span class="zhs">膜片弹簧以支承点为支点发生<b>翻转</b>，其外缘向远离飞轮的方向移动。</span></li>
+          <li><span class="en">Pressure plate retracts 压盘后移</span><span class="zhs">压盘被弹簧外缘拉着<b>离开从动盘</b>，压紧力消失，从动盘不再被夹紧。</span></li>
+          <li><span class="en">Torque cut, gear can be changed 动力切断可换挡</span><span class="zhs">摩擦力消失，扭矩传递中断，此时即可<b>换挡</b>——这正是离合器第二大功用。</span></li>
+        </ol>
+        <div class="tip">💡 <span><b>一句话概括：</b>踏板 → 操纵机构 → 分离叉 → 分离轴承 → 膜片弹簧指端 → 弹簧翻转 → 压盘后移 → 动力切断。<b>注意方向是"推轴承、松压盘"，不是踏板直接去拉压盘。</b></span></div>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 三、三种离合器型式对比 <span class="en">Three Types of Clutch</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>对比项</th><th>螺旋簧式<br>Coil-pressure-spring</th><th>膜片簧式<br>Diaphragm-spring</th><th>半离心式<br>Semi-centrifugal</th></tr></thead>
+          <tbody>
+            <tr><td class="en">压紧元件<br><span class="zh">Clamping element</span></td><td>多个圆柱螺旋弹簧沿圆周布置</td><td>一个<b>膜片弹簧</b>（碟形弹簧）</td><td>螺旋弹簧 + 离心块（利用转速产生附加压紧力）</td></tr>
+            <tr><td class="en">压紧力特性<br><span class="zh">Clamping force</span></td><td>随磨损下降较快，压紧力线性</td><td><b>非线性特性</b>：磨损后压紧力反而略增，故可自动补偿</td><td>转速越高压紧力越大，高速时传递能力强</td></tr>
+            <tr><td class="en">零件数量<br><span class="zh">Parts count</span></td><td>多（弹簧、分离杠杆、销轴）</td><td><b>少</b>，结构紧凑、质量小</td><td>较多（含离心块）</td></tr>
+            <tr><td class="en">踏板力<br><span class="zh">Pedal effort</span></td><td>较大</td><td><b>较小</b>，操纵轻便</td><td>中等</td></tr>
+            <tr><td class="en">现状<br><span class="zh">Today</span></td><td>早期车型、部分载货车</td><td><b>当今乘用车主流</b></td><td>少见，主要用于特定强化场合</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note"><b>为什么膜片弹簧成为主流？</b>它用一个零件同时完成"压紧"和"分离杠杆"两项任务，零件少、轴向尺寸短、踏板力小；而且它的压紧力-变形曲线是非线性的——摩擦片磨损变薄后，压紧力不会明显下降，反而略有上升，因此开关特性更稳定。</p>
+      </div>
+
+      <div class="card">
+        <h3>🧲 四、原厂对工作原理的权威表述 <span class="en">The OEM Statement of Principle</span></h3>
+        <p style="font-size:14.5px;line-height:1.9">原厂维修手册对离合器工作原理有一句非常精炼的概括，把本课所有零件都串了起来：</p>
+        <p style="font-size:15px;line-height:2;background:var(--primary-l);border-left:4px solid var(--primary);border-radius:10px;padding:14px 18px"><b>“Leverage, clamping force, and friction are what make the clutch work. The disc serves as the friction element and a diaphragm spring and pressure plate provide the clamping force. The clutch pedal, hydraulic linkage, release lever and bearing provide the leverage.”</b><br><span style="color:var(--muted);font-size:13.5px">“杠杆、压紧力与摩擦，共同让离合器工作。从动盘提供摩擦元件，膜片弹簧与压盘提供压紧力，而离合器踏板、液压操纵机构、分离叉与分离轴承提供杠杆（力放大）。”</span></p>
+        <table class="vocab-table">
+          <thead><tr><th>三要素</th><th>对应零件</th><th>在系统中的角色</th></tr></thead>
+          <tbody>
+            <tr><td class="en">摩擦力<br><span class="zh">Friction</span></td><td>从动盘 + 摩擦衬片 + 飞轮/压盘摩擦面</td><td><b>摩擦元件</b>：真正传递扭矩的界面</td></tr>
+            <tr><td class="en">压紧力<br><span class="zh">Clamping force</span></td><td>膜片弹簧 + 压盘</td><td><b>压紧元件</b>：把从动盘夹紧在飞轮上，产生法向力 F</td></tr>
+            <tr><td class="en">杠杆<br><span class="zh">Leverage</span></td><td>踏板 + 联动装置/液压机构 + 分离叉 + 分离轴承</td><td><b>操纵与放大</b>：用较小的踏板力克服弹簧压紧力完成分离</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note">来源：2001 年道奇达科塔（Dodge Dakota）原厂维修手册。</p>
+      </div>
+
+      <div class="card">
+        <h3>📏 五、关键数据与扭矩容量公式 <span class="en">Torque Capacity Formula</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>项目 Item</th><th>说明 Explanation</th></tr></thead>
+          <tbody>
+            <tr><td class="en">扭矩容量公式<br><span class="zh">Torque capacity</span></td><td><b>T = μ × F × R<sub>e</sub> × n</b>：μ 摩擦系数、F 压紧力、R<sub>e</sub> 有效摩擦半径、n 摩擦面数（单片干式 n = 2）。</td></tr>
+            <tr><td class="en">有效半径取法<br><span class="zh">Effective radius</span></td><td>按<b>均匀磨损</b>假设：R<sub>e</sub> = (r<sub>o</sub> + r<sub>i</sub>) / 2；按<b>均匀压力</b>假设：R<sub>e</sub> = (2/3)·(r<sub>o</sub>³ − r<sub>i</sub>³) / (r<sub>o</sub>² − r<sub>i</sub>²)。</td></tr>
+            <tr><td class="en">后备系数<br><span class="zh">Clutch factor</span></td><td>设计时扭矩容量取发动机最大扭矩的 <b>1.3～2.0 倍</b>，用以应对起步冲击载荷与摩擦片磨损后的压紧力下降。</td></tr>
+            <tr><td class="en">自由行程<br><span class="zh">Free play</span></td><td>多数结构要求踏板留出自由行程，使分离轴承在不踩踏板时不与膜片弹簧指端长期接触；<b>但自调式结构例外</b>（见下一节）。</td></tr>
+            <tr><td class="en">正常工作现象<br><span class="zh">Normal behaviour</span></td><td>起步时离合器必然要<b>打滑</b>一段时间——这是"逐渐接合"的必然结果，也正是它能保证平稳起步的原因。</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note">公式与后备系数来源：NovaSolver 工程设计资料（与机械设计教材一致）。</p>
+      </div>
+
+      <div class="card">
+        <h3>🔧 六、推式与拉式膜片弹簧离合器 <span class="en">Push-Type vs Pull-Type</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>对比项</th><th>推式 Push-type</th><th>拉式 Pull-type</th></tr></thead>
+          <tbody>
+            <tr><td class="en">分离轴承动作<br><span class="zh">Bearing action</span></td><td>分离轴承向飞轮方向<b>推</b>膜片弹簧指端</td><td>分离轴承向变速器方向<b>拉</b>膜片弹簧指端</td></tr>
+            <tr><td class="en">杠杆效果<br><span class="zh">Leverage</span></td><td>指端被推，弹簧以支承点为支点翻转，外缘带动压盘后退</td><td>指端被拉，外缘同样带动压盘后退，但<b>杠杆比更大</b></td></tr>
+            <tr><td class="en">压紧力与踏板力<br><span class="zh">Clamp &amp; pedal effort</span></td><td>常规</td><td>相同外形尺寸下可获得<b>更大压紧力</b>，且踏板更轻</td></tr>
+            <tr><td class="en">典型应用<br><span class="zh">Application</span></td><td>多数经济型与普通乘用车</td><td>涡轮增压、大扭矩车型</td></tr>
+            <tr><td class="en">维修特点<br><span class="zh">Service</span></td><td>结构直观，拆装相对简单</td><td>分离机构较复杂，需专用工具与规范流程</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note">来源：斯巴鲁（Subaru）原厂维修手册对拉式膜片弹簧离合器杠杆与支点的说明。<b>本课件所讲的"分离轴承推动膜片弹簧指端"属于推式结构。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>📐 七、原厂检测数据（维修实操用） <span class="en">OEM Inspection Limits</span></h3>
+        <p style="font-size:14px;color:var(--muted)">离合器大修时必须按厂家规定的<b>极限值</b>判断零件能否继续使用，而不是凭手感。以下是公开的原厂维修手册数据，可作课堂实操参考：</p>
+        <table class="vocab-table">
+          <thead><tr><th>检测项目 Item</th><th>极限值 Limit</th><th>来源 Source</th></tr></thead>
+          <tbody>
+            <tr><td class="en">踏板推杆间隙<br><span class="zh">Pedal clevis play</span></td><td><b>6～13 mm</b></td><td>现代雅绅特维修手册 —— 即踏板自由行程</td></tr>
+            <tr><td class="en">摩擦片铆钉头深度<br><span class="zh">Rivet head depth</span></td><td>最小 <b>0.3 mm</b></td><td>丰田维修手册 —— 小于此值必须更换从动盘</td></tr>
+            <tr><td class="en">从动盘端面跳动<br><span class="zh">Disc runout</span></td><td>最大 <b>0.8 mm</b></td><td>丰田维修手册 —— 超差会造成分离不彻底与起步抖动</td></tr>
+            <tr><td class="en">飞轮端面跳动<br><span class="zh">Flywheel runout</span></td><td>最大 <b>0.08～0.1 mm</b></td><td>道奇 0.08 mm / 丰田 0.1 mm —— 超差必须磨削或更换</td></tr>
+            <tr><td class="en">膜片弹簧磨损<br><span class="zh">Diaphragm spring wear</span></td><td>深度 ≤ <b>0.6 mm</b>，宽度 ≤ <b>5.0 mm</b></td><td>原厂维修手册 —— 指端磨损超限会造成分离行程不足</td></tr>
+          </tbody>
+        </table>
+        <p class="src-note"><b>数据来源：</b>公开的原厂维修手册（现代、丰田、道奇）。<b>各车型规范不同，实操必须以该车型维修手册为准，本表仅用于课堂讲解"应该测量什么、量级是多少"。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>💡 八、一个反直觉的原厂设计：分离轴承"常接触" <span class="en">Self-Adjusting Cable &amp; Continuous Preload</span></h3>
+        <ul class="kv-list">
+          <li><b>传统结构要求留出自由行程。</b>多数离合器的分离轴承在不踩踏板时必须与膜片弹簧指端<b>留有空隙</b>，否则轴承长期空转会烧毁，离合器也会打滑——这正是踏板自由行程存在的意义。<span class="zhs">On most designs the release bearing must clear the diaphragm fingers when the pedal is released.</span></li>
+          <li><b>但自调式拉索是个例外。</b>克莱斯勒（Chrysler）部分车型采用<b>自调式离合器拉索</b>：拉索内的预紧弹簧让分离轴承<b>始终轻轻压在</b>膜片弹簧指端上，并由自动调整机构补偿摩擦片磨损，无需人工调整自由行程。<span class="zhs">Some self-adjusting cable systems keep the release bearing lightly loaded against the diaphragm fingers and compensate for wear automatically.</span></li>
+          <li><b>教学意义：</b>这说明"分离轴承必须留间隙"并非绝对真理，而是<b>取决于具体结构设计</b>。判断时应依据该车型的维修手册，而不是套用一句口诀。<span class="zhs">Whether clearance is required depends on the design — always follow the specific service manual.</span></li>
+        </ul>
+        <p class="src-note">来源：2000 年普利茅斯 Breeze（Plymouth Breeze）原厂维修手册对自调式离合器拉索的描述。</p>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 九、常见误区辨析 <span class="en">Common Misconceptions</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>常见错误理解</th><th>正确认识</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mis-x">✗</span> 离合器只有"换挡"时才有用。</td><td><span class="mis-v">✓</span> 它的<b>首要功用是保证平稳起步</b>——让发动机与传动系"逐渐"结合。换挡只是第二功用，第三功用是限制扭矩、防止传动系过载。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 离合器的动力是靠齿轮啮合传出去的。</td><td><span class="mis-v">✓</span> 离合器内部<b>没有齿轮传动</b>，完全靠从动盘与飞轮/压盘之间的<b>摩擦力</b>传递扭矩。这是本课最核心的一句话。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 踏板直接拉动压盘分离。</td><td><span class="mis-v">✓</span> 踏板力经操纵机构放大后<b>推动分离轴承</b>，再由分离轴承顶住膜片弹簧的指端，弹簧翻转后其外缘才把压盘拉开。方向是"推轴承、松压盘"。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 起步时离合器打滑是故障。</td><td><span class="mis-v">✓</span> 起步时<b>必须</b>有一段打滑过程，否则发动机与静止的传动系刚性连接会直接熄火。打滑是"逐渐接合"的正常表现；只有<b>行驶中持续打滑</b>才是故障。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 等红灯时应一直踩着离合器。</td><td><span class="mis-v">✓</span> 长时间踩住会让<b>分离轴承持续受力空转</b>，加速其损坏，同时也让膜片弹簧长期处于大变形状态。正确做法是挂空挡、松踏板。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 上坡起步时用半联动"吊"住车最省事。</td><td><span class="mis-v">✓</span> 这会持续摩擦生热，导致摩擦片<b>烧蚀、热衰退（fade）</b>甚至冒烟烧毁。坡道起步应配合驻车制动或使用上坡辅助。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 飞轮属于变速器。</td><td><span class="mis-v">✓</span> 飞轮是<b>发动机</b>的零件（装在曲轴后端），属于离合器的<b>主动部分</b>；变速器侧的零件是输入轴与从动盘。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 踏板自由行程越小越好，越灵敏。</td><td><span class="mis-v">✓</span> 自由行程过小会使分离轴承<b>长期接触</b>膜片弹簧指端，造成轴承烧毁和离合器打滑；过大则分离不彻底、换挡发响。必须按厂家规范调整。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 离合器越重（踏板越硬）说明越结实。</td><td><span class="mis-v">✓</span> 踏板沉重往往是压紧力过大或操纵机构效率低的表现，会加重驾驶疲劳，并对操纵机构造成额外负担。膜片弹簧的一大优势正是<b>踏板轻便</b>。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>🔧 十、故障判断与保养要点 <span class="en">Fault Diagnosis &amp; Maintenance</span></h3>
+        <ul class="kv-list">
+          <li><b>打滑（slip）：加速时转速上升但车速上不去，上坡无力并有焦糊味。</b>常见原因：摩擦片磨损到极限、压紧力不足、膜片弹簧疲劳、摩擦面被油污污染、自由行程过小。<span class="zhs">Engine speed rises but road speed does not — usually a worn facing, weak spring, oil contamination or insufficient free play.</span></li>
+          <li><b>分离不彻底（drag）：踩到底仍换挡困难、有打齿声。</b>常见原因：自由行程过大、液压系统有空气、从动盘翘曲、花键锈蚀卡滞。<span class="zhs">Hard gear engagement with the pedal fully down points to excessive free play, air in the hydraulics, a warped disc or a dry/sticking spline.</span></li>
+          <li><b>起步抖动（judder / chatter）。</b>多与摩擦面油污、飞轮表面烧蚀产生热斑、发动机悬置松旷、从动盘减震弹簧损坏有关。<span class="zhs">Judder on take-up is often caused by oil on the facing, hot spots on the flywheel, worn mounts or broken damper springs.</span></li>
+          <li><b>异响。</b>踩下踏板才响多为<b>分离轴承</b>损坏；松开踏板才响可能是变速器输入轴轴承；怠速踩下踏板声音消失则可能是分离轴承与指端间隙不当。<span class="zhs">A noise that appears only when the pedal is pressed usually means a failing release bearing.</span></li>
+          <li><b>更换离合器时的配套作业。</b>应同时检查并视情更换分离轴承、导向轴承、飞轮摩擦面（必要时磨削或更换），并清洁花键、涂适量耐高温润滑脂。<span class="zhs">Always renew the release and pilot bearings, inspect the flywheel face, and lubricate the spline lightly with high-temperature grease.</span></li>
+          <li><b>驾驶习惯直接决定寿命。</b>避免长时间半联动、避免用离合器把车"吊"在坡上、换挡后及时把脚移开踏板，可显著延长摩擦片寿命。<span class="zhs">Avoid riding the clutch or holding the car on a hill with it; clutch life depends mostly on driving habits.</span></li>
+          <li><b>双质量飞轮（DMF）。</b>不少现代车型用双质量飞轮来抑制传动系扭振与噪声。它使离合器的更换工艺与检查项目发生变化——飞轮本身也可能损坏，需要一并检查。<span class="zhs">Many modern cars use a dual-mass flywheel; it damps driveline vibration but changes clutch replacement procedure and can fail itself.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 06 闯关练习 -->
+  <section id="sec5-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线配对 + 读音练习 + 选择题 + 判断题（25 题）</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <div class="match-wrap" id="matchBox5"></div>
+        <div class="msgline" id="matchMsg5">已配对 0 / 8</div>
+      </div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 25 题 · 选项全英文 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar5" style="width:0%"></i></div>
+          <div id="quizBox5"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud</span></h3>
+        <div class="keyline" id="readBox5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程五 · 07 总结 -->
+  <section id="sec5-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Clutch</span></h3>
+        <div class="tree">
+          <div class="tree-root">🔗 离合器 Clutch</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>主动部分 Driving Member</b>
+              <ul>
+                <li>飞轮 flywheel <span class="tz">随曲轴转动</span></li>
+                <li>飞轮齿圈 ring gear <span class="tz">与起动机啮合</span></li>
+                <li>压盘 pressure plate <span class="tz">夹紧从动盘</span></li>
+                <li>离合器盖 clutch cover <span class="tz">支承弹簧</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>从动部分 Driven Member</b>
+              <ul>
+                <li>从动盘 driven disc <span class="tz">位于飞轮与压盘之间</span></li>
+                <li>摩擦衬片 friction lining <span class="tz">产生摩擦力</span></li>
+                <li>减震弹簧 damper spring <span class="tz">吸收接合冲击</span></li>
+                <li>花键毂 splined hub <span class="tz">装在输入轴上</span></li>
+                <li>输入轴 input shaft <span class="tz">把动力送进变速器</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>压紧与操纵 Pressing &amp; Operating</b>
+              <ul>
+                <li>膜片弹簧 diaphragm spring <span class="tz">压紧 + 分离杠杆二合一</span></li>
+                <li>离合器踏板 clutch pedal <span class="tz">驾驶员输入</span></li>
+                <li>回位弹簧 return spring <span class="tz">踏板回位</span></li>
+                <li>分离叉 release fork <span class="tz">绕支点摆动</span></li>
+                <li>分离轴承 release bearing <span class="tz">推动弹簧指端</span></li>
+                <li>工作缸 / 联动装置 <span class="tz">放大并传递踏板力</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>关键结论 Key Points</b>
+              <ul>
+                <li>三大功用 <span class="tz">平稳起步 / 便于换挡 / 限制扭矩</span></li>
+                <li>靠摩擦力工作 <span class="tz">不是齿轮啮合</span></li>
+                <li>接合传力路线 <span class="tz">飞轮→从动盘→花键毂→输入轴</span></li>
+                <li>分离传力路线 <span class="tz">踏板→叉→轴承→弹簧指端→压盘后移</span></li>
+                <li>膜片弹簧成主流 <span class="tz">零件少、踏板轻、自动补偿磨损</span></li>
+                <li>踏板必须有自由行程 <span class="tz">否则轴承烧毁或分离不彻底</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚀 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 定义：平顺接合与断开发动机与手动变速器的机构</span>
+          <span>② 三种型式：螺旋簧式、膜片簧式、半离心式</span>
+          <span>③ 三大功用：平稳起步、便于换挡、限制扭矩防过载</span>
+          <span>④ 四个基本部分：主动、从动、压紧、操纵</span>
+          <span>⑤ 主动部分三零件：飞轮、压盘、离合器盖（随曲轴转）</span>
+          <span>⑥ 工作原理：靠从动盘与飞轮之间的摩擦力传递扭矩</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「离合器」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
