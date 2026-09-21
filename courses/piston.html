@@ -1,0 +1,178 @@
+<!-- ========== 课程二 · 01 导入 ========== -->
+  <section id="sec2-intro" class="page">
+    <header class="lesson-hero">
+      <div class="badge">⚙️ UNIT-3 · 第 2 课</div>
+      <h1>活塞与连杆总成 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Piston and Rod Assembly</em></h1>
+      <p class="sub">发动机最核心的机械构件 · 中英双语 + 零件模型动画</p>
+      <div class="meta"><span>🧩 零件动画</span><span>🇬🇧 English / 🇨🇳 中文</span><span>🎮 配套游戏</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — THE PISTON AND ROD ASSEMBLY</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>⚙️ 发动机里最核心的机械构件</h4>
+          <p>在发动机中，最核心的机械构件就是<b style="color:var(--primary-d)">活塞连杆组（Piston and Rod Assembly）</b>，其性能的好坏直接影响到发动机各种性能的发挥。</p>
+          <div class="keyline"><span>piston 活塞</span><span>connecting rod 连杆</span><span>crankpin 曲柄销</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>那么，活塞连杆组的<b style="color:var(--power)">组成与工作过程</b>是怎样的呢？</p>
+          <p style="margin-top:8px">本节课我们用<b>零件模型动画</b>把它拆开看：活塞由哪些部分组成？活塞环有几种？连杆怎样与曲轴连接？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 12 个专业单词 &amp; 短语</span>
+          <span>✅ 活塞组件的 5 个组成部分</span>
+          <span>✅ 活塞环的两种类型</span>
+          <span>✅ 连杆的结构与作用</span>
+          <span>✅ 零件模型动画（爆炸图 + 3D）</span>
+        </div>
+        <div class="typed" id="typedIntro2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 02 单词与短语 ========== -->
+  <section id="sec2-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab2Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>这 12 个词是活塞连杆组的核心术语。点击 🔊 可听<b>真人发音</b>；配合下一页的<b>零件模型动画</b>对照记忆效果更好。</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 03 零件模型动画 ========== -->
+  <section id="sec2-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 活塞组件<small>PARTS ANIMATION — 爆炸图 + 3D 机构联动</small></h2></div>
+      <div class="card">
+        <h3>🧩 活塞组件爆炸图 <span class="en">Exploded View — 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnPistonExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnPistonTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">点击编号可查看中英文名称</span>
+        </div>
+        <svg id="pistonSvg" viewBox="0 0 640 700"></svg>
+        <div class="info-panel" id="pistonInfo">
+          <div class="n" id="pistonInfoN">?</div>
+          <div><div class="e" id="pistonInfoE">点击零件编号</div>
+          <div class="z" id="pistonInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="pistonInfoD">活塞连杆组由活塞、活塞环、活塞销、连杆等零件组成。</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🧊 3D 活塞 - 连杆 - 曲轴机构 <span class="en">3D Motion — 拖拽旋转 · 活塞往复</span></h3>
+        <p style="font-size:14px;color:var(--muted)">拖动旋转、滚轮缩放，观察<b>活塞上下往复</b>、<b>连杆摆动</b>与<b>曲轴旋转</b>的联动关系。</p>
+        <div class="center" style="margin-top:10px"><button class="btn" id="btnPiston3D">▶ 加载 3D 机构动画</button></div>
+        <div id="piston3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px"></div>
+        <p class="stage-note" id="piston3dNote">点击按钮加载 three.js 3D 机构（需联网）。</p>
+      </div>
+      <div class="card">
+        <h3>🔍 活塞组件组成 <span class="en">Components of a Piston</span></h3>
+        <div class="grid3" id="pistonPartsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 04 课文阅读 ========== -->
+  <section id="sec2-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 活塞与连杆<small>READING — PISTON AND CONNECTING ROD</small></h2></div>
+      <div class="card reading" id="reading2Card1">
+        <h3>📖 课文 1 · 活塞的作用 <span class="en">Piston Functions</span></h3>
+        <div class="en-text">The piston is a <span class="hl">cylindrical</span> shaped <span class="hl">hollow</span> part, it moves up and down inside the engine cylinder. The piston absorbs heat from the gas and this heat must be carried away if the metal temperature is to be held within safe limits.</div>
+        <div class="zh-text">活塞是一个在发动机气缸中上下移动的<b>中空的圆筒状</b>塞子。活塞从气体中吸热，假如要使金属的温度保持在安全限度以内，就必须散热。</div>
+      </div>
+      <div class="card reading" id="reading2Card2">
+        <h3>📖 课文 2 · 活塞组件 <span class="en">The Components of a Piston</span></h3>
+        <div class="en-text">The piston consists of <span class="hl">piston head</span>, <span class="hl">piston rings</span>, <span class="hl">piston lands</span>, <span class="hl">piston skirt</span> and <span class="hl">piston pinhole</span>. The piston head is the top surface against which the <span class="hl">explosive force</span> is exerted. The piston rings are installed in <span class="hl">grooves</span>. There are two types of rings, <span class="hl">compression rings</span> and <span class="hl">oil-control rings</span>. The piston lands are parts of piston between the ring grooves, it provides a seating surface for the sides of piston rings. The piston skirt forms a bearing area in contact with the cylinder wall. The piston pinhole in the piston is used to connect the connecting rod.</div>
+        <div class="zh-text">活塞由<b>顶部、活塞环、环槽岸、裙部和活塞销座孔</b>组成。活塞顶部是活塞的上表面，燃烧所产生的<b>爆炸力</b>作用于此。活塞环安装在<b>凹槽</b>中，分为两种：<b>气环</b>和<b>油环</b>。活塞环槽之间的部位称为环槽岸，为活塞环两端提供支承面。活塞裙部形成活塞与缸壁的接触支承面。活塞销座孔用来连接活塞和连杆。</div>
+      </div>
+      <div class="card reading" id="reading2Card3">
+        <h3>📖 课文 3 · 连杆 <span class="en">Connecting Rod</span></h3>
+        <div class="en-text">The connecting rod is attached to the crankshaft at <span class="hl">big end</span> and to the piston at the <span class="hl">small end</span>. And it must be strong and <span class="hl">rigid</span> and light in weight as well. The connecting rod is composed of connecting rod small end, connecting rod <span class="hl">shank</span>, connecting rod big end, connecting rod <span class="hl">cap</span> and connecting rod <span class="hl">bearing half shells</span>.</div>
+        <div class="zh-text">连杆<b>大头</b>与曲轴相连，<b>小头</b>与活塞配合。它必须有足够的强度和刚度，并且质量要尽可能轻。连杆由小头、<b>杆身</b>、大头、连杆<b>盖</b>和<b>轴瓦</b>组成。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>活塞 = 顶 + 环 + 环槽岸 + 裙 + 销座孔；活塞环分<b>气环（compression ring）</b>与<b>油环（oil-control ring）</b>；连杆 = 小头 + 杆身 + 大头 + 连杆盖 + 轴瓦。</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 05 闯关练习 ========== -->
+  <section id="sec2-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线 + 填空 + 读音</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <p style="font-size:14px;color:var(--muted)">把中文与正确的英文配对（共 8 组）。</p>
+        <div class="match-wrap" id="matchBox"></div>
+        <div class="msgline" id="matchMsg">已配对 0 / 8</div>
+      </div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 选择题 + 判断题 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar2" style="width:0%"></i></div>
+          <div id="quizBox2"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud — 点 🔊 听发音后跟读</span></h3>
+        <div class="keyline" id="readBox"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 06 知识总结 ========== -->
+  <section id="sec2-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Piston &amp; Rod Assembly</span></h3>
+        <div class="tree">
+          <div class="tree-root">⚙️ 活塞连杆组 Piston &amp; Rod Assembly</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>活塞 Piston</b>
+              <ul>
+                <li>活塞顶 piston head <span class="tz">承受爆炸力</span></li>
+                <li>活塞环 piston ring <span class="tz">气环 / 油环</span></li>
+                <li>环槽岸 piston land <span class="tz">环的支承面</span></li>
+                <li>裙部 piston skirt <span class="tz">与缸壁接触</span></li>
+                <li>销座孔 pinhole <span class="tz">连接连杆</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>活塞销 piston pin</b>
+              <ul>
+                <li>连接活塞与连杆小头</li>
+                <li>承受往复惯性力</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>连杆 Connecting Rod</b>
+              <ul>
+                <li>小头 small end <span class="tz">连活塞</span></li>
+                <li>杆身 shank <span class="tz">传递力</span></li>
+                <li>大头 big end <span class="tz">连曲轴</span></li>
+                <li>连杆盖 cap</li>
+                <li>轴瓦 bearing half shells</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📌 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 活塞是圆筒状中空零件，在气缸内上下往复</span>
+          <span>② 活塞吸热必须散热（安全温度限值）</span>
+          <span>③ 活塞 = 顶 + 环 + 环槽岸 + 裙 + 销座孔</span>
+          <span>④ 活塞环两种：气环 compression ring、油环 oil-control ring</span>
+          <span>⑤ 连杆大头连曲轴、小头连活塞，须强、刚、轻</span>
+          <span>⑥ crankpin 曲柄销把爆发力传给曲轴</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「活塞与连杆总成」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
