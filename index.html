@@ -919,12 +919,12 @@ flowchart TB
         <div class="match-wrap" id="matchBox"></div>
         <div class="msgline" id="matchMsg">已配对 0 / 8</div>
       </div>
-      <div class="card">
-        <h3>✏️ 练习 2 · 课文填空 <span class="en">Fill in the Blanks</span></h3>
-        <p style="font-size:14px;color:var(--muted)">根据课文内容填入正确的英文单词，输入后点「检查」。</p>
-        <div id="blankBox"></div>
-        <div class="center" style="margin-top:12px"><button class="btn" id="btnCheckBlanks">✅ 检查答案</button></div>
-        <div class="q-feedback" id="blankFb"></div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 选择题 + 判断题 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar2" style="width:0%"></i></div>
+          <div id="quizBox2"></div>
+        </div>
       </div>
       <div class="card">
         <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud — 点 🔊 听发音后跟读</span></h3>
@@ -983,6 +983,214 @@ flowchart TB
           <span>⑥ crankpin 曲柄销把爆发力传给曲轴</span>
         </div>
         <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「活塞与连杆总成」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== 课程三：Fuel System（燃油系统） ========== -->
+<div class="course-track" id="track-efi" style="display:none">
+  <!-- 课程三 · 01 导入 -->
+  <section id="sec3-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#b45309 0%,transparent 58%),linear-gradient(160deg,#0b1b3a,#3a2a12 60%,#0f3a52)">
+      <div class="badge">⛽ UNIT-4 · 第 3 课</div>
+      <h1>燃油系统 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Fuel System</em></h1>
+      <p class="sub">发动机"喝"什么？——可燃混合气的供给与电控燃油喷射</p>
+      <div class="meta"><span>🧩 零件爆炸图</span><span>🧊 3D 模型</span><span>⚡ 喷油器动画</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — WHAT DOES AN ENGINE "DRINK"?</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>⛽ 发动机"吃"什么？</h4>
+          <p>俗话说"<b>人是铁，饭是钢，一顿不吃饿得慌</b>"。那发动机吃什么呢？有人说发动机不吃东西，但是喝一种液体——对，这就是今天我们要学习的<b style="color:var(--primary-d)">燃料系统（Fuel System）</b>。</p>
+          <div class="keyline"><span>fuel 燃料</span><span>carburetor 化油器</span><span>injector 喷油器</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>燃油系统由哪些部件组成？电控燃油喷射（<b>EFI</b>）系统分为哪几个子系统？<b style="color:var(--power)">喷油器</b>是怎样把燃油喷进进气歧管的？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 24 个专业单词 &amp; 短语</span>
+          <span>✅ 燃油供给系统 4 大部件</span>
+          <span>✅ EFI 的 4 个子系统</span>
+          <span>✅ 喷油器工作原理（通电 → 磁场 → 喷油）</span>
+          <span>✅ 零件爆炸图 + 3D 模型 + 动画</span>
+        </div>
+        <div class="typed" id="typedIntro3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 02 单词与短语 -->
+  <section id="sec3-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab3Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>本课 24 个词集中在燃油供给与电控喷射，建议结合下一页的<b>零件爆炸图</b>与<b>喷油器动画</b>一起记忆。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 03 零件动画 -->
+  <section id="sec3-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 燃油系统<small>PARTS ANIMATION — 爆炸图 + 3D 模型 + 喷油器动画</small></h2></div>
+      <div class="card">
+        <h3>🧩 燃油系统零件爆炸图 <span class="en">Exploded View — 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnFuelExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnFuelTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">点击编号可查看中英文名称</span>
+        </div>
+        <svg id="fuelSvg" viewBox="0 0 680 660"></svg>
+        <div class="info-panel" id="fuelInfo">
+          <div class="n" id="fuelInfoN">?</div>
+          <div><div class="e" id="fuelInfoE">点击零件编号</div>
+          <div class="z" id="fuelInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="fuelInfoD">燃油系统由油箱、燃油泵、滤清器、油管、喷油器等部件组成。</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>⚡ 喷油器工作原理动画 <span class="en">Fuel Injector — 通电喷油 / 断电关闭</span></h3>
+        <p style="font-size:14px;color:var(--muted)">喷油器是一个由<b>线圈（coil）/螺线管（solenoid）</b>操纵的燃油阀：断电时<b>弹簧</b>压紧针阀关闭；通电时<b>磁场</b>吸引<b>电枢</b>，针阀打开喷油。</p>
+        <div class="parts-tools" style="margin-top:10px">
+          <button class="btn" id="btnInjectorToggle">⚡ 通电（喷油）</button>
+          <span class="parts-hint" id="injectorState">当前状态：断电 · 弹簧关闭</span>
+        </div>
+        <svg id="injectorSvg" viewBox="0 0 640 420"></svg>
+      </div>
+      <div class="card">
+        <h3>🧊 3D 燃油系统模型 <span class="en">3D Fuel System — 拖拽旋转 · 燃油流动</span></h3>
+        <p style="font-size:14px;color:var(--muted)">观察燃油从<b>油箱 → 燃油泵 → 滤清器 → 油管 → 喷油器</b>的流动路径。</p>
+        <div class="center" style="margin-top:10px"><button class="btn" id="btnFuel3D">▶ 加载 3D 模型</button></div>
+        <div id="fuel3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px"></div>
+        <p class="stage-note" id="fuel3dNote">点击按钮加载 three.js 3D 模型（需联网）。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 04 课文 -->
+  <section id="sec3-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 燃油系统 <small>READING — FUEL SYSTEM</small></h2></div>
+      <div class="card reading">
+        <h3>📖 课文 1 · 燃油系统的功用 <span class="en">Function of the Fuel System</span></h3>
+        <div class="en-text">The function of both the <span class="hl">carburetor</span> fuel system and the fuel <span class="hl">injection</span> system is to <span class="hl">supply</span> a <span class="hl">combustible</span> mixture of air and fuel to the engine. A gasoline fuel system draws fuel from the tank and forces it into the fuel-metering device (carburetor, gasoline injectors), using either a mechanical (engine-driven) or electric fuel pump.</div>
+        <div class="zh-text">化油器燃油系统和燃油喷射系统的共同功用，都是向发动机供给<b>可燃混合气</b>。汽油机燃油系统从油箱吸取燃油，利用机械式（发动机驱动）或电动式燃油泵加压，把燃油送入燃油计量装置（化油器、汽油喷射器）。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 2 · 燃油供给系统的基本部件 <span class="en">Basic Parts of a Fuel Supply System</span></h3>
+        <div class="en-text"><b>Fuel Tank:</b> stores gasoline. <b>Fuel Pump:</b> draws fuel from the tank and forces it to the fuel-metering device. <b>Fuel Filter:</b> removes <span class="hl">contaminants</span> in the fuel. <b>Fuel Line:</b> carries fuel between the tank, the pump, and other parts.</div>
+        <div class="zh-text"><b>油箱：</b>储存燃油。<b>燃油泵：</b>从油箱吸取燃油并加压送入燃油计量装置。<b>燃油滤清器：</b>滤除燃油中的杂质（污染物）。<b>油管：</b>在油箱、油泵与其他部件之间输送燃油。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 3 · EFI 的四个子系统 <span class="en">Four Subsystems of EFI</span></h3>
+        <div class="en-text">The more common type of timed fuel injection is the electronic-timed fuel injection, also known as <span class="hl">electronic fuel injection (EFI)</span>. An EFI system can be divided into four <span class="hl">subsystems</span>: (1) Fuel delivery system; (2) Air induction system; (3) <span class="hl">Sensor</span> system; (4) Computer control system.</div>
+        <div class="zh-text">最常见的定时喷射是电子定时燃油喷射，又称<b>电控燃油喷射（EFI）</b>。电控燃油喷射系统可分为四个<b>子系统</b>：（1）燃油传输系统；（2）空气供给系统；（3）传感器系统；（4）计算机控制系统。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 4 · 喷油器的工作原理 <span class="en">How the Fuel Injector Works</span></h3>
+        <div class="en-text">The fuel injector for an EFI system is a <span class="hl">coil</span> or <span class="hl">solenoid</span>-operated fuel valve. When not energized, the <span class="hl">spring</span> pressure keeps the injector closed, keeping fuel from entering the engine. When <span class="hl">current</span> flows through the injector coil, the <span class="hl">magnetic</span> field attracts the injector <span class="hl">armature</span>. The injector opens, <span class="hl">squirting</span> fuel into the intake manifold under pressure.</div>
+        <div class="zh-text">电控喷射系统的喷油器是一个由<b>线圈/螺线管</b>操纵的燃油阀。未通电时，<b>弹簧</b>压力使喷油器保持关闭，燃油不能进入发动机；当<b>电流</b>通过线圈时，<b>磁场</b>吸引喷油器<b>电枢</b>，喷油器打开，把燃油在压力下<b>喷入</b>进气歧管。</div>
+      </div>
+      <div class="card reading">
+        <h3>📖 课文 5 · 空气供给与传感器系统 <span class="en">Air Induction &amp; Sensor System</span></h3>
+        <div class="en-text">The air induction system typically consists of a <span class="hl">throttle</span> valve, sensors, an air filter and connecting ducts. The throttle valve regulates how much air flows into the engine; in turn, it controls engine power output. When the <span class="hl">pedal</span> is <span class="hl">depressed</span>, the throttle valve swings open to allow more air into the engine. The sensor system monitors engine conditions and reports to the computer. A sensor changes circuit <span class="hl">resistance</span> or <span class="hl">voltage</span> with a change in a condition.</div>
+        <div class="zh-text">空气供给系统通常包括<b>节气门</b>、传感器、空气滤清器和连接导管。节气门调节进气量，进而控制发动机输出功率；踩下<b>踏板</b>时节气门开大，更多空气进入发动机。传感器系统监测发动机运行状态并反馈给控制器——传感器会随条件变化而改变电路<b>电阻</b>或<b>电压</b>。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>供给系统 4 部件 = 油箱 + 油泵 + 滤清器 + 油管；EFI 4 子系统 = 燃油传输 + 空气供给 + 传感器 + 计算机控制；喷油器 = 线圈 + 弹簧 + 电枢 + 针阀。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 05 练习 -->
+  <section id="sec3-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>QUIZ — 连线 + 选择题 + 判断题（25 题）</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <div class="match-wrap" id="matchBox3"></div>
+        <div class="msgline" id="matchMsg3">已配对 0 / 8</div>
+      </div>
+      <div class="card" style="padding-top:18px">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 25 题 · 抽人回答</span></h3>
+        <div class="quiz-shell">
+          <div class="q-progress"><i id="qBar3" style="width:0%"></i></div>
+          <div id="quizBox3"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud</span></h3>
+        <div class="keyline" id="readBox3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程三 · 06 总结 -->
+  <section id="sec3-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Fuel System</span></h3>
+        <div class="tree">
+          <div class="tree-root">⛽ 燃油系统 Fuel System</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>燃油供给系统 Fuel Supply</b>
+              <ul>
+                <li>燃油箱 fuel tank <span class="tz">储存燃油</span></li>
+                <li>燃油泵 fuel pump <span class="tz">吸油加压</span></li>
+                <li>燃油滤清器 fuel filter <span class="tz">滤除杂质</span></li>
+                <li>油管 fuel line <span class="tz">输送燃油</span></li>
+                <li>燃油压力调节器 pressure regulator <span class="tz">保持预设压力</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>EFI 四个子系统</b>
+              <ul>
+                <li>燃油传输 fuel delivery</li>
+                <li>空气供给 air induction <span class="tz">节气门 throttle</span></li>
+                <li>传感器系统 sensor system</li>
+                <li>计算机控制 computer control</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>喷油器 Fuel Injector</b>
+              <ul>
+                <li>线圈/螺线管 coil / solenoid</li>
+                <li>弹簧 spring <span class="tz">断电关闭</span></li>
+                <li>电枢 armature <span class="tz">受磁场吸引</span></li>
+                <li>针阀与喷孔 nozzle <span class="tz">喷油</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>典型传感器 Sensors</b>
+              <ul>
+                <li>氧传感器 oxygen sensor</li>
+                <li>歧管压力传感器 manifold pressure</li>
+                <li>节气门位置传感器 throttle position</li>
+                <li>冷却液温度 / 进气温度传感器</li>
+                <li>空气流量计 air flow meter</li>
+                <li>曲轴位置 / 发动机转速传感器</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📌 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 燃油系统的功用：供给可燃混合气 combustible mixture</span>
+          <span>② 供给系统 4 部件：油箱、油泵、滤清器、油管</span>
+          <span>③ EFI = Electronic Fuel Injection 电控燃油喷射</span>
+          <span>④ EFI 4 子系统：燃油传输、空气供给、传感器、计算机控制</span>
+          <span>⑤ 压力调节器：压力足够时把多余燃油送回油箱</span>
+          <span>⑥ 喷油器：断电弹簧关闭，通电磁场吸引电枢喷油</span>
+          <span>⑦ 传感器：随温度/压力/位置变化改变电阻或电压</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「燃油系统」词库练习。</span></div>
       </div>
     </div>
   </section>
@@ -1234,10 +1442,42 @@ const QUESTIONS=[
   a:false,exp:'柴油机没有点火系统，靠压缩自燃（压燃）。'},
  {ty:'tf',q:'活塞在气缸内做直线往复运动。',en:'The piston moves linearly (up and down) in the cylinder.',
   a:true,exp:'动力由活塞在气缸内做直线运动产生，曲轴再把它转为旋转运动。'},
- {ty:'spell',q:'「发动机」的英文拼写是？',en:'Spell the English word for 发动机.',hint:'e____（7 个字母）',a:'engine',exp:"engine ['endʒɪn] n.发动机"},
- {ty:'spell',q:'「活塞」的英文拼写是？',en:'Spell the English word for 活塞.',hint:'p____（6 个字母）',a:'piston',exp:"piston ['pɪstən] n.活塞"},
- {ty:'spell',q:'「气缸」的英文拼写是？',en:'Spell the English word for 气缸.',hint:'c______（8 个字母）',a:'cylinder',exp:"cylinder ['sɪlɪndə(r)] n.气缸"},
- {ty:'spell',q:'「点火」的英文拼写是？',en:'Spell the English word for 点火.',hint:'i______（8 个字母）',a:'ignition',exp:"ignition [ɪɡ'nɪʃn] n.点火"},
+ {ty:'choice',q:'课文说发动机与汽车的什么有着直接关系？',en:'Engine is in direct relation to the power take-off and ____ of an automobile.',
+  opts:['Smoothness 平稳性','Color 颜色','Weight 重量','Price 价格'],a:0,
+  exp:'课文原句：与汽车的 power take-off（动力输出）和 smoothness（平稳性）直接相关。'},
+ {ty:'choice',q:'“power take-off” 的中文意思是？',en:'power take-off',
+  opts:['动力输出','起飞','停车','加速'],a:0,
+  exp:'power take-off = 动力输出，即发动机经曲轴向外传递的动力。'},
+ {ty:'choice',q:'曲轴把活塞的什么运动转变为什么运动？',en:'The crankshaft changes the piston\'s linear motion into ____ motion.',
+  opts:['直线运动转变为旋转运动','旋转运动转变为直线运动','上下运动转变为左右运动','静止转变为运动'],a:0,
+  exp:'活塞在气缸内做直线往复运动，由连杆、曲轴转变为旋转运动输出。'},
+ {ty:'choice',q:'爆炸图中「飞轮」的英文是？',en:'flywheel',
+  opts:['Flywheel','Oil pan','Crankshaft','Camshaft'],a:0,
+  exp:'flywheel n.飞轮——装在曲轴端部的大惯量圆盘，使运转更平稳。'},
+ {ty:'choice',q:'爆炸图中「油底壳」的英文是？',en:'oil pan',
+  opts:['Oil pan','Oil pump','Fuel tank','Cylinder jacket'],a:0,
+  exp:'oil pan n.油底壳——储存机油，位于发动机最底部。'},
+ {ty:'choice',q:'「气缸盖」的英文是？',en:'cylinder head',
+  opts:['Cylinder head','Cylinder block','Cylinder jacket','Cylinder liner'],a:0,
+  exp:'cylinder head 气缸盖；cylinder block 气缸体；cylinder jacket 气缸套。'},
+ {ty:'choice',q:'正时带（timing belt）的主要作用是什么？',en:'The timing belt keeps the camshaft in step with the ____.',
+  opts:['保证气门开闭与活塞位置精确配合','冷却发动机','过滤机油','储存燃油'],a:0,
+  exp:'正时带连接曲轴带轮与凸轮轴带轮，保证配气相位与活塞位置精确同步。'},
+ {ty:'choice',q:'活塞从上止点运动到下止点的距离称为什么？',en:'The distance the piston travels from TDC to BDC is called a ____.',
+  opts:['一个冲程（行程）','一个循环','压缩比','缸径'],a:0,
+  exp:'活塞一个冲程 = 上止点到下止点的距离；一个完整循环曲轴转 720°。'},
+ {ty:'choice',q:'汽油机中，产生电火花点燃混合气的零件是？',en:'Which part produces the electric spark to ignite the mixture?',
+  opts:['Spark plug 火花塞','Fuel injector 喷油器','Camshaft 凸轮轴','Flywheel 飞轮'],a:0,
+  exp:'火花塞产生高压电火花点燃混合气（汽油机）；柴油机没有点火系统。'},
+ {ty:'choice',q:'“camshaft” 的中文意思是？',en:'camshaft',
+  opts:['凸轮轴','曲轴','活塞','气缸'],a:0,
+  exp:'camshaft n.凸轮轴——控制进、排气门开闭时刻的配气机构。'},
+ {ty:'tf',q:'发动机是汽车的动力源（power source）。',en:'The engine is the power source of an automobile.',a:true,
+  exp:'发动机把燃料的化学能转化为机械能，是汽车的动力源。'},
+ {ty:'tf',q:'四冲程循环中，只有做功行程向外输出动力。',en:'Only the power stroke produces useful power output.',a:true,
+  exp:'进气、压缩、排气行程都消耗能量，只有做功（Power）行程输出动力。'},
+ {ty:'tf',q:'直列式发动机的所有气缸垂直排列成一条直线。',en:'In an inline engine all cylinders are arranged vertically in line.',a:true,
+  exp:'直列式（Inline）发动机气缸垂直排列呈一线，是最常见最简单的排列方式。'},
 ];
 
 /* ---------- 数据：思维导图知识树 ---------- */
@@ -1337,6 +1577,12 @@ const COURSES=[
     desc:'发动机最核心的机械构件：12 个专业单词、活塞组件零件模型动画（爆炸图 + 3D）、连杆结构、中英对照课文与练习。',
     track:'track-piston',
     pages:['sec2-intro','sec2-vocab','sec2-parts','sec2-text','sec2-quiz','sec2-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','闯关练习','知识总结'] },
+  { id:'efi', icon:'⛽', name:'燃油系统',
+    en:'UNIT-4 · Fuel System',
+    desc:'发动机"喝"什么：24 个专业单词、燃油系统零件爆炸图、喷油器工作原理动画、3D 燃油系统模型、25 题闯关练习。',
+    track:'track-efi',
+    pages:['sec3-intro','sec3-vocab','sec3-parts','sec3-text','sec3-quiz','sec3-summary'],
     tabs:['导入','单词短语','零件动画','课文阅读','闯关练习','知识总结'] }
 ];
 const progBar=$('#progressBar');
@@ -2154,13 +2400,15 @@ const FOUR=(function(){
 })();
 
 /* ================= 08 练习 ================= */
-function buildQuiz(){
-  const box=$('#quizBox'); let qi=0, score=0, answered=0, done=false;
+function createQuiz(cfg){
+  const box=$(cfg.box), barEl=$(cfg.bar), QS=cfg.questions||[];
+  if(!box)return null;
+  let qi=0, score=0, answered=0, done=false;
   const STUDENTS=['左1','左2','左3','左4','左5','左6','左7','左8'];
   let picked=null, rolling=false;
   function pickStudent(){
     if(rolling)return;
-    const nm=$('#pickName'), btn=$('#btnPick');
+    const nm=box.querySelector('#pickName'), btn=box.querySelector('#btnPick');
     if(!nm||!btn)return;
     rolling=true; btn.disabled=true; nm.classList.add('rolling');
     let ticks=0; const total=28;
@@ -2180,78 +2428,143 @@ function buildQuiz(){
   }
   function render(){
     if(done){
-      const ratio=score/QUESTIONS.length;
+      const ratio=score/QS.length;
       const emo=ratio===1?'🏆':ratio>=.8?'🎉':ratio>=.6?'👍':'📚';
-      const msg=ratio===1?'满分！你就是发动机小专家！':ratio>=.8?'非常棒！知识点掌握得很好！':ratio>=.6?'不错，再看一遍动画会更牢固！':'别灰心，回到动画部分复习一下吧！';
-      box.innerHTML=`<div class="q-card q-result">
-        <div class="emo">${emo}</div>
-        <div class="big">${score} / ${QUESTIONS.length} 分</div>
-        <div class="sub">${msg}</div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button class="btn" id="qAgain">🔄 再挑战一次</button>
-          <button class="btn ghost" id="qBack">📖 回看动画复习</button>
-        </div></div>`;
-      $('#qAgain').addEventListener('click',()=>{qi=0;score=0;answered=0;done=false;$('#qBar').style.width='0%';render();});
-      $('#qBack').addEventListener('click',()=>{ if(window.__PAGES){ window.__PAGES.goTo(window.__PAGES.course===1?2:6); } });
+      const msg=ratio===1?'满分！知识掌握得非常牢固！':ratio>=.8?'非常棒！知识点掌握得很好！':ratio>=.6?'不错，再看一遍动画会更牢固！':'别灰心，回到动画部分复习一下吧！';
+      box.innerHTML='<div class="q-card q-result"><div class="emo">'+emo+'</div><div class="big">'+score+' / '+QS.length+' 分</div><div class="sub">'+msg+'</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn" data-act="again">🔄 再挑战一次</button><button class="btn ghost" data-act="back">📖 回看动画复习</button></div></div>';
+      box.querySelector('[data-act="again"]').addEventListener('click',()=>{qi=0;score=0;answered=0;done=false;if(barEl)barEl.style.width='0%';render();});
+      box.querySelector('[data-act="back"]').addEventListener('click',()=>{ if(window.__PAGES){ const c=window.__PAGES.course; window.__PAGES.goTo(c===0?6:2); } });
       return;
     }
-    const q=QUESTIONS[qi], isTF=q.ty==='tf', isSpell=q.ty==='spell';
-    const typeLabel=isTF?'判断题 TRUE / FALSE':(isSpell?'拼写题 SPELLING':'选择题 MULTIPLE CHOICE');
+    const q=QS[qi], isTF=q.ty==='tf';
+    const typeLabel=isTF?'判断题 TRUE / FALSE':'选择题 MULTIPLE CHOICE';
     const optsHtml=isTF
       ? '<div class="q-opt" data-v="1"><span class="k">✓</span>True</div><div class="q-opt" data-v="0"><span class="k">✗</span>False</div>'
-      : (isSpell
-        ? '<div class="q-spell"><input id="spellInput" type="text" placeholder="输入英文单词…" autocomplete="off" spellcheck="false"><button class="btn" id="spellSubmit">提交</button></div>'
-        : q.opts.map((o,i)=>`<div class="q-opt" data-v="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o}</div>`).join(''));
-    box.innerHTML=`
-      <div class="pick-card">
-        <span class="p-label">🎲 点名回答</span>
-        <div class="pick-stage"><span class="nm" id="pickName">${picked?picked:'？'}</span></div>
-        <button class="btn warn" id="btnPick" style="padding:9px 18px;font-size:13.5px">${picked?'🔄 重新抽人':'🎲 抽人回答'}</button>
-        <div class="pick-note">${picked?'当前被点名回答本题的是 <b>'+picked+'</b>，请作答；答完会显示他的表现。':'点击"抽人回答"，随机抽取一名同学（左1~左8）来回答本题。'}</div>
-      </div>
-      <div class="q-card">
-        <span class="q-type ${isTF?'tf':''} ${isSpell?'spell':''}">${typeLabel} · 第 ${qi+1} 题</span>
-        <div class="q-text">${q.q}<br><span class="en2">${q.en}</span>${isSpell?'<div class="spell-hint">提示：'+q.hint+'</div>':''}</div>
-        <div class="q-opts">${optsHtml}</div>
-        <div class="q-feedback" id="qFb"></div>
-        <div class="q-nav">
-          <span class="q-score">已答 <b id="qAn">${answered}</b>/${QUESTIONS.length} · 得分 <b id="qSc">${score}</b></span>
-          <button class="btn" id="qNext" style="display:none">${qi===QUESTIONS.length-1?'🏁 查看成绩':'下一题 →'}</button>
-        </div>
-      </div>`;
-    $('#btnPick').addEventListener('click',()=>pickStudent());
+      : q.opts.map((o,i)=>'<div class="q-opt" data-v="'+i+'"><span class="k">'+String.fromCharCode(65+i)+'</span>'+o+'</div>').join('');
+    box.innerHTML='<div class="pick-card"><span class="p-label">🎲 点名回答</span><div class="pick-stage"><span class="nm" id="pickName">'+(picked||'？')+'</span></div><button class="btn warn" id="btnPick" style="padding:9px 18px;font-size:13.5px">'+(picked?'🔄 重新抽人':'🎲 抽人回答')+'</button><div class="pick-note">'+(picked?'当前被点名回答本题的是 <b>'+picked+'</b>，请作答；答完会显示他的表现。':'点击"抽人回答"，随机抽取一名同学（左1~左8）来回答本题。')+'</div></div>'+
+      '<div class="q-card"><span class="q-type '+(isTF?'tf':'')+'">'+typeLabel+' · 第 '+(qi+1)+' 题</span><div class="q-text">'+q.q+'<br><span class="en2">'+q.en+'</span></div><div class="q-opts">'+optsHtml+'</div><div class="q-feedback" id="qFb"></div><div class="q-nav"><span class="q-score">已答 <b id="qAn">'+answered+'</b>/'+QS.length+' · 得分 <b id="qSc">'+score+'</b></span><button class="btn" id="qNext" style="display:none">'+(qi===QS.length-1?'🏁 查看成绩':'下一题 →')+'</button></div></div>';
+    box.querySelector('#btnPick').addEventListener('click',()=>pickStudent());
     const finish=(ok)=>{
       if(ok)score++; answered++;
-      const fb=$('#qFb'); fb.className='q-feedback show '+(ok?'ok':'no');
+      const fb=box.querySelector('#qFb'); fb.className='q-feedback show '+(ok?'ok':'no');
       fb.innerHTML='<b>🎤 '+(picked?picked+' ':'')+(ok?'回答正确！':'回答错误。')+'</b> 解析：'+q.exp;
-      $('#qBar').style.width=(answered/QUESTIONS.length*100)+'%';
-      $('#qAn').textContent=answered; $('#qSc').textContent=score;
-      $('#qNext').style.display='inline-flex';
+      if(barEl)barEl.style.width=(answered/QS.length*100)+'%';
+      box.querySelector('#qAn').textContent=answered; box.querySelector('#qSc').textContent=score;
+      box.querySelector('#qNext').style.display='inline-flex';
     };
-    if(isSpell){
-      $('#spellSubmit').addEventListener('click',()=>{
-        const input=$('#spellInput');
-        const ok=input.value.trim().toLowerCase()===q.a.toLowerCase();
-        input.disabled=true; input.style.borderColor=ok?'var(--good)':'var(--bad)';
-        $('#spellSubmit').disabled=true;
-        finish(ok);
-      });
-      $('#spellInput').addEventListener('keydown',e=>{ if(e.key==='Enter')$('#spellSubmit').click(); });
-    }else{
-      box.querySelectorAll('.q-opt').forEach(opt=>opt.addEventListener('click',()=>{
-        if(opt.classList.contains('locked'))return;
-        const v=Number(opt.dataset.v), right=isTF?(q.a?1:0):q.a, ok=v===right;
-        opt.classList.add(ok?'correct':'wrong');
-        const ro=box.querySelector('.q-opt[data-v="'+right+'"]'); if(ro)ro.classList.add('correct');
-        box.querySelectorAll('.q-opt').forEach(o=>o.classList.add('locked'));
-        finish(ok);
-      }));
-    }
-    $('#qNext').addEventListener('click',()=>{ qi++; if(qi>=QUESTIONS.length)done=true; render(); });
+    box.querySelectorAll('.q-opt').forEach(opt=>opt.addEventListener('click',()=>{
+      if(opt.classList.contains('locked'))return;
+      const v=Number(opt.dataset.v), right=isTF?(q.a?1:0):q.a, ok=v===right;
+      opt.classList.add(ok?'correct':'wrong');
+      const ro=box.querySelector('.q-opt[data-v="'+right+'"]'); if(ro)ro.classList.add('correct');
+      box.querySelectorAll('.q-opt').forEach(o=>o.classList.add('locked'));
+      finish(ok);
+    }));
+    box.querySelector('#qNext').addEventListener('click',()=>{ qi++; if(qi>=QS.length)done=true; render(); });
   }
   render();
-  window.__QUIZ={ get picked(){return picked;}, pick(){pickStudent();} };
+  return { get picked(){return picked;}, pick(){pickStudent();} };
 }
+
+/* ================= 题库数据（每课 ≥25 题，仅选择题 + 判断题） ================= */
+/* 课程一：发动机基本概念与运行原理 */
+const QUESTIONS2=[
+ {ty:'choice',q:'活塞在发动机气缸内做什么运动？',en:'The piston moves ____ inside the engine cylinder.',
+  opts:['旋转运动','上下往复直线运动','水平摆动','静止不动'],a:1,exp:'活塞在气缸内做上下往复的直线运动，再由连杆、曲轴转为旋转运动。'},
+ {ty:'choice',q:'活塞是什么形状的零件？',en:'The piston is a ____ shaped hollow part.',
+  opts:['圆柱实心','圆筒状中空','方块形','球形'],a:1,exp:'课文：The piston is a cylindrical shaped hollow part.（圆筒状中空零件）'},
+ {ty:'choice',q:'活塞从气体中吸收热量后，必须怎样做？',en:'The heat absorbed by the piston must be ____.',
+  opts:['继续升温','被带走（散热）','转化为电能','不需要处理'],a:1,exp:'必须散热，使金属温度保持在安全限度（safe limits）以内。'},
+ {ty:'choice',q:'活塞由哪几部分组成？',en:'The piston consists of piston head, piston rings, piston lands, piston skirt and ____.',
+  opts:['piston pinhole 销座孔','crankshaft 曲轴','flywheel 飞轮','oil pan 油底壳'],a:0,exp:'活塞由顶部、活塞环、环槽岸、裙部和活塞销座孔组成。'},
+ {ty:'choice',q:'燃烧产生的爆炸力（explosive force）作用在活塞的哪个部位？',en:'The explosive force is exerted on the ____.',
+  opts:['活塞裙部','活塞顶（活塞顶部）','销座孔','活塞环'],a:1,exp:'The piston head is the top surface against which the explosive force is exerted.'},
+ {ty:'choice',q:'活塞环安装在什么地方？',en:'The piston rings are installed in ____.',
+  opts:['销座孔 pinhole','凹槽 grooves','气缸盖','油底壳'],a:1,exp:'活塞环安装在活塞的环槽（grooves）中。'},
+ {ty:'choice',q:'活塞环分为哪两种类型？',en:'There are two types of rings: ____.',
+  opts:['气环和油环','大环和小环','铜环和铁环','上环和下环'],a:0,exp:'compression rings（气环）和 oil-control rings（油环）。'},
+ {ty:'choice',q:'环槽岸（piston land）的作用是什么？',en:'The piston land provides a ____ for the sides of piston rings.',
+  opts:['支承面（座面）','润滑油道','冷却水路','密封垫片'],a:0,exp:'环槽岸为活塞环两端提供支承面（seating surface）。'},
+ {ty:'choice',q:'活塞裙部（piston skirt）的作用是什么？',en:'The piston skirt forms a bearing area in contact with the ____.',
+  opts:['曲轴','气缸壁','连杆','飞轮'],a:1,exp:'活塞裙部形成活塞与气缸壁的接触支承面（导向与承压）。'},
+ {ty:'choice',q:'活塞销座孔（pinhole）的作用是什么？',en:'The piston pinhole is used to connect the ____.',
+  opts:['曲轴','连杆','飞轮','气缸盖'],a:1,exp:'活塞销座孔用来安装活塞销，从而连接活塞与连杆。'},
+ {ty:'choice',q:'连杆大头（big end）连接在什么零件上？',en:'The connecting rod is attached to the crankshaft at ____.',
+  opts:['活塞','曲轴','凸轮轴','气缸盖'],a:1,exp:'连杆大头与曲轴（曲柄销 crankpin）相连，小头与活塞相连。'},
+ {ty:'choice',q:'连杆小头（small end）连接在什么零件上？',en:'The connecting rod is attached to the piston at the ____.',
+  opts:['曲轴','活塞','飞轮','正时带'],a:1,exp:'连杆小头套在活塞销上，与活塞连接。'},
+ {ty:'choice',q:'连杆必须满足什么要求？',en:'The connecting rod must be strong and rigid and ____.',
+  opts:['越重越好','尽可能轻','越长越好','不需要强度'],a:1,exp:'连杆须有足够的强度和刚度，并且质量要尽可能轻（light in weight）。'},
+ {ty:'choice',q:'连杆由哪几部分组成？',en:'The connecting rod is composed of small end, shank, big end, cap and ____.',
+  opts:['bearing half shells 轴瓦','piston ring 活塞环','crankshaft 曲轴','groove 凹槽'],a:0,exp:'连杆由小头、杆身、大头、连杆盖和轴瓦（bearing half shells）组成。'},
+ {ty:'choice',q:'“cylindrical” 的中文意思是？',en:'cylindrical',
+  opts:['中空的','圆筒状的','坚硬的','易爆的'],a:1,exp:'cylindrical adj. 圆筒状的。'},
+ {ty:'choice',q:'“hollow” 的中文意思是？',en:'hollow',
+  opts:['中空的','实心的','圆筒状的','弯曲的'],a:0,exp:'hollow adj. 中空的。'},
+ {ty:'choice',q:'“piston skirt” 的中文意思是？',en:'piston skirt',
+  opts:['活塞环','活塞裙部','活塞销','活塞顶'],a:1,exp:'piston skirt 活塞裙部。'},
+ {ty:'choice',q:'“crankpin” 的中文意思是？',en:'crankpin',
+  opts:['曲柄销','销座孔','凹槽','推力'],a:0,exp:'crankpin n. 曲柄销、曲柄针。'},
+ {ty:'choice',q:'“thrust” 的中文意思是？',en:'thrust',
+  opts:['拉力','推力','压力','扭力'],a:1,exp:'thrust n. 推力。'},
+ {ty:'choice',q:'“rigid” 的中文意思是？',en:'rigid',
+  opts:['柔软的','坚硬的','中空的','圆筒状的'],a:1,exp:'rigid adj. 坚硬的（连杆要求强、刚、轻）。'},
+ {ty:'tf',q:'活塞环包括气环（compression ring）和油环（oil-control ring）两种。',en:'There are two types of piston rings.',a:true,exp:'课文明确：两种类型——气环 compression rings 与油环 oil-control rings。'},
+ {ty:'tf',q:'活塞顶部（piston head）承受燃烧产生的爆炸力。',en:'The explosive force is exerted on the piston head.',a:true,exp:'活塞顶部是承受爆炸力的上表面。'},
+ {ty:'tf',q:'连杆大头与活塞相连，小头与曲轴相连。',en:'The big end is attached to the piston.',a:false,exp:'说反了：连杆大头连曲轴，小头连活塞。'},
+ {ty:'tf',q:'曲柄销（crankpin）把活塞传来的力传递给曲轴。',en:'The crankpin transmits force to the crankshaft.',a:true,exp:'曲柄销是曲轴上与连杆大头相连的销轴，把力传给曲轴。'},
+ {ty:'tf',q:'活塞在气缸中吸热后无需散热，温度不会影响性能。',en:'The heat absorbed by the piston need not be carried away.',a:false,exp:'错。必须散热，否则金属温度超出安全限度会损坏活塞。'},
+];
+/* 课程三：燃油系统 */
+const QUESTIONS3=[
+ {ty:'choice',q:'化油器燃油系统和燃油喷射系统的共同功用是什么？',en:'The function of both systems is to supply a ____ mixture to the engine.',
+  opts:['可燃混合气','纯机油','冷却液','废气'],a:0,exp:'共同功用是向发动机供给可燃混合气（combustible mixture of air and fuel）。'},
+ {ty:'choice',q:'汽油机燃油系统从油箱吸出燃油后送入什么装置？',en:'A gasoline fuel system forces fuel into the fuel-____ device.',
+  opts:['计量装置（化油器/喷油器）','冷却装置','点火装置','润滑装置'],a:0,exp:'送入燃油计量装置（fuel-metering device）：化油器 carburetor 或汽油喷射器 injectors。'},
+ {ty:'choice',q:'下列哪个不属于燃油供给系统的基本部件？',en:'Which is NOT a basic part of the fuel supply system?',
+  opts:['Fuel Tank 油箱','Fuel Pump 燃油泵','Spark Plug 火花塞','Fuel Filter 燃油滤清器'],a:2,exp:'燃油供给系统基本部件：油箱、油泵、滤清器、油管；火花塞属于点火系统。'},
+ {ty:'choice',q:'燃油滤清器（fuel filter）的作用是什么？',en:'The fuel filter removes ____ in the fuel.',
+  opts:['水分','污染物（杂质）','热量','空气'],a:1,exp:'Fuel Filter: removes contaminants in the fuel.（滤除燃料中的杂质）'},
+ {ty:'choice',q:'燃油泵（fuel pump）的作用是什么？',en:'The fuel pump draws fuel from the tank and forces it to the ____.',
+  opts:['油箱','燃油计量装置','气缸盖','排气歧管'],a:1,exp:'从油箱吸出燃油并加压送入燃油计量装置。'},
+ {ty:'choice',q:'EFI 是指什么？',en:'EFI stands for ____.',
+  opts:['电子燃油喷射','废气再循环','可变气门正时','涡轮增压'],a:0,exp:'EFI = Electronic Fuel Injection 电子（电控）燃油喷射。'},
+ {ty:'choice',q:'电控燃油喷射系统可分为几个子系统？',en:'An EFI system can be divided into ____ subsystems.',
+  opts:['2 个','3 个','4 个','5 个'],a:2,exp:'四个：燃油传输、空气供给、传感器、计算机控制。'},
+ {ty:'choice',q:'下列哪个不属于 EFI 的四个子系统？',en:'Which is NOT one of the four EFI subsystems?',
+  opts:['Fuel delivery system 燃油传输','Air induction system 空气供给','Sensor system 传感器','Exhaust system 排气系统'],a:3,exp:'EFI 四子系统：燃油传输、空气供给、传感器、计算机控制。'},
+ {ty:'choice',q:'燃油压力调节器（fuel pressure regulator）的作用是什么？',en:'The fuel pressure regulator controls the ____ entering the injector valves.',
+  opts:['油量','压力','温度','流量计'],a:1,exp:'调节进入喷油阀的燃油压力；压力足够时把多余燃油送回油箱，保持预设压力。'},
+ {ty:'choice',q:'当燃油压力足够时，压力调节器会把多余燃油送到哪里？',en:'When sufficient pressure is attained, the regulator returns excess fuel to the ____.',
+  opts:['气缸','油箱','进气歧管','滤清器'],a:1,exp:'多余燃油经回油管（fuel return line）返回油箱。'},
+ {ty:'choice',q:'电控喷射系统的喷油器本质上是什么？',en:'The fuel injector is a coil or solenoid-operated fuel ____.',
+  opts:['阀（fuel valve）','泵','滤清器','传感器'],a:0,exp:'喷油器是一个由线圈/螺线管操纵的燃油阀（fuel valve）。'},
+ {ty:'choice',q:'喷油器未通电（not energized）时处于什么状态？',en:'When not energized, the injector is ____.',
+  opts:['打开','关闭','半开','抖动'],a:1,exp:'弹簧压力（spring pressure）使喷油器保持关闭，燃油不能进入发动机。'},
+ {ty:'choice',q:'电流通过喷油器线圈时产生什么，从而使喷油器打开？',en:'The magnetic field attracts the injector ____, opening the injector.',
+  opts:['磁场，吸引电枢','高温','高压油','真空'],a:0,exp:'电流通过线圈产生磁场，吸引喷油器电枢（armature），喷油器打开喷油。'},
+ {ty:'choice',q:'空气供给系统中的节气门（throttle valve）调节什么？',en:'The throttle valve regulates how much ____ flows into the engine.',
+  opts:['燃油','空气','机油','冷却液'],a:1,exp:'节气门调节进入发动机的空气量，从而控制发动机输出功率。'},
+ {ty:'choice',q:'踩下油门踏板时，节气门会怎样？',en:'When the pedal is depressed, the throttle valve swings ____.',
+  opts:['关闭','开大（允许更多空气进入）','反转','脱落'],a:1,exp:'踏板被踩下时节气门开大，更多空气进入气缸。'},
+ {ty:'choice',q:'传感器系统的作用是什么？',en:'The EFI sensor system monitors engine operating conditions and reports to the ____.',
+  opts:['控制器（computer）','油箱','排气口','驾驶员'],a:0,exp:'传感器监测发动机运行状态并把信息反馈给控制器（computer）。'},
+ {ty:'choice',q:'传感器的本质是什么？',en:'A sensor is an electrical device that changes circuit resistance or ____.',
+  opts:['电流','电压','电阻或电压','温度'],a:2,exp:'传感器是随条件（温度、压力、位置等）变化而改变电路电阻或电压的电气装置。'},
+ {ty:'choice',q:'“carburetor” 的中文意思是？',en:'carburetor',
+  opts:['化油器','喷油器','传感器','滤清器'],a:0,exp:'carburetor n. 化油器。'},
+ {ty:'choice',q:'“injector” 的中文意思是？',en:'injector',
+  opts:['化油器','喷油器','线圈','电枢'],a:1,exp:'injector n. 喷油器。'},
+ {ty:'choice',q:'“contaminant” 的中文意思是？',en:'contaminant',
+  opts:['污染物','燃料','压力','电压'],a:0,exp:'contaminant n. 污染物、致污物。'},
+ {ty:'choice',q:'“solenoid” 的中文意思是？',en:'solenoid',
+  opts:['弹簧','螺线管','电枢','踏板'],a:1,exp:'solenoid n. 螺线管。'},
+ {ty:'choice',q:'“voltage” 的中文意思是？',en:'voltage',
+  opts:['电流','电压','电阻','电路'],a:1,exp:'voltage n. 电压。'},
+ {ty:'tf',q:'柴油机供给系统和汽油机供给系统的主要功用都是把燃油或油气混合物送入发动机气缸。',en:'Both diesel and gasoline fuel systems supply fuel/air-fuel mixture into the cylinder.',a:true,exp:'课文原句说明了这一共同功用。'},
+ {ty:'tf',q:'喷油器通电后，磁场吸引电枢，喷油器打开并把燃油喷入进气歧管。',en:'When current flows, the magnetic field opens the injector and fuel is squirted into the intake manifold.',a:true,exp:'课文：电流通过线圈→磁场吸引电枢→喷油器打开→压力喷油入进气歧管。'},
+ {ty:'tf',q:'节气门开度越大，进入发动机的空气越多，发动机输出功率越大。',en:'The larger the throttle opening, the more air enters and the greater the power output.',a:true,exp:'节气门调节进气量，进而控制发动机输出功率。'},
+];
 
 /* ================= 09 思维导图 ================= */
 /* mermaid 流程图模式 */
@@ -2776,34 +3089,330 @@ function buildPiston3D(box){
     };
     mb.appendChild(colL); mb.appendChild(colR); render();
   }
-  const BLANKS=[
-    {b:'The piston is a', a:'shaped hollow part.', ans:'cylindrical'},
-    {b:'The piston', a:'are installed in grooves.', ans:'rings'},
-    {b:'The piston', a:'forms a bearing area in contact with the cylinder wall.', ans:'skirt'},
-    {b:'The connecting rod is attached to the crankshaft at', a:'end.', ans:'big'}
-  ];
-  const bb=$('#blankBox');
-  if(bb){
-    bb.innerHTML=BLANKS.map((x,i)=>'<div class="blank-line">'+x.b+' <input data-i="'+i+'" placeholder="填入单词" autocomplete="off"> '+x.a+'</div>').join('');
-    const cb=$('#btnCheckBlanks');
-    if(cb)cb.addEventListener('click',()=>{
-      let ok=0;
-      bb.querySelectorAll('input').forEach(inp=>{
-        const i=Number(inp.dataset.i);
-        const right=inp.value.trim().toLowerCase()===BLANKS[i].ans.toLowerCase();
-        inp.classList.toggle('ok',right); inp.classList.toggle('no',!right);
-        if(right)ok++;
-      });
-      const fb=$('#blankFb'); fb.className='q-feedback show '+(ok===BLANKS.length?'ok':'no');
-      fb.innerHTML='<b>'+(ok===BLANKS.length?'✅ 全部正确！':'答对 '+ok+' / '+BLANKS.length)+'</b> 参考答案：'+BLANKS.map(x=>x.ans).join('、');
-    });
-  }
   const READ=['avoid','arc','brace','brush','cage','charge','chuck','dissipate','crank','curb','drain','draught','drum','employ','fail','float','gauge','horn','hose','jig'];
   const rb=$('#readBox');
   if(rb){
     rb.innerHTML=READ.map(w=>'<span style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);border:1px solid #fcd34d;color:#92400e;font-size:13.5px;padding:5px 10px 5px 14px;border-radius:999px;font-weight:700">'+w+'<button class="speak-btn" data-t="'+w+'" data-l="en-US" style="width:26px;height:26px;font-size:13px">🔊</button></span>').join('');
     rb.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
   }
+})();
+
+/* ================= 课程三：燃油系统 ================= */
+const VOCAB3=[
+ {en:'carburetor',ipa:"['kɑ:bjuretə]",zh:'化油器',ty:'n.'},
+ {en:'injection',ipa:"[in'dʒekʃən]",zh:'喷射；注射',ty:'n.'},
+ {en:'supply',ipa:"[sə'plai]",zh:'供给，补给',ty:'v.'},
+ {en:'combustible',ipa:"[kəm'bʌstəbl]",zh:'易燃的',ty:'adj.'},
+ {en:'injector',ipa:"[in'dʒektə]",zh:'喷油器',ty:'n.'},
+ {en:'contaminant',ipa:"[kən'tæminənt]",zh:'污染物；致污物',ty:'n.'},
+ {en:'subsystem',ipa:"['sʌb'sistəm]",zh:'子系统；次要系统',ty:'n.'},
+ {en:'sensor',ipa:"['sensə]",zh:'传感器',ty:'n.'},
+ {en:'hose',ipa:'[həuz]',zh:'软管',ty:'n.'},
+ {en:'preset',ipa:"[ˌpri:'set]",zh:'预先装置的；预先调整的',ty:'adj.'},
+ {en:'energize',ipa:"['enədʒaiz]",zh:'供给……能量',ty:'vt.'},
+ {en:'spring',ipa:'[spriŋ]',zh:'弹簧',ty:'n.'},
+ {en:'current',ipa:"['kʌrənt]",zh:'（水、气、电）流',ty:'n.'},
+ {en:'coil',ipa:'[kɔil]',zh:'卷；线圈',ty:'n.'},
+ {en:'solenoid',ipa:"['sɔlənɔid]",zh:'螺线管',ty:'n.'},
+ {en:'magnetic',ipa:'[mægˈnetik]',zh:'有磁性的',ty:'adj.'},
+ {en:'armature',ipa:"['ɑ:mətʃə]",zh:'（电机的）转子，电枢',ty:'n.'},
+ {en:'squirt',ipa:'[skwə:t]',zh:'注射；喷射',ty:'v.'},
+ {en:'throttle',ipa:'[ˈθrɔtl]',zh:'节流阀、节气门',ty:'n.'},
+ {en:'pedal',ipa:'[ˈpedl]',zh:'踏板',ty:'n.'},
+ {en:'depress',ipa:"[di'pres]",zh:'压低',ty:'vt.'},
+ {en:'circuit',ipa:"['sə:kit]",zh:'电路',ty:'n.'},
+ {en:'resistance',ipa:"[ri'zistəns]",zh:'抵抗；电阻；阻力',ty:'n.'},
+ {en:'voltage',ipa:"['vəultidʒ]",zh:'[电]电压',ty:'n.'}
+];
+(function(){
+  const box=$('#vocab3Card'); if(!box)return;
+  let html='<div class="card" style="padding:8px;overflow-x:auto"><table class="vocab-table"><tr><th style="width:44px">序号</th><th>英文 English</th><th>音标 IPA</th><th style="width:70px">词性</th><th>中文</th><th style="width:64px">发音</th></tr>';
+  VOCAB3.forEach((v,i)=>{ html+='<tr><td>3.'+(i+1)+'</td><td class="en">'+v.en+'</td><td class="ipa">'+(v.ipa||'—')+'</td><td style="color:var(--muted);font-size:12.5px">'+v.ty+'</td><td class="zh">'+v.zh+'</td><td><button class="speak-btn" data-t="'+v.en+'" data-l="en-US">🔊</button></td></tr>'; });
+  html+='</table></div>';
+  box.innerHTML=html;
+  box.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
+})();
+/* ---------- 燃油系统零件爆炸图 ---------- */
+const FUEL_PARTS=[
+ {id:1,en:'fuel tank',zh:'燃油箱',desc:'储存汽油（stores gasoline），是燃油系统的起点。',b:[110,300],ex:[-40,-70],ico:'🛢️'},
+ {id:2,en:'fuel pump',zh:'燃油泵',desc:'从油箱吸出燃油并加压送入燃油计量装置（draws and forces fuel）。',b:[215,300],ex:[0,-110],ico:'⛽'},
+ {id:3,en:'fuel filter',zh:'燃油滤清器',desc:'滤除燃油中的污染物（removes contaminants in the fuel）。',b:[320,300],ex:[0,-150],ico:'🧯'},
+ {id:4,en:'fuel line',zh:'油管',desc:'在油箱、油泵与其他部件之间输送燃油（carries fuel）。',b:[425,300],ex:[0,-110],ico:'🧵'},
+ {id:5,en:'fuel pressure regulator',zh:'燃油压力调节器',desc:'控制进入喷油阀的压力；压力足够时把多余燃油送回油箱。',b:[530,300],ex:[0,-70],ico:'🎛️'},
+ {id:6,en:'fuel injector',zh:'喷油器',desc:'由线圈/螺线管操纵的燃油阀，把燃油喷入进气歧管。',b:[620,300],ex:[0,-30],ico:'💉'},
+ {id:7,en:'fuel return line',zh:'回油管',desc:'把多余的燃油送回油箱（returns excess fuel to the tank）。',b:[110,470],ex:[-40,70],ico:'↩️'},
+ {id:8,en:'computer (ECU)',zh:'控制器',desc:'计算机控制系统，根据传感器信号控制喷油量与喷油时刻。',b:[215,470],ex:[0,110],ico:'💻'},
+ {id:9,en:'manifold pressure sensor',zh:'进气歧管压力传感器',desc:'监测进气歧管压力，为控制器提供负荷信息。',b:[320,470],ex:[0,150],ico:'📉'},
+ {id:10,en:'intake air temperature sensor',zh:'进气温度传感器',desc:'监测进气温度，修正喷油量。',b:[425,470],ex:[0,150],ico:'🌡️'},
+ {id:11,en:'throttle valve position sensor',zh:'节气门位置传感器',desc:'监测节气门开度，反映发动机负荷与工况。',b:[530,470],ex:[0,110],ico:'📐'},
+ {id:12,en:'intake airflow meter',zh:'空气流量计',desc:'测量进入发动机的空气量，是电控喷油的基本信号。',b:[620,470],ex:[0,70],ico:'🌬️'}
+];
+let fuelExploded=false, fuelTour=null;
+function buildFuelAnim(){
+  const svg=$('#fuelSvg'); if(!svg)return;
+  svg.innerHTML='';
+  el('text',{x:340,y:60,text:'燃油供给路径 Fuel Delivery Path',fill:'#7dd3fc','font-size':15,'font-weight':800,'text-anchor':'middle'},svg);
+  el('path',{d:'M110 340 L620 340',stroke:'#2a3f6e','stroke-width':6,'stroke-dasharray':'10 8'},svg);
+  el('text',{x:340,y:226,text:'电控部分 Electronic Control',fill:'#fbbf24','font-size':15,'font-weight':800,'text-anchor':'middle'},svg);
+  FUEL_PARTS.forEach(p=>{
+    const g=el('g',{'class':'part','data-id':p.id},svg);
+    const isFlow=p.id<=6;
+    el('rect',{class:'shp',x:p.b[0]-52,y:p.b[1]-42,width:104,height:84,rx:14,fill:isFlow?'#1e3a5f':'#3a2f14',stroke:isFlow?'#38bdf8':'#fbbf24','stroke-width':2},g);
+    el('text',{x:p.b[0],y:p.b[1]-6,text:p.ico,'font-size':26,'text-anchor':'middle'},g);
+    el('text',{x:p.b[0],y:p.b[1]+22,text:p.zh,fill:'#e2e8f0','font-size':11.5,'font-weight':700,'text-anchor':'middle'},g);
+    const bg=el('g',{},g);
+    el('circle',{class:'badge-circle',cx:p.b[0]-52,cy:p.b[1]-42,r:12},bg);
+    el('text',{class:'badge-text',x:p.b[0]-52,y:p.b[1]-42,text:p.id},bg);
+    g.addEventListener('click',()=>selectFuelPart(p.id));
+  });
+}
+function selectFuelPart(id){
+  $$('#fuelSvg .part').forEach(g=>g.classList.toggle('sel',g.dataset.id==String(id)));
+  const n=$('#fuelInfoN'),e=$('#fuelInfoE'),z=$('#fuelInfoZ'),d=$('#fuelInfoD');
+  if(id==null){ n.textContent='?'; e.textContent='点击零件编号'; z.textContent='查看中英文名称与说明'; d.textContent='燃油系统由油箱、燃油泵、滤清器、油管、喷油器等部件组成。'; return; }
+  const p=FUEL_PARTS.find(x=>x.id===id);
+  n.textContent=p.id; e.textContent=p.en; z.textContent=p.zh; d.textContent=p.desc;
+}
+function setFuelExplode(on){
+  fuelExploded=on;
+  FUEL_PARTS.forEach(p=>{ const g=$('#fuelSvg .part[data-id="'+p.id+'"]'); if(g)g.style.transform=on?('translate('+p.ex[0]+'px,'+p.ex[1]+'px)'):''; });
+  const b=$('#btnFuelExplode'); if(b)b.textContent=on?'🔩 重新组装':'💥 爆炸拆解';
+}
+/* ---------- 喷油器工作原理动画（断面） ---------- */
+let injectorOn=false, injectorAmt=0, injectorRaf=null;
+function buildInjector(){
+  const svg=$('#injectorSvg'); if(!svg)return;
+  svg.innerHTML='';
+  /* 外壳 */
+  el('rect',{x:250,y:30,width:140,height:300,rx:16,fill:'#1e293b',stroke:'#475569','stroke-width':2},svg);
+  el('text',{x:320,y:22,text:'喷油器断面 Fuel Injector',fill:'#7dd3fc','font-size':13,'font-weight':800,'text-anchor':'middle'},svg);
+  /* 线圈 */
+  el('rect',{x:262,y:60,width:26,height:120,rx:6,fill:'#b45309',stroke:'#fbbf24','stroke-width':2},svg);
+  el('rect',{x:352,y:60,width:26,height:120,rx:6,fill:'#b45309',stroke:'#fbbf24','stroke-width':2},svg);
+  el('text',{x:275,y:126,text:'coil',fill:'#fff','font-size':11,'text-anchor':'middle'},svg);
+  el('text',{x:365,y:126,text:'coil',fill:'#fff','font-size':11,'text-anchor':'middle'},svg);
+  /* 弹簧 */
+  el('path',{d:'M300 62 L340 74 L300 86 L340 98 L300 110 L340 122',fill:'none',stroke:'#94a3b8','stroke-width':3},svg);
+  el('text',{x:320,y:52,text:'spring 弹簧',fill:'#94a3b8','font-size':11,'text-anchor':'middle'},svg);
+  /* 燃油入口 */
+  el('rect',{x:390,y:90,width:60,height:26,rx:6,fill:'#334155',stroke:'#64748b'},svg);
+  el('text',{x:450,y:108,text:'fuel inlet 燃油入口',fill:'#94a3b8','font-size':10.5},svg);
+  el('line',{x1:390,y1:103,x2:352,y2:103,stroke:'#64748b','stroke-width':6},svg);
+  /* 动态组：电枢 + 针阀 */
+  const dyn=el('g',{},svg);
+  el('rect',{x:292,y:150,width:56,height:70,rx:8,fill:'#cbd5e1',stroke:'#94a3b8','stroke-width':2},dyn);
+  el('text',{x:320,y:192,text:'armature',fill:'#0f172a','font-size':10.5,'text-anchor':'middle','font-weight':700},dyn);
+  el('rect',{x:312,y:220,width:16,height:70,rx:4,fill:'#e2e8f0',stroke:'#94a3b8'},dyn);
+  el('path',{d:'M296 290 L344 290 L332 312 L308 312 Z',fill:'#e2e8f0',stroke:'#94a3b8','stroke-width':2},dyn);
+  el('text',{x:398,y:300,text:'needle 针阀',fill:'#94a3b8','font-size':10.5},dyn);
+  /* 喷孔与油雾 */
+  el('rect',{x:300,y:312,width:40,height:12,fill:'#475569'},svg);
+  el('text',{x:352,y:338,text:'nozzle 喷孔',fill:'#94a3b8','font-size':10.5},svg);
+  const spray=el('g',{},svg);
+  for(let i=0;i<14;i++){
+    const ox=(i-6.5)/7;
+    el('circle',{class:'spray',cx:320,cy:330,r:3.4,fill:'#fbbf24','data-ox':ox.toFixed(3),'data-oy':(0.5+Math.random()*0.5).toFixed(3)},spray);
+  }
+  /* 状态提示 */
+  el('text',{x:320,y:392,text:'断电：弹簧压紧针阀 → 关闭',fill:'#94a3b8','font-size':12.5,'text-anchor':'middle'} ,svg).setAttribute('id','injTip');
+  /* 磁场示意 */
+  const mag=el('g',{opacity:0},svg); mag.setAttribute('id','injMag');
+  el('path',{d:'M262 100 Q320 150 378 100',fill:'none',stroke:'#fbbf24','stroke-width':3,'stroke-dasharray':'6 5'},mag);
+  el('path',{d:'M262 170 Q320 220 378 170',fill:'none',stroke:'#fbbf24','stroke-width':3,'stroke-dasharray':'6 5'},mag);
+  el('text',{x:430,y:150,text:'magnetic field 磁场',fill:'#fbbf24','font-size':11},mag);
+  window.__INJ={dyn,mag,spray};
+  requestAnimationFrame(injLoop);
+}
+function injLoop(){
+  const o=window.__INJ;
+  if(o){
+    injectorAmt+= (injectorOn?0.12:-0.12);
+    injectorAmt=Math.max(0,Math.min(1,injectorAmt));
+    o.dyn.setAttribute('transform','translate(0,'+(injectorAmt*26)+')');
+    o.mag.setAttribute('opacity',injectorAmt*0.95);
+    o.spray.querySelectorAll('.spray').forEach(c=>{
+      const life=injectorAmt;
+      c.setAttribute('opacity',life*0.85);
+      c.setAttribute('cx',320+(+c.dataset.ox)*life*80);
+      c.setAttribute('cy',330+(+c.dataset.oy)*life*110);
+    });
+    const t=document.getElementById('injTip');
+    if(t)t.textContent=injectorAmt>0.5?'通电：磁场吸引电枢 → 针阀打开喷油':'断电：弹簧压紧针阀 → 关闭';
+  }
+  requestAnimationFrame(injLoop);
+}
+(function(){
+  buildFuelAnim(); buildInjector();
+  const be=$('#btnFuelExplode'), bt=$('#btnFuelTour');
+  if(be)be.addEventListener('click',()=>setFuelExplode(!fuelExploded));
+  if(bt)bt.addEventListener('click',()=>{
+    if(fuelTour){ clearTimeout(fuelTour); fuelTour=null; bt.textContent='▶ 零件巡讲'; selectFuelPart(null); return; }
+    if(fuelExploded)setFuelExplode(false);
+    bt.textContent='⏹ 停止巡讲';
+    let i=0;
+    const step=()=>{ if(i>=FUEL_PARTS.length){ fuelTour=null; bt.textContent='▶ 零件巡讲'; selectFuelPart(null); return; } selectFuelPart(FUEL_PARTS[i].id); i++; fuelTour=setTimeout(step,1400); };
+    step();
+  });
+  const bo=$('#btnInjectorToggle');
+  if(bo)bo.addEventListener('click',()=>{
+    injectorOn=!injectorOn;
+    bo.textContent=injectorOn?'⏹ 断电（关闭）':'⚡ 通电（喷油）';
+    const st=$('#injectorState'); if(st)st.textContent=injectorOn?'当前状态：通电 · 磁场吸引电枢，针阀打开喷油':'当前状态：断电 · 弹簧关闭';
+  });
+})();
+/* ---------- 3D 燃油系统模型（three.js，含燃油流动） ---------- */
+let fuel3dInited=false;
+function initFuel3D(){
+  const box=$('#fuel3dBox'), note=$('#fuel3dNote');
+  if(!box)return;
+  box.style.display=''; note.textContent='正在加载 three.js 组件…（首次可能需 10~20 秒）';
+  loadThree().then(ok=>{
+    if(!ok){ note.textContent='⚠️ 3D 组件加载失败（网络原因），可稍后重试。'; box.style.display='none'; fuel3dInited=false; const b=$('#btnFuel3D'); if(b){b.disabled=false;b.textContent='▶ 加载 3D 模型';} return; }
+    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 观察燃油流动路径';
+    const b=$('#btnFuel3D'); if(b){b.disabled=false;b.textContent='🙈 隐藏 3D';}
+    buildFuel3D(box);
+  });
+}
+function buildFuel3D(box){
+  const THREE=window.THREE;
+  const W=box.clientWidth||600, H=box.clientHeight||430;
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0d1b36);
+  const camera=new THREE.PerspectiveCamera(45,W/H,0.1,100);
+  camera.position.set(0,2.2,7.2);
+  let renderer=null;
+  try{ renderer=new THREE.WebGLRenderer({antialias:true}); }
+  catch(e){ const n=$('#fuel3dNote'); if(n)n.textContent='⚠️ 当前设备不支持 3D（WebGL 不可用）。'; return; }
+  renderer.setSize(W,H); renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  box.innerHTML=''; box.appendChild(renderer.domElement);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x2a3f6e,0.85));
+  const key=new THREE.DirectionalLight(0xffffff,1.0); key.position.set(3,7,6); scene.add(key);
+  const fill=new THREE.DirectionalLight(0x66aaff,0.45); fill.position.set(-5,-2,-5); scene.add(fill);
+  const grid=new THREE.GridHelper(10,20,0x2a3f6e,0x1b2b4d); grid.position.y=-1.5; scene.add(grid);
+  const grp=new THREE.Group(); scene.add(grp);
+  const M=(c,o)=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,metalness:.7,roughness:.3,clearcoat:.5},o||{}));
+  const matBlue=M(0x1e3a5f,{metalness:.4}), matGold=M(0xfbbf24,{metalness:.9,roughness:.25}), matSteel=M(0x94a3b8), matGlass=new THREE.MeshPhysicalMaterial({color:0x38bdf8,transparent:true,opacity:.25,roughness:.15});
+  /* 部件沿 x 轴排列：油箱 → 油泵 → 滤清器 → 压力调节器 → 喷油器 */
+  const parts=[
+    {x:-3.4,label:'油箱 fuel tank',mesh:new THREE.Mesh(new THREE.BoxGeometry(1.1,1.0,1.1),matBlue)},
+    {x:-1.9,label:'燃油泵 fuel pump',mesh:new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,1.0,20),matSteel)},
+    {x:-0.6,label:'滤清器 filter',mesh:new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.42,0.9,20),matGold)},
+    {x:0.8,label:'压力调节器 regulator',mesh:new THREE.Mesh(new THREE.BoxGeometry(0.8,0.7,0.8),matSteel)},
+    {x:2.2,label:'喷油器 injector',mesh:new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,1.1,18),matGold)}
+  ];
+  parts.forEach((p,i)=>{
+    p.mesh.position.set(p.x,(i===4?0.5:0),0); grp.add(p.mesh);
+    const lbl=makeLabel(p.label); lbl.position.set(p.x,1.15,0); grp.add(lbl);
+  });
+  /* 油管 */
+  for(let i=0;i<parts.length-1;i++){
+    const x1=parts[i].x+0.5, x2=parts[i+1].x-0.5;
+    const tube=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,Math.max(0.2,x2-x1),12),matGlass);
+    tube.rotation.z=Math.PI/2; tube.position.set((x1+x2)/2,0,0); grp.add(tube);
+  }
+  /* 燃油粒子（沿 x 轴流动） */
+  const drops=[];
+  for(let i=0;i<26;i++){
+    const d=new THREE.Mesh(new THREE.SphereGeometry(0.075,10,10),matGold);
+    d.userData.t=i/26; grp.add(d); drops.push(d);
+  }
+  /* 文字标签（用 canvas 贴图） */
+  function makeLabel(text){
+    const c=document.createElement('canvas'); c.width=512; c.height=64;
+    const g=c.getContext('2d');
+    g.fillStyle='rgba(13,27,54,0.85)'; g.fillRect(0,0,512,64);
+    g.font='bold 30px sans-serif'; g.fillStyle='#7dd3fc'; g.textAlign='center'; g.textBaseline='middle';
+    g.fillText(text,256,32);
+    const tex=new THREE.CanvasTexture(c);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true}));
+    sp.scale.set(2.0,0.25,1);
+    return sp;
+  }
+  /* 交互 */
+  let ry=0, rx=0.1, zoom=1, dragging=false, px=0, py=0;
+  renderer.domElement.style.cursor='grab';
+  renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;renderer.domElement.style.cursor='grabbing';});
+  window.addEventListener('pointermove',e=>{ if(!dragging)return; ry+=(e.clientX-px)*0.008; rx+=(e.clientY-py)*0.006; rx=Math.max(-0.8,Math.min(0.8,rx)); px=e.clientX;py=e.clientY; });
+  window.addEventListener('pointerup',()=>{dragging=false;renderer.domElement.style.cursor='grab';});
+  renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(0.55,Math.min(2.2,zoom*(e.deltaY>0?1.08:0.93)));},{passive:false});
+  let t=0;
+  function loop(){
+    t+=0.006;
+    drops.forEach(d=>{
+      d.userData.t=(d.userData.t+0.004)%1;
+      const x=-3.9+d.userData.t*6.2;
+      d.position.set(x,Math.sin(d.userData.t*Math.PI*6)*0.06,0);
+    });
+    grp.rotation.y=ry; grp.rotation.x=rx;
+    camera.position.set(0,2.2*zoom,7.2*zoom);
+    camera.lookAt(0,0.2,0);
+    renderer.render(scene,camera);
+    requestAnimationFrame(loop);
+  }
+  loop();
+  window.addEventListener('resize',()=>{ const w=box.clientWidth,h=box.clientHeight; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h); });
+}
+(function(){
+  const b=$('#btnFuel3D'); if(!b)return;
+  b.addEventListener('click',()=>{
+    if(fuel3dInited){
+      const box=$('#fuel3dBox'); const hidden=box.style.display==='none';
+      box.style.display=hidden?'':'none'; b.textContent=hidden?'🙈 隐藏 3D':'🔄 显示 3D'; return;
+    }
+    fuel3dInited=true; b.disabled=true; b.textContent='⏳ 加载中…';
+    initFuel3D();
+  });
+})();
+/* ---------- 课程三练习：连线 + 读音 ---------- */
+(function(){
+  const PAIRS3=[['化油器','carburetor'],['喷油器','injector'],['燃油滤清器','fuel filter'],['燃油泵','fuel pump'],['燃油箱','fuel tank'],['传感器','sensor'],['螺线管','solenoid'],['节流阀','throttle']];
+  const mb=$('#matchBox3');
+  if(mb){
+    const left=PAIRS3.map((p,i)=>({i,zh:p[0]}));
+    const right=PAIRS3.map((p,i)=>({i,en:p[1]})).sort(()=>Math.random()-.5);
+    let sel=null, done=0;
+    const colL=document.createElement('div'); colL.className='match-col';
+    const colR=document.createElement('div'); colR.className='match-col';
+    const render=()=>{
+      colL.innerHTML=''; colR.innerHTML='';
+      left.forEach(it=>{
+        const b=document.createElement('button');
+        b.className='match-item'+(it.ok?' done':''); b.textContent=it.zh;
+        if(!it.ok)b.addEventListener('click',()=>{ sel=it; render(); });
+        if(sel===it)b.classList.add('sel');
+        colL.appendChild(b);
+      });
+      right.forEach(it=>{
+        const b=document.createElement('button');
+        b.className='match-item'+(it.ok?' done':''); b.textContent=it.en;
+        if(!it.ok)b.addEventListener('click',()=>{
+          if(!sel){ toast('请先点左边的中文'); return; }
+          if(sel.i===it.i){ sel.ok=true; it.ok=true; done++; sel=null; render();
+            $('#matchMsg3').textContent='已配对 '+done+' / '+PAIRS3.length+(done===PAIRS3.length?' 🎉 全部正确！':'');
+          } else { b.classList.add('wrong'); setTimeout(()=>b.classList.remove('wrong'),420); toast('❌ 配对错误，再想想'); }
+        });
+        colR.appendChild(b);
+      });
+    };
+    mb.appendChild(colL); mb.appendChild(colR); render();
+  }
+  const READ3=['carburetor','injection','supply','combustible','injector','contaminant','subsystem','sensor','hose','preset','energize','spring','current','coil','solenoid','magnetic','armature','squirt','throttle','pedal','depress','circuit','resistance','voltage'];
+  const rb=$('#readBox3');
+  if(rb){
+    rb.innerHTML=READ3.map(w=>'<span style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);border:1px solid #fcd34d;color:#92400e;font-size:13.5px;padding:5px 10px 5px 14px;border-radius:999px;font-weight:700">'+w+'<button class="speak-btn" data-t="'+w+'" data-l="en-US" style="width:26px;height:26px;font-size:13px">🔊</button></span>').join('');
+    rb.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
+  }
+})();
+/* 课程三导入打字机 */
+(function(){
+  const txt='俗话说"人是铁，饭是钢"——发动机也要"吃饭"，它喝的这种液体就是燃料。这节课我们拆开燃油系统：从油箱、油泵、滤清器，一直到电控喷油器，看看燃油是怎么被精确喷进发动机的！⛽';
+  const box=$('#typedIntro3'); if(!box)return;
+  const io=new IntersectionObserver(es=>{
+    if(es[0].isIntersecting){ io.disconnect();
+      let i=0; const step=()=>{ if(i<=txt.length){ box.innerHTML=txt.slice(0,i)+'<span class="caret"></span>'; i++; setTimeout(step,50); } else box.innerHTML=txt+'<span class="caret"></span>'; };
+      setTimeout(step,400);
+    }
+  },{threshold:.2});
+  io.observe(box);
 })();
 
 /* ================= 单词大作战 2D 小游戏 ================= */
@@ -2814,7 +3423,8 @@ const GAME=(function(){
   /* 单词库：每个大关一个数组，后续更新单词往对应数组追加即可 */
   const WORD_BANK=[
     VOCAB.map(v=>({en:v.en, zh:v.zh})),    /* 课程一词库（22 词） */
-    VOCAB2.map(v=>({en:v.en, zh:v.zh}))    /* 课程二词库（12 词） */
+    VOCAB2.map(v=>({en:v.en, zh:v.zh})),   /* 课程二词库（12 词） */
+    VOCAB3.map(v=>({en:v.en, zh:v.zh}))    /* 课程三词库（24 词） */
   ];
   const ROUND_SIZE=8;
   const CN_NUM=['一','二','三','四','五','六','七','八'];
@@ -3036,7 +3646,10 @@ initReveal();
 buildExplode();
 buildSystems();
 buildCylinders();
-buildQuiz();
+const QUIZ1=createQuiz({box:'#quizBox',bar:'#qBar',questions:QUESTIONS});
+createQuiz({box:'#quizBox2',bar:'#qBar2',questions:QUESTIONS2});
+if(document.querySelector('#quizBox3'))createQuiz({box:'#quizBox3',bar:'#qBar3',questions:QUESTIONS3});
+window.__QUIZ=QUIZ1;
 buildMindmap();
 /* PWA：注册 Service Worker（离线缓存） */
 if('serviceWorker'in navigator && location.protocol==='https:'){
