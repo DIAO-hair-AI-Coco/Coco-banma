@@ -77,11 +77,37 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 
 /* ============ 章节通用 ============ */
 /* ============ 左右翻页布局 ============ */
-.pages{display:flex;flex-direction:row;width:100vw;height:100vh;transition:transform .55s cubic-bezier(.5,0,.2,1);will-change:transform}
+.pages{position:relative;width:100vw;height:100vh;overflow:hidden}
+.course-track{display:flex;flex-direction:row;width:100vw;height:100vh;transition:transform .55s cubic-bezier(.5,0,.2,1);will-change:transform}
 .page{flex:0 0 100vw;height:100vh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-margin-top:0}
 .page-inner{max-width:1100px;margin:0 auto;padding:76px 16px 110px}
 #sec-intro .page-inner{padding-top:24px}
 .page > .hero{margin:0;padding:80px 20px 30px}
+/* ============ 系列课程：首页 & 视图 ============ */
+.view{display:none}
+.view.active{display:block}
+#homeView{min-height:100vh;overflow-y:auto;background:radial-gradient(1000px 520px at 72% -8%,#1d4ed8 0%,transparent 58%),linear-gradient(160deg,#0b1b3a 0%,#123061 58%,#0e2a5c 100%);color:#fff}
+.home-inner{max-width:1020px;margin:0 auto;padding:72px 20px 70px}
+.home-title{font-size:clamp(24px,4.4vw,40px);font-weight:800;text-align:center;letter-spacing:.5px}
+.home-title em{font-style:normal;background:linear-gradient(90deg,#7dd3fc,#fbbf24);-webkit-background-clip:text;background-clip:text;color:transparent}
+.home-sub{text-align:center;color:#bcd0ef;margin-top:12px;font-size:15px}
+.home-sec{font-size:13.5px;font-weight:800;color:#9db8e6;letter-spacing:2px;margin:34px 0 12px}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.course-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:22px;cursor:pointer;transition:.25s;backdrop-filter:blur(8px);text-align:left;color:#fff;position:relative;overflow:hidden}
+.course-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.15);box-shadow:0 18px 38px rgba(0,0,0,.34)}
+.course-card .ci{font-size:34px}
+.course-card .ct{font-size:19px;font-weight:800;margin-top:10px;line-height:1.4}
+.course-card .ce{font-size:12.5px;color:#9db8e6;margin-top:5px}
+.course-card .cd{font-size:13.5px;color:#bcd0ef;margin-top:10px;line-height:1.75}
+.course-card .cb{margin-top:16px;display:inline-block;font-size:13px;font-weight:700;background:var(--primary);padding:8px 18px;border-radius:999px}
+.course-card .cnum{position:absolute;right:16px;top:14px;font-size:12px;font-weight:800;color:#7f9bd0;background:rgba(255,255,255,.1);padding:4px 12px;border-radius:999px}
+.course-card.game{background:linear-gradient(140deg,rgba(251,191,36,.2),rgba(239,68,68,.14));border-color:rgba(251,191,36,.42)}
+.course-card.game .cb{background:var(--accent);color:#3b2506}
+.home-back{position:fixed;top:12px;left:14px;z-index:970;display:none;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;color:var(--primary-d);cursor:pointer;box-shadow:var(--shadow)}
+.home-back:hover{background:var(--primary-l)}
+.home-back.show{display:inline-flex}
+.home-stats{text-align:center;color:#7f9bd0;font-size:12.5px;margin-top:26px}
+@media(max-width:900px){.home-inner{padding:58px 16px 60px}.home-back{top:auto;bottom:68px;left:50%;transform:translateX(-50%)}}
 /* 翻页控件 */
 .page-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:950;display:flex;align-items:center;gap:10px;background:rgba(15,23,42,.85);color:#e2e8f0;padding:8px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(8px)}
 .page-nav button{width:34px;height:34px;border-radius:50%;background:#1d4ed8;color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;transition:.2s}
@@ -321,8 +347,45 @@ footer b{color:#cfe0ff}
   .four-controls{width:100%;justify-content:center}
   .hero .car{width:min(230px,40vw)}
 }
-/* ============ 单词大作战 游戏 ============ */
-.game-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+/* ============ 课程二：活塞与连杆总成 ============ */
+.lesson-hero{position:relative;color:#fff;background:radial-gradient(900px 480px at 70% -10%,#0e7490 0%,transparent 58%),linear-gradient(160deg,#0b1b3a,#123061 60%,#0f3a52);padding:80px 20px 34px;text-align:center;overflow:hidden}
+.lesson-hero h1{font-size:clamp(24px,4.6vw,42px);font-weight:800;line-height:1.3}
+.lesson-hero h1 em{font-style:normal;background:linear-gradient(90deg,#7dd3fc,#fbbf24);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lesson-hero .sub{margin-top:12px;color:#bcd0ef;font-size:clamp(14px,2.2vw,18px)}
+.lesson-hero .meta{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;font-size:13px;color:#9db8e6}
+.lesson-hero .meta span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:5px 12px;border-radius:999px}
+.lesson-hero .badge{display:inline-flex;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:7px 16px;border-radius:999px;font-size:13px;letter-spacing:1px;margin-bottom:16px}
+.lesson-hero .teacher{font-size:13px;font-weight:700;background:rgba(251,191,36,.16);border:1px solid rgba(251,191,36,.55);padding:4px 14px;border-radius:999px;vertical-align:middle;margin-left:12px;white-space:nowrap}
+.parts-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.parts-hint{font-size:12.5px;color:var(--muted)}
+#pistonSvg{width:100%;height:auto;background:linear-gradient(180deg,#0d1b36,#16264d);border-radius:14px;display:block}
+#pistonSvg .part{cursor:pointer;transition:transform .55s cubic-bezier(.5,0,.2,1)}
+#pistonSvg .part:hover .shp{filter:drop-shadow(0 0 6px rgba(56,189,248,.9))}
+#pistonSvg .part.sel .shp{filter:drop-shadow(0 0 8px rgba(251,191,36,.95))}
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-item{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px;font-size:14.5px;font-weight:700;cursor:pointer;transition:.18s;text-align:left;color:var(--ink)}
+.match-item:hover{border-color:var(--primary);background:var(--primary-l)}
+.match-item.sel{border-color:var(--accent);background:var(--accent-l)}
+.match-item.done{border-color:var(--good);background:var(--good-l);color:#14532d;cursor:default;opacity:.88}
+.match-item.wrong{border-color:var(--bad);background:var(--bad-l);animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.blank-line{font-size:15px;line-height:2.4;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+[data-theme="dark"] .blank-line{background:#121c31}
+.blank-line input{width:130px;padding:4px 8px;font-size:14px;font-weight:700;border:2px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);text-align:center;font-family:var(--font)}
+.blank-line input.ok{border-color:var(--good);background:var(--good-l)}
+.blank-line input.no{border-color:var(--bad);background:var(--bad-l)}
+.tree{margin-top:6px}
+.tree-root{display:inline-block;background:linear-gradient(135deg,var(--primary),#3b82f6);color:#fff;font-weight:800;padding:12px 22px;border-radius:14px;font-size:16px}
+.tree-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px;padding-left:10px;border-left:3px solid var(--primary-l)}
+.tree-node{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+[data-theme="dark"] .tree-node{background:#121c31}
+.tree-node b{display:block;font-size:15.5px;color:var(--primary-d);margin-bottom:8px}
+.tree-node ul{margin:0;padding-left:18px;font-size:14px;line-height:2}
+.tree-node .tz{color:var(--muted);font-size:12.5px;margin-left:6px}
+@media(max-width:700px){.match-wrap{grid-template-columns:1fr}}
+
+/* ============ 单词大作战 游戏 ============ */.game-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
 .diff-group{display:flex;gap:8px;flex-wrap:wrap}
 .diff-btn{border:2px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;font-weight:800;font-size:13px;color:var(--muted);transition:.2s}
 .diff-btn.on{border-color:var(--primary);background:var(--primary);color:#fff}
@@ -430,23 +493,36 @@ nav.tabs{background:rgba(255,255,255,.68);backdrop-filter:blur(18px);-webkit-bac
 <body>
 <div id="progressBar"></div>
 
-<!-- 导航 -->
-<nav class="tabs" id="topTabs" aria-label="课程章节导航">
-  <div class="inner" id="tabInner">
-    <a href="#sec-intro" data-sec="sec-intro"><span class="num">01</span>导入</a>
-    <a href="#sec-vocab" data-sec="sec-vocab"><span class="num">02</span>单词短语</a>
-    <a href="#sec-reading" data-sec="sec-reading"><span class="num">03</span>课文阅读</a>
-    <a href="#sec-explode" data-sec="sec-explode"><span class="num">04</span>爆炸图</a>
-    <a href="#sec-systems" data-sec="sec-systems"><span class="num">05</span>发动机系统</a>
-    <a href="#sec-cylinders" data-sec="sec-cylinders"><span class="num">06</span>气缸排列</a>
-    <a href="#sec-four" data-sec="sec-four"><span class="num">07</span>四冲程动画</a>
-    <a href="#sec-quiz" data-sec="sec-quiz"><span class="num">08</span>闯关练习</a>
-    <a href="#sec-mindmap" data-sec="sec-mindmap"><span class="num">09</span>知识总结</a>
+<!-- ========== 首页：课程目录 ========== -->
+<div id="homeView" class="view active">
+  <div class="home-inner">
+    <div class="home-title">汽车专业英语 <em>系列课程</em></div>
+    <p class="home-sub">Automotive Professional English · 交互式双语动画课程</p>
+    <p class="home-stats">👩‍🏫 授课人：孔梦琳 · 共 <b id="homeCourseNum">2</b> 门课程（持续更新）</p>
+    <div class="home-sec">📚 课程列表 / COURSES</div>
+    <div class="course-grid" id="courseGrid"></div>
+    <div class="home-sec">🎮 互动游戏 / GAMES</div>
+    <div class="course-grid">
+      <button class="course-card game" id="homeGameCard">
+        <div class="ci">🧟</div>
+        <div class="ct">单词大作战</div>
+        <div class="ce">Word Defense · 塔防式单词记忆游戏</div>
+        <div class="cd">英文单词是植物，中文僵尸来袭！选对英文发射子弹消灭僵尸，含三档难度、关卡化词库与连击计分。</div>
+        <span class="cb">▶ 进入游戏</span>
+      </button>
+    </div>
   </div>
+</div>
+
+<!-- ========== 课程视图（章节导航 + 左右翻页） ========== -->
+<div id="courseView" class="view">
+<nav class="tabs" id="topTabs" aria-label="课程章节导航">
+  <div class="inner" id="tabInner"></div>
 </nav>
-<button class="theme-btn" id="themeBtn" title="切换深色/浅色主题">🌙</button>
+<button class="home-back" id="homeBack">‹ 课程目录</button>
 
 <div id="pages" class="pages">
+<div class="course-track" id="track-engine">
 <!-- ========== 01 导入（第 1 页：封面 + 导入） ========== -->
 <section id="sec-intro" class="page">
   <header class="hero">
@@ -679,34 +755,7 @@ nav.tabs{background:rgba(255,255,255,.68);backdrop-filter:blur(18px);-webkit-bac
     <div class="sec-num">08</div>
     <h2>闯关练习 · 学完测一测<small>QUIZ — 选择题 + 判断题 · 抽人回答，即时反馈</small></h2>
   </div>
-  <div class="card game-card">
-    <h3>🎮 单词大作战 <span class="en">Word Defense — 英语单词是植物，中文僵尸来袭！</span></h3>
-    <p style="font-size:14px;color:var(--muted)">中文僵尸从右向左进攻，从下方<b>英文植物卡片</b>中选出正确单词发射子弹消灭它们！<b>选错</b>僵尸会集体逼近，僵尸走到最左会<b>吃掉脑子</b>。脑子被吃光就……你懂的 😈</p>
-    <div class="game-bar">
-      <div class="diff-group" id="gameLevels"></div>
-      <div class="diff-group" id="gameDiff">
-        <button class="diff-btn" data-diff="easy">🟢 简单</button>
-        <button class="diff-btn on" data-diff="normal">🟡 一般</button>
-        <button class="diff-btn" data-diff="hard">🔴 困难</button>
-      </div>
-      <button class="btn" id="btnGameStart">▶ 开始游戏</button>
-    </div>
-    <div id="gameBox" class="game-box">
-      <canvas id="gameCanvas" width="640" height="360" aria-label="单词大作战游戏画布"></canvas>
-      <div id="gamePlants" class="game-plants" style="display:none"></div>
-      <div id="gameOver" class="game-overlay" style="display:none">
-        <div class="dead-char">菜</div>
-        <div class="dead-sub">菜就多练</div>
-        <button class="btn warn" id="btnGameRetry">🔄 再来一局</button>
-      </div>
-      <div id="gameWin" class="game-overlay" style="display:none">
-        <div class="win-char">🏆</div>
-        <div class="win-sub" id="winText">通关成功！</div>
-        <button class="btn" id="btnGameNext">▶ 下一关</button>
-      </div>
-    </div>
-    <p class="stage-note" id="gameNote" style="margin-top:10px">选择难度后点「开始游戏」。难度越高僵尸越快、脑子越少。</p>
-  </div>
+  <div class="tip" style="margin-bottom:14px">💡 <span><b>提示：</b>想边玩边记单词？到首页的 <b>🎮 单词大作战</b> 玩塔防背单词游戏（可自选课程词库）。</span></div>
   <div class="quiz-shell">
     <div class="q-progress"><i id="qBar" style="width:0%"></i></div>
     <div id="quizBox"></div>
@@ -755,7 +804,190 @@ flowchart TB
   </footer>
 </div>
 </section>
+</div><!-- /track-engine -->
+
+<!-- ========== 课程二：Piston and Rod Assembly（活塞与连杆总成） ========== -->
+<div class="course-track" id="track-piston" style="display:none">
+  <!-- ========== 课程二 · 01 导入 ========== -->
+  <section id="sec2-intro" class="page">
+    <header class="lesson-hero">
+      <div class="badge">⚙️ UNIT-3 · 第 2 课</div>
+      <h1>活塞与连杆总成 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Piston and Rod Assembly</em></h1>
+      <p class="sub">发动机最核心的机械构件 · 中英双语 + 零件模型动画</p>
+      <div class="meta"><span>🧩 零件动画</span><span>🇬🇧 English / 🇨🇳 中文</span><span>🎮 配套游戏</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — THE PISTON AND ROD ASSEMBLY</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>⚙️ 发动机里最核心的机械构件</h4>
+          <p>在发动机中，最核心的机械构件就是<b style="color:var(--primary-d)">活塞连杆组（Piston and Rod Assembly）</b>，其性能的好坏直接影响到发动机各种性能的发挥。</p>
+          <div class="keyline"><span>piston 活塞</span><span>connecting rod 连杆</span><span>crankpin 曲柄销</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>那么，活塞连杆组的<b style="color:var(--power)">组成与工作过程</b>是怎样的呢？</p>
+          <p style="margin-top:8px">本节课我们用<b>零件模型动画</b>把它拆开看：活塞由哪些部分组成？活塞环有几种？连杆怎样与曲轴连接？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 12 个专业单词 &amp; 短语</span>
+          <span>✅ 活塞组件的 5 个组成部分</span>
+          <span>✅ 活塞环的两种类型</span>
+          <span>✅ 连杆的结构与作用</span>
+          <span>✅ 零件模型动画（爆炸图 + 3D）</span>
+        </div>
+        <div class="typed" id="typedIntro2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 02 单词与短语 ========== -->
+  <section id="sec2-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab2Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>这 12 个词是活塞连杆组的核心术语。点击 🔊 可听<b>真人发音</b>；配合下一页的<b>零件模型动画</b>对照记忆效果更好。</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 03 零件模型动画 ========== -->
+  <section id="sec2-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 活塞组件<small>PARTS ANIMATION — 爆炸图 + 3D 机构联动</small></h2></div>
+      <div class="card">
+        <h3>🧩 活塞组件爆炸图 <span class="en">Exploded View — 点数字看零件名称</span></h3>
+        <div class="parts-tools">
+          <button class="btn ghost" id="btnPistonExplode" style="padding:8px 16px;font-size:13px">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnPistonTour" style="padding:8px 16px;font-size:13px">▶ 零件巡讲</button>
+          <span class="parts-hint">点击编号可查看中英文名称</span>
+        </div>
+        <svg id="pistonSvg" viewBox="0 0 640 700"></svg>
+        <div class="info-panel" id="pistonInfo">
+          <div class="n" id="pistonInfoN">?</div>
+          <div><div class="e" id="pistonInfoE">点击零件编号</div>
+          <div class="z" id="pistonInfoZ">查看中英文名称与说明</div>
+          <div class="d" id="pistonInfoD">活塞连杆组由活塞、活塞环、活塞销、连杆等零件组成。</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🧊 3D 活塞 - 连杆 - 曲轴机构 <span class="en">3D Motion — 拖拽旋转 · 活塞往复</span></h3>
+        <p style="font-size:14px;color:var(--muted)">拖动旋转、滚轮缩放，观察<b>活塞上下往复</b>、<b>连杆摆动</b>与<b>曲轴旋转</b>的联动关系。</p>
+        <div class="center" style="margin-top:10px"><button class="btn" id="btnPiston3D">▶ 加载 3D 机构动画</button></div>
+        <div id="piston3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0d1b36;margin-top:12px"></div>
+        <p class="stage-note" id="piston3dNote">点击按钮加载 three.js 3D 机构（需联网）。</p>
+      </div>
+      <div class="card">
+        <h3>🔍 活塞组件组成 <span class="en">Components of a Piston</span></h3>
+        <div class="grid3" id="pistonPartsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 04 课文阅读 ========== -->
+  <section id="sec2-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文学习 · 活塞与连杆<small>READING — PISTON AND CONNECTING ROD</small></h2></div>
+      <div class="card reading" id="reading2Card1">
+        <h3>📖 课文 1 · 活塞的作用 <span class="en">Piston Functions</span></h3>
+        <div class="en-text">The piston is a <span class="hl">cylindrical</span> shaped <span class="hl">hollow</span> part, it moves up and down inside the engine cylinder. The piston absorbs heat from the gas and this heat must be carried away if the metal temperature is to be held within safe limits.</div>
+        <div class="zh-text">活塞是一个在发动机气缸中上下移动的<b>中空的圆筒状</b>塞子。活塞从气体中吸热，假如要使金属的温度保持在安全限度以内，就必须散热。</div>
+      </div>
+      <div class="card reading" id="reading2Card2">
+        <h3>📖 课文 2 · 活塞组件 <span class="en">The Components of a Piston</span></h3>
+        <div class="en-text">The piston consists of <span class="hl">piston head</span>, <span class="hl">piston rings</span>, <span class="hl">piston lands</span>, <span class="hl">piston skirt</span> and <span class="hl">piston pinhole</span>. The piston head is the top surface against which the <span class="hl">explosive force</span> is exerted. The piston rings are installed in <span class="hl">grooves</span>. There are two types of rings, <span class="hl">compression rings</span> and <span class="hl">oil-control rings</span>. The piston lands are parts of piston between the ring grooves, it provides a seating surface for the sides of piston rings. The piston skirt forms a bearing area in contact with the cylinder wall. The piston pinhole in the piston is used to connect the connecting rod.</div>
+        <div class="zh-text">活塞由<b>顶部、活塞环、环槽岸、裙部和活塞销座孔</b>组成。活塞顶部是活塞的上表面，燃烧所产生的<b>爆炸力</b>作用于此。活塞环安装在<b>凹槽</b>中，分为两种：<b>气环</b>和<b>油环</b>。活塞环槽之间的部位称为环槽岸，为活塞环两端提供支承面。活塞裙部形成活塞与缸壁的接触支承面。活塞销座孔用来连接活塞和连杆。</div>
+      </div>
+      <div class="card reading" id="reading2Card3">
+        <h3>📖 课文 3 · 连杆 <span class="en">Connecting Rod</span></h3>
+        <div class="en-text">The connecting rod is attached to the crankshaft at <span class="hl">big end</span> and to the piston at the <span class="hl">small end</span>. And it must be strong and <span class="hl">rigid</span> and light in weight as well. The connecting rod is composed of connecting rod small end, connecting rod <span class="hl">shank</span>, connecting rod big end, connecting rod <span class="hl">cap</span> and connecting rod <span class="hl">bearing half shells</span>.</div>
+        <div class="zh-text">连杆<b>大头</b>与曲轴相连，<b>小头</b>与活塞配合。它必须有足够的强度和刚度，并且质量要尽可能轻。连杆由小头、<b>杆身</b>、大头、连杆<b>盖</b>和<b>轴瓦</b>组成。</div>
+      </div>
+      <div class="tip">🔍 <span><b>记忆要点：</b>活塞 = 顶 + 环 + 环槽岸 + 裙 + 销座孔；活塞环分<b>气环（compression ring）</b>与<b>油环（oil-control ring）</b>；连杆 = 小头 + 杆身 + 大头 + 连杆盖 + 轴瓦。</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 05 闯关练习 ========== -->
+  <section id="sec2-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线 + 填空 + 读音</small></h2></div>
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <p style="font-size:14px;color:var(--muted)">把中文与正确的英文配对（共 8 组）。</p>
+        <div class="match-wrap" id="matchBox"></div>
+        <div class="msgline" id="matchMsg">已配对 0 / 8</div>
+      </div>
+      <div class="card">
+        <h3>✏️ 练习 2 · 课文填空 <span class="en">Fill in the Blanks</span></h3>
+        <p style="font-size:14px;color:var(--muted)">根据课文内容填入正确的英文单词，输入后点「检查」。</p>
+        <div id="blankBox"></div>
+        <div class="center" style="margin-top:12px"><button class="btn" id="btnCheckBlanks">✅ 检查答案</button></div>
+        <div class="q-feedback" id="blankFb"></div>
+      </div>
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud — 点 🔊 听发音后跟读</span></h3>
+        <div class="keyline" id="readBox"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 06 知识总结 ========== -->
+  <section id="sec2-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Piston &amp; Rod Assembly</span></h3>
+        <div class="tree">
+          <div class="tree-root">⚙️ 活塞连杆组 Piston &amp; Rod Assembly</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>活塞 Piston</b>
+              <ul>
+                <li>活塞顶 piston head <span class="tz">承受爆炸力</span></li>
+                <li>活塞环 piston ring <span class="tz">气环 / 油环</span></li>
+                <li>环槽岸 piston land <span class="tz">环的支承面</span></li>
+                <li>裙部 piston skirt <span class="tz">与缸壁接触</span></li>
+                <li>销座孔 pinhole <span class="tz">连接连杆</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>活塞销 piston pin</b>
+              <ul>
+                <li>连接活塞与连杆小头</li>
+                <li>承受往复惯性力</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>连杆 Connecting Rod</b>
+              <ul>
+                <li>小头 small end <span class="tz">连活塞</span></li>
+                <li>杆身 shank <span class="tz">传递力</span></li>
+                <li>大头 big end <span class="tz">连曲轴</span></li>
+                <li>连杆盖 cap</li>
+                <li>轴瓦 bearing half shells</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📌 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 活塞是圆筒状中空零件，在气缸内上下往复</span>
+          <span>② 活塞吸热必须散热（安全温度限值）</span>
+          <span>③ 活塞 = 顶 + 环 + 环槽岸 + 裙 + 销座孔</span>
+          <span>④ 活塞环两种：气环 compression ring、油环 oil-control ring</span>
+          <span>⑤ 连杆大头连曲轴、小头连活塞，须强、刚、轻</span>
+          <span>⑥ crankpin 曲柄销把爆发力传给曲轴</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「活塞与连杆总成」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
 </div>
+</div><!-- /#pages -->
 
 <div class="page-nav" id="pageNav">
   <button id="btnPrev" disabled title="上一页（←）">‹</button>
@@ -765,6 +997,46 @@ flowchart TB
 </div>
 <button class="side-arrow" id="arrowPrev" title="上一页">‹</button>
 <button class="side-arrow" id="arrowNext" title="下一页">›</button>
+</div><!-- /#courseView -->
+
+<!-- ========== 游戏视图 ========== -->
+<div id="gameView" class="view">
+  <nav class="tabs" aria-label="游戏导航">
+    <div class="inner"><button class="home-back show" id="gameBack" style="position:static">‹ 课程目录</button></div>
+  </nav>
+  <div style="max-width:940px;margin:0 auto;padding:80px 16px 70px">
+    <div class="card game-card">
+      <h3>🎮 单词大作战 <span class="en">Word Defense — 英语单词是植物，中文僵尸来袭！</span></h3>
+      <p style="font-size:14px;color:var(--muted)">中文僵尸从右向左进攻，从下方<b>英文植物卡片</b>中选出正确单词发射子弹消灭它们！<b>选错</b>会扣分并让僵尸逼近，僵尸碰到人会把人吃掉，人全没了就……你懂的 😈</p>
+      <div class="game-bar">
+        <div class="diff-group" id="gameLevels"></div>
+        <div class="diff-group" id="gameDiff">
+          <button class="diff-btn" data-diff="easy">🟢 简单</button>
+          <button class="diff-btn on" data-diff="normal">🟡 一般</button>
+          <button class="diff-btn" data-diff="hard">🔴 困难</button>
+        </div>
+        <button class="btn" id="btnGameStart">▶ 开始游戏</button>
+      </div>
+      <div id="gameBox" class="game-box">
+        <canvas id="gameCanvas" width="640" height="360" aria-label="单词大作战游戏画布"></canvas>
+        <div id="gamePlants" class="game-plants" style="display:none"></div>
+        <div id="gameOver" class="game-overlay" style="display:none">
+          <div class="dead-char">菜</div>
+          <div class="dead-sub">菜就多练</div>
+          <button class="btn warn" id="btnGameRetry">🔄 再来一局</button>
+        </div>
+        <div id="gameWin" class="game-overlay" style="display:none">
+          <div class="win-char">🏆</div>
+          <div class="win-sub" id="winText">通关成功！</div>
+          <button class="btn" id="btnGameNext">▶ 下一关</button>
+        </div>
+      </div>
+      <p class="stage-note" id="gameNote" style="margin-top:10px">选择难度后点「开始游戏」。难度越高僵尸越快、人越少。</p>
+    </div>
+  </div>
+</div>
+
+<button class="theme-btn" id="themeBtn" title="切换深色/浅色主题">🌙</button>
 
 <div class="toast" id="toast"></div>
 
@@ -1052,68 +1324,131 @@ function initReveal(){
   els.forEach(el=>io.observe(el));
 }
 
-/* ---------- 左右翻页 ---------- */
-const PAGES=['sec-intro','sec-vocab','sec-reading','sec-explode','sec-systems','sec-cylinders','sec-four','sec-quiz','sec-mindmap'];
-const progBar=$('#progressBar'), tabLinks=$$('#topTabs a');
-let curPage=0;
+/* ================= 系列课程：数据 + 视图路由 + 翻页 ================= */
+const COURSES=[
+  { id:'engine', icon:'🔧', name:'发动机基本概念与运行原理',
+    en:'Engine · Basic Concepts & Operating Principles',
+    desc:'从"汽车的心脏"讲起：22 个专业单词、16 个零部件爆炸图、五大系统、气缸排列、四冲程原理动画。',
+    track:'track-engine',
+    pages:['sec-intro','sec-vocab','sec-reading','sec-explode','sec-systems','sec-cylinders','sec-four','sec-quiz','sec-mindmap'],
+    tabs:['导入','单词短语','课文阅读','爆炸图','发动机系统','气缸排列','四冲程动画','闯关练习','知识总结'] },
+  { id:'piston', icon:'⚙️', name:'活塞与连杆总成',
+    en:'UNIT-3 · Piston and Rod Assembly',
+    desc:'发动机最核心的机械构件：12 个专业单词、活塞组件零件模型动画（爆炸图 + 3D）、连杆结构、中英对照课文与练习。',
+    track:'track-piston',
+    pages:['sec2-intro','sec2-vocab','sec2-parts','sec2-text','sec2-quiz','sec2-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','闯关练习','知识总结'] }
+];
+const progBar=$('#progressBar');
+let curCourse=0, curPage=0;
+const course=()=>COURSES[curCourse];
+const trackEl=()=>$('#'+course().track);
+const trackPages=()=>course().pages;
+function renderTabs(){
+  const box=$('#tabInner'); if(!box)return;
+  box.innerHTML='';
+  trackPages().forEach((sec,i)=>{
+    const a=document.createElement('a');
+    a.href='#'+sec; a.dataset.sec=sec;
+    a.innerHTML='<span class="num">'+String(i+1).padStart(2,'0')+'</span>'+course().tabs[i];
+    a.addEventListener('click',e=>{ e.preventDefault(); if(speechSynthesis&&speechSynthesis.speaking)speechSynthesis.cancel(); goTo(i); });
+    box.appendChild(a);
+  });
+}
 function goTo(i,instant){
-  i=Math.max(0,Math.min(PAGES.length-1,i));
-  if(i===curPage){ return; }
+  const pages=trackPages();
+  i=Math.max(0,Math.min(pages.length-1,i));
   curPage=i;
-  const p=$('#pages');
-  if(instant)p.style.transition='none';
-  p.style.transform='translateX('+(-curPage*100)+'vw)';
-  if(instant){ requestAnimationFrame(()=>{ p.style.transition=''; }); }
-  progBar.style.width=(curPage/(PAGES.length-1)*100)+'%';
-  tabLinks.forEach(a=>a.classList.toggle('active',a.dataset.sec===PAGES[curPage]));
-  const pc=$('#pageCnt'); if(pc)pc.textContent=(curPage+1)+' / '+PAGES.length;
-  const bp=$('#btnPrev'), bn=$('#btnNext'); if(bp)bp.disabled=curPage===0; if(bn)bn.disabled=curPage===PAGES.length-1;
-  const ap=$('#arrowPrev'), an=$('#arrowNext'); if(ap)ap.disabled=curPage===0; if(an)an.disabled=curPage===PAGES.length-1;
-  $$('#pageDots i').forEach((d,idx)=>d.classList.toggle('on',idx===curPage));
-  const pe=$('#'+PAGES[curPage]);
+  const p=trackEl();
+  if(p){
+    if(instant)p.style.transition='none';
+    p.style.transform='translateX('+(-curPage*100)+'vw)';
+    if(instant){ requestAnimationFrame(()=>{ p.style.transition=''; }); }
+  }
+  progBar.style.width=(pages.length>1?(curPage/(pages.length-1)*100):0)+'%';
+  $$('#tabInner a').forEach(a=>a.classList.toggle('active',a.dataset.sec===pages[curPage]));
+  const pc=$('#pageCnt'); if(pc)pc.textContent=(curPage+1)+' / '+pages.length;
+  const bp=$('#btnPrev'), bn=$('#btnNext'); if(bp)bp.disabled=curPage===0; if(bn)bn.disabled=curPage===pages.length-1;
+  const ap=$('#arrowPrev'), an=$('#arrowNext'); if(ap)ap.disabled=curPage===0; if(an)an.disabled=curPage===pages.length-1;
+  const dots=$('#pageDots'); if(dots){ dots.innerHTML=pages.map((_,k)=>'<i'+(k===curPage?' class="on"':'')+'></i>').join(''); }
+  const pe=$('#'+pages[curPage]);
   if(pe){
     pe.scrollTop=0;
     const inner=pe.querySelector('.page-inner');
     if(inner){ inner.classList.remove('page-enter'); void inner.offsetWidth; inner.classList.add('page-enter'); }
   }
-  if(PAGES[curPage]==='sec-four'&&window.__FOUR&&window.__FOUR.autoplay)window.__FOUR.autoplay();
-  /* 学习进度记录 */
+  if(pages[curPage]==='sec-four'&&window.__FOUR&&window.__FOUR.autoplay)window.__FOUR.autoplay();
+  if(pages[curPage]==='sec2-parts'&&window.__PARTS&&window.__PARTS.auto)window.__PARTS.auto();
   try{
     const learned=JSON.parse(localStorage.getItem('dse-learned')||'{}');
-    learned[PAGES[curPage]]=1;
+    learned[pages[curPage]]=1;
     localStorage.setItem('dse-learned', JSON.stringify(learned));
     const n=Object.keys(learned).length;
-    const pt=$('#progressText'); if(pt)pt.textContent='已学 '+n+'/'+PAGES.length+' 页';
+    const total=COURSES.reduce((s,c)=>s+c.pages.length,0);
+    const pt=$('#progressText'); if(pt)pt.textContent='已学 '+n+'/'+total+' 页';
   }catch(e){}
 }
-tabLinks.forEach(a=>a.addEventListener('click',e=>{
-  e.preventDefault();
-  if(speechSynthesis&&speechSynthesis.speaking)speechSynthesis.cancel();
-  goTo(PAGES.indexOf(a.dataset.sec));
-}));
-$('#btnPrev').addEventListener('click',()=>goTo(curPage-1));
-$('#btnNext').addEventListener('click',()=>goTo(curPage+1));
-$('#arrowPrev').addEventListener('click',()=>goTo(curPage-1));
-$('#arrowNext').addEventListener('click',()=>goTo(curPage+1));
+/* 视图切换：首页 / 课程 / 游戏 */
+function showView(v){
+  ['homeView','courseView','gameView'].forEach(id=>{ const e=$('#'+id); if(e)e.classList.remove('active'); });
+  const map={home:'#homeView',course:'#courseView',game:'#gameView'};
+  const t=$(map[v]); if(t)t.classList.add('active');
+  const hb=$('#homeBack'); if(hb)hb.classList.toggle('show',v==='course');
+  if(v!=='course'){ const pb=$('#pageNav'); if(pb)pb.style.display='none'; const sa=$$('.side-arrow'); sa.forEach(s=>s.style.display='none'); }
+  else { const pb=$('#pageNav'); if(pb)pb.style.display='flex'; const sa=$$('.side-arrow'); sa.forEach(s=>s.style.display=''); }
+  window.scrollTo(0,0);
+}
+function openCourse(idx){
+  curCourse=idx; curPage=0;
+  COURSES.forEach((c,k)=>{ const t=$('#'+c.track); if(t)t.style.display=(k===idx?'flex':'none'); });
+  renderTabs();
+  showView('course');
+  goTo(0,true);
+}
+function openGame(){ showView('game'); if(window.__GAME&&window.__GAME.refreshLevels)window.__GAME.refreshLevels(); }
+function openHome(){ showView('home'); }
+function renderHome(){
+  const g=$('#courseGrid'); if(!g)return;
+  g.innerHTML='';
+  COURSES.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='course-card';
+    b.innerHTML='<div class="cnum">第 '+(i+1)+' 课</div><div class="ci">'+c.icon+'</div><div class="ct">'+c.name+'</div><div class="ce">'+c.en+'</div><div class="cd">'+c.desc+'</div><span class="cb">▶ 开始学习</span>';
+    b.addEventListener('click',()=>openCourse(i));
+    g.appendChild(b);
+  });
+  const n=$('#homeCourseNum'); if(n)n.textContent=COURSES.length;
+}
+$('#btnPrev')&&$('#btnPrev').addEventListener('click',()=>goTo(curPage-1));
+$('#btnNext')&&$('#btnNext').addEventListener('click',()=>goTo(curPage+1));
+$('#arrowPrev')&&$('#arrowPrev').addEventListener('click',()=>goTo(curPage-1));
+$('#arrowNext')&&$('#arrowNext').addEventListener('click',()=>goTo(curPage+1));
+$('#homeBack')&&$('#homeBack').addEventListener('click',openHome);
+$('#gameBack')&&$('#gameBack').addEventListener('click',openHome);
+$('#homeGameCard')&&$('#homeGameCard').addEventListener('click',openGame);
 document.addEventListener('keydown',e=>{
+  const cv=$('#courseView'); if(!cv||!cv.classList.contains('active'))return;
   if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();goTo(curPage+1);}
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goTo(curPage-1);}
   else if(e.key==='Home'){goTo(0);}
-  else if(e.key==='End'){goTo(PAGES.length-1);}
+  else if(e.key==='End'){goTo(trackPages().length-1);}
 });
-/* 触摸左右滑动翻页（在可横向滚动区域内的滑动除外） */
+/* 触摸左右滑动翻页 */
 let touchX=null;
 document.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;},{passive:true});
 document.addEventListener('touchend',e=>{
   if(touchX===null)return;
+  const cv=$('#courseView');
+  if(!cv||!cv.classList.contains('active')){ touchX=null; return; }
   const dx=e.changedTouches[0].clientX-touchX;
   const t=e.target;
   const inner=t.closest&&(t.closest('.mind-scroll')||t.closest('.vocab-table')||t.closest('.flash-card')||t.closest('.page-nav'));
   if(Math.abs(dx)>60&&!inner){ if(dx<0)goTo(curPage+1); else goTo(curPage-1); }
   touchX=null;
 },{passive:true});
-window.__PAGES={goTo,get cur(){return curPage;}};
-goTo(0,true);
+
+renderHome();
+window.__PAGES={goTo,openCourse,openHome,openGame,get cur(){return curPage;},get course(){return curCourse;},get courses(){return COURSES;}};
 
 /* ---------- 导入：打字机 ---------- */
 (function(){
@@ -1857,7 +2192,7 @@ function buildQuiz(){
           <button class="btn ghost" id="qBack">📖 回看动画复习</button>
         </div></div>`;
       $('#qAgain').addEventListener('click',()=>{qi=0;score=0;answered=0;done=false;$('#qBar').style.width='0%';render();});
-      $('#qBack').addEventListener('click',()=>{ if(window.__PAGES)window.__PAGES.goTo(6); });
+      $('#qBack').addEventListener('click',()=>{ if(window.__PAGES){ window.__PAGES.goTo(window.__PAGES.course===1?2:6); } });
       return;
     }
     const q=QUESTIONS[qi], isTF=q.ty==='tf', isSpell=q.ty==='spell';
@@ -2147,6 +2482,330 @@ function buildMindmap(){
   show(TREE);
 }
 
+/* ================= 课程二：活塞与连杆总成 ================= */
+const VOCAB2=[
+ {en:'cylindrical',ipa:"[si'lindrikl]",zh:'圆筒状的',ty:'adj.'},
+ {en:'hollow',ipa:"['hɒləʊ]",zh:'中空的',ty:'adj.'},
+ {en:'piston ring',ipa:'',zh:'活塞环',ty:'n.短语'},
+ {en:'piston land',ipa:'',zh:'活塞环槽岸',ty:'n.短语'},
+ {en:'piston skirt',ipa:'',zh:'活塞裙部',ty:'n.短语'},
+ {en:'pinhole',ipa:"['pinhəul]",zh:'销座孔',ty:'n.'},
+ {en:'explosive force',ipa:'',zh:'爆破力、爆炸力',ty:'n.短语'},
+ {en:'groove',ipa:'[gru:v]',zh:'凹槽',ty:'n.'},
+ {en:'crankpin',ipa:"['kræŋkpin]",zh:'曲柄销、曲柄针',ty:'n.'},
+ {en:'piston pin',ipa:'',zh:'活塞销',ty:'n.短语'},
+ {en:'thrust',ipa:'[θrʌst]',zh:'推力',ty:'n.'},
+ {en:'rigid',ipa:"['ridʒid]",zh:'坚硬的',ty:'adj.'}
+];
+(function(){
+  const box=$('#vocab2Card'); if(!box)return;
+  let html='<div class="card" style="padding:8px;overflow-x:auto"><table class="vocab-table"><tr><th style="width:44px">序号</th><th>英文 English</th><th>音标 IPA</th><th style="width:70px">词性</th><th>中文</th><th style="width:64px">发音</th></tr>';
+  VOCAB2.forEach((v,i)=>{ html+='<tr><td>2.'+(i+1)+'</td><td class="en">'+v.en+'</td><td class="ipa">'+(v.ipa||'—')+'</td><td style="color:var(--muted);font-size:12.5px">'+v.ty+'</td><td class="zh">'+v.zh+'</td><td><button class="speak-btn" data-t="'+v.en+'" data-l="en-US">🔊</button></td></tr>'; });
+  html+='</table></div>';
+  box.innerHTML=html;
+  box.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
+})();
+/* 活塞组件组成列表 */
+const PISTON_COMPONENTS=[
+ {en:'piston head',zh:'活塞顶',d:'活塞的上表面，燃烧产生的爆炸力作用于此。'},
+ {en:'piston ring',zh:'活塞环',d:'安装在环槽中，分气环（compression ring）和油环（oil-control ring）。'},
+ {en:'piston land',zh:'环槽岸',d:'活塞环槽之间的部位，为活塞环两端提供支承面。'},
+ {en:'piston skirt',zh:'活塞裙部',d:'形成活塞与气缸壁的接触支承面（导向与承压）。'},
+ {en:'piston pinhole',zh:'销座孔',d:'用来安装活塞销，连接活塞与连杆。'},
+ {en:'connecting rod',zh:'连杆',d:'小头连活塞、大头连曲轴，须有足够强度、刚度且质量轻。'}
+];
+(function(){
+  const box=$('#pistonPartsList'); if(!box)return;
+  box.innerHTML=PISTON_COMPONENTS.map(c=>'<div class="qa-card" style="padding:14px"><div style="font-weight:800;font-size:15px">'+c.en+'</div><div style="font-size:13.5px;color:var(--primary-d);font-weight:700;margin-top:2px">'+c.zh+'</div><div style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.7">'+c.d+'</div></div>').join('');
+})();
+/* ---------- 活塞组件爆炸图（SVG + 爆炸/组装 + 点击标注 + 巡讲） ---------- */
+const PISTON_PARTS=[
+ {id:1,en:'piston ring',zh:'活塞环',desc:'安装在活塞环槽中，分气环与油环，起密封燃气、刮油布油的作用。',b:[470,158],ex:[0,-168]},
+ {id:2,en:'piston pin',zh:'活塞销',desc:'穿过活塞销座孔，把活塞与连杆小头连接起来，承受往复惯性力。',b:[470,282],ex:[0,-104]},
+ {id:3,en:'piston head',zh:'活塞顶',desc:'活塞的上表面，燃烧产生的爆炸力（explosive force）作用于此。',b:[190,168],ex:[0,0]},
+ {id:4,en:'piston land',zh:'环槽岸',desc:'活塞环槽之间的部位，为活塞环两侧提供支承面。',b:[190,212],ex:[0,0]},
+ {id:5,en:'piston skirt',zh:'活塞裙部',desc:'活塞下部的导向承压面，形成与气缸壁的接触支承面。',b:[190,330],ex:[0,0]},
+ {id:6,en:'pinhole',zh:'销座孔',desc:'活塞上的圆孔，用来安装活塞销以连接连杆。',b:[320,398],ex:[0,0]},
+ {id:7,en:'connecting rod small end',zh:'连杆小头',desc:'套在活塞销上，与活塞连接的一端。',b:[470,352],ex:[0,64]},
+ {id:8,en:'connecting rod shank',zh:'连杆杆身',desc:'连接小头与大头的杆部，传递往复与旋转运动，须强、刚、轻。',b:[470,432],ex:[0,64]},
+ {id:9,en:'connecting rod big end',zh:'连杆大头',desc:'与曲轴（曲柄销 crankpin）连接的一端。',b:[470,522],ex:[0,120]},
+ {id:10,en:'connecting rod cap',zh:'连杆盖',desc:'连杆大头的分体部分，用螺栓与大头合装夹紧曲柄销。',b:[470,608],ex:[0,196]},
+ {id:11,en:'bearing half shells',zh:'轴瓦',desc:'装在大头与连杆盖内的减摩轴承，保护曲柄销。',b:[380,560],ex:[0,152]},
+ {id:12,en:'crankpin',zh:'曲柄销',desc:'曲轴上与连杆大头相连的销轴，把活塞的力传给曲轴。',b:[250,560],ex:[0,120]}
+];
+let pistonExploded=false, pistonSel=null, pistonTour=null;
+function buildPistonAnim(){
+  const svg=$('#pistonSvg'); if(!svg)return;
+  svg.innerHTML='';
+  const rect=(g,x,y,w,h,fill,ex)=>{const r=el('rect',Object.assign({x,y,width:w,height:h,fill},ex||{}),g);r.classList.add('shp');return r;};
+  const circ=(g,cx,cy,r,fill,ex)=>{const c=el('circle',Object.assign({cx,cy,r,fill},ex||{}),g);c.classList.add('shp');return c;};
+  const path=(g,d,fill,ex)=>{const p=el('path',Object.assign({d,fill},ex||{}),g);p.classList.add('shp');return p;};
+  PISTON_PARTS.forEach(p=>{
+    const g=el('g',{'class':'part','data-id':p.id},svg);
+    switch(p.id){
+      case 1: /* 活塞环 ×2 */
+        rect(g,236,190,168,16,'#fbbf24',{rx:6,stroke:'#b45309','stroke-width':2});
+        rect(g,236,216,168,14,'#f59e0b',{rx:6,stroke:'#92400e','stroke-width':2});
+        break;
+      case 2: /* 活塞销 */
+        rect(g,272,266,96,32,'#cbd5e1',{rx:8,stroke:'#64748b','stroke-width':2});
+        circ(g,320,282,9,'#475569');
+        break;
+      case 3: /* 活塞顶 */
+        path(g,'M232 150 L408 150 L408 186 L232 186 Z','#e2e8f0',{stroke:'#94a3b8','stroke-width':2});
+        break;
+      case 4: /* 环槽岸（环槽之间的部位） */
+        rect(g,232,186,176,58,'#cbd5e1',{stroke:'#94a3b8','stroke-width':2});
+        rect(g,232,200,176,5,'#64748b');
+        rect(g,232,224,176,5,'#64748b');
+        break;
+      case 5: /* 裙部 */
+        path(g,'M232 244 L408 244 L408 396 L232 396 Z','#cbd5e1',{stroke:'#94a3b8','stroke-width':2});
+        break;
+      case 6: /* 销座孔 */
+        circ(g,320,282,40,'#0f172a',{stroke:'#64748b','stroke-width':3});
+        break;
+      case 7: /* 连杆小头 */
+        circ(g,320,340,40,'none',{stroke:'#94a3b8','stroke-width':14});
+        break;
+      case 8: /* 连杆杆身 */
+        path(g,'M304 372 L336 372 L346 486 L294 486 Z','#94a3b8');
+        break;
+      case 9: /* 连杆大头（含轴瓦孔） */
+        circ(g,320,520,58,'#94a3b8');
+        circ(g,320,520,34,'#0f172a',{stroke:'#64748b','stroke-width':3});
+        break;
+      case 10: /* 连杆盖 */
+        path(g,'M262 520 A58 58 0 0 0 378 520 L378 552 A58 58 0 0 1 262 552 Z','#94a3b8',{stroke:'#64748b','stroke-width':2});
+        break;
+      case 11: /* 轴瓦 */
+        path(g,'M286 520 A34 34 0 0 0 354 520 L354 536 A34 34 0 0 1 286 536 Z','#fde68a',{stroke:'#b45309','stroke-width':2});
+        break;
+      case 12: /* 曲柄销 */
+        circ(g,320,520,20,'#fbbf24',{stroke:'#b45309','stroke-width':2});
+        break;
+    }
+    const bg=el('g',{},g);
+    el('circle',{class:'badge-circle',cx:p.b[0],cy:p.b[1],r:12},bg);
+    el('text',{class:'badge-text',x:p.b[0],y:p.b[1],text:p.id},bg);
+    g.addEventListener('click',()=>selectPistonPart(p.id));
+  });
+}
+function selectPistonPart(id){
+  $$('#pistonSvg .part').forEach(g=>g.classList.toggle('sel',g.dataset.id==String(id)));
+  const n=$('#pistonInfoN'),e=$('#pistonInfoE'),z=$('#pistonInfoZ'),d=$('#pistonInfoD');
+  if(id==null){ n.textContent='?'; e.textContent='点击零件编号'; z.textContent='查看中英文名称与说明'; d.textContent='活塞连杆组由活塞、活塞环、活塞销、连杆等零件组成。'; pistonSel=null; return; }
+  const p=PISTON_PARTS.find(x=>x.id===id); pistonSel=id;
+  n.textContent=p.id; e.textContent=p.en; z.textContent=p.zh; d.textContent=p.desc;
+}
+function setPistonExplode(on){
+  pistonExploded=on;
+  PISTON_PARTS.forEach(p=>{
+    const g=$('#pistonSvg .part[data-id="'+p.id+'"]');
+    if(g)g.style.transform=on?('translate('+p.ex[0]+'px,'+p.ex[1]+'px)'):'';
+  });
+  const b=$('#btnPistonExplode'); if(b)b.textContent=on?'🔩 重新组装':'💥 爆炸拆解';
+}
+(function(){
+  buildPistonAnim();
+  const be=$('#btnPistonExplode'), bt=$('#btnPistonTour');
+  if(be)be.addEventListener('click',()=>setPistonExplode(!pistonExploded));
+  if(bt)bt.addEventListener('click',()=>{
+    if(pistonTour){ clearTimeout(pistonTour); pistonTour=null; bt.textContent='▶ 零件巡讲'; selectPistonPart(null); return; }
+    if(pistonExploded)setPistonExplode(false);
+    bt.textContent='⏹ 停止巡讲';
+    let i=0;
+    const step=()=>{
+      if(i>=PISTON_PARTS.length){ pistonTour=null; bt.textContent='▶ 零件巡讲'; selectPistonPart(null); return; }
+      selectPistonPart(PISTON_PARTS[i].id); i++;
+      pistonTour=setTimeout(step,1500);
+    };
+    step();
+  });
+})();
+/* ---------- 3D 活塞-连杆-曲轴机构（three.js） ---------- */
+let piston3dInited=false;
+function initPiston3D(){
+  const box=$('#piston3dBox'), note=$('#piston3dNote');
+  if(!box)return;
+  box.style.display='';
+  note.textContent='正在加载 three.js 组件…';
+  loadThree().then(ok=>{
+    if(!ok){ note.textContent='⚠️ 3D 组件加载失败（网络原因），可稍后重试；不影响其他内容。'; box.style.display='none'; piston3dInited=false; const b=$('#btnPiston3D'); if(b){b.disabled=false;b.textContent='▶ 加载 3D 机构动画';} return; }
+    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 活塞往复 / 连杆摆动 / 曲轴旋转';
+    const b=$('#btnPiston3D'); if(b){b.disabled=false;b.textContent='🙈 隐藏 3D';}
+    buildPiston3D(box);
+  });
+}
+function buildPiston3D(box){
+  const THREE=window.THREE;
+  const W=box.clientWidth||600, H=box.clientHeight||430;
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0d1b36);
+  const camera=new THREE.PerspectiveCamera(45,W/H,0.1,100);
+  camera.position.set(2.4,1.4,4.6);
+  let renderer=null;
+  try{ renderer=new THREE.WebGLRenderer({antialias:true}); }
+  catch(e){ const n=$('#piston3dNote'); if(n)n.textContent='⚠️ 当前设备不支持 3D（WebGL 不可用）。'; return; }
+  renderer.setSize(W,H); renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  box.innerHTML=''; box.appendChild(renderer.domElement);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x2a3f6e,0.8));
+  const key=new THREE.DirectionalLight(0xffffff,1.0); key.position.set(4,7,6); scene.add(key);
+  const fill=new THREE.DirectionalLight(0x66aaff,0.45); fill.position.set(-5,-3,-5); scene.add(fill);
+  const grid=new THREE.GridHelper(7,14,0x2a3f6e,0x1b2b4d); grid.position.y=-1.5; scene.add(grid);
+  const grp=new THREE.Group(); scene.add(grp);
+  const M=(c,o)=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,metalness:.75,roughness:.3,clearcoat:.6},o||{}));
+  const matAl=M(0xcbd5e1), matSteel=M(0x94a3b8), matGold=M(0xfbbf24,{metalness:.9,roughness:.25});
+  const matGlass=new THREE.MeshPhysicalMaterial({color:0x38bdf8,metalness:.2,roughness:.15,transparent:true,opacity:.16,side:THREE.DoubleSide});
+  /* 气缸（半透明）+ 缸盖 */
+  const cyl=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,2.0,36,1,true),matGlass);
+  cyl.position.y=1.3; grp.add(cyl);
+  const head=new THREE.Mesh(new THREE.CylinderGeometry(0.53,0.53,0.14,36),M(0x475569));
+  head.position.y=2.36; grp.add(head);
+  /* 活塞组（活塞 + 活塞环 + 活塞销） */
+  const pistonG=new THREE.Group(); grp.add(pistonG);
+  pistonG.add(new THREE.Mesh(new THREE.CylinderGeometry(0.46,0.46,0.44,36),matAl));
+  const r1=new THREE.Mesh(new THREE.TorusGeometry(0.465,0.03,8,36),matGold); r1.rotation.x=Math.PI/2; r1.position.y=0.14; pistonG.add(r1);
+  const r2=new THREE.Mesh(new THREE.TorusGeometry(0.465,0.026,8,36),matGold); r2.rotation.x=Math.PI/2; r2.position.y=0.04; pistonG.add(r2);
+  const pinMesh=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,0.94,20),matSteel); pinMesh.rotation.z=Math.PI/2; pistonG.add(pinMesh);
+  /* 曲轴 */
+  const R=0.42, L=1.3;
+  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,1.6,20),matSteel); shaft.rotation.z=Math.PI/2; grp.add(shaft);
+  const webG=new THREE.Group(); grp.add(webG);
+  const web=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.42*2,0.14),matSteel); web.position.y=0; webG.add(web);
+  const counter=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.4,20),matSteel); counter.rotation.x=Math.PI/2; counter.position.y=-0.3; webG.add(counter);
+  /* 连杆（动态） */
+  const V3=(x,y,z)=>new THREE.Vector3(x,y,z);
+  const up=new THREE.Vector3(0,1,0), dir=new THREE.Vector3();
+  function cylBetween(v1,v2,r,mat){
+    const d=new THREE.Vector3().subVectors(v2,v1); const len=d.length();
+    const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r,r,len,14),mat);
+    mesh.position.copy(v1).add(v2).multiplyScalar(.5);
+    mesh.quaternion.setFromUnitVectors(up,d.clone().normalize());
+    return mesh;
+  }
+  const rod=cylBetween(V3(0,0,0),V3(0,0.9,0),0.075,matSteel); grp.add(rod);
+  const rodSmall=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.045,10,24),matGold); grp.add(rodSmall);
+  const rodBig=new THREE.Mesh(new THREE.TorusGeometry(0.19,0.055,10,26),matGold); grp.add(rodBig);
+  /* 交互 */
+  let ry=0.5, rx=0.12, zoom=1, dragging=false, px=0, py=0;
+  renderer.domElement.style.cursor='grab';
+  renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;renderer.domElement.style.cursor='grabbing';});
+  window.addEventListener('pointermove',e=>{ if(!dragging)return; ry+=(e.clientX-px)*0.008; rx+=(e.clientY-py)*0.008; rx=Math.max(-1.2,Math.min(1.2,rx)); px=e.clientX;py=e.clientY; });
+  window.addEventListener('pointerup',()=>{dragging=false;renderer.domElement.style.cursor='grab';});
+  renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(0.55,Math.min(2.4,zoom*(e.deltaY>0?1.08:0.93)));},{passive:false});
+  /* 运动动画：真实曲柄连杆 */
+  const pinY=t=>R*Math.cos(t)+Math.sqrt(Math.max(0,L*L-Math.pow(R*Math.sin(t),2)));
+  let t=0;
+  function loop(){
+    t+=0.016; const a=t;
+    const py=pinY(a);
+    const cp=V3(0,R*Math.cos(a),R*Math.sin(a));      /* 曲柄销 */
+    const pp=V3(0,py,0);                              /* 活塞销 */
+    pistonG.position.set(0,py,0);
+    rod.position.copy(pp).add(cp).multiplyScalar(.5);
+    dir.subVectors(cp,pp); rod.quaternion.setFromUnitVectors(up,dir.clone().normalize());
+    rodSmall.position.copy(pp);
+    rodBig.position.copy(cp);
+    webG.rotation.x=a;
+    if(!dragging) ry+=0.0022;
+    grp.rotation.y=ry; grp.rotation.x=rx;
+    camera.position.set(2.4*zoom,1.4*zoom,4.6*zoom);
+    camera.lookAt(0,1.1,0);
+    renderer.render(scene,camera);
+    requestAnimationFrame(loop);
+  }
+  loop();
+  window.addEventListener('resize',()=>{ const w=box.clientWidth,h=box.clientHeight; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h); });
+}
+(function(){
+  const b=$('#btnPiston3D'); if(!b)return;
+  b.addEventListener('click',()=>{
+    if(piston3dInited){
+      const box=$('#piston3dBox'); const hidden=box.style.display==='none';
+      box.style.display=hidden?'':'none'; b.textContent=hidden?'🙈 隐藏 3D':'🔄 显示 3D'; return;
+    }
+    piston3dInited=true; b.disabled=true; b.textContent='⏳ 加载中…';
+    initPiston3D();
+  });
+})();
+/* 课程二导入打字机 */
+(function(){
+  const txt='活塞是发动机的"心脏瓣膜"——它在气缸里不断上下往复，承受着燃烧的爆炸力，还要把热量散出去。这节课我们用零件模型动画，把活塞和连杆一层层拆开看清楚！Let\'s go! ⚙️';
+  const box=$('#typedIntro2'); if(!box)return;
+  let started=false;
+  const io=new IntersectionObserver(es=>{
+    if(es[0].isIntersecting&&!started){ started=true; io.disconnect();
+      let i=0; const step=()=>{ if(i<=txt.length){ box.innerHTML=txt.slice(0,i)+'<span class="caret"></span>'; i++; setTimeout(step,55); } else box.innerHTML=txt+'<span class="caret"></span>'; };
+      setTimeout(step,400);
+    }
+  },{threshold:.2});
+  io.observe(box);
+  window.__PARTS={auto(){ if(!started){ started=true; io.disconnect(); let i=0; const step=()=>{ if(i<=txt.length){ box.innerHTML=txt.slice(0,i)+'<span class="caret"></span>'; i++; setTimeout(step,55); } else box.innerHTML=txt+'<span class="caret"></span>'; }; step(); } }};
+})();
+/* ---------- 课程二练习：连线配对 / 课文填空 / 读音练习 ---------- */
+(function(){
+  const PAIRS=[['气缸套','cylinder sleeve'],['浇铸','cast'],['铝','aluminum'],['铁','iron'],['钢','steel'],['曲轴','crankshaft'],['气缸盖','cylinder head'],['飞轮','flywheel']];
+  const mb=$('#matchBox');
+  if(mb){
+    const left=PAIRS.map((p,i)=>({i,zh:p[0]}));
+    const right=PAIRS.map((p,i)=>({i,en:p[1]})).sort(()=>Math.random()-.5);
+    let sel=null, done=0;
+    const colL=document.createElement('div'); colL.className='match-col';
+    const colR=document.createElement('div'); colR.className='match-col';
+    const render=()=>{
+      colL.innerHTML=''; colR.innerHTML='';
+      left.forEach((it,idx)=>{
+        const b=document.createElement('button');
+        b.className='match-item'+(it.ok?' done':''); b.textContent=it.zh;
+        if(!it.ok)b.addEventListener('click',()=>{ sel=it; render(); });
+        else if(sel===it)sel=null;
+        if(sel===it)b.classList.add('sel');
+        colL.appendChild(b);
+      });
+      right.forEach(it=>{
+        const b=document.createElement('button');
+        b.className='match-item'+(it.ok?' done':''); b.textContent=it.en;
+        if(!it.ok)b.addEventListener('click',()=>{
+          if(!sel){ toast('请先点左边的中文'); return; }
+          if(sel.i===it.i){ sel.ok=true; it.ok=true; done++; sel=null; render();
+            $('#matchMsg').textContent='已配对 '+done+' / '+PAIRS.length+(done===PAIRS.length?' 🎉 全部正确！':'');
+          } else { b.classList.add('wrong'); setTimeout(()=>b.classList.remove('wrong'),420); toast('❌ 配对错误，再想想'); }
+        });
+        colR.appendChild(b);
+      });
+    };
+    mb.appendChild(colL); mb.appendChild(colR); render();
+  }
+  const BLANKS=[
+    {b:'The piston is a', a:'shaped hollow part.', ans:'cylindrical'},
+    {b:'The piston', a:'are installed in grooves.', ans:'rings'},
+    {b:'The piston', a:'forms a bearing area in contact with the cylinder wall.', ans:'skirt'},
+    {b:'The connecting rod is attached to the crankshaft at', a:'end.', ans:'big'}
+  ];
+  const bb=$('#blankBox');
+  if(bb){
+    bb.innerHTML=BLANKS.map((x,i)=>'<div class="blank-line">'+x.b+' <input data-i="'+i+'" placeholder="填入单词" autocomplete="off"> '+x.a+'</div>').join('');
+    const cb=$('#btnCheckBlanks');
+    if(cb)cb.addEventListener('click',()=>{
+      let ok=0;
+      bb.querySelectorAll('input').forEach(inp=>{
+        const i=Number(inp.dataset.i);
+        const right=inp.value.trim().toLowerCase()===BLANKS[i].ans.toLowerCase();
+        inp.classList.toggle('ok',right); inp.classList.toggle('no',!right);
+        if(right)ok++;
+      });
+      const fb=$('#blankFb'); fb.className='q-feedback show '+(ok===BLANKS.length?'ok':'no');
+      fb.innerHTML='<b>'+(ok===BLANKS.length?'✅ 全部正确！':'答对 '+ok+' / '+BLANKS.length)+'</b> 参考答案：'+BLANKS.map(x=>x.ans).join('、');
+    });
+  }
+  const READ=['avoid','arc','brace','brush','cage','charge','chuck','dissipate','crank','curb','drain','draught','drum','employ','fail','float','gauge','horn','hose','jig'];
+  const rb=$('#readBox');
+  if(rb){
+    rb.innerHTML=READ.map(w=>'<span style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);border:1px solid #fcd34d;color:#92400e;font-size:13.5px;padding:5px 10px 5px 14px;border-radius:999px;font-weight:700">'+w+'<button class="speak-btn" data-t="'+w+'" data-l="en-US" style="width:26px;height:26px;font-size:13px">🔊</button></span>').join('');
+    rb.querySelectorAll('.speak-btn').forEach(b=>bindSpeak(b,b.dataset.t,'en-US'));
+  }
+})();
+
 /* ================= 单词大作战 2D 小游戏 ================= */
 const GAME=(function(){
   const cv=$('#gameCanvas'), ctx=cv.getContext('2d');
@@ -2154,8 +2813,8 @@ const GAME=(function(){
   const rowY=r=>r*ROW_H+ROW_H/2;
   /* 单词库：每个大关一个数组，后续更新单词往对应数组追加即可 */
   const WORD_BANK=[
-    VOCAB.map(v=>({en:v.en, zh:v.zh})),   /* 关卡一：现有 22 词 */
-    []                                     /* 关卡二：后续更新单词加这里 */
+    VOCAB.map(v=>({en:v.en, zh:v.zh})),    /* 课程一词库（22 词） */
+    VOCAB2.map(v=>({en:v.en, zh:v.zh}))    /* 课程二词库（12 词） */
   ];
   const ROUND_SIZE=8;
   const CN_NUM=['一','二','三','四','五','六','七','八'];
@@ -2165,7 +2824,7 @@ const GAME=(function(){
       if(!words.length)return;
       const rounds=[];
       for(let j=0;j<words.length;j+=ROUND_SIZE) rounds.push(words.slice(j,j+ROUND_SIZE));
-      lv.push({name:'关卡'+CN_NUM[i]+'（'+words.length+'词）', rounds});
+      lv.push({name:'课程'+CN_NUM[i]+'（'+words.length+'词）', rounds});
     });
     return lv;
   }
@@ -2368,7 +3027,7 @@ const GAME=(function(){
   })();
   raf=requestAnimationFrame(loop);
   bind();
-  window.__GAME={ get running(){return running;}, get lives(){return people.length;}, get score(){return score;}, get level(){return level;}, get diff(){return diff;}, get round(){return round;}, get rounds(){return LEVELS[level]?LEVELS[level].rounds.length:0;}, get remaining(){return queue.length+zombies.length;}, get zcount(){return zombies.length;} };
+  window.__GAME={ get running(){return running;}, get lives(){return people.length;}, get score(){return score;}, get level(){return level;}, get diff(){return diff;}, get round(){return round;}, get rounds(){return LEVELS[level]?LEVELS[level].rounds.length:0;}, get remaining(){return queue.length+zombies.length;}, get zcount(){return zombies.length;}, refreshLevels(){ renderLevels(); } };
   return {};
 })();
 
