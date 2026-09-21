@@ -99,10 +99,84 @@
     </div>
   </section>
 
-  <!-- ========== 课程二 · 05 闯关练习 ========== -->
+  <!-- ========== 课程二 · 05 拓展知识 ========== -->
+  <section id="sec2-deep" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>拓展知识 · 活塞连杆深挖<small>DEEP DIVE — 受力与传热 · 关键配合 · 常见误区</small></h2></div>
+
+      <div class="card">
+        <h3>🔬 一、活塞连杆总成是怎么把力传出去的？<span class="en">How Force and Heat Travel</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">Force from combustion 燃烧压力作用</span><span class="zhs">燃烧压力作用在<b>活塞顶部（crown）</b>，推动活塞沿缸孔下行。注意：<b>是气体压力推动活塞，连杆只负责传力</b>，不是连杆把活塞"推"下去。</span></li>
+          <li><span class="en">Gas sealing 气体密封</span><span class="zhs">环槽内的两道气环（compression rings）密封燃烧压力，一道油环（oil control ring）刮下缸壁多余机油。活塞环的作用<b>不只是密封，还负责导热</b>。</span></li>
+          <li><span class="en">Force transfer 力传递</span><span class="zhs">活塞销（piston pin）把力传入连杆小头，连杆把力转换为沿杆身方向的拉压力。杆身做成<b>工字形（I-beam）</b>截面，就是为了以最小重量承受拉压载荷。</span></li>
+          <li><span class="en">Rotation 转变为旋转</span><span class="zhs">连杆大头（big end）推动曲轴连杆颈；连杆颈与主轴颈之间的<b>偏置</b>把该力转变为曲轴扭矩，往复运动由此变成旋转运动。</span></li>
+          <li><span class="en">Wear control 磨损控制</span><span class="zhs">连杆轴瓦中的<b>流体动压油膜</b>与缸孔<b>珩磨网纹</b>上的油膜，共同避免金属与金属直接接触。</span></li>
+          <li><span class="en">Heat path 热量路径</span><span class="zhs">热量的两条路径：顶部 → 活塞环 → 缸壁 → 冷却液；顶部 → 活塞销 → 连杆 → 机油。高性能发动机还额外设置<b>活塞冷却喷嘴</b>向活塞底部喷油。</span></li>
+        </ol>
+        <div class="tip">💡 <span><b>为什么要降低往复运动质量？</b>活塞与连杆属于往复运动件，其惯性力随转速的平方增长。减轻它们的重量，就能让发动机安全地运转到更高转速——这也是铝合金活塞、工字形连杆被普遍采用的原因。</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📊 二、关键配合与数据 <span class="en">Key Fits and Figures</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>项目 Item</th><th>要点 Key point</th></tr></thead>
+          <tbody>
+            <tr><td class="en">活塞间隙<br><span class="zh">Piston clearance</span></td><td>铝合金活塞膨胀大于铸铁缸套，因此冷态必须留出间隙并采用<b>椭圆（仿形）裙部</b>；间隙过大会产生"活塞敲缸（piston slap）"，冷车时最明显。</td></tr>
+            <tr><td class="en">活塞环开口间隙<br><span class="zh">Ring end gap</span></td><td>必须按规范测量后再装配。间隙<b>过大会窜气、烧机油</b>，过小则受热后顶死、拉缸。</td></tr>
+            <tr><td class="en">轴瓦间隙<br><span class="zh">Bearing clearance</span></td><td>过小会"烧瓦"，过大则油压不足并出现敲击声。连杆轴瓦是可更换的薄壁软质轴瓦。</td></tr>
+            <tr><td class="en">连杆螺栓<br><span class="zh">Rod bolts</span></td><td>多为<b>屈服点拧紧（torque-to-yield）</b>螺栓，拆下后必须更换；专业维修常以测量<b>伸长量</b>而非扭矩来判定拧紧程度。</td></tr>
+            <tr><td class="en">重量分组<br><span class="zh">Weight matching</span></td><td>同一台发动机的活塞与连杆需按重量分组选配，以保证高转速下曲轴动平衡。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 三、结构型式对比 <span class="en">Design Choices</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>对比项</th><th>方案 A</th><th>方案 B</th></tr></thead>
+          <tbody>
+            <tr><td class="en">活塞材料<br><span class="zh">Piston material</span></td><td>铝合金：质量轻、导热好，但膨胀大</td><td>铸铁：膨胀小、耐磨，但重、导热差</td></tr>
+            <tr><td class="en">活塞销装配<br><span class="zh">Pin retention</span></td><td><b>全浮式</b>：用卡环定位，销可在活塞与连杆中转动，维修方便</td><td><b>半浮式</b>：压装在连杆小头，成本低、噪声小，但拆卸需压力机</td></tr>
+            <tr><td class="en">连杆截面<br><span class="zh">Rod shank</span></td><td><b>工字形 I-beam</b>：原厂常用，重量与强度平衡好</td><td><b>H 形 H-beam</b>：改装件常用，强度更高但更重</td></tr>
+            <tr><td class="en">活塞环张力<br><span class="zh">Ring tension</span></td><td>高张力：密封好，但摩擦损失大</td><td>低张力环组：省油，但控油性能略有牺牲</td></tr>
+            <tr><td class="en">缸孔表面<br><span class="zh">Bore finish</span></td><td>珩磨<b>交叉网纹</b>：存油、利于磨合与润滑</td><td>激光珩磨等新工艺：油膜保持更稳定</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 四、常见误区辨析 <span class="en">Common Misconceptions</span></h3>
+        <table class="vocab-table">
+          <thead><tr><th>常见错误理解</th><th>正确认识</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mis-x">✗</span> 连杆把活塞向下推。</td><td><span class="mis-v">✓</span> 是<b>燃烧气体压力</b>推动活塞，连杆只把力传递给曲轴。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 活塞环只用来密封压缩气体。</td><td><span class="mis-v">✓</span> 气环密封燃气的<b>同时把活塞热量传给缸壁</b>，油环则负责控制机油、防止烧机油。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 连杆螺栓拆下来还能再用。</td><td><span class="mis-v">✓</span> 屈服点拧紧的连杆螺栓<b>必须更换</b>，重复使用会因预紧力不足导致连杆断裂。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 活塞环开口间隙越大越安全。</td><td><span class="mis-v">✓</span> 间隙过大会造成<b>窜气与烧机油</b>、功率下降，必须按厂家规范取值。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 活塞与气缸是金属直接摩擦的。</td><td><span class="mis-v">✓</span> 二者被珩磨网纹表面上的<b>油膜</b>隔开，实现液体润滑。</td></tr>
+            <tr><td><span class="mis-x">✗</span> 活塞环越多密封越好。</td><td><span class="mis-v">✓</span> 环越多摩擦损失越大。现代发动机多用<b>两道气环 + 一道油环</b>的薄环组以降低摩擦。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>🔧 五、维修与故障判断 <span class="en">Fault Diagnosis</span></h3>
+        <ul class="kv-list">
+          <li><b>烧机油、排气冒蓝烟。</b>多为活塞环磨损、环槽积碳卡死或缸壁拉伤导致机油上窜。<span class="zhs">Blue exhaust smoke usually means worn or stuck rings, or a scored cylinder wall.</span></li>
+          <li><b>冷车"哒哒"敲击声、热车减轻。</b>典型的活塞敲缸（piston slap），源于活塞与缸壁间隙过大或裙部变形。<span class="zhs">Cold-start rattle that fades when warm is classic piston slap from excessive clearance.</span></li>
+          <li><b>曲轴箱窜气量大。</b>把机油加注口打开能感到明显脉动气流，说明活塞环密封失效、燃烧气体窜入曲轴箱。<span class="zhs">Heavy blow-by at the oil filler indicates failed ring sealing.</span></li>
+          <li><b>单缸压缩压力低。</b>可向缸内加少量机油后复测：压力明显回升说明是<b>活塞环</b>问题，无变化则多为<b>气门</b>密封不严。<span class="zhs">A wet compression test distinguishes ring wear (pressure rises) from valve leakage (no change).</span></li>
+          <li><b>连杆弯曲会造成气缸偏磨。</b>大修时必须检查连杆的直线度（alignment）与扭曲。<span class="zhs">A bent connecting rod causes uneven cylinder wear; always check rod alignment during overhaul.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 课程二 · 06 闯关练习 ========== -->
   <section id="sec2-quiz" class="page">
     <div class="page-inner">
-      <div class="sec-head"><div class="sec-num">05</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线 + 填空 + 读音</small></h2></div>
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习 · 学完测一测<small>EXERCISES — 连线配对 + 读音练习 + 选择题 + 判断题（25 题）</small></h2></div>
       <div class="card">
         <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
         <p style="font-size:14px;color:var(--muted)">把中文与正确的英文配对（共 8 组）。</p>
@@ -126,7 +200,7 @@
   <!-- ========== 课程二 · 06 知识总结 ========== -->
   <section id="sec2-summary" class="page">
     <div class="page-inner">
-      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
       <div class="card">
         <h3>🌳 知识树 <span class="en">Piston &amp; Rod Assembly</span></h3>
         <div class="tree">
