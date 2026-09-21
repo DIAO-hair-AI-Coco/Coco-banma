@@ -86,7 +86,9 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 /* ============ 系列课程：首页 & 视图 ============ */
 .view{display:none}
 .view.active{display:block}
-#homeView{min-height:100vh;overflow-y:auto;background:radial-gradient(1000px 520px at 72% -8%,#1d4ed8 0%,transparent 58%),linear-gradient(160deg,#0b1b3a 0%,#123061 58%,#0e2a5c 100%);color:#fff}
+/* body 锁滚动是为课程翻页布局服务；首页/游戏视图各自成为滚动容器（修复移动端划不动） */
+#homeView,#gameView{height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#homeView{background:radial-gradient(1000px 520px at 72% -8%,#1d4ed8 0%,transparent 58%),linear-gradient(160deg,#0b1b3a 0%,#123061 58%,#0e2a5c 100%);color:#fff}
 .home-inner{max-width:1020px;margin:0 auto;padding:72px 20px 70px}
 .home-title{font-size:clamp(24px,4.4vw,40px);font-weight:800;text-align:center;letter-spacing:.5px}
 .home-title em{font-style:normal;background:linear-gradient(90deg,#7dd3fc,#fbbf24);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -175,6 +177,25 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 .vocab-table .en{font-weight:700;font-size:15px}
 .vocab-table .ipa{color:var(--muted);font-size:13.5px;font-family:Georgia,"Times New Roman",serif}
 .vocab-table .zh{font-weight:700;color:#0f766e}
+/* ============ 拓展知识页 ============ */
+.deep-steps{counter-reset:ds;list-style:none;padding:0;margin:0}
+.deep-steps li{position:relative;padding:12px 14px 12px 54px;border-bottom:1px solid #eef2f8;font-size:14.5px;line-height:1.75}
+.deep-steps li:last-child{border-bottom:none}
+.deep-steps li::before{counter-increment:ds;content:counter(ds);position:absolute;left:14px;top:13px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#3b82f6);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.deep-steps li .en{font-weight:800;color:var(--primary-d)}
+.deep-steps li .zhs{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+.kv-list{list-style:none;padding:0;margin:0}
+.kv-list li{padding:11px 2px 11px 26px;border-bottom:1px solid #eef2f8;font-size:14.5px;position:relative;line-height:1.75}
+.kv-list li:last-child{border-bottom:none}
+.kv-list li::before{content:'▸';position:absolute;left:6px;top:11px;color:var(--primary);font-weight:800}
+.kv-list li b{color:var(--primary-d)}
+.kv-list li .zhs{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+.mis-x{color:#dc2626;font-weight:800}
+.mis-v{color:#16a34a;font-weight:800}
+.src-note{font-size:12.5px;color:var(--muted);line-height:1.7;margin-top:10px}
+.src-note b{color:var(--primary-d)}
+[data-theme="dark"] .deep-steps li,[data-theme="dark"] .kv-list li{border-color:#1f2b44}
+[data-theme="dark"] .deep-steps li .en,[data-theme="dark"] .kv-list li b{color:#9ec1ff}
 .speak-btn{width:34px;height:34px;border-radius:50%;background:var(--primary-l);color:var(--primary-d);font-size:15px;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
 .speak-btn:hover{background:var(--primary);color:#fff;transform:scale(1.08)}
 .speak-btn.speaking{background:var(--accent);color:#fff;animation:beat 1s infinite}
@@ -208,8 +229,26 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 .stage-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 16px;border-bottom:1px solid #24365f}
 .stage-tools .t{color:#9db8e6;font-size:13px;margin-right:auto}
 #explodeSvg{width:100%;height:auto;display:block}
+#fuelSvg{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
+/* 爆炸图交互与动画（架构重构时曾被漏掉，此处恢复） */
+.pt{transition:transform .55s cubic-bezier(.5,0,.2,1);transform-box:view-box;cursor:pointer}
+.pt .shp{transition:stroke .2s,filter .2s}
+.pt:hover .shp{filter:drop-shadow(0 0 6px rgba(56,189,248,.85))}
+.pt.sel .shp{filter:drop-shadow(0 0 8px rgba(251,191,36,.95))}
+.pt-label{opacity:0;transition:opacity .3s .25s}
+.exploded .pt-label{opacity:1}
+.exploded .badge-circle{fill:#38bdf8}
+.sysPiston{animation:sysPistonMove .55s ease-in-out infinite alternate}
+.flySpin{transform-origin:120px 34px;animation:spin2 1s linear infinite}
+.spark-flash{animation:sparkFlash .16s steps(2) infinite}
+.spark-glow{animation:sparkGlow .16s ease-out infinite}
+.cyl-g{transition:.15s}
+@keyframes sysPistonMove{from{transform:translateY(0)}to{transform:translateY(-24px)}}
+@keyframes spin2{to{transform:rotate(360deg)}}
+@keyframes sparkFlash{0%,100%{opacity:0}50%{opacity:1}}
+@keyframes sparkGlow{0%,100%{opacity:.2}50%{opacity:.95}}
 .part-label{font-size:11.5px;fill:#e2e8f0;font-weight:600;pointer-events:none}
-.part-label .zh{fill:#7dd3fc;font-size:10.5px}
+.part-label.zh{fill:#7dd3fc;font-size:10.5px}
 .badge-circle{fill:#f59e0b;stroke:#fff;stroke-width:1.5;cursor:pointer}
 .badge-text{fill:#fff;font-size:11px;font-weight:800;pointer-events:none;text-anchor:middle;dominant-baseline:central}
 .part-sel .badge-circle{fill:#f43f5e}
@@ -702,24 +741,24 @@ function initReveal(){
 const COURSES=[
   { id:'engine', icon:'🔧', name:'发动机基本概念与运行原理',
     en:'Engine · Basic Concepts & Operating Principles',
-    desc:'从"汽车的心脏"讲起：22 个专业单词、16 个零部件爆炸图、五大系统、气缸排列、四冲程原理动画。',
+    desc:'从"汽车的心脏"讲起：22 个专业单词、16 个零部件爆炸图、五大系统、气缸排列、四冲程原理动画，外加拓展知识页（能量账、汽油机 vs 柴油机、常见误区）。',
     file:'courses/engine.js', html:'courses/engine.html',
-    pages:['sec-intro','sec-vocab','sec-reading','sec-explode','sec-systems','sec-cylinders','sec-four','sec-quiz','sec-mindmap'],
-    tabs:['导入','单词短语','课文阅读','爆炸图','发动机系统','气缸排列','四冲程动画','闯关练习','知识总结'],
+    pages:['sec-intro','sec-vocab','sec-reading','sec-explode','sec-systems','sec-cylinders','sec-four','sec-deep','sec-quiz','sec-mindmap'],
+    tabs:['导入','单词短语','课文阅读','爆炸图','发动机系统','气缸排列','四冲程动画','拓展知识','闯关练习','知识总结'],
     bank:[{en:'engine',zh:'发动机'},{en:'automobile',zh:'汽车'},{en:'component',zh:'零部件'},{en:'system',zh:'系统'},{en:'fuel',zh:'燃料'},{en:'cylinder',zh:'气缸'},{en:'piston',zh:'活塞'},{en:'stroke',zh:'冲程'},{en:'position',zh:'位置'},{en:'bottom',zh:'末端'},{en:'ignition',zh:'点火'},{en:'lubrication',zh:'润滑'},{en:'intake stroke',zh:'进气冲程'},{en:'compression',zh:'压缩'},{en:'power stroke',zh:'做功冲程'},{en:'exhaust stroke',zh:'排气冲程'},{en:'inlet valve',zh:'进气门'},{en:'exhaust valve',zh:'排气门'},{en:'V-type',zh:'V型'},{en:'horizontally',zh:'水平地'},{en:'operate',zh:'运转'},{en:'continuously',zh:'连续不断地'}] },
   { id:'piston', icon:'⚙️', name:'活塞与连杆总成',
     en:'UNIT-3 · Piston and Rod Assembly',
-    desc:'发动机最核心的机械构件：12 个专业单词、活塞组件零件爆炸图、3D 活塞连杆机构、喷油器式动画、25 题闯关。',
+    desc:'发动机最核心的机械构件：12 个专业单词、活塞组件零件爆炸图、3D 活塞连杆机构、模型动画、25 题闯关，外加拓展知识页（受力与传热、关键配合、常见误区）。',
     file:'courses/piston.js', html:'courses/piston.html',
-    pages:['sec2-intro','sec2-vocab','sec2-parts','sec2-text','sec2-quiz','sec2-summary'],
-    tabs:['导入','单词短语','零件动画','课文阅读','闯关练习','知识总结'],
+    pages:['sec2-intro','sec2-vocab','sec2-parts','sec2-text','sec2-deep','sec2-quiz','sec2-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
     bank:[{en:'cylindrical',zh:'圆筒状的'},{en:'hollow',zh:'中空的'},{en:'piston ring',zh:'活塞环'},{en:'piston land',zh:'活塞环槽岸'},{en:'piston skirt',zh:'活塞裙部'},{en:'pinhole',zh:'销座孔'},{en:'explosive force',zh:'爆破力、爆炸力'},{en:'groove',zh:'凹槽'},{en:'crankpin',zh:'曲柄销、曲柄针'},{en:'piston pin',zh:'活塞销'},{en:'thrust',zh:'推力'},{en:'rigid',zh:'坚硬的'}] },
   { id:'efi', icon:'⛽', name:'燃油系统',
     en:'UNIT-4 · Fuel System',
-    desc:'发动机"喝"什么：24 个专业单词、燃油系统零件爆炸图、喷油器工作原理动画、3D 燃油系统模型、25 题闯关。',
+    desc:'发动机"喝"什么：24 个专业单词、18 个零件的燃油系统爆炸图、喷油器工作原理动画、3D 燃油系统模型、25 题闯关，外加拓展知识页（供油八步、GDI vs PFI、EVAP、常见误区）。',
     file:'courses/efi.js', html:'courses/efi.html',
-    pages:['sec3-intro','sec3-vocab','sec3-parts','sec3-text','sec3-quiz','sec3-summary'],
-    tabs:['导入','单词短语','零件动画','课文阅读','闯关练习','知识总结'],
+    pages:['sec3-intro','sec3-vocab','sec3-parts','sec3-text','sec3-deep','sec3-quiz','sec3-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
     bank:[{en:'carburetor',zh:'化油器'},{en:'injection',zh:'喷射；注射'},{en:'supply',zh:'供给，补给'},{en:'combustible',zh:'易燃的'},{en:'injector',zh:'喷油器'},{en:'contaminant',zh:'污染物；致污物'},{en:'subsystem',zh:'子系统；次要系统'},{en:'sensor',zh:'传感器'},{en:'hose',zh:'软管'},{en:'preset',zh:'预先装置的；预先调整的'},{en:'energize',zh:'供给……能量'},{en:'spring',zh:'弹簧'},{en:'current',zh:'（水、气、电）流'},{en:'coil',zh:'卷；线圈'},{en:'solenoid',zh:'螺线管'},{en:'magnetic',zh:'有磁性的'},{en:'armature',zh:'（电机的）转子，电枢'},{en:'squirt',zh:'注射；喷射'},{en:'throttle',zh:'节流阀、节气门'},{en:'pedal',zh:'踏板'},{en:'depress',zh:'压低'},{en:'circuit',zh:'电路'},{en:'resistance',zh:'抵抗；电阻；阻力'},{en:'voltage',zh:'[电]电压'}] }
 ];
 const REG={};
