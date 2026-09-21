@@ -945,6 +945,21 @@ function mindMode(m){
   }
 }
 
+/* ---------- 3D 发动机（three.js）加载器：本模块自带，避免依赖框架全局 ---------- */
+let threeInited=false;
+function init3D(){
+  const box=document.getElementById('threeBox'), note=document.getElementById('threeNote');
+  if(!box)return;
+  box.style.display='';
+  note.textContent='正在加载 three.js 组件…';
+  loadThree().then(ok=>{
+    if(!ok){ note.textContent='⚠️ 3D 组件加载失败（网络原因），可稍后重试；不影响其他内容。'; box.style.display='none'; threeInited=false; const b=document.getElementById('btn3D'); if(b){b.disabled=false;b.textContent='▶ 加载 3D 模型';} return; }
+    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 活塞自动往复';
+    const b=document.getElementById('btn3D');
+    if(b){ b.disabled=false; b.textContent='🙈 隐藏 3D'; }
+    buildEngine3D(box);
+  });
+}
 function buildEngine3D(box){
   const THREE=window.THREE;
   const W=box.clientWidth||600, H=box.clientHeight||430;
