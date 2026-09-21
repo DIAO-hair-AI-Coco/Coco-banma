@@ -931,9 +931,7 @@ function createQuiz(cfg){
   return { get picked(){return picked;}, pick(){pickStudent();} };
 }
 
-/* ================= 题库数据（每课 ≥25 题，仅选择题 + 判断题） ================= */
-/* 课程一：发动机基本概念与运行原理 */
-/* ---------- 3D 发动机（three.js，程序化模型，多 CDN + 失败回退） ---------- */
+/* ================= three.js 加载器（三课共用；各课的 3D 构建在其课程模块内） ================= */
 const THREE_CDNS=[
   'https://cdn.staticfile.org/three.js/0.152.0/three.min.js',
   'https://cdn.bootcdn.net/ajax/libs/three.js/0.152.0/three.min.js',
@@ -952,20 +950,6 @@ function loadThree(){
       document.head.appendChild(s);
     };
     tryNext();
-  });
-}
-let threeInited=false;
-function init3D(){
-  const box=document.getElementById('threeBox'), note=document.getElementById('threeNote');
-  if(!box)return;
-  box.style.display='';
-  note.textContent='正在加载 three.js 组件…';
-  loadThree().then(ok=>{
-    if(!ok){ note.textContent='⚠️ 3D 组件加载失败（网络原因），可稍后重试；不影响其他功能。'; box.style.display='none'; threeInited=false; const b=document.getElementById('btn3D'); b.disabled=false; b.textContent='▶ 加载 3D 模型'; return; }
-    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 活塞自动往复';
-    const b=document.getElementById('btn3D');
-    b.disabled=false; b.textContent='🙈 隐藏 3D';
-    buildEngine3D(box);
   });
 }
 /* ================= 单词大作战 2D 小游戏 ================= */
