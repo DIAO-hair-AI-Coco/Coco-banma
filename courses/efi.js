@@ -555,12 +555,19 @@ function buildFuel3D(box){
 =================================================================================== */
 let under3dInited=false, underXray=true, underSpin=true;
 
-/* 车身侧面轮廓（z = 纵向，-z 为车头；y = 高度）—— 简易占位比例 */
+/* 车身侧面轮廓（z = 纵向，-z 为车头；y = 高度）
+   依据授课人提供的三视图：奔驰 C 级轿车比例
+   车长 4.69m / 车宽 1.81m / 车高 1.44m / 轴距 2.84m */
 const BODY_PROFILE=[
-  [-2.20,0.34],[-2.24,0.62],[-2.16,0.80],[-1.92,0.86],
-  [-1.06,0.96],[-0.56,1.38],[0.62,1.40],[1.14,0.98],
-  [2.04,0.90],[2.18,0.66],[2.16,0.34]
+  [-2.345,0.30],[-2.345,0.58],[-2.30,0.76],[-1.98,0.86],
+  [-1.02,0.98],[-0.60,1.36],[-0.10,1.44],[0.62,1.42],
+  [1.06,1.02],[1.66,1.08],[2.22,1.02],[2.345,0.80],[2.345,0.30]
 ];
+/* 整车关键基准（单位：米，与真实 C 级一致） */
+const CAR={
+  frontAxle:-1.42, rearAxle:1.42, halfTrack:0.78, wheelR:0.33,
+  floorY:0.40, tankZ:0.78, tankY:0.56, bodyW:1.81
+};
 
 function initUnderbody3D(){
   const box=$('#underbody3dBox'), note=$('#underbody3dNote');
@@ -573,7 +580,7 @@ function initUnderbody3D(){
       const b=$('#btnUnderbody3D'); if(b){b.disabled=false;b.textContent='▶ 加载透明底盘';}
       return;
     }
-    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 观察燃油系统在整车上的布置（油箱在后排座椅下方 → 油管沿地板前伸 → 导轨与喷油器在发动机舱）';
+    note.textContent='🖱️ 拖拽旋转 · 滚轮缩放 · 观察燃油系统在整车上的布置：油箱在后排座椅下方 → 红（供油）蓝（回油）管沿地板前伸 → 导轨与喷油器在发动机舱；绿管为碳罐蒸气管';
     const b=$('#btnUnderbody3D'); if(b){b.disabled=false;b.textContent='🙈 隐藏模型';}
     ['btnXrayToggle','btnSpinToggle'].forEach(id=>{ const e=document.getElementById(id); if(e)e.style.display=''; });
     buildUnderbody3D(box);
@@ -585,9 +592,9 @@ function buildUnderbody3D(box){
   const W=box.clientWidth||640, H=box.clientHeight||460;
   const scene=new THREE.Scene();
   scene.background=new THREE.Color(0x0b1424);
-  scene.fog=new THREE.Fog(0x0b1424, 12, 26);
-  const camera=new THREE.PerspectiveCamera(42,W/H,0.1,200);
-  camera.position.set(3.4,2.35,4.3); camera.lookAt(0,0.72,0);
+  scene.fog=new THREE.Fog(0x0b1424, 12, 28);
+  const camera=new THREE.PerspectiveCamera(40,W/H,0.05,200);
+  camera.position.set(3.9,2.5,4.9); camera.lookAt(0,0.7,0);
 
   let renderer=null;
   try{ renderer=new THREE.WebGLRenderer({antialias:true}); }
@@ -601,113 +608,151 @@ function buildUnderbody3D(box){
 
   const grp=new THREE.Group(); scene.add(grp);
   const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,metalness:.45,roughness:.5},o));
+  const TUBE=(curve,r,color,extra)=>new THREE.Mesh(new THREE.TubeGeometry(curve,90,r,10,false),M(color,extra));
 
-  /* ---------- 车身：透明外壳（可切换透明度） ---------- */
+  /* ---------- 车身：透明外壳 ---------- */
   const bodyMats=[];
-  const shellMat=new THREE.MeshStandardMaterial({color:0x9ec1ff,metalness:.25,roughness:.35,transparent:true,opacity:0.13,side:THREE.DoubleSide,depthWrite:false});
-  bodyMats.push(shellMat);
+  const shellMat=new THREE.MeshStandardMaterial({color:0x9ec1ff,metalness:.25,roughness:.35,transparent:true,opacity:0.11,side:THREE.DoubleSide,depthWrite:false});
   {
     const s=new THREE.Shape();
     s.moveTo(BODY_PROFILE[0][0],BODY_PROFILE[0][1]);
     for(let i=1;i<BODY_PROFILE.length;i++)s.lineTo(BODY_PROFILE[i][0],BODY_PROFILE[i][1]);
-    s.lineTo(BODY_PROFILE[BODY_PROFILE.length-1][0],0.34);
-    s.lineTo(BODY_PROFILE[0][0],0.34);
-    const g=new THREE.ExtrudeGeometry(s,{depth:1.78,bevelEnabled:false});
-    g.translate(0,0,-0.89);
+    s.lineTo(BODY_PROFILE[BODY_PROFILE.length-1][0],0.30);
+    s.lineTo(BODY_PROFILE[0][0],0.30);
+    const g=new THREE.ExtrudeGeometry(s,{depth:CAR.bodyW,bevelEnabled:false});
+    g.translate(0,0,-CAR.bodyW/2);
     const shell=new THREE.Mesh(g,shellMat);
-    shell.rotation.y=-Math.PI/2;
-    grp.add(shell);
-    /* 车身棱线：让透明壳体也能看清轮廓 */
-    const edge=new THREE.LineSegments(new THREE.EdgesGeometry(g,28),new THREE.LineBasicMaterial({color:0x60a5fa,transparent:true,opacity:0.5}));
+    shell.rotation.y=-Math.PI/2; grp.add(shell);
+    const edge=new THREE.LineSegments(new THREE.EdgesGeometry(g,26),new THREE.LineBasicMaterial({color:0x60a5fa,transparent:true,opacity:0.5}));
     edge.rotation.y=-Math.PI/2; grp.add(edge);
     bodyMats.push(edge.material);
   }
-  /* 车窗已省略：平面几何会戳出透明车壳，改用车身棱线表达轮廓 */
   /* 车轮（幽灵化） */
-  const wheelMat=new THREE.MeshStandardMaterial({color:0x1f2937,metalness:.3,roughness:.85,transparent:true,opacity:0.35});
-  bodyMats.push(wheelMat);
-  [[1.42,0.88],[1.42,-0.88],[-1.44,0.88],[-1.44,-0.88]].forEach(([z,x])=>{
-    const w=new THREE.Mesh(new THREE.CylinderGeometry(0.34,0.34,0.24,24),wheelMat);
-    w.rotation.z=Math.PI/2; w.position.set(x,0.34,z); grp.add(w);
-    const rim=new THREE.Mesh(new THREE.CylinderGeometry(0.19,0.19,0.26,18),new THREE.MeshStandardMaterial({color:0x94a3b8,metalness:.7,roughness:.35,transparent:true,opacity:0.45}));
-    rim.rotation.z=Math.PI/2; rim.position.set(x,0.34,z); grp.add(rim);
+  const wheelMat=new THREE.MeshStandardMaterial({color:0x1f2937,metalness:.3,roughness:.85,transparent:true,opacity:0.32});
+  [CAR.frontAxle,CAR.rearAxle].forEach(z=>{
+    [-CAR.halfTrack,CAR.halfTrack].forEach(x=>{
+      const w=new THREE.Mesh(new THREE.CylinderGeometry(CAR.wheelR,CAR.wheelR,0.23,26),wheelMat);
+      w.rotation.z=Math.PI/2; w.position.set(x,CAR.wheelR,z); grp.add(w);
+      const rim=new THREE.Mesh(new THREE.CylinderGeometry(CAR.wheelR*0.58,CAR.wheelR*0.58,0.25,20),new THREE.MeshStandardMaterial({color:0x94a3b8,metalness:.7,roughness:.35,transparent:true,opacity:0.42}));
+      rim.rotation.z=Math.PI/2; rim.position.set(x,CAR.wheelR,z); grp.add(rim);
+    });
   });
-  /* 地板 */
-  const floor=new THREE.Mesh(new THREE.BoxGeometry(1.66,0.05,3.9),new THREE.MeshStandardMaterial({color:0x334155,metalness:.4,roughness:.7,transparent:true,opacity:0.55}));
-  floor.position.set(0,0.42,0); grp.add(floor);
+  /* 地板与纵梁 */
+  const floor=new THREE.Mesh(new THREE.BoxGeometry(1.62,0.05,4.30),new THREE.MeshStandardMaterial({color:0x334155,metalness:.4,roughness:.7,transparent:true,opacity:0.5}));
+  floor.position.set(0,CAR.floorY,0.05); grp.add(floor);
+  [-0.52,0.52].forEach(x=>{
+    const rail=new THREE.Mesh(new THREE.BoxGeometry(0.10,0.09,4.10),new THREE.MeshStandardMaterial({color:0x475569,metalness:.5,roughness:.6,transparent:true,opacity:0.55}));
+    rail.position.set(x,CAR.floorY+0.05,0.05); grp.add(rail);
+  });
+  /* 中央传动轴通道（后驱车特征） */
+  const tunnel=new THREE.Mesh(new THREE.BoxGeometry(0.26,0.16,3.60),new THREE.MeshStandardMaterial({color:0x334155,metalness:.4,roughness:.7,transparent:true,opacity:0.45}));
+  tunnel.position.set(0,CAR.floorY+0.06,0.05); grp.add(tunnel);
 
-  /* ---------- 燃油系统部件（实体） ---------- */
-  /* 1 燃油箱（含内部燃油液面） */
-  const tankShell=new THREE.Mesh(new THREE.BoxGeometry(1.16,0.30,0.76),M(0x64748b,{transparent:true,opacity:0.55,roughness:.6}));
-  tankShell.position.set(0,0.66,1.18); grp.add(tankShell);
-  const fuelVol=new THREE.Mesh(new THREE.BoxGeometry(1.08,0.15,0.68),M(0xf59e0b,{emissive:0xb45309,emissiveIntensity:.9,transparent:true,opacity:0.85}));
-  fuelVol.position.set(0,0.60,1.18); grp.add(fuelVol);
-  /* 2 内置式电动燃油泵 */
-  const pump=new THREE.Mesh(new THREE.CylinderGeometry(0.085,0.085,0.26,16),M(0x94a3b8));
-  pump.position.set(0,0.70,1.18); grp.add(pump);
-  /* 3 加油管 + 加油口盖 */
+  /* ---------- 燃油箱（后排座椅下方） ---------- */
+  const tankShell=new THREE.Mesh(new THREE.BoxGeometry(1.46,0.26,1.02),M(0x64748b,{transparent:true,opacity:0.5,roughness:.6}));
+  tankShell.position.set(0,CAR.tankY,CAR.tankZ); grp.add(tankShell);
+  /* 内部燃油液面 */
+  const fuelVol=new THREE.Mesh(new THREE.BoxGeometry(1.38,0.14,0.94),M(0xf59e0b,{emissive:0xb45309,emissiveIntensity:.95,transparent:true,opacity:0.88}));
+  fuelVol.position.set(0,CAR.tankY-0.05,CAR.tankZ); grp.add(fuelVol);
+  /* 油箱绑带 ×2 */
+  [-0.42,0.42].forEach(x=>{
+    const strap=new THREE.Mesh(new THREE.BoxGeometry(0.055,0.30,1.08),M(0x1f2937,{metalness:.5,roughness:.6}));
+    strap.position.set(x,CAR.tankY,CAR.tankZ); grp.add(strap);
+  });
+  /* 油泵 + 油位传感器模块（俯视图可见的那一块） */
+  const pumpTop=new THREE.Mesh(new THREE.CylinderGeometry(0.115,0.115,0.07,20),M(0x94a3b8,{metalness:.7,roughness:.3}));
+  pumpTop.position.set(-0.26,CAR.tankY+0.16,CAR.tankZ+0.10); grp.add(pumpTop);
+  const pumpBody=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.20,16),M(0xcbd5e1));
+  pumpBody.position.set(-0.26,CAR.tankY+0.04,CAR.tankZ+0.10); grp.add(pumpBody);
+  const sender=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.05,0.22),M(0x64748b));
+  sender.position.set(-0.26,CAR.tankY+0.16,CAR.tankZ+0.30); grp.add(sender);
+
+  /* ---------- 加油管 + 加油口盖（右后翼子板） ---------- */
   {
     const curve=new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0.30,0.74,1.30), new THREE.Vector3(0.62,0.80,1.50),
-      new THREE.Vector3(0.80,0.85,1.70), new THREE.Vector3(0.86,0.87,1.84)
+      new THREE.Vector3(0.52,CAR.tankY+0.10,CAR.tankZ+0.42),
+      new THREE.Vector3(0.70,0.62,1.34),
+      new THREE.Vector3(0.80,0.76,1.62),
+      new THREE.Vector3(0.84,0.86,1.80)
     ]);
-    grp.add(new THREE.Mesh(new THREE.TubeGeometry(curve,24,0.045,10,false),M(0x94a3b8,{roughness:.7})));
-    const cap=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.05,16),M(0xf59e0b));
-    cap.position.set(0.86,0.89,1.85); cap.rotation.x=Math.PI/2.2; grp.add(cap);
-  }
-  /* 4 燃油滤清器 */
-  const filter=new THREE.Mesh(new THREE.CylinderGeometry(0.072,0.072,0.30,16),M(0x38bdf8,{metalness:.6}));
-  filter.position.set(0.52,0.52,0.42); filter.rotation.z=Math.PI/2; filter.rotation.y=Math.PI/2; grp.add(filter);
-  /* 5 供油管（油箱 → 发动机舱，沿地板纵梁） */
-  const feedCurve=new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0.10,0.80,1.18), new THREE.Vector3(0.46,0.60,0.86),
-    new THREE.Vector3(0.52,0.52,0.42), new THREE.Vector3(0.52,0.50,-0.30),
-    new THREE.Vector3(0.50,0.52,-1.00), new THREE.Vector3(0.44,0.66,-1.34),
-    new THREE.Vector3(0.0,0.90,-1.42)
-  ]);
-  grp.add(new THREE.Mesh(new THREE.TubeGeometry(feedCurve,80,0.042,10,false),M(0x38bdf8,{metalness:.4,roughness:.35,emissive:0x0369a1,emissiveIntensity:.35})));
-  /* 6 回油管 */
-  const retCurve=new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-0.10,0.78,1.18), new THREE.Vector3(-0.44,0.60,0.86),
-    new THREE.Vector3(-0.50,0.48,-0.20), new THREE.Vector3(-0.46,0.64,-1.32),
-    new THREE.Vector3(-0.10,0.86,-1.42)
-  ]);
-  grp.add(new THREE.Mesh(new THREE.TubeGeometry(retCurve,70,0.032,8,false),M(0x0ea5e9,{metalness:.5,roughness:.5,transparent:true,opacity:0.85})));
-  /* 7 燃油导轨 */
-  const rail=new THREE.Mesh(new THREE.CylinderGeometry(0.062,0.062,0.78,16),M(0x94a3b8,{metalness:.75,roughness:.3}));
-  rail.rotation.z=Math.PI/2; rail.position.set(0,0.93,-1.42); grp.add(rail);
-  /* 8 喷油器 ×4 */
-  for(let i=0;i<4;i++){
-    const inj=new THREE.Mesh(new THREE.CylinderGeometry(0.030,0.030,0.20,12),M(0x22c55e,{metalness:.5,emissive:0x14532d,emissiveIntensity:.45}));
-    inj.position.set(-0.27+i*0.18,0.79,-1.42); grp.add(inj);
-    const tip=new THREE.Mesh(new THREE.ConeGeometry(0.030,0.06,12),M(0x16a34a));
-    tip.position.set(-0.27+i*0.18,0.66,-1.42); tip.rotation.x=Math.PI; grp.add(tip);
-  }
-  /* 9 发动机（上下文） */
-  const eng=new THREE.Mesh(new THREE.BoxGeometry(0.80,0.42,0.66),M(0x475569,{roughness:.6}));
-  eng.position.set(0,0.66,-1.52); grp.add(eng);
-  /* 10 碳罐（EVAP） */
-  const can=new THREE.Mesh(new THREE.BoxGeometry(0.36,0.17,0.24),M(0xa78bfa,{roughness:.6}));
-  can.position.set(-0.42,0.62,0.72); grp.add(can);
-  /* 11 碳罐电磁阀 + 蒸气管 */
-  {
-    const valve=new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.12,12),M(0xa78bfa,{emissive:0x4c1d95,emissiveIntensity:.4}));
-    valve.position.set(-0.40,0.78,0.30); grp.add(valve);
-    const vc=new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.42,0.71,0.66), new THREE.Vector3(-0.40,0.80,0.36),
-      new THREE.Vector3(-0.30,0.86,-0.60), new THREE.Vector3(-0.20,0.90,-1.24)
-    ]);
-    grp.add(new THREE.Mesh(new THREE.TubeGeometry(vc,50,0.024,8,false),M(0xa78bfa,{roughness:.6,transparent:true,opacity:0.9})));
+    grp.add(TUBE(curve,0.048,0x94a3b8,{roughness:.7}));
+    const cap=new THREE.Mesh(new THREE.CylinderGeometry(0.078,0.078,0.05,18),M(0x0f172a,{metalness:.6,roughness:.4}));
+    cap.position.set(0.86,0.88,1.82); cap.rotation.set(Math.PI/2.1,0,0.25); grp.add(cap);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(0.075,0.014,8,22),M(0x94a3b8,{metalness:.8}));
+    ring.position.set(0.86,0.88,1.83); ring.rotation.y=Math.PI/2.6; grp.add(ring);
   }
 
-  /* ---------- 燃油流动粒子 ---------- */
+  /* ---------- 碳罐（EVAP）+ 电磁阀 ---------- */
+  const canister=new THREE.Mesh(new THREE.BoxGeometry(0.30,0.16,0.44),M(0x7c3aed,{roughness:.6,emissive:0x3b0764,emissiveIntensity:.35}));
+  canister.position.set(-0.46,0.52,-0.52); grp.add(canister);
+  const purge=new THREE.Mesh(new THREE.CylinderGeometry(0.048,0.048,0.12,14),M(0xa78bfa,{emissive:0x4c1d95,emissiveIntensity:.5}));
+  purge.position.set(-0.40,0.80,-1.52); grp.add(purge);
+
+  /* ---------- 三条管路（按三视图配色：红=供油 / 蓝=回油 / 绿=蒸气） ---------- */
+  /* 红：供油管（油箱 → 燃油导轨） */
+  const feedCurve=new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0.26,CAR.tankY+0.10,CAR.tankZ-0.10),
+    new THREE.Vector3(0.44,0.56,0.40),
+    new THREE.Vector3(0.50,0.50,-0.30),
+    new THREE.Vector3(0.52,0.48,-1.05),
+    new THREE.Vector3(0.48,0.60,-1.62),
+    new THREE.Vector3(0.10,0.86,-1.92)
+  ]);
+  grp.add(TUBE(feedCurve,0.036,0xef4444,{metalness:.35,roughness:.35,emissive:0x7f1d1d,emissiveIntensity:.55}));
+  /* 蓝：回油管（燃油导轨 → 油箱） */
+  const retCurve=new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-0.10,0.86,-1.92),
+    new THREE.Vector3(-0.40,0.60,-1.62),
+    new THREE.Vector3(-0.44,0.46,-1.05),
+    new THREE.Vector3(-0.42,0.44,-0.30),
+    new THREE.Vector3(-0.36,0.54,0.40),
+    new THREE.Vector3(-0.20,CAR.tankY+0.09,CAR.tankZ-0.10)
+  ]);
+  grp.add(TUBE(retCurve,0.030,0x3b82f6,{metalness:.35,roughness:.35,emissive:0x1e3a8a,emissiveIntensity:.6}));
+  /* 绿：碳罐蒸气管（碳罐 → 电磁阀 → 进气） */
+  const vapCurve=new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-0.46,0.60,-0.70),
+    new THREE.Vector3(-0.50,0.58,-1.10),
+    new THREE.Vector3(-0.44,0.70,-1.42),
+    new THREE.Vector3(-0.40,0.86,-1.56)
+  ]);
+  grp.add(TUBE(vapCurve,0.026,0x22c55e,{metalness:.3,roughness:.4,emissive:0x14532d,emissiveIntensity:.6}));
+  /* 绿：油箱 → 碳罐 的蒸气管 */
+  const vapCurve2=new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0.30,CAR.tankY+0.12,CAR.tankZ+0.10),
+    new THREE.Vector3(0.10,0.60,0.30),
+    new THREE.Vector3(-0.30,0.54,-0.20),
+    new THREE.Vector3(-0.46,0.54,-0.44)
+  ]);
+  grp.add(TUBE(vapCurve2,0.026,0x22c55e,{metalness:.3,roughness:.4,emissive:0x14532d,emissiveIntensity:.6}));
+
+  /* ---------- 发动机舱：导轨 + 喷油器 ---------- */
+  const eng=new THREE.Mesh(new THREE.BoxGeometry(0.68,0.46,0.88),M(0x475569,{roughness:.6}));
+  eng.position.set(0,0.62,-1.82); grp.add(eng);
+  const head=new THREE.Mesh(new THREE.BoxGeometry(0.72,0.16,0.80),M(0x64748b,{roughness:.5}));
+  head.position.set(0,0.90,-1.82); grp.add(head);
+  /* 燃油导轨 */
+  const rail=new THREE.Mesh(new THREE.CylinderGeometry(0.052,0.052,0.66,18),M(0xd4af37,{metalness:.85,roughness:.25,emissive:0x6b4d09,emissiveIntensity:.4}));
+  rail.rotation.z=Math.PI/2; rail.position.set(0,0.99,-1.96); grp.add(rail);
+  /* 喷油器 ×4（对应四缸） */
+  for(let i=0;i<4;i++){
+    const x=-0.24+i*0.16;
+    const inj=new THREE.Mesh(new THREE.CylinderGeometry(0.028,0.028,0.20,12),M(0xd4af37,{metalness:.8,roughness:.3,emissive:0x6b4d09,emissiveIntensity:.35}));
+    inj.position.set(x,0.86,-1.96); grp.add(inj);
+    const tip=new THREE.Mesh(new THREE.ConeGeometry(0.028,0.055,12),M(0xb8860b));
+    tip.position.set(x,0.73,-1.96); tip.rotation.x=Math.PI; grp.add(tip);
+    const clip=new THREE.Mesh(new THREE.BoxGeometry(0.055,0.045,0.055),M(0x334155));
+    clip.position.set(x,0.955,-1.96); grp.add(clip);
+  }
+
+  /* ---------- 燃油流动粒子（沿红管） ---------- */
   const drops=[];
-  const dropGeo=new THREE.SphereGeometry(0.036,10,10);
-  const dropMat=new THREE.MeshStandardMaterial({color:0xfbbf24,emissive:0xf59e0b,emissiveIntensity:.85});
-  for(let i=0;i<16;i++){ const s=new THREE.Mesh(dropGeo,dropMat); grp.add(s); drops.push(s); }
+  const dropGeo=new THREE.SphereGeometry(0.034,10,10);
+  const dropMat=new THREE.MeshStandardMaterial({color:0xffd166,emissive:0xf59e0b,emissiveIntensity:.9});
+  for(let i=0;i<18;i++){ const s=new THREE.Mesh(dropGeo,dropMat); grp.add(s); drops.push(s); }
 
   /* ---------- 交互 ---------- */
-  let rx=0.14, ry=-0.35, zoom=1, dragging=false, px=0, py=0, tt=0;
+  let rx=0.13, ry=-0.42, zoom=1, dragging=false, px=0, py=0, tt=0;
   const dom=renderer.domElement; dom.style.cursor='grab';
   const onDown=e=>{dragging=true;px=e.clientX;py=e.clientY;dom.style.cursor='grabbing';};
   const onMove=e=>{ if(!dragging)return; ry+=(e.clientX-px)*0.008; rx+=(e.clientY-py)*0.006; rx=Math.max(-0.55,Math.min(1.05,rx)); px=e.clientX; py=e.clientY; };
@@ -715,13 +760,13 @@ function buildUnderbody3D(box){
   dom.addEventListener('pointerdown',onDown);
   window.addEventListener('pointermove',onMove);
   window.addEventListener('pointerup',onUp);
-  dom.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(0.55,Math.min(2.4,zoom+(e.deltaY>0?0.09:-0.09)));},{passive:false});
+  dom.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(0.55,Math.min(2.6,zoom+(e.deltaY>0?0.09:-0.09)));},{passive:false});
 
   const applyXray=()=>{
     shellMat.opacity = underXray?0.11:0.40;
     shellMat.depthWrite = !underXray;
-    wheelMat.opacity = underXray?0.35:0.9;
-    bodyMats.forEach(m=>{ if(m.isLineBasicMaterial) m.opacity = underXray?0.5:0.75; });
+    wheelMat.opacity = underXray?0.32:0.9;
+    bodyMats.forEach(m=>{ if(m.isLineBasicMaterial) m.opacity = underXray?0.5:0.78; });
   };
   applyXray();
 
@@ -736,15 +781,13 @@ function buildUnderbody3D(box){
 
   function loop(){
     if(underSpin&&!dragging) ry+=0.0026;
-    tt=(tt+0.0038)%1;
+    tt=(tt+0.0036)%1;
     grp.rotation.y=ry; grp.rotation.x=rx;
-    camera.position.set(3.4*zoom,2.35*zoom,4.3*zoom);
-    camera.lookAt(0,0.72,0);
+    camera.position.set(3.9*zoom,2.5*zoom,4.9*zoom);
+    camera.lookAt(0,0.7,0);
     for(let i=0;i<drops.length;i++){
       const t=(tt+i/drops.length)%1;
-      const p=feedCurve.getPointAt(t);
-      drops[i].position.copy(p);
-      drops[i].visible=true;
+      drops[i].position.copy(feedCurve.getPointAt(t));
     }
     renderer.render(scene,camera);
     requestAnimationFrame(loop);
