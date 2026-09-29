@@ -68,14 +68,16 @@
           <button class="btn" id="btnUnderbody3D" style="padding:8px 18px;font-size:13.5px">▶ 加载透明底盘</button>
           <button class="btn ghost" id="btnXrayToggle" style="padding:8px 16px;font-size:13px;display:none">🔍 透明剖视</button>
           <button class="btn ghost" id="btnSpinToggle" style="padding:8px 16px;font-size:13px;display:none">⏸ 暂停旋转</button>
-          <span class="parts-hint" id="underbodyHint">共 11 个燃油系统部件</span>
+          <span class="parts-hint" id="underbodyHint">共 14 个部件 · 按三视图配色</span>
         </div>
         <div id="underbody3dBox" style="display:none;height:460px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#0b1424,#0d1b36);margin-top:12px;position:relative">
           <div id="underbodyLegend" style="position:absolute;left:12px;top:12px;font-size:12px;line-height:1.9;color:#cbd5e1;background:rgba(10,17,31,.55);border:1px solid #24365f;border-radius:10px;padding:9px 12px;backdrop-filter:blur(4px);pointer-events:none">
-            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;margin-right:6px"></span>燃油箱 / 油泵</div>
-            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#38bdf8;margin-right:6px"></span>油管 / 滤清器</div>
-            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px"></span>燃油导轨 / 喷油器</div>
-            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#a78bfa;margin-right:6px"></span>碳罐（EVAP）</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;margin-right:6px"></span>燃油箱 / 油泵 / 油位传感器</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ef4444;margin-right:6px"></span>供油管 feed（红）</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3b82f6;margin-right:6px"></span>回油管 return（蓝）</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px"></span>蒸气管 EVAP（绿）</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#d4af37;margin-right:6px"></span>燃油导轨 / 喷油器</div>
+            <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#7c3aed;margin-right:6px"></span>碳罐 / 电磁阀</div>
           </div>
         </div>
         <p class="stage-note" id="underbody3dNote">点击按钮加载 three.js 组件（需联网）。首次加载可能需 10~20 秒；加载失败不影响其他内容。</p>
