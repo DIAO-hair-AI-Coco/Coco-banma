@@ -788,11 +788,13 @@ const course=()=>COURSES[curCourse];
 const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
+/* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
+const APP_V='20260929';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
   c._p=new Promise((res,rej)=>{
-    fetch(c.html).then(r=>{ if(!r.ok)throw new Error('html '+r.status); return r.text(); }).then(txt=>{
+    fetch(c.html+'?v='+APP_V).then(r=>{ if(!r.ok)throw new Error('html '+r.status); return r.text(); }).then(txt=>{
       let track=$('#track-'+c.id);
       if(!track){
         track=document.createElement('div');
@@ -801,7 +803,7 @@ function loadCourse(c){
       }
       track.innerHTML=txt;
       const s=document.createElement('script');
-      s.src=c.file;
+      s.src=c.file+'?v='+APP_V;
       s.onload=()=>{ c._ready=true; res(c); };
       s.onerror=()=>rej(new Error('js'));
       document.head.appendChild(s);
