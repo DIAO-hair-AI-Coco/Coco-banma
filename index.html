@@ -232,6 +232,11 @@ nav.tabs a .num{font-size:10.5px;opacity:.75;margin-right:4px;font-weight:700}
 #fuelSvg{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
 #lubeSvg,#oilFlowSvg,#thermoSvg{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
 #clutchSvg,#clutchSvg2{width:100%;height:auto;display:block;background:#0d1b36;border-radius:14px}
+/* 三视图参考图 */
+.refimg-link{display:block;text-decoration:none}
+.refimg{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:zoom-in;transition:.25s}
+.refimg-link:hover .refimg{box-shadow:0 12px 30px rgba(23,43,86,.18)}
+.refimg-tip{font-size:12.5px;color:var(--muted);margin-top:8px;text-align:center}
 /* 循环流动虚线动画 */
 @keyframes oilFlow{to{stroke-dashoffset:-220}}
 .oil-flow{animation:oilFlow 3.2s linear infinite}
@@ -789,7 +794,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20260929b';
+const APP_V='20260929c';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
