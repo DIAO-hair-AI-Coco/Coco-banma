@@ -783,7 +783,14 @@ const COURSES=[
     file:'courses/chassis.js', html:'courses/chassis.html',
     pages:['sec5-intro','sec5-vocab','sec5-parts','sec5-text','sec5-deep','sec5-quiz','sec5-summary'],
     tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
-    bank:[{en:'clutch',zh:'离合器'},{en:'transmission',zh:'变速器'},{en:'gearbox',zh:'变速箱'},{en:'transmission system',zh:'传动系'},{en:'torque',zh:'扭矩'},{en:'coil-pressure-spring type',zh:'螺旋簧式'},{en:'diaphragm-spring type',zh:'膜片簧式'},{en:'semi-centrifugal type',zh:'半离心式'},{en:'driving member',zh:'主动部分'},{en:'driven member',zh:'从动部分'},{en:'pressing device',zh:'压紧装置'},{en:'operating member',zh:'操纵机构'},{en:'flywheel',zh:'飞轮'},{en:'flywheel ring gear',zh:'飞轮齿圈'},{en:'pressure plate',zh:'压盘'},{en:'clutch cover',zh:'离合器盖'},{en:'crankshaft',zh:'曲轴'},{en:'driven disc',zh:'从动盘'},{en:'friction disc',zh:'摩擦盘'},{en:'friction lining',zh:'摩擦衬片'},{en:'splined hub',zh:'花键毂'},{en:'input shaft',zh:'输入轴'},{en:'torsional damper spring',zh:'扭转减震弹簧'},{en:'spring',zh:'弹簧'},{en:'clutch pedal',zh:'离合器踏板'},{en:'return spring',zh:'回位弹簧'},{en:'release fork',zh:'分离叉'},{en:'release bearing',zh:'分离轴承'}] }
+    bank:[{en:'clutch',zh:'离合器'},{en:'transmission',zh:'变速器'},{en:'gearbox',zh:'变速箱'},{en:'transmission system',zh:'传动系'},{en:'torque',zh:'扭矩'},{en:'coil-pressure-spring type',zh:'螺旋簧式'},{en:'diaphragm-spring type',zh:'膜片簧式'},{en:'semi-centrifugal type',zh:'半离心式'},{en:'driving member',zh:'主动部分'},{en:'driven member',zh:'从动部分'},{en:'pressing device',zh:'压紧装置'},{en:'operating member',zh:'操纵机构'},{en:'flywheel',zh:'飞轮'},{en:'flywheel ring gear',zh:'飞轮齿圈'},{en:'pressure plate',zh:'压盘'},{en:'clutch cover',zh:'离合器盖'},{en:'crankshaft',zh:'曲轴'},{en:'driven disc',zh:'从动盘'},{en:'friction disc',zh:'摩擦盘'},{en:'friction lining',zh:'摩擦衬片'},{en:'splined hub',zh:'花键毂'},{en:'input shaft',zh:'输入轴'},{en:'torsional damper spring',zh:'扭转减震弹簧'},{en:'spring',zh:'弹簧'},{en:'clutch pedal',zh:'离合器踏板'},{en:'return spring',zh:'回位弹簧'},{en:'release fork',zh:'分离叉'},{en:'release bearing',zh:'分离轴承'}] },
+  { id:'trans', icon:'⚙️', name:'变速器',
+    en:'UNIT-2 · Transmission (Chassis Module)',
+    desc:'发动机与驱动轮之间的"配比翻译官"：46 个专业单词、18 个零件的变速器爆炸图（输入轴→中间轴→输出轴）、可交互的传动比与档位动画、同步器换挡五阶段动画、3D 三轴齿轮模型、43 题闯关，外加拓展知识页（五种变速器对比、P-R-N-D-2-1 原厂定义、传动系效率链、变矩器滑差与锁止离合器、差速器、11 条常见误区、资料来源与核实说明）。',
+    file:'courses/transmission.js', html:'courses/transmission.html',
+    pages:['sec6-intro','sec6-vocab','sec6-parts','sec6-text','sec6-deep','sec6-quiz','sec6-summary'],
+    tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
+    bank:[{en:'transmission',zh:'变速器'},{en:'driving wheel',zh:'驱动轮'},{en:'gear ratio',zh:'传动比'},{en:'drive shaft',zh:'驱动轴；传动轴'},{en:'propeller shaft',zh:'传动轴（后驱）'},{en:'rear wheel',zh:'后轮'},{en:'front wheel',zh:'前轮'},{en:'axle half shaft',zh:'半轴'},{en:'front-wheel-drive',zh:'前轮驱动'},{en:'rear-wheel-drive',zh:'后轮驱动'},{en:'reverse',zh:'逆转；倒档'},{en:'idler shaft',zh:'空转轴；中间轴'},{en:'countershaft',zh:'中间轴'},{en:'reverse gear',zh:'倒档齿轮'},{en:'idler gear',zh:'惰轮'},{en:'Manual Transmission',zh:'手动变速器'},{en:'Automatic Transmission',zh:'自动变速器'},{en:'sliding-gear type',zh:'滑动型'},{en:'constant-mesh design',zh:'固定啮合型'},{en:'park',zh:'停车；停放'},{en:'neutral',zh:'空档位置'},{en:'overdrive',zh:'超速档'},{en:'input shaft',zh:'输入轴'},{en:'output shaft',zh:'输出轴'},{en:'cluster gear',zh:'齿轮组'},{en:'synchronizer',zh:'同步器'},{en:'shift fork',zh:'换挡拨叉'},{en:'gear shift mechanism',zh:'换挡操纵机构'},{en:'universal joint',zh:'万向节'},{en:'final drive',zh:'主减速器'},{en:'differential',zh:'差速器'},{en:'transaxle',zh:'变速驱动桥'}] }
 ];
 const REG={};
 window.__COURSE_REGISTER=(id,mod)=>{ REG[id]=mod||{}; };
@@ -794,7 +801,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20260929d';
+const APP_V='20260930b';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
