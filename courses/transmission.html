@@ -1,0 +1,436 @@
+<!-- 课程六 · 01 导入 -->
+  <section id="sec6-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#0369a1 0%,transparent 58%),linear-gradient(160deg,#08182f,#0d2b4a 55%,#123061)">
+      <div class="badge">⚙️ UNIT-2 · 第 6 课 · 底盘模块</div>
+      <h1>变速器 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Transmission</em></h1>
+      <p class="sub">发动机与驱动轮之间的"配比翻译官"——改速度、改扭矩、能倒车、能断开</p>
+      <div class="meta"><span>🧩 18 零件爆炸图</span><span>⚙️ 传动比可交互动画</span><span>🔀 同步器换挡动画</span><span>🧊 3D 三轴模型</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 提出问题<small>INTRODUCTION — WHY A CAR NEEDS A TRANSMISSION</small></h2></div>
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>⚙️ 发动机转得再好，也直接驱动不了车轮</h4>
+          <p>发动机能输出的转速范围很窄，而且<b>转速高、扭矩小</b>，还<b>不能倒转</b>。可是汽车起步时车轮几乎不转、需要很大的力；高速巡航时车轮又要转得很快、只需要很小的力。这两个极端，发动机一个人做不到。</p>
+          <p>所以在发动机和驱动轮之间必须加一个装置，把转速和扭矩<b>重新配比</b>之后再送出去——它就是<b>变速器（Transmission）</b>。课文用一句话概括：<em>"A transmission is a speed and power changing device installed at some point between the engine and driving wheels."</em></p>
+          <div class="keyline"><span>transmission 变速器</span><span>gear ratio 传动比</span><span>torque 扭矩</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 带着问题进入课程</h4>
+          <p>变速器里到底装了什么，能让转速"变"？<b>传动比</b>是怎么算出来的？为什么 1 档力气大却跑不快？<b>同步器</b>凭什么让齿轮"无声咬合"？为什么倒档要多一个<b>惰轮</b>？手动变速器真的比自动省油吗？</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 46 个专业单词 &amp; 短语（含音标）</span>
+          <span>✅ 变速器的定义与三大功能</span>
+          <span>✅ 变速器的组成零件与动力传递路线</span>
+          <span>✅ 手动变速器 MT 的两种型式（滑动型 / 固定啮合型）</span>
+          <span>✅ 传动比的计算与"降速增扭"原理</span>
+          <span>✅ 自动变速器 AT 的档位 P-R-N-D-2-1</span>
+          <span>✅ 零件爆炸图 + 传动比动画 + 同步器动画 + 3D 模型<br>✅ 拓展知识：同步器五阶段、传动系效率链、P-R-N-D-2-1 原厂定义、常见误区</span>
+        </div>
+        <div class="typed" id="typedIntro6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 02 单词与短语 -->
+  <section id="sec6-vocab" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>单词 &amp; 短语学习<small>WORDS &amp; PHRASES — 点 🔊 听标准发音</small></h2></div>
+      <div id="vocab6Card"></div>
+      <div class="tip">💡 <span><b>学习小贴士：</b>本课 46 个词按"动力路线"记忆最快：<b>输入侧</b>（input shaft、transmission）→ <b>齿轮与传动比</b>（gear ratio、cluster gear、countershaft、idler shaft）→ <b>换挡</b>（synchronizer、shift fork、gear shift mechanism、reverse gear、neutral）→ <b>输出侧</b>（output shaft、drive shaft、universal joint、final drive、differential、driving wheel）。还要区分两组易混词：<b>MT / AT</b>（手动 / 自动）与 <b>sliding-gear / constant-mesh</b>（滑动型 / 固定啮合型）。</span></div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 03 零件动画 -->
+  <section id="sec6-parts" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>零件模型动画 · 变速器<small>PARTS ANIMATION — 爆炸图 + 传动比动画 + 同步器动画 + 3D 模型</small></h2></div>
+
+      <div class="card">
+        <h3>🧩 变速器零件爆炸图 <span class="en">Exploded View — 18 Parts 点数字看零件名称</span></h3>
+        <p style="font-size:14px;color:var(--muted)">按<b>动力传递顺序</b>分三段布置：<b>换挡机构</b>（1~3）→ <b>齿轮传动</b>（4~13，输入轴 → 中间轴 → 输出轴）→ <b>壳体与动力输出</b>（14~18，壳体、传动轴、万向节、主减速器、差速器）。</p>
+        <div class="parts-tools">
+          <button class="btn" id="btnTransExplode">💥 爆炸拆解</button>
+          <button class="btn ghost" id="btnTransTour">🎬 自动巡讲</button>
+          <span class="parts-hint">共 18 个零件 · 点零件看中英文说明</span>
+        </div>
+        <svg id="transSvg" viewBox="-90 -110 1330 1250"></svg>
+        <div class="part-info">
+          <div class="pi-num" id="transInfoN">?</div>
+          <div class="pi-txt">
+            <div class="n" id="transInfoE">点击零件编号</div>
+            <div class="z" id="transInfoZ">查看中英文名称与说明</div>
+            <div class="d" id="transInfoD">课文：变速器一般由壳体、输入轴及齿轮、输出轴及齿轮、空转轴（中间轴）、倒挡齿轮、齿轮组和换挡操纵机构组成。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚙️ 传动比与档位动画 <span class="en">Gear Ratio — 切换档位，看齿数与转速怎么变</span></h3>
+        <p style="font-size:14px;color:var(--muted)"><b>传动比 = 从动齿轮齿数 ÷ 主动齿轮齿数。</b>传动比大于 1 时，转速按这个倍数<b>下降</b>、扭矩按同样倍数<b>上升</b>——这就是"降速增扭"，也是低档位力气大的根本原因。</p>
+        <div class="parts-tools" id="gearBtns6"></div>
+        <svg id="ratioSvg" viewBox="0 0 760 400"></svg>
+        <div id="ratioReadout" style="margin-top:12px"></div>
+      </div>
+
+      <div class="card">
+        <h3>🔀 同步器换挡过程动画 <span class="en">Synchronizer — 拖动滑块看接合套如何咬合</span></h3>
+        <p style="font-size:14px;color:var(--muted)">固定啮合型变速器的齿轮是<b>一直啮合</b>的，真正决定"用哪个档"的是<b>同步器</b>：拨叉推动接合套滑向目标齿轮，<b>同步环</b>先用锥面摩擦把两者转速磨到一致，接合套花键才能顺利滑入啮合齿。</p>
+        <div class="parts-tools">
+          <span class="parts-hint">换挡进程</span>
+          <input type="range" id="syncRange" min="0" max="100" value="0" style="flex:1;accent-color:var(--primary)">
+          <span class="parts-hint" id="syncVal">0%</span>
+        </div>
+        <svg id="syncSvg" viewBox="0 0 760 360"></svg>
+      </div>
+
+      <div class="card">
+        <h3>🧊 3D 变速器三轴模型 <span class="en">3D Model — 输入轴 / 中间轴 / 输出轴</span></h3>
+        <p style="font-size:14px;color:var(--muted)">观察三根平行轴上的齿轮如何<b>成对啮合</b>：动力从<b>输入轴</b>经常啮合齿轮传给<b>中间轴</b>，再由中间轴的某一档齿轮传给<b>输出轴</b>。切换上面的档位按钮，可以看到输出轴转速随之改变。</p>
+        <div class="center" style="margin-top:10px"><button class="btn" id="btnTrans3D">▶ 加载 3D 模型</button></div>
+        <div id="trans3dBox" style="display:none;height:430px;border-radius:14px;overflow:hidden;background:#0b1424;margin-top:12px;position:relative"></div>
+        <p class="stage-note" id="trans3dNote">点击按钮加载 three.js 3D 模型（需联网）。首次加载可能需 10~20 秒；加载失败不影响其他内容。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 04 课文 -->
+  <section id="sec6-text" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>课文阅读 · 双语对照<small>READING — 点 🔁 隐藏或显示中文翻译</small></h2></div>
+
+      <div class="card">
+        <h3>📖 课文 1 · 变速器的定义与位置 <span class="en">Definition &amp; Position</span></h3>
+        <p class="en-p">A transmission is a speed and power changing device installed at some point between the engine and driving wheels of the vehicle. It provides different gear ratios between them.</p>
+        <p class="zh-p">汽车变速器是一个改变速度和动力的装置。它被安装在汽车发动机与驱动轮之间，在两者之间提供不同的传动比。</p>
+        <p class="en-p">Fig. 2.2-1 the Position of the Transmission: 1- engine; 2- transmission; 3- drive shaft; 4- driving wheel; 5- clutch; 6- universal joint; 7- final drive.</p>
+        <p class="zh-p">图 2.2-1 变速器的位置：1- 发动机；2- 变速器；3- 驱动轴；4- 驱动轮；5- 离合器；6- 万向节；7- 主减速器。</p>
+        <div class="keyline"><span>speed and power changing device 改变速度和动力的装置</span><span>gear ratio 传动比</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📖 课文 2 · 变速器的功能 <span class="en">Functions of the Transmission</span></h3>
+        <p class="en-p">The function of any transmission is transferring engine power to the drive shaft and rear wheels (or axle half shafts and front wheels in a front-wheel-drive vehicle). Gears inside the transmission change the vehicle's drive-wheel speed and torque in relation to engine speed and torque.</p>
+        <p class="zh-p">变速器的功能就是将发动机的动力传递给驱动轴和后轮（前驱车是传递给半轴和前轮）。根据发动机的速度与扭矩，变速器中的齿轮改变汽车驱动轮的速度与扭矩。</p>
+        <p class="en-p">Specifically, the transmission is geared to perform the functions as follows: 1. It is designed to provide the operator with a selection of gear ratios; 2. It is designed for reversing the vehicle movement; 3. It is designed to interrupt the transmission of power.</p>
+        <p class="zh-p">具体来说，安装汽车变速器是为了执行以下功能的：1、使操作者（驾驶员）能选择传动比。2、改变汽车行驶方向。3、中断动力传送。</p>
+        <div class="keyline"><span>transfer 传递</span><span>axle half shaft 半轴</span><span>interrupt the transmission of power 中断动力传送</span><span>reverse 使反向；倒车</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📖 课文 3 · 变速器的组成 <span class="en">Components of the Transmission</span></h3>
+        <p class="en-p">The transmission generally consists of a housing, an input shaft and gear, an output shaft and gear, an idler shaft, a reverse gear, a cluster of gears and a gear shift mechanism.</p>
+        <p class="zh-p">变速器一般由变速器外壳、输入轴及其齿轮、输出轴及其齿轮、空转轴（中间轴）、倒档齿轮、齿轮组和齿轮变换机制（换挡操纵机构）组成。</p>
+        <div class="keyline"><span>housing 壳体</span><span>input shaft 输入轴</span><span>idler shaft 空转轴</span><span>cluster of gears 齿轮组</span><span>gear shift mechanism 换挡操纵机构</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📖 课文 4 · 变速器的种类 <span class="en">Types of the Transmission</span></h3>
+        <p class="en-p">1. Manual Transmission (MT). Manual transmission is the most common transmission. There are two basic types of manual transmissions: the sliding-gear type and the constant-mesh design. The sliding-gear type is obsolete now. All modern transmissions are of the constant-mesh type.</p>
+        <p class="zh-p">1、手动变速器。手动变速器是最常见的变速器。有两种手动变速器，分别是滑动型和固定啮合型的。滑动型的变速器现在已经不用了。现代的变速器都是固定啮合型的。</p>
+        <p class="en-p">2. Automatic Transmission (AT). Most automatic transmissions offer the driver a certain amount of manual control over the transmission's shifts. The selector quadrant has six positions, in the following order: P (Park) - R (Reverse) - N (Neutral) - D (Drive) - 2 (Manual second gear) - 1 (Manual low gear).</p>
+        <p class="zh-p">2、自动变速器。大多数自动变速器为司机提供手动换挡功能。档位有六个，顺序依次是：P（停车档）- R（倒车档）- N（空档）- D（行车档）- 2（2 速档）- 1（1 速档）。</p>
+        <p class="en-p">Fig. 2.2-2 the Shifting Arrangement of MT (Mazda3 Axela). Fig. 2.2-3 the Shifting Arrangement of AT (BUICK Excelle).</p>
+        <p class="zh-p">图 2.2-2 手动变速器的档位排列顺序（马自达 3 昂克赛拉）。图 2.2-3 自动变速器的档位排列顺序（别克凯越）。</p>
+        <div class="keyline"><span>sliding-gear type 滑动型</span><span>constant-mesh design 固定啮合型</span><span>obsolete 已淘汰的</span><span>selector quadrant 档位选择器</span><span>Park / Reverse / Neutral / Drive 停车档 / 倒车档 / 空档 / 行车档</span></div>
+      </div>
+
+      <div class="card">
+        <h3>📖 课文 5 · 手动与自动的燃油经济性 <span class="en">Fuel Economy — MT vs AT</span></h3>
+        <p class="en-p">Manual transmissions typically offer better fuel economy than automatic ones. Increased fuel economy with a properly operated manual transmission vehicle versus an equivalent automatic transmission vehicle can range from 5% to about 15% depending on driving conditions and style of driving — extra urban or urban (highway or city).</p>
+        <p class="zh-p">手动变速器通常比自动变速器有更好的节油性。根据不同的行车条件和驾驶风格——郊区或市区（高速公路或城市道路），手动变速器汽车比同规格的自动变速器汽车节油 5% 到 15%。</p>
+        <div class="keyline"><span>fuel economy 燃油经济性</span><span>properly operated 正确操作的</span><span>extra urban / urban 郊区 / 市区</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 05 拓展知识 -->
+  <section id="sec6-deep" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>拓展知识 · 深入理解<small>DEEPER KNOWLEDGE — 原理、数据、对比与误区</small></h2></div>
+
+      <div class="card">
+        <h3>🔬 一、变速器到底"变"了什么？<span class="en">What the Transmission Really Changes — 6 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">发动机的转速范围很窄。</span><span class="zhs">汽油机有效工作区间大约在 1000~6000 r/min，转速越低扭矩越小，无法同时兼顾"起步"和"高速巡航"两种需求。</span></li>
+          <li><span class="en">车轮的需求范围极宽。</span><span class="zhs">起步时车轮几乎不转（0），高速时可达 1000 r/min 以上，还要能反向旋转（倒车）。</span></li>
+          <li><span class="en">齿轮对可以"转换"转速与扭矩。</span><span class="zhs">两啮合齿轮模数相同，齿数比就决定了转速比：齿数多的转得慢、齿数少的转得快。</span></li>
+          <li><span class="en">传动比 <em>i</em> = 从动齿轮齿数 ÷ 主动齿轮齿数。</span><span class="zhs">例：主动 14 齿带动从动 36 齿，<em>i</em> = 36 ÷ 14 ≈ 2.57。输出转速降为 1/2.57，扭矩升为 2.57 倍。</span></li>
+          <li><span class="en">因为功率 = 扭矩 × 转速，所以降速必然增扭。</span><span class="zhs">转速除以 3，扭矩就必须乘以 3。教材配套资料的算例：输入 200 N·m / 4500 r/min（= 94248 W），输出 300 N·m / 3000 r/min（同样 = 94248 W）——功率完全一致。<br>所以变速器<b>不是"增加动力"，而是"重新分配"</b>，这正是课文所说的 <em>speed and power changing device</em>。</span></li>
+          <li><span class="en">多组齿轮对 = 多个挡位。</span><span class="zhs">中间轴上装一组直径不同的齿轮（塔轮），每个对应输出轴上的一个齿轮，就得到一个挡位；选哪一对参与工作，由同步器决定。</span></li>
+        </ol>
+        <p class="src-note">📐 <b>补充数据：</b>一对齿轮啮合的效率约 <b>98%~99%</b>，每个轴承约损耗 <b>1%</b>。所以"功率守恒"只是近似——上例实际输出约 94248 × 0.98 ≈ 92363 W。这也是为什么传动系总会损失一部分发动机功率。</p>
+      </div>
+
+      <div class="card">
+        <h3>🔬 二、同步器换挡的五个阶段 <span class="en">The Five Phases of Synchronisation</span></h3>
+        <p style="font-size:14px;color:var(--muted)"><b>前置条件：</b>驾驶员先踩下离合器切断发动机扭矩。此时输出轴仍按车速旋转，而输入侧（与中间轴相连）需要被加速或减速到与输出侧匹配。</p>
+        <ol class="deep-steps">
+          <li><span class="en">异步（Asynchronising）</span><span class="zhs">——拨叉推动接合套离开中位，定位销（锁止元件）把<b>同步环</b>压向目标齿轮的摩擦锥面。此时两者转速还差 Δω。</span></li>
+          <li><span class="en">同步（Synchronising）</span><span class="zhs">——接合套内齿顶住同步环齿，锥面摩擦产生的力矩对抗惯性力矩，转速差 Δω 迅速降为零。同步环此刻起"锁止"作用，接合套<b>插不进去</b>——正因如此才不会打齿。</span></li>
+          <li><span class="en">解锁（Unlocking）</span><span class="zhs">——Δω = 0 后摩擦力消失，同步环在齿端倒角的分度力矩作用下回转一个小角度，不再阻挡接合套。</span></li>
+          <li><span class="en">啮合（Meshing）</span><span class="zhs">——接合套穿过同步环，其倒角齿与齿轮上的倒角接合齿（dog teeth）相遇并滑入。</span></li>
+          <li><span class="en">接合（Engaging）</span><span class="zhs">——接合套完全进入齿轮接合齿；齿背的<b>倒锥</b>防止承载时脱挡。该齿轮被锁在输出轴上，这一挡就挂上了。</span></li>
+        </ol>
+        <p class="src-note">🔧 <b>操作手感数据（便于理解"同步"要多大力量）：</b>换挡拨叉力通常 <b>60~120 N</b>；拨叉总行程约 <b>8~12 mm</b>，其中同步发生在 <b>3~6 mm</b> 处；手动变速器一次换挡耗时 <b>0.5~2.0 s</b>，而高性能双离合变速器（DCT）约 <b>10 ms</b>。<br>另外：<b>降挡比升挡更难同步</b>——降挡要克服摩擦损耗去<b>加速</b>输入轴，需要更大的摩擦力矩和更长的同步时间。现代变速器在一、二挡采用<b>双锥/三锥同步环</b>来减小换挡力。</p>
+      </div>
+
+      <div class="card">
+        <h3>🔬 三、动力在整车上的传递路线 <span class="en">Power Path Through a RWD Vehicle — 8 Steps</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">发动机</span><span class="zhs">在曲轴上产生扭矩。</span></li>
+          <li><span class="en">离合器</span><span class="zhs">（图 2.2-1 编号 5）接通或断开发动机与传动系；起步时必须打滑。</span></li>
+          <li><span class="en">变速器输入轴</span><span class="zhs">（编号 2）接收离合器扭矩，驱动常啮合输入齿轮。</span></li>
+          <li><span class="en">中间轴（副轴）</span><span class="zhs">由输入齿轮驱动，装有各挡主动齿轮组成的<b>齿轮组</b>。</span></li>
+          <li><span class="en">输出轴</span><span class="zhs">——同步器锁住所选齿轮后，输出轴通过该齿轮副获得扭矩（转速与扭矩在此被改变）。</span></li>
+          <li><span class="en">传动轴</span><span class="zhs">（编号 3）把扭矩向后送到驱动桥。</span></li>
+          <li><span class="en">万向节</span><span class="zhs">（编号 6）——传动轴两端各一个，使变速器与后桥相对运动时仍能连续传力。</span></li>
+          <li><span class="en">主减速器</span><span class="zhs">（编号 7）完成最后一次固定减速并把传动方向转过 90°，再经<b>差速器</b>把扭矩分给两根<b>半轴</b>，最后驱动<b>驱动轮</b>（编号 4）。</span></li>
+        </ol>
+        <p class="src-note">📊 <b>传动系效率链（后驱）：</b>变速器 0.941 × 传动轴 0.98 × 主减速器 0.931 × 半轴 0.98 ≈ <b>0.841</b>，即约 <b>15.9%</b> 的发动机功率在传递中损失。<br><b>前驱车（transaxle）没有传动轴</b>，所以传动系效率通常是各种布置中最高的——这也是前驱车省油的原因之一。</p>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 四、五种变速器型式的对比 <span class="en">MT / AT / CVT / DCT / AMT</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>型式</th><th>英文全称</th><th>结构要点</th><th>优点</th><th>不足</th></tr>
+            <tr><td><b>MT 手动</b></td><td>Manual Transmission</td><td>常啮合齿轮组 + 同步器 + 离合器，由驾驶员选挡</td><td>结构简单、成本低、传动效率高、维修便宜</td><td>操作繁琐、堵车累、对驾驶技术要求高</td></tr>
+            <tr><td><b>AT 液力自动</b></td><td>Automatic Transmission</td><td>液力变矩器 + 行星齿轮组（太阳轮/行星轮/行星架）+ 液压阀体 + 离合器组/制动带</td><td>平顺、省心、能承受大扭矩</td><td>结构复杂、成本高，传统上因变矩器滑差而油耗偏高</td></tr>
+            <tr><td><b>CVT 无级</b></td><td>Continuously Variable Transmission</td><td>钢带/链条 + 两组可变直径锥轮，传动比连续变化</td><td>极其平顺、能让发动机始终工作在高效区、省油</td><td>承受扭矩有限、加速感"发闷"</td></tr>
+            <tr><td><b>DCT 双离合</b></td><td>Dual-Clutch Transmission</td><td>两套离合器分别管奇数挡与偶数挡，下一挡预先挂好</td><td>换挡极快（约 10 ms）、动力中断时间极短、效率高</td><td>结构复杂、低速蠕行舒适性曾被质疑</td></tr>
+            <tr><td><b>AMT 机械自动</b></td><td>Automated Manual Transmission</td><td>在 MT 基础上加装电控执行机构，自动操作离合与换挡</td><td>成本低、效率接近 MT</td><td>换挡时有明显动力中断与顿挫；市场占比很小（约 1%）</td></tr>
+          </table>
+        </div>
+        <p class="src-note">📚 课文重点讲了 <b>MT</b> 与 <b>AT</b>。CVT / DCT / AMT 是课文之外但维修岗位常见的型式，故在此列表对比。目前乘用车市场由 <b>AT 与 CVT 主导</b>，MT 仍在中国、印度及欧洲低价车型中占较大比例。</p>
+      </div>
+
+      <div class="card">
+        <h3>🎛️ 五、自动变速器的六个档位到底在做什么 <span class="en">What P-R-N-D-2-1 Actually Do</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>档位</th><th>英文</th><th>含义（原厂手册表述）</th><th>使用场景</th></tr>
+            <tr><td><b>P</b></td><td>Park</td><td>无动力传递，且<b>驻车棘爪（parking pawl）把输出轴机械锁在壳体上</b>；可起动发动机、可拔钥匙</td><td>长时间停车、熄火离车</td></tr>
+            <tr><td><b>R</b></td><td>Reverse</td><td>以减速比实现倒车，具有发动机制动</td><td>倒车</td></tr>
+            <tr><td><b>N</b></td><td>Neutral</td><td>无动力传递，<b>输出轴是自由的</b>（棘爪不锁）；可起动发动机，但不能拔钥匙</td><td>短暂停车、被拖车</td></tr>
+            <tr><td><b>D</b></td><td>Drive</td><td>自动在前进挡之间切换，变矩器锁止离合器自动锁止/释放，最省油</td><td>正常行驶</td></tr>
+            <tr><td><b>2</b></td><td>Manual second gear</td><td><b>二挡起步并锁定</b>，不升到更高挡</td><td>湿滑路面起步、利用发动机制动</td></tr>
+            <tr><td><b>1</b></td><td>Manual low gear</td><td><b>仅 1 挡</b>，不升挡，提供最大牵引力与发动机制动</td><td>陡坡、需要最大牵引力时</td></tr>
+          </table>
+        </div>
+        <p class="src-note">📖 依据：福特原厂维修手册（1994 Mustang，AODE 自动变速器「Range Selector and Shift Patterns」一节）对 P/R/N/D/2/1 的逐条定义，与课文所列顺序一致。<br>⚠️ <b>最关键的一条常识：P 与 N 的区别在于 P 有机械锁止、N 没有。</b>所以拖车不能用 P 档长距离拖行；手册同时要求坡道停车仍应拉紧驻车制动器——棘爪是细小零件，不能完全代替手刹。</p>
+      </div>
+
+      <div class="card">
+        <h3>💡 六、手动真的更省油吗？——变矩器滑差与锁止离合器 <span class="en">Torque Converter Slip &amp; the Lock-Up Clutch</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">课文给出的差距：</span><span class="zhs">手动变速器比同规格自动变速器节油 <b>5%~15%</b>（取决于郊区或市区工况、驾驶风格）。</span></li>
+          <li><span class="en">差距从哪来？主要是液力变矩器的"滑差"。</span><span class="zhs">变矩器靠液体传力，泵轮与涡轮之间永远存在转速差：速比接近零（起步瞬间）时效率不足 <b>10%</b>，速比约 0.85 时才达到最高的 <b>85%~90%</b>——永远达不到 100%。此外还有液压泵与摩擦损失。</span></li>
+          <li><span class="en">"锁止离合器"是解决办法。</span><span class="zhs">在约二挡以上或车速 20 km/h 以上时，锁止离合器把泵轮与涡轮<b>机械锁合</b>，滑差降为零；只在换挡瞬间松开打滑，以衰减传动系振动。</span></li>
+          <li><span class="en">所以这个 5%~15% 是"教材成书时代"的数据。</span><span class="zhs">现代 AT 普遍采用锁止离合器，且挡位数更多（6~10 挡），CVT 与 DCT 效率也很高——实际差距已明显缩小，某些工况下自动变速器甚至更省油。<br>维修与教学中引用这个数字时，应说明它针对的是<b>未采用锁止离合器的传统自动变速器</b>。</span></li>
+        </ol>
+        <p class="src-note">⚠️ <b>核实说明：</b>本次联网核查时，美国能源部（DOE）用于说明"自动变速器已追平手动变速器油耗"的 Fact #850 页面以及 fueleconomy.gov 相关技术页<b>均返回 404</b>，因此课文的 5%~15% 这一数值<b>本课未能从现行权威来源复核</b>。上文的机理（变矩器滑差 <10%~90%、锁止离合器工作点）来自工程资料，可以采信；<b>具体百分比建议以最新官方数据或具体车型为准。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>📊 七、传动比与档位的对应关系 <span class="en">Gear Ratio at a Glance</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>档位</th><th>主动齿</th><th>从动齿</th><th>传动比</th><th>发动机 2000 r/min 时输出转速</th><th>特点</th></tr>
+            <tr><td>1 档</td><td>14</td><td>36</td><td>2.57 : 1</td><td>约 778 r/min</td><td>扭矩最大、车速最低</td></tr>
+            <tr><td>2 档</td><td>18</td><td>32</td><td>1.78 : 1</td><td>约 1125 r/min</td><td>低速行驶</td></tr>
+            <tr><td>3 档</td><td>23</td><td>27</td><td>1.17 : 1</td><td>约 1704 r/min</td><td>城市道路常用</td></tr>
+            <tr><td>4 档</td><td>22</td><td>22</td><td>1.00 : 1</td><td>2000 r/min</td><td>直接档，输出转速 = 输入转速</td></tr>
+            <tr><td>倒档</td><td>14</td><td>30</td><td>2.14 : 1（反向）</td><td>约 933 r/min（反转）</td><td>多一个惰轮 → 输出反向</td></tr>
+          </table>
+        </div>
+        <p class="src-note">⚠️ 上表是为讲解原理而设的<b>示意齿数</b>，用于说明"传动比 = 从动齿数 ÷ 主动齿数"这一关系；不同车型实际齿数差别很大，实际数据应以该车型维修手册为准。<br>另外：变速器<b>总传动比</b>还要乘上<b>主减速器</b>的传动比才是车轮最终得到的减速比。真实的多挡变速器最高挡常做成<b>超速挡</b>（传动比小于 1.00，输出比输入转得更快、更省油），例如某 7 挡手动变速器各挡为 2.97 / 2.07 / 1.43 / 1.00 / 0.71 / 0.57 / 0.48，其中第 4 挡为直接挡，5~7 挡为超速挡。</p>
+      </div>
+
+      <div class="card">
+        <h3>🔧 八、差速器：为什么变速器后面还要有一个它 <span class="en">Why a Differential Is Necessary</span></h3>
+        <ol class="deep-steps">
+          <li><span class="en">转弯时左右车轮走的路不一样长。</span><span class="zhs">外侧车轮走过的弧线比内侧长，如果两根半轴被硬连在一起，必然有一个车轮被迫打滑。</span></li>
+          <li><span class="en">差速器的作用</span><span class="zhs">就是把主减速器传来的动力分配给左右半轴，同时<b>允许两侧车轮以不同转速转动</b>；它通常还与主减速器做成一体，并完成传动方向 90° 的转换。</span></li>
+          <li><span class="en">普通（开放式）差速器有个天生弱点：始终把扭矩平均分配给两侧。</span><span class="zhs">结果当一侧车轮悬空或打滑时，另一侧也只能得到同样小的扭矩——总牵引力受限于<b>抓地力较差那一侧的两倍</b>，车就"卡住"了。</span></li>
+          <li><span class="en">解决办法是限滑。</span><span class="zhs">限滑差速器（LSD）通过摩擦片或齿轮机构限制两侧转速差；也可以通过制动系统对打滑车轮施加制动，把扭矩"逼"到有附着力的那一侧——这就是电子差速锁/牵引力控制的原理。</span></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 九、常见误区辨析 <span class="en">Common Misconceptions</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th style="width:42%">常见说法</th><th>判断与纠正</th></tr>
+            <tr><td class="mis-x">❌ 变速器能"增加"发动机的功率</td><td class="mis-v">✅ 不能。变速器只<b>改变转速与扭矩的配比</b>：3∶1 就是转速 ÷3、扭矩 ×3，功率近似不变（齿面还会损失约 1%~2%）。低挡力气大是"以转速换扭矩"。</td></tr>
+            <tr><td class="mis-x">❌ 挡位越高越省油</td><td class="mis-v">✅ 油耗取决于<b>发动机工作点</b>，不是挡位数字。挡位过高、负荷不足时发动机会"憋车"，节气门开度大、泵气损失增加，反而更费油、还伤车。</td></tr>
+            <tr><td class="mis-x">❌ 空挡滑行省油</td><td class="mis-v">✅ 空挡既无动力传递也无发动机制动，<b>非常危险</b>。电控发动机在<b>带挡滑行</b>、节气门关闭时会减速断油，几乎不喷油且仍有发动机制动，反而更省油更安全。</td></tr>
+            <tr><td class="mis-x">❌ 必须一挡一挡地顺序换挡</td><td class="mis-v">✅ 同步器按挡位分组（如一、二挡共用一个同步器，不能去选三挡），但在允许范围内可以<b>跳挡</b>（如 2 挡直跳 4 挡）；自动变速器强制降挡时也常跳挡。</td></tr>
+            <tr><td class="mis-x">❌ 自动变速器一定比手动费油</td><td class="mis-v">✅ 课文说手动通常省油 5%~15%，但这是<b>未采用锁止离合器的传统自动变速器</b>的情况。现代 AT 普遍有锁止离合器与更多挡位，CVT/DCT 效率也高，实际差距已明显缩小甚至反超。</td></tr>
+            <tr><td class="mis-x">❌ 离合器和变速器是同一个东西</td><td class="mis-v">✅ 不是。离合器是发动机与变速器之间的<b>连接装置</b>（负责接通/断开、起步时打滑）；变速器是其后的<b>扭矩—转速转换装置</b>。自动变速器上该角色由液力变矩器承担，它还能在起步瞬间把扭矩放大 2.3~3.0 倍。</td></tr>
+            <tr><td class="mis-x">❌ P 挡就是"带刹车的空挡"</td><td class="mis-v">✅ P 挡做了两件事：无动力传递<b>且</b>用<b>驻车棘爪把输出轴机械锁在壳体上</b>。棘爪是细小零件，手册要求坡道停车仍应拉紧驻车制动器。P 挡不是额外的制动器。</td></tr>
+            <tr><td class="mis-x">❌ 滑动型变速器还在普遍使用</td><td class="mis-v">✅ 课文明确：<em>The sliding-gear type is obsolete now.</em> 现代变速器全部是固定啮合型，靠同步器换挡。</td></tr>
+            <tr><td class="mis-x">❌ 变速器油不用换，是"终身免维护"</td><td class="mis-v">✅ 变速器油承担润滑、传压、清洁、冷却四项任务，会随热与氧化劣化，产生漆膜与杂质堵塞电磁阀和滑阀。部分原厂确有"长周期/终身加注"的说法，但那是与既定寿命绑定的厂家声明，<b>并非普遍真理</b>，严苛工况（拖挂、拥堵、高温）会大幅缩短周期。</td></tr>
+            <tr><td class="mis-x">❌ 挡位越多性能一定越好</td><td class="mis-v">✅ 挡位越多只是<b>更接近理想牵引曲线</b>，主要收益在油耗、排放与平顺性。性能还取决于传动比范围、主减速比与换挡速度——换挡极快的 DCT 可以胜过换挡迟缓的 9AT。</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🛢️ 十、变速器油到底做什么用 <span class="en">Four Jobs of Transmission Fluid</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>作用</th><th>说明</th></tr>
+            <tr><td><b>① 润滑 Lubricate</b></td><td>润滑齿轮、轴承与衬套，形成油膜并带走齿面热量。</td></tr>
+            <tr><td><b>② 传压 Hydraulic medium</b></td><td>在自动变速器中作为液压介质，把压力传到各离合器组（clutch pack）与制动带（band brake）。</td></tr>
+            <tr><td><b>③ 清洁 Clean</b></td><td>随摩擦过程带走金属屑与杂质；滤清器把杂质截留。油液劣化后会形成漆膜，堵塞电磁阀与滑阀使其卡滞。</td></tr>
+            <tr><td><b>④ 冷却 Cool</b></td><td>把变速器内部的热量带走。拖挂或长时间爬坡时油温升高，是油液劣化与离合器损坏的主要原因，因此重载车型会加装变速器油辅助散热器。</td></tr>
+          </table>
+        </div>
+        <p class="src-note">⚠️ <b>更换周期未核实：</b>本次未能从原厂维修手册取得统一周期。现代各厂家差异很大（严苛工况约 3 万~6 万英里，或标称"终身加注"）。<b>本课不给出具体里程数</b>，实际保养请以该车型维修手册为准。<br>另外注意：手动变速器/变速驱动桥通常使用专用 <b>MTF</b>，而自动变速器使用 <b>ATF</b>，两者不可随意互换。</p>
+      </div>
+
+      <div class="card">
+        <h3>🛠️ 十一、维护要点与故障判断 <span class="en">Maintenance &amp; Fault Diagnosis</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>现象</th><th>可能原因</th><th>检查方向</th></tr>
+            <tr><td>换挡打齿、有"咯啦"声</td><td>同步器磨损、同步环锥面磨损</td><td>拆检同步器与同步环锥面</td></tr>
+            <tr><td>跳档（行驶中自动脱档）</td><td>定位装置（detent）失效、拨叉或接合套磨损、轴承松旷</td><td>检查拨叉轴定位钢球与弹簧、轴承</td></tr>
+            <tr><td>挂不上档或很涩</td><td>操纵机构卡滞、离合器分离不彻底</td><td><b>先确认离合器是否分离彻底</b>，再查变速器内部</td></tr>
+            <tr><td>运转噪音大（空档也响）</td><td>轴承磨损、齿轮油不足或变质</td><td>检查油位、油质与轴承</td></tr>
+            <tr><td>只有某一档响</td><td>该档齿轮齿面磨损或啮合间隙（backlash）异常</td><td>检查该档齿轮副啮合情况与齿侧间隙</td></tr>
+            <tr><td>倒挡噪音特别大</td><td>倒挡多为直齿且常无同步器（正常现象偏大）</td><td>与同型车对比判断是否异常</td></tr>
+            <tr><td>漏油</td><td>油封（oil seal）老化、壳体结合面密封不良</td><td>检查输入/输出轴油封</td></tr>
+          </table>
+        </div>
+        <p class="src-note">🔧 维修提示：凡"挂档困难"类故障，<b>必须先排除离合器分离不彻底</b>再去拆变速器——否则会把好变速器拆了。这是维修现场最常见的误判。</p>
+      </div>
+
+      <div class="card">
+        <h3>📚 十二、资料来源与核实说明 <span class="en">Sources &amp; Verification Notes</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <tr><th>内容</th><th>来源</th></tr>
+            <tr><td>P / R / N / D / 2 / 1 各档定义（含驻车棘爪锁止输出轴、N 挡输出轴自由、2 挡二挡起步并锁定）</td><td>福特原厂维修手册（1994 Mustang，AODE 自动变速器，Range Selector and Shift Patterns）</td></tr>
+            <tr><td>传动比定义与算例（200 N·m/4500 r/min ⇄ 300 N·m/3000 r/min，同为 94248 W）；单级/两级变速器；倒挡需附加齿轮；多锥同步环</td><td>x-engineer.org《How a manual transmission works》</td></tr>
+            <tr><td>同步器五阶段过程；换挡力 60~120 N、拨叉行程 8~12 mm、换挡时间 0.5~2.0 s 与 DCT 约 10 ms</td><td>x-engineer.org《Gear synchro》</td></tr>
+            <tr><td>传动系效率链：变速器 0.941 × 传动轴 0.98 × 主减速器 0.931 × 半轴 0.98 ≈ 0.841（损失约 15.9%）；轴承约 1%、齿轮啮合约 98%</td><td>x-engineer.org《Drivetrain losses and efficiency》</td></tr>
+            <tr><td>液力变矩器滑差（速比近零时效率 &lt;10%，峰值 85%~90%）；锁止离合器工作条件；起步扭矩放大 2.3~3.0 倍</td><td>x-engineer.org《How a torque converter works》</td></tr>
+            <tr><td>AMT 全球市场占比约 1%；行星齿轮组构成；BEV 只需单级减速器</td><td>x-engineer.org（AMT / 自动变速器建模 / Why do we need gears）</td></tr>
+            <tr><td>同步器结构（花键毂、滑套、弹簧、定位销与黄铜锁止环）；拨叉卡入滑套环槽</td><td>freeasestudyguides.com（ASE A2/A3 教学资料）</td></tr>
+            <tr><td>斜齿轮产生轴向推力；直齿轮更便宜但高速噪声大</td><td>gearmotions.com《Helical Gears vs. Spur Gears》</td></tr>
+            <tr><td>变速驱动桥（transaxle）定义与后置变速驱动桥实例</td><td>onallcylinders.com《What is a Transaxle?》</td></tr>
+            <tr><td>差速器定义（允许同一输入驱动的左右驱动轮以不同转速旋转）</td><td>美国专利 US9446663</td></tr>
+            <tr><td>变速器油四项作用；油液劣化形成漆膜堵塞电磁阀与滑阀</td><td>freeasestudyguides.com（ASE A2）</td></tr>
+          </table>
+        </div>
+        <p class="src-note">⚠️ <b>本条特别说明（教学材料必须诚实）：</b><br>
+        ① 课文中的 <b>「手动变速器比自动变速器省油 5%~15%」本课未能从现行官方来源复核</b>。美国能源部 Fact #850 与 fueleconomy.gov 相关页面本次访问均返回 404。本课保留了课文原话（因为它是教材内容），但同时在第六节补充了"这是传统自动变速器的情况、现代 AT 已缩小差距"的说明。<br>
+        ② <b>变速器油更换周期</b>未取得原厂统一数据，本课刻意不写具体里程。<br>
+        ③ <b>第七节的齿数表是示意数据</b>，用于讲清传动比关系，不是任何具体车型的数据。课文图 2.2-2（马自达 3 昂克赛拉）与图 2.2-3（别克凯越）的档位排列图本次未能找到可核实的公开来源，仍以课件原图为准。<br>
+        ④ 本课<b>未采用</b>任何"某车型具体齿比""某车型变速器油容量"之类的数字，因为无法从权威来源核实——<b>教学材料里错的数字比没有数字危害更大</b>。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 06 练习 -->
+  <section id="sec6-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习<small>EXERCISES — 连线 + 25 题测验 + 读音</small></h2></div>
+
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文</span></h3>
+        <div class="match-wrap" id="matchBox6"></div>
+        <p class="parts-hint" id="matchMsg6" style="margin-top:10px">已配对 0 / 10</p>
+      </div>
+
+      <div class="card">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 43 题 · 选项全英文 · 抽人回答</span></h3>
+        <div class="q-top">
+          <div class="q-progress"><i id="qBar6" style="width:0%"></i></div>
+          <div id="quizBox6"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🔊 练习 3 · 读音练习 <span class="en">Read Aloud</span></h3>
+        <div class="keyline" id="readBox6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程六 · 07 总结 -->
+  <section id="sec6-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树<small>SUMMARY — KNOWLEDGE TREE</small></h2></div>
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Transmission</span></h3>
+        <div class="tree">
+          <div class="tree-root">⚙️ 变速器 Transmission</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>定义与功能 Definition &amp; Functions</b>
+              <ul>
+                <li>改变速度和动力的装置 <span class="tz">speed and power changing device</span></li>
+                <li>位置：发动机与驱动轮之间 <span class="tz">提供不同传动比</span></li>
+                <li>功能一：选择传动比 <span class="tz">select gear ratios</span></li>
+                <li>功能二：改变行驶方向 <span class="tz">reverse the vehicle movement</span></li>
+                <li>功能三：中断动力传送 <span class="tz">interrupt the transmission of power</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>组成 Components</b>
+              <ul>
+                <li>壳体 housing <span class="tz">容纳支承全部零件</span></li>
+                <li>输入轴及齿轮 input shaft &amp; gear <span class="tz">第一轴</span></li>
+                <li>输出轴及齿轮 output shaft &amp; gear <span class="tz">第二轴</span></li>
+                <li>空转轴 / 中间轴 idler shaft <span class="tz">动力中转站</span></li>
+                <li>齿轮组 cluster of gears <span class="tz">每个齿轮对应一个档位</span></li>
+                <li>倒挡齿轮 reverse gear <span class="tz">多一个惰轮改向</span></li>
+                <li>换挡操纵机构 gear shift mechanism <span class="tz">杆 → 拨叉轴 → 拨叉 → 接合套</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>种类 Types</b>
+              <ul>
+                <li>手动 MT <span class="tz">最常见</span></li>
+                <li>滑动型 sliding-gear <span class="tz">已淘汰 obsolete</span></li>
+                <li>固定啮合型 constant-mesh <span class="tz">现代变速器全部是这种</span></li>
+                <li>自动 AT <span class="tz">六个档位 P-R-N-D-2-1</span></li>
+                <li>其它：CVT / DCT / AMT <span class="tz">维修岗位常见</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>关键结论 Key Points</b>
+              <ul>
+                <li>传动比 = 从动齿数 ÷ 主动齿数 <span class="tz">gear ratio</span></li>
+                <li>降速 = 增扭 <span class="tz">功率基本不变，只是重新配比</span></li>
+                <li>动力路线 <span class="tz">发动机→离合器→变速器→传动轴→万向节→主减速器→差速器→半轴→驱动轮</span></li>
+                <li>同步器 <span class="tz">先摩擦同步转速，再花键啮合，所以不打齿</span></li>
+                <li>前驱用 transaxle <span class="tz">变速器 + 主减速器 + 差速器一体</span></li>
+                <li>P 与 N 的区别 <span class="tz">P 有机械锁止，N 没有</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚀 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① 定义：安装在发动机与驱动轮之间、改变速度和动力的装置</span>
+          <span>② 三大功能：选择传动比、改变行驶方向、中断动力传送</span>
+          <span>③ 组成：壳体、输入轴及齿轮、输出轴及齿轮、空转轴、倒挡齿轮、齿轮组、换挡机构</span>
+          <span>④ MT 两型式：滑动型（已淘汰）与固定啮合型（现代全部）</span>
+          <span>⑤ AT 档位顺序：P - R - N - D - 2 - 1</span>
+          <span>⑥ 燃油经济性：课文给出 MT 比 AT 省油 5%~15%</span>
+          <span>⑦ 传动比 = 从动齿数 ÷ 主动齿数；降速必然增扭</span>
+        </div>
+        <div class="tip">🎮 <span>想巩固单词？回首页进入 <b>🎮 单词大作战</b>，选择「变速器」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
