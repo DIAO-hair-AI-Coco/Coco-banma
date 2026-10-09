@@ -861,6 +861,22 @@ const COURSES=[
     pages:['sec6-intro','sec6-vocab','sec6-parts','sec6-text','sec6-deep','sec6-quiz','sec6-summary'],
     tabs:['导入','单词短语','零件动画','课文阅读','拓展知识','闯关练习','知识总结'],
     bank:[{en:'transmission',zh:'变速器'},{en:'driving wheel',zh:'驱动轮'},{en:'gear ratio',zh:'传动比'},{en:'drive shaft',zh:'驱动轴；传动轴'},{en:'propeller shaft',zh:'传动轴（后驱）'},{en:'rear wheel',zh:'后轮'},{en:'front wheel',zh:'前轮'},{en:'axle half shaft',zh:'半轴'},{en:'front-wheel-drive',zh:'前轮驱动'},{en:'rear-wheel-drive',zh:'后轮驱动'},{en:'reverse',zh:'逆转；倒档'},{en:'idler shaft',zh:'空转轴；中间轴'},{en:'countershaft',zh:'中间轴'},{en:'reverse gear',zh:'倒档齿轮'},{en:'idler gear',zh:'惰轮'},{en:'Manual Transmission',zh:'手动变速器'},{en:'Automatic Transmission',zh:'自动变速器'},{en:'sliding-gear type',zh:'滑动型'},{en:'constant-mesh design',zh:'固定啮合型'},{en:'park',zh:'停车；停放'},{en:'neutral',zh:'空档位置'},{en:'overdrive',zh:'超速档'},{en:'input shaft',zh:'输入轴'},{en:'output shaft',zh:'输出轴'},{en:'cluster gear',zh:'齿轮组'},{en:'synchronizer',zh:'同步器'},{en:'shift fork',zh:'换挡拨叉'},{en:'gear shift mechanism',zh:'换挡操纵机构'},{en:'universal joint',zh:'万向节'},{en:'final drive',zh:'主减速器'},{en:'differential',zh:'差速器'},{en:'transaxle',zh:'变速驱动桥'}] },
+  { id:'ai2', icon:'🧠', name:'正确认识 AI',
+    en:'Generative AI · Lesson 2 · Understanding AI',
+    series:'ai',
+    desc:'本课程最"反营销"的一章：用一句话（预测下一个词）讲透 AI 原理，可交互动画亲手体验"挑词"与温度；8 件擅长的事、7 件一定会错的事；"陌生领域最危险"四象限自检图；幻觉成因流程图与 7 招缓解；三项研究证据（含"通用 AI 反而损害学习"）；数据安全红线与学术诚信判定。（临时追加课程：不含练习题库）',
+    file:'courses/ai2.js', html:'courses/ai2.html',
+    pages:['sec-a2-intro','sec-a2-ability','sec-a2-hallu','sec-a2-evidence','sec-a2-safety','sec-a2-summary'],
+    tabs:['导入','擅长与不擅长','幻觉专题','研究证据','安全与诚信','总结'],
+    bank:[{en:'hallucination',zh:'幻觉'},{en:'prompt',zh:'提示词'},{en:'token',zh:'词元'},{en:'inference',zh:'推理'},{en:'knowledge cutoff',zh:'知识截止日期'},{en:'temperature',zh:'温度'},{en:'Chain-of-Thought',zh:'思维链'},{en:'RAG',zh:'检索增强生成'},{en:'alignment',zh:'对齐'},{en:'misuse',zh:'滥用'},{en:'academic integrity',zh:'学术诚信'},{en:'anonymize',zh:'脱敏'}] },
+  { id:'ai3', icon:'📖', name:'AI 基本术语与常识',
+    en:'Generative AI · Lesson 3 · Essential AI Terminology',
+    series:'ai',
+    desc:'54 个核心术语，从最外层的 AI 大筐剥到最里面的 LLM：可点击的嵌套包含关系图、Token 切分可视化、训练三阶段（预训练/微调/对齐）、上下文窗口"忘事"演示，以及可按类别筛选、可关键词搜索的 54 词术语速查表。另附 5 个最容易被搞错的常识误区。（临时追加课程：不含练习题库）',
+    file:'courses/ai3.js', html:'courses/ai3.html',
+    pages:['sec-a3-intro','sec-a3-base','sec-a3-mech','sec-a3-prompt','sec-a3-adv','sec-a3-glossary'],
+    tabs:['导入','基础概念','模型机制','提示与交互','进阶术语','速查与误区'],
+    bank:[{en:'Artificial Intelligence',zh:'人工智能'},{en:'Machine Learning',zh:'机器学习'},{en:'Deep Learning',zh:'深度学习'},{en:'Neural Network',zh:'神经网络'},{en:'Generative AI',zh:'生成式人工智能'},{en:'Large Language Model',zh:'大语言模型'},{en:'AGI',zh:'通用人工智能'},{en:'Multimodal',zh:'多模态'},{en:'fine-tuning',zh:'微调'},{en:'RLHF',zh:'基于人类反馈的强化学习'},{en:'distillation',zh:'知识蒸馏'},{en:'quantization',zh:'量化'},{en:'MoE',zh:'混合专家'},{en:'Scaling Law',zh:'缩放定律'},{en:'overfitting',zh:'过拟合'},{en:'embedding',zh:'嵌入；向量化'},{en:'vector database',zh:'向量数据库'},{en:'agent',zh:'智能体'},{en:'function calling',zh:'工具调用'},{en:'guardrail',zh:'护栏'},{en:'open-weight',zh:'开放权重'},{en:'watermarking',zh:'水印'},{en:'model collapse',zh:'模型坍缩'},{en:'inference cost',zh:'推理成本'}] },
   { id:'ai5', icon:'🤖', name:'DSH 的部署',
     en:'Generative AI · Lesson 5 · Deploying DeepSeek Harness',
     series:'ai',
@@ -879,7 +895,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20261009b';
+const APP_V='20261009d';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
@@ -985,8 +1001,9 @@ function courseCardEl(c,i,seriesKey){
   const b=document.createElement('button');
   b.className='course-card';
   const meta=seriesKey?SERIES_META[seriesKey]:null;
-  const localIdx=meta?(COURSES.filter(x=>(x.series||'auto')===seriesKey).indexOf(c)+1):0;
-  b.innerHTML=(meta&&meta.cls==='ai'?'<div class="cbadge">AI '+(localIdx)+'</div>':'')
+  const m=/^ai(\d+)$/.exec(c.id||'');
+  const localIdx=m?+m[1]:0;
+  b.innerHTML=(meta&&meta.cls==='ai'&&localIdx?'<div class="cbadge">AI '+localIdx+'</div>':'')
     +'<div class="cnum">第 '+(i+1)+' 课</div><div class="ci">'+c.icon+'</div>'
     +'<div class="ct">'+c.name+'</div><div class="ce">'+c.en+'</div>'
     +'<div class="cd">'+c.desc+'</div><span class="cb">▶ 开始学习</span>';
@@ -1004,6 +1021,10 @@ function renderHome(){
     map[k].items.push({c:c,i:i});
   });
   order.forEach(grp=>{
+    if(grp.key==='ai') grp.items.sort((a,b)=>{
+      const ma=/^ai(\d+)$/.exec(a.c.id||''), mb=/^ai(\d+)$/.exec(b.c.id||'');
+      return (ma?+ma[1]:99)-(mb?+mb[1]:99);
+    });
     const meta=SERIES_META[grp.key]||{icon:'📚',name:grp.key,desc:'',cls:''};
     const sec=document.createElement('div');
     sec.className='series-sec'+(meta.cls?' '+meta.cls:'');
