@@ -1,0 +1,773 @@
+<!-- 生成式AI教程 · 第5课 · 01 导入 -->
+  <section id="sec-a5-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#0891b2 0%,transparent 58%),linear-gradient(160deg,#071a2e,#0d2b4a 55%,#123061)">
+      <div class="badge">🤖 生成式AI教程 · AI 5 · 部署实战</div>
+      <h1>DSH 的部署 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Deploying DeepSeek Harness</em></h1>
+      <p class="sub">从下载到跑通第一个任务——本章全部步骤均来自真机实测，配真实截图</p>
+      <div class="meta"><span>📸 11 张实战截图</span><span>🖥️ 桌面版 + 命令行双路径</span><span>🔌 一切皆插件</span><span>⚠️ 官方安全须知</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 先搞清楚装上的是什么<small>WHAT EXACTLY ARE YOU INSTALLING</small></h2></div>
+
+      <div class="ai-note info">
+        <b>📌 本课所有命令、版本号、报错信息、目录结构，都来自真机实测（Windows 11）。</b><br>
+        终端截图是真实执行结果的还原；官网截图是真实页面抓取。<b>凡是未能实测的部分，本课会明确标注。</b>
+      </div>
+
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>🤔 很多老师第一次就理解错了</h4>
+          <p>听到 "DeepSeek Harness"，第一反应往往是"哦，就是 DeepSeek 的聊天客户端"。<b>不是。</b></p>
+          <p>官方 README 的原话是：<b>"DeepSeek Harness (<code class="k">dsh</code>) is an open-source agent harness developed by DeepSeek AI."</b>——它是一个<b>智能体运行时（agent harness）</b>，一次都没有提到"聊天"。</p>
+          <div class="keyline"><span>harness 运行时 / 挽具</span><span>agent 智能体</span><span>plugin 插件</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 三个最容易混淆的概念</h4>
+          <p><b>模型（Model）</b>是"大脑"；<b>DSH</b> 是"身体和工具台"；<b>API Key</b> 是"给大脑付费用的钱包"。</p>
+          <p>装好 DSH <b>不等于</b>有了 AI 能力——你还必须自己配置模型和 Key。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📊 一次装下来，到底会得到什么 <span class="en">Real Numbers From a Real Install</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v">0.2.0-rc.2</div><div class="l">实测版本号<br>（<b>rc</b> = 候选版）</div></div>
+          <div class="stat"><div class="v">536</div><div class="l">npm 安装的包数<br>（实测 <b>3 分钟</b>）</div></div>
+          <div class="stat"><div class="v">287</div><div class="l">其中 <code class="k">@deepseek-ai/*</code><br>插件包数量</div></div>
+          <div class="stat"><div class="v">453 MB</div><div class="l">装完后占用的<br>磁盘空间</div></div>
+        </div>
+        <p class="src-note">📐 以上四个数字全部来自本机真实安装记录，不是估算。命令与截图的对应关系见第 04 页。</p>
+      </div>
+
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 说清 DSH 是什么、不是什么</span>
+          <span>✅ 理解"一切皆插件"意味着什么</span>
+          <span>✅ 用桌面版 5 分钟装好（含官网截图）</span>
+          <span>✅ 用命令行装好并排查报错（含真实终端截图）</span>
+          <span>✅ 知道数据存在哪、怎么备份、怎么彻底卸载</span>
+          <span>✅ 掌握四种预设 + 三级权限（安全的核心）</span>
+          <span>✅ 记住官方安全须知里的三条硬要求</span>
+        </div>
+        <div class="typed" id="typedIntroA5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第5课 · 02 一切皆插件 -->
+  <section id="sec-a5-arch" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>一切皆插件 · 它凭什么这样设计<small>EVERYTHING IS A PLUGIN</small></h2></div>
+
+      <div class="card">
+        <h3>🔌 官方的一句话定位 <span class="en">From the Official Repository</span></h3>
+        <div class="ai-note info" style="font-size:14.5px">
+          <b>DeepSeek Harness (<code class="k">dsh</code>) is an open-source agent harness developed by DeepSeek AI.</b><br>
+          It is built on an <b>everything-is-a-plugin</b> architecture and powered by <b>Cordis</b>.<br>
+          <span style="opacity:.75;font-size:13px">—— 摘自官方仓库 README（github.com/deepseek-ai/deepseek-harness）</span>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:6px">
+          GitHub 仓库的副标题就是这句：<b>"DeepSeek Harness: Everything is a Plugin."</b>
+          它同时以这句话作为论文引用标题。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🧩 点一点，看看"一切皆插件"到底是什么意思 <span class="en">Interactive — Click Any Card</span></h3>
+        <p style="font-size:14px;color:var(--muted)">
+          下面每一项，都是 <code class="k">npm install</code> 时真实下载下来的独立 npm 包（包名来自真实依赖列表）。
+          <b>注意：连"计划模式""四种预设""沙箱"都是插件。</b>
+        </p>
+        <div class="plug" id="plugTree"></div>
+        <div class="plug-out" id="plugOut">👆 点击上面任意一张卡片，查看这个插件的真实包名与作用。</div>
+        <p class="src-note">📦 包名与数量取自真实的 <code class="k">npm view @deepseek-ai/dsh dependencies</code> 输出与本机安装目录清点结果（287 个 <code class="k">@deepseek-ai/*</code> 包）。</p>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 这个设计对教学意味着什么 <span class="en">Why It Matters for Teaching</span></h3>
+        <div class="cards3">
+          <div class="c3 a">
+            <h5>✅ 能力可以长出来</h5>
+            <ul>
+              <li>产品经理定不死它的边界</li>
+              <li>需要什么能力就装什么插件</li>
+              <li>可以按专业定制——<b>这对职教特别有价值</b></li>
+              <li>技能（Skills）、工具、界面都是可换的</li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>⚠️ 代价：复杂度上升</h5>
+            <ul>
+              <li>装一次 536 个包、占 453 MB</li>
+              <li>插件之间可能有依赖冲突</li>
+              <li>管理插件需要额外的 <b>pnpm</b>（本课会实测这个坑）</li>
+              <li>出问题时排查链路更长</li>
+            </ul>
+          </div>
+          <div class="c3 c">
+            <h5>🚨 代价：安全面变大</h5>
+            <ul>
+              <li>每个插件都是潜在的攻击面</li>
+              <li>官方安全须知明确写了这一点</li>
+              <li>所以官方建议：<b>先用只读权限</b></li>
+              <li>详见第 07 页的安全须知</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ai-note warn">
+          <b>💡 教学提示：</b>这一段最适合讲给"只会用聊天框"的学生听——
+          <b>"AI 工具的能力边界，取决于你给它装了什么工具，而不只是模型多聪明。"</b>
+          同一个模型，配上不同的插件，能做的事情完全不同。
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 生成式AI教程 · 第5课 · 03 安装方式一：桌面版 -->
+  <section id="sec-a5-install1" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>安装方式一 · 官方桌面版<small>PATH A: OFFICIAL DESKTOP APP — 推荐给教师</small></h2></div>
+
+      <div class="ai-note ok">
+        <b>✅ 为什么推荐教师用这条路：</b>官方桌面版<b>自带 Node.js 运行时</b>（本机实测内置 Node v24.18.1 + pnpm v11.7.0），
+        <b>不依赖你电脑上装没装 Node</b>。学员电脑环境乱七八糟时，这条路能绕过所有环境问题——双击就能用。
+      </div>
+
+      <div class="card">
+        <h3>📥 第 1 步：去官方页面下载 <span class="en">Download From the Official Site</span></h3>
+        <div class="ai-step"><div class="sn">1</div><div class="sb">
+          <h4>打开官方下载页</h4>
+          <p>浏览器访问：<code class="k">https://www.deepseek.com/download/</code></p>
+          <p style="color:var(--muted);font-size:13.5px">下面是本机实际打开该页面时的截图，红框区域才是我们要的：</p>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-download-harness.jpg" alt="DeepSeek 官方下载页实拍：上方是 DeepSeek Harness 全新桌面端，下方是 DeepSeek 客户端" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实拍</span><b>官方下载页（www.deepseek.com/download/）</b><br>
+            页面上有<b>两个完全不同的产品</b>：上面是 <b>DeepSeek Harness 全新桌面端</b>（本课要装的），下面是 <b>DeepSeek 客户端</b>（手机聊天 App）。<b>别下错。</b>
+          </figcaption>
+        </figure>
+        <div class="ai-note danger">
+          <b>🚨 只从官方域名下载。</b>网上有大量"DSH 加速版""绿色版""破解版"。
+          这类文件是<b>窃取 API Key 和账号的高发载体</b>——你装上一个被改过的 AI 工具，等于把钱包密码交给别人。
+        </div>
+        <p class="src-note">📎 官方直链（域名均为 <code class="k">download.deepseek.com</code>）：<br>
+        Windows：<code class="k">/desktop/dsh-latest-windows-x64.exe</code>　·　
+        macOS：<code class="k">/desktop/dsh-latest-macos-arm64.dmg</code></p>
+      </div>
+
+      <div class="card">
+        <h3>💻 第 2 步：确认你的系统符合要求 <span class="en">System Requirements</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>项目</th><th>要求</th><th>来源</th></tr>
+            <tr><td><b>Windows</b></td><td><b>Windows 10 或更高版本</b></td><td>官方下载页按钮下方标注</td></tr>
+            <tr><td><b>macOS</b></td><td><b>macOS 13 或更高</b>，且<b>仅提供 Apple 芯片（arm64）版</b>，无 Intel 版</td><td>官方下载页标注</td></tr>
+            <tr><td>磁盘空间</td><td>建议预留 <b>1 GB 以上</b>（实测程序目录约 360 MB + 用户数据目录）</td><td>本机实测</td></tr>
+            <tr><td>网络</td><td>安装与首次运行需要联网（要下载运行时与依赖）</td><td>—</td></tr>
+          </table>
+        </div>
+        <div class="ai-note warn">
+          <b>⚠️ 关于 Intel 版 Mac：</b>官方目前只提供 Apple 芯片（arm64）的 <code class="k">.dmg</code>。
+          如果你用的是老款 Intel Mac，<b>官方桌面版这条路走不通</b>——请改走第 04 页的 npm 命令行方式。
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🔧 第 3 步：安装 <span class="en">Run the Installer</span></h3>
+        <div class="ai-step"><div class="sn">1</div><div class="sb">
+          <h4>双击安装包</h4>
+          <p>文件名形如 <code class="k">DeepSeek Harness Setup 0.2.0-rc.2.exe</code>（版本号会变）。</p>
+        </div></div>
+        <div class="ai-step"><div class="sn">2</div><div class="sb">
+          <h4>一路「下一步」</h4>
+          <p><b>安装路径可以改。</b>本机就把它装在了 <code class="k">G:\DSH</code>（默认通常装在 C 盘）。</p>
+          <p style="color:var(--muted);font-size:13.5px">如果你的 C 盘空间紧张，这一步就改成 D 盘或 E 盘。</p>
+        </div></div>
+        <div class="ai-step"><div class="sn">3</div><div class="sb">
+          <h4>首次启动</h4>
+          <p>桌面会出现 <b>"DeepSeek Harness"</b> 图标。双击启动，会打开一个<b>本地 Web 界面</b>（看起来像浏览器窗口）。</p>
+          <p style="color:var(--muted);font-size:13.5px">本机实测的界面地址是 <code class="k">http://127.0.0.1:19387</code>。<b>端口每次可能不同</b>，以窗口或设置里显示的为准。</p>
+        </div></div>
+        <div class="ai-note info">
+          <b>💡 为什么是 127.0.0.1？</b>这个地址的意思是"<b>本机自己</b>"。
+          说明界面是跑在你自己电脑上的，<b>没有上传到任何服务器</b>。这一点在讲数据安全时很重要。
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📁 第 4 步：搞清文件都放在哪（教学重点） <span class="en">Where Everything Lives</span></h3>
+        <p style="font-size:14px;color:var(--muted)">理解目录结构，才能讲清"数据在哪、怎么备份、怎么彻底卸载"。</p>
+
+        <h4 style="font-size:15px;color:var(--primary-d);margin:16px 0 8px">① 程序目录（本机：<code class="k">G:\DSH</code>）</h4>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>内容</th><th>说明</th></tr>
+            <tr><td><code class="k">DeepSeek Harness.exe</code></td><td>主程序（约 244 MB，内含完整 Chromium/Electron 运行时）</td></tr>
+            <tr><td><code class="k">resources\app.asar</code></td><td><b>应用本体代码</b>（约 116 MB，打包为单一归档文件）</td></tr>
+            <tr><td><code class="k">resources\runtime\</code></td><td><b>内置运行时</b>：Node.js、pnpm、Python、CLI 都在这里 ⭐</td></tr>
+            <tr><td><code class="k">resources\app-update.yml</code></td><td>升级源配置（官方桌面版为 <b>nightly 每夜构建</b>通道）</td></tr>
+            <tr><td><code class="k">Uninstall DeepSeek Harness.exe</code></td><td>卸载程序</td></tr>
+          </table>
+        </div>
+        <p class="src-note">💡 内置运行时版本（取自 <code class="k">resources\runtime\versions.json</code>）：<b>Node.js v24.18.1　·　pnpm v11.7.0</b></p>
+
+        <h4 style="font-size:15px;color:var(--primary-d);margin:18px 0 8px">② 用户数据目录（本机：<code class="k">C:\Users\&lt;用户名&gt;\.dsh</code>）</h4>
+        <p style="font-size:14px">这个目录由环境变量 <code class="k">DSH_HOME</code> 指向。<b>你的配置、会话记录、密钥、日志全在这里。</b></p>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>内容</th><th>说明</th></tr>
+            <tr><td><code class="k">.credentials.yaml</code></td><td>🚨 <b>API Key 等凭据（敏感！演示时绝不能投到大屏）</b></td></tr>
+            <tr><td><code class="k">profiles\</code></td><td>配置档（本机为 <code class="k">desktop</code>），含插件清单与个性化配置</td></tr>
+            <tr><td><code class="k">sessions\</code></td><td><b>全部会话记录</b>（本机已有 181 个文件）</td></tr>
+            <tr><td><code class="k">logs\</code></td><td>运行日志——<b>出问题先看这里</b></td></tr>
+            <tr><td><code class="k">cache\</code> / <code class="k">storages\</code></td><td>缓存与存储</td></tr>
+            <tr><td><code class="k">attachments\</code></td><td>你上传的图片、文档等附件</td></tr>
+          </table>
+        </div>
+        <div class="ai-note danger">
+          <b>🚨 两条教学红线：</b><br>
+          ① <b>演示时绝对不要打开 <code class="k">.credentials.yaml</code></b>——里面是你的 API Key，投到大屏等于公开钱包密码。<br>
+          ② <b>电脑要借给别人 / 要卖之前，先删掉这个文件。</b>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🗑️ 卸载与彻底清理 <span class="en">Uninstall &amp; Clean Up</span></h3>
+        <div class="ai-step"><div class="sn">1</div><div class="sb">
+          <h4>运行卸载程序</h4>
+          <p>在安装目录里运行 <code class="k">Uninstall DeepSeek Harness.exe</code>。</p>
+        </div></div>
+        <div class="ai-step"><div class="sn">2</div><div class="sb">
+          <h4>手动删除用户数据目录</h4>
+          <p>删除 <code class="k">C:\Users\&lt;用户名&gt;\.dsh</code>。<b>卸载程序通常不会删它</b>——不删的话 C 盘空间不会释放。</p>
+        </div></div>
+        <div class="ai-note warn">
+          <b>⚠️ 删之前先备份！</b>删掉 <code class="k">.dsh</code> 就等于<b>丢掉所有会话记录和配置</b>，无法恢复。
+          要留就先把整个目录复制到 U 盘或移动硬盘（注意它含 <code class="k">.credentials.yaml</code>，<b>不要放公共网盘</b>）。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第5课 · 04 安装方式二：npm 命令行（重点） -->
+  <section id="sec-a5-install2" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>安装方式二 · npm 命令行详解<small>PATH B: NPM — 每一步都有真实截图</small></h2></div>
+
+      <div class="ai-note info">
+        <b>📌 本页是全课程最"手把手"的一页。</b>下面每一步都配<b>真实的终端截图</b>（内容来自本机实际执行），
+        包括<b>出错时的报错原文</b>——这样你在自己电脑上遇到同样问题时，能立刻认出它。
+      </div>
+
+      <div class="card">
+        <h3>🎯 先决定：用 <code class="k">npx</code> 还是 <code class="k">npm install -g</code>？ <span class="en">Two Ways, Pick One</span></h3>
+        <div class="cards3">
+          <div class="c3 a">
+            <h5>⭐ 方式 A：npx（官方推荐）</h5>
+            <ul>
+              <li>命令：<code class="k">npx @deepseek-ai/dsh web</code></li>
+              <li><b>不需要全局安装</b>，直接运行</li>
+              <li>npx 自动下载到缓存，不污染全局目录</li>
+              <li>官方 README 主推这条</li>
+              <li>缺点：每次可能要检查更新，首次较慢</li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>方式 B：npm install -g</h5>
+            <ul>
+              <li>命令：<code class="k">npm install -g @deepseek-ai/dsh</code></li>
+              <li>装成全局命令，之后随处可用 <code class="k">dsh</code></li>
+              <li>适合<b>要反复使用</b>的老师</li>
+              <li>实测：<b>536 个包 / 3 分钟 / 453 MB</b></li>
+              <li>缺点：会占用全局环境</li>
+            </ul>
+          </div>
+          <div class="c3 c">
+            <h5>不推荐：源码编译</h5>
+            <ul>
+              <li><code class="k">git clone</code> + <code class="k">pnpm install</code> + <code class="k">pnpm run build</code></li>
+              <li>只适合<b>要改 DSH 源码</b>的开发者</li>
+              <li>教学场景完全用不到</li>
+              <li>编译耗时长、依赖多、容易失败</li>
+            </ul>
+          </div>
+        </div>
+        <p class="src-note">📖 <b>方式 A 来自官方 README</b>（github.com/deepseek-ai/deepseek-harness）。<br>
+        <b>方式 B 为本机实测</b>——注意：社区资料曾提到某些环境下 <code class="k">npx</code> 装不上，改用全局安装才成功。两种都列出来，你有退路。</p>
+      </div>
+
+      <!-- ============ 方式 B 详细步骤（本机实测） ============ -->
+      <div class="card" style="border-left:5px solid var(--primary)">
+        <h3>🖥️ 方式 B 实战：npm 全局安装（逐步截图） <span class="en">Step by Step, Real Terminal Captures</span></h3>
+        <p style="font-size:14px;color:var(--muted)">以下 6 步全部在本机真实执行过。截图里的版本号、包数、报错都是真的。</p>
+
+        <div class="ai-step"><div class="sn">1</div><div class="sb">
+          <h4>检查环境：Node 与 npm 在不在、版本够不够</h4>
+          <p>在终端里敲：</p>
+          <pre class="term"><span class="c">node --version</span>
+<span class="c">npm --version</span></pre>
+          <p><b>版本要求：</b><code class="k">^22.19.0 || &gt;=24.0.0</code>。本机是 v24.20.0，满足。</p>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-01-check.png" alt="终端截图：node --version 输出 v24.20.0，npm --version 输出 11.19.0" loading="lazy">
+          <figcaption class="shot-cap"><span class="n">实测截图</span><b>第 1 步 · 环境检查</b>——<code class="k">node --version</code> 与 <code class="k">npm --version</code> 的真实输出</figcaption>
+        </figure>
+        <div class="ai-note warn">
+          <b>⚠️ 没装 Node 怎么办？</b>去 <code class="k">nodejs.org</code> 下载 Windows 安装包，
+          <b>安装时务必保留「Add to PATH」勾选项</b>；装完后<b>必须新开一个终端窗口</b>再验证——老窗口读不到新环境变量，这是新手最常见的"我明明装了却说找不到"。
+        </div>
+
+        <div class="ai-step"><div class="sn">2</div><div class="sb">
+          <h4>执行全局安装</h4>
+          <pre class="term"><span class="c">npm install -g @deepseek-ai/dsh</span></pre>
+          <p>然后<b>等着</b>。实测要下载 <b>536 个包</b>，耗时约 <b>3 分钟</b>。</p>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-02-install.png" alt="终端截图：npm install -g @deepseek-ai/dsh 的真实输出，含 5 条 npm warn 警告，最后 added 536 packages in 3m" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>第 2 步 · 安装过程（真实输出）</b><br>
+            黄色的 <code class="k">npm warn</code> <b>不影响使用</b>，不用管。关键是最后一行绿色的 <b>added 536 packages in 3m</b>。
+          </figcaption>
+        </figure>
+        <div class="ai-note info">
+          <b>🔍 为什么会有 5 条 <code class="k">install-scripts</code> 警告？</b><br>
+          较新版本的 npm 出于安全考虑，<b>默认不执行第三方包的安装脚本</b>，需要你显式放行。
+          涉及 <code class="k">node-pty</code>（终端模拟）、<code class="k">koffi</code>（原生调用）、<code class="k">protobufjs</code> 等。
+          <b>本机实测：不放行也能正常启动 Web 界面</b>；只有当某个功能（比如终端交互）报错时，再按提示放行即可。
+        </div>
+
+        <div class="ai-step"><div class="sn">3</div><div class="sb">
+          <h4>验证"装上了没有"——这一步千万别跳过</h4>
+          <pre class="term"><span class="c">dsh --version</span></pre>
+          <p><b>为什么要单独验证？</b>为了把<b>"安装失败"</b>和<b>"启动失败"</b>分开排查。如果这一步就报错，说明装的问题；如果这步过了、下一步报错，说明是配置或环境的问题。<b>分开排查能省一半时间。</b></p>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-03-version.png" alt="终端截图：dsh --version 输出 0.2.0-rc.2，并列出 npm 全局目录里的 dsh、dsh.cmd、dsh.ps1" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>第 3 步 · 验证安装</b><br>
+            输出 <b>0.2.0-rc.2</b> 就说明装好了。下方同时展示了 npm 全局目录里生成的三个入口文件。
+          </figcaption>
+        </figure>
+
+        <div class="ai-step"><div class="sn">4</div><div class="sb">
+          <h4>看一眼它到底能干什么（很有教学价值）</h4>
+          <pre class="term"><span class="c">dsh --help</span></pre>
+          <p>这一步会揭示 DSH 的 <b>profile（配置档）体系</b>——这是理解它怎么工作的关键。</p>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-04-help.png" alt="终端截图：dsh --help 的真实输出，列出 --profile、--patch、--dump-config 等选项，以及 7 条 Examples" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>第 4 步 · <code class="k">dsh --help</code>（真实输出）</b><br>
+            注意最后那组 <b>Examples</b>——它们直接暴露了 DSH 的四种用法。
+          </figcaption>
+        </figure>
+        <div class="deep-steps" style="margin-top:14px">
+          <div class="kv"><b>1</b><div><b><code class="k">dsh web</code></b>——启动浏览器界面（本课主要用这个）。等价于 <code class="k">dsh --profile web</code>。</div></div>
+          <div class="kv"><b>2</b><div><b><code class="k">dsh tui</code></b>——启动<b>终端界面</b>，不开浏览器。适合服务器环境。</div></div>
+          <div class="kv"><b>3</b><div><b><code class="k">dsh headless "任务"</code></b>——<b>一次性执行一个任务，打印结果就退出</b>。适合做自动化、批量处理。</div></div>
+          <div class="kv"><b>4</b><div><b><code class="k">dsh rescue --from-default-profile web</code></b>——当配置被玩坏了，<b>用官方模板重建一个"救援"配置档</b>。这个设计非常贴心。</div></div>
+        </div>
+        <div class="ai-note ok">
+          <b>💡 教学价值：</b><code class="k">dsh --help</code> 的输出本身就是最好的"产品说明书"。
+          <b>教学生"遇到新工具先看 --help"，比教他们背命令有用得多。</b>
+        </div>
+
+        <div class="ai-step"><div class="sn">5</div><div class="sb">
+          <h4>看 web 界面有哪些启动参数</h4>
+          <pre class="term"><span class="c">dsh --profile web --help</span></pre>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-05-webhelp.png" alt="终端截图：dsh --profile web --help 输出 --host、--no-open、--port、--trusted-host 等选项与示例" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>第 5 步 · web profile 的参数</b><br>
+            最实用的三个：<code class="k">--port</code>（换端口）、<code class="k">--no-open</code>（不自动开浏览器）、<code class="k">--port 0</code>（让系统随便挑一个空闲端口）。
+          </figcaption>
+        </figure>
+
+        <div class="ai-step"><div class="sn">6</div><div class="sb">
+          <h4>启动 Web 界面</h4>
+          <p>先建一个工作文件夹（<b>重要</b>——后面讲工作区时会解释为什么），在里面启动：</p>
+          <pre class="term"><span class="d"># 建目录并进入</span>
+<span class="c">mkdir dsh-first-agent</span>
+<span class="c">cd dsh-first-agent</span>
+
+<span class="d"># 启动</span>
+<span class="c">dsh web</span></pre>
+        </div></div>
+        <figure class="shot">
+          <img src="img/ai/s5-06-launch.png" alt="终端截图：mkdir 与 dsh web 命令，输出 dsh web: http://127.0.0.1:3080，并列出换端口与不打开浏览器的替代命令" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>第 6 步 · 启动与三种替代写法</b><br>
+            终端会打印出访问地址，浏览器会自动打开。
+          </figcaption>
+        </figure>
+        <div class="ai-note danger">
+          <b>🚨 新手最容易犯的错：把终端窗口关了。</b><br>
+          <b>网页只是界面，服务跑在终端里。</b>关掉终端 = 关掉服务 = 网页立刻打不开。
+          这个终端窗口要一直开着，<b>最小化可以，关闭不行</b>。
+        </div>
+      </div>
+
+      <!-- ============ 官方推荐方式（npx） ============ -->
+      <div class="card" style="border-left:5px solid #22c55e">
+        <h3>⭐ 方式 A 实战：官方推荐的 npx（更省事） <span class="en">The Officially Recommended Way</span></h3>
+        <p style="font-size:14px;color:var(--muted)">如果你只是<b>想用一次</b>，或者不想让全局环境变脏，用这条。官方 README 主推的就是它。</p>
+        <pre class="term"><span class="d"># 官方 README 的原话命令</span>
+<span class="c">npx @deepseek-ai/dsh web</span></pre>
+        <figure class="shot">
+          <img src="img/ai/s5-07-npx.png" alt="终端截图：npx @deepseek-ai/dsh web 的完整过程，含确认提示、安装 536 个包、输出访问地址" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>方式 A · npx 直接运行</b><br>
+            第一次运行会问 <code class="k">Ok to proceed? (y)</code>，回车即可。之后会缓存，<b>下次启动快很多</b>。
+          </figcaption>
+        </figure>
+        <div class="ai-note info">
+          <b>🔍 npx 和 npm install -g 的区别，一句话讲清：</b><br>
+          <b>npx</b> = "临时借来用一下"（下载到缓存，不进全局目录）；<br>
+          <b>npm install -g</b> = "正式装在我电脑上"（进了全局目录，随处可用）。<br>
+          <b>两者都要下载同样的 536 个包</b>，只是放的位置和管理方式不同。
+        </div>
+      </div>
+
+      <!-- ============ 真实踩坑 ============ -->
+      <div class="card" style="border-left:5px solid #ef4444">
+        <h3>🐛 真实踩坑：装插件时提示 <code class="k">'pnpm' is not recognized</code> <span class="en">A Real Error We Hit</span></h3>
+        <p style="font-size:14px;color:var(--muted)">这一节是本课最有价值的部分之一——<b>因为你在自己电脑上一定会遇到它</b>。</p>
+        <p style="font-size:14px">尝试管理插件时：</p>
+        <pre class="term"><span class="c">dsh plugin --profile web --help</span></pre>
+        <figure class="shot">
+          <img src="img/ai/s5-08-gotcha.png" alt="终端截图：真实报错 'pnpm' is not recognized as an internal or external command，并给出解决办法 npm install -g pnpm" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>真实报错与解决办法</b><br>
+            报错原文：<code class="k">'pnpm' is not recognized as an internal or external command</code>
+          </figcaption>
+        </figure>
+        <div class="deep-steps" style="margin-top:4px">
+          <div class="kv"><b>1</b><div><b>为什么会报错？</b>DSH 的插件管理用的是 <b>pnpm</b>（一个比 npm 更快、更省磁盘的包管理器），而 <b>pnpm 不在 Node.js 的安装包里</b>，要单独装。</div></div>
+          <div class="kv"><b>2</b><div><b>怎么解决？</b>单独装一个 pnpm：<code class="k">npm install -g pnpm</code>（本机实测几秒钟就装完）。</div></div>
+          <div class="kv"><b>3</b><div><b>重要区分：</b><b>只是启动 Web 界面的话，根本不需要 pnpm。</b>只有"安装/管理插件"这个动作才需要。<b>别因为这个报错就以为整个安装失败了。</b></div></div>
+        </div>
+        <div class="ai-note ok">
+          <b>🎓 把报错变成教学素材：</b>这类"依赖缺失"是 IT 行业最常见的故障类型。
+          遇到报错时教学生的正确动作是——<b>① 完整读报错信息（它往往直接给了解决办法）② 复制报错关键词去搜 ③ 判断这个功能到底是不是我现在必须的</b>。
+          第 ③ 条最容易被忽略，也最能省时间。
+        </div>
+      </div>
+
+      <!-- ============ 安装后到底装了什么 ============ -->
+      <div class="card">
+        <h3>📦 装完之后，到底装进来什么？ <span class="en">Inspecting the Real Install</span></h3>
+        <p style="font-size:14px;color:var(--muted)">这一步能让学生<b>亲眼看到"一切皆插件"不是宣传语</b>。</p>
+        <figure class="shot">
+          <img src="img/ai/s5-09-structure.png" alt="终端截图：清点安装目录，177 个包、287 个 @deepseek-ai 插件包、占用 453 MB，并列出一串 dsh-tool-* 与 dsh-*-app 包名" loading="lazy">
+          <figcaption class="shot-cap">
+            <span class="n">实测截图</span><b>安装结果清点（真实数字）</b><br>
+            <b>177</b> 个直接依赖、<b>287</b> 个 <code class="k">@deepseek-ai/*</code> 插件包、总计 <b>453 MB</b>。
+          </figcaption>
+        </figure>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>你看到的包名</th><th>它是什么插件</th></tr>
+            <tr><td><code class="k">dsh-tool-fs</code></td><td>文件读写工具</td></tr>
+            <tr><td><code class="k">dsh-tool-bash</code> / <code class="k">dsh-tool-pwsh</code></td><td>命令行执行工具（Bash / PowerShell）</td></tr>
+            <tr><td><code class="k">dsh-tool-web</code></td><td>网页检索工具</td></tr>
+            <tr><td><code class="k">dsh-tool-subagent</code></td><td><b>子智能体</b>——把任务分派出去并行做</td></tr>
+            <tr><td><code class="k">dsh-agent-preset</code></td><td><b>四种预设</b>（标准/PTC/极简/创造）就是它提供的</td></tr>
+            <tr><td><code class="k">dsh-plan-mode</code></td><td><b>计划模式</b>——也是一个插件</td></tr>
+            <tr><td><code class="k">dsh-tool-todo</code></td><td>任务清单工具</td></tr>
+            <tr><td><code class="k">dsh-web-app</code></td><td><b>连 Web 界面本身都是插件</b></td></tr>
+            <tr><td><code class="k">dsh-skill-office</code></td><td>Office 文档处理技能</td></tr>
+            <tr><td><code class="k">dsh-mcp-client</code></td><td>MCP 协议客户端——接入外部工具的标准接口</td></tr>
+          </table>
+        </div>
+        <div class="ai-note ok">
+          <b>🎯 教学落点：</b>让学生自己想一个问题——
+          <b>"如果'计划模式'和'Web 界面'都能被替换，那这个软件的边界在哪里？"</b>
+          这就是<b>架构思维</b>，比记住任何命令都重要。
+        </div>
+      </div>
+
+      <!-- ============ 两种方式对比 ============ -->
+      <div class="card">
+        <h3>📊 两种安装方式怎么选 <span class="en">Desktop vs npm</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>对比项</th><th>桌面版</th><th>npm 命令行</th></tr>
+            <tr><td><b>上手难度</b></td><td>★ 双击即可</td><td>★★★ 需要终端基础</td></tr>
+            <tr><td><b>自带 Node</b></td><td>✅ 免环境配置</td><td>❌ 需自备 Node ≥22.19</td></tr>
+            <tr><td><b>界面地址</b></td><td>本机实测 <code class="k">127.0.0.1:19387</code></td><td>官方默认 <code class="k">127.0.0.1:3080</code></td></tr>
+            <tr><td><b>安装体积</b></td><td>程序约 360 MB</td><td>实测 <b>453 MB</b>（536 个包）</td></tr>
+            <tr><td><b>适合场景</b></td><td><b>教学演示、日常使用</b></td><td>服务器部署、批量任务、二次开发</td></tr>
+            <tr><td><b>升级方式</b></td><td>内置更新（nightly 通道）</td><td><code class="k">npm update -g @deepseek-ai/dsh</code></td></tr>
+            <tr><td><b>数据目录</b></td><td colspan="2" style="text-align:center">两者共用 <code class="k">C:\Users\&lt;用户名&gt;\.dsh</code></td></tr>
+          </table>
+        </div>
+        <div class="ai-note warn">
+          <b>⚠️ 关于 nightly 通道：</b>官方桌面版的更新通道是 <b>nightly（每夜构建）</b>，意味着<b>几乎天天有新版本</b>。
+          <b>上课演示用的机器，课前不要升级</b>——把升级安排在课后。这是本课最实用的一条经验。
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 生成式AI教程 · 第5课 · 05 首次使用 + 模式与权限 -->
+  <section id="sec-a5-usage" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>首次使用 · 界面、权限与安全<small>FIRST RUN — WORKSPACE, PRESETS &amp; PERMISSIONS</small></h2></div>
+
+      <div class="card">
+        <h3>🖥️ 界面长什么样 <span class="en">The Three-Column Layout</span></h3>
+        <pre class="term">┌──────────────┬─────────────────────────────┬──────────────┐
+│  工作区文件树  │      对话 / 任务过程          │   模型与设置   │
+│  会话列表     │      输入框                  │              │
+└──────────────┴─────────────────────────────┴──────────────┘</pre>
+        <p class="src-note">📎 界面布局会随 nightly 版本变化。<b>教"每一栏是干什么用的"，不要教"按钮在屏幕第几个位置"</b>——位置下个月就变了。</p>
+      </div>
+
+      <div class="card" style="border-left:5px solid #f59e0b">
+        <h3>⭐ 新手最容易卡住的地方：工作区 <span class="en">Workspace — The #1 Newbie Blocker</span></h3>
+        <div class="ai-note warn">
+          <b>现象：输入框是灰色的，点不动、打不了字。</b><br>
+          <b>原因：没有选中工作区。</b>这是 90% 的新手遇到的第一个问题。
+        </div>
+        <p style="font-size:14.5px"><b>工作区（Workspace）不是"聊天分类"，而是文件边界。</b></p>
+        <div class="cards3">
+          <div class="c3 a">
+            <h5>✅ 你<b>必须</b>主动做的事</h5>
+            <ul>
+              <li>添加一个工作区（比如 <code class="k">D:\dsh-first-agent</code>）</li>
+              <li>并且<b>选中它</b></li>
+              <li>输入框变亮 = 可以用了</li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>💡 一句话类比</h5>
+            <ul>
+              <li>工作区就像给 AI 划了一个<b>"可以进出的房间"</b></li>
+              <li>房间以外的文件，<b>它原则上碰不到</b></li>
+              <li>这个类比学员一听就懂</li>
+            </ul>
+          </div>
+          <div class="c3 c">
+            <h5>🚨 为什么这是安全边界</h5>
+            <ul>
+              <li>AI 能读写哪些文件，<b>由工作区决定</b></li>
+              <li>所以<b>不要把工作区设成整个 C 盘</b></li>
+              <li>也不要把重要资料所在的文件夹设成工作区</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>💬 会话管理与 Fork <span class="en">Sessions &amp; Fork</span></h3>
+        <div class="kv-list">
+          <li><b>会话保存的不只是聊天记录。</b>它保存了<b>完整操作过程</b>——AI 读过哪些文件、执行过哪些命令、改过什么，都在里面。<span class="zhs">这既是复盘工具，也是安全审计依据。</span></li>
+          <li><b>可以重命名、搜索、恢复、归档。</b><b>归档 ≠ 删除</b>——归档只是收起来，数据还在。<span class="zhs">Archive is not delete.</span></li>
+          <li><b>Fork（分叉）：从一个中间点分出一个新会话。</b>⭐ <b>这是最好的教学演示功能</b>——同一个问题用两种不同问法，Fork 出两个会话对比结果。<span class="zhs">直接从某一轮分出新会话，原会话不受影响。</span></li>
+          <li><b>对话太长用 <code class="k">/<span></span>compact</code> 压缩上下文。</b>因为模型的上下文窗口是有限的，历史太长会"挤掉"前面的内容。<span class="zhs">类似给对话做一次摘要归档。</span></li>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🎛️ 四种预设（Preset）：决定"这个会话有哪些工具" <span class="en">Four Presets</span></h3>
+        <p style="font-size:14px;color:var(--muted)">"预设"决定的不是"AI 多聪明"，而是<b>"这个会话手里有哪些工具"</b>。</p>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>模式</th><th>工具集</th><th>什么时候用</th></tr>
+            <tr><td><b>标准模式</b></td><td>完整 Agent：文件编辑、Shell、文件/网页检索、Skills、计划、目标、子 Agent、工作流</td><td><b>日常首选</b>，拿不准就选它</td></tr>
+            <tr><td><b>PTC 模式</b></td><td>标准全部能力 + 模型可用 TypeScript 编排多步工具调用</td><td>步骤多、工具调用密集的任务</td></tr>
+            <tr><td><b>极简模式</b></td><td>只有持久 Bash + str_replace_editor 两个工具</td><td><b>基准测试、教学、观察模型</b></td></tr>
+            <tr><td><b>创造模式</b></td><td>标准能力 + 运行时检查、插件实验、预设创作</td><td>扩展开发；<b>权限高，别指向重要工作区</b></td></tr>
+          </table>
+        </div>
+        <p class="src-note">📎 预设的功能描述参考社区资料（dshbase.com，<b>非官方</b>）并与本机实测一致的部分交叉验证；实际工具清单随版本变化，以你安装的版本为准。</p>
+      </div>
+
+      <div class="card" style="border-left:5px solid #ef4444">
+        <h3>🚨 最容易讲错的一点：计划模式不是第五种预设 <span class="en">Plan Mode Is NOT a Fifth Preset</span></h3>
+        <div class="cards3">
+          <div class="c3 a">
+            <h5>预设（Preset）</h5>
+            <ul>
+              <li>决定<b>"会话里有什么工具"</b></li>
+              <li>标准 / PTC / 极简 / 创造</li>
+              <li>相当于<b>给你一套什么样的工具箱</b></li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>计划模式（<code class="k">/plan</code>）</h5>
+            <ul>
+              <li>决定<b>"AI 先出方案还是直接动手"</b></li>
+              <li>是一个开关，不是一种模式</li>
+              <li>相当于<b>先画图纸还是直接开工</b></li>
+            </ul>
+          </div>
+          <div class="c3 c">
+            <h5>⭐ 两者的关系</h5>
+            <ul>
+              <li><b>正交</b>——可以任意组合</li>
+              <li>比如"极简模式 + 计划模式"也能成立</li>
+              <li>把这两件事混为一谈是最常见的教学错误</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ai-note ok">
+          <b>🎯 推荐给学员的第一个正式项目组合：</b><br>
+          <b>标准模式 + 只读权限 + 计划模式</b><br>
+          ——先让 AI <b>只调查、不动手</b>，把方案讲给你听，你确认了再放开权限。
+          <b>这是把风险降到最低、又能学会用法的组合。</b>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:5px solid #ef4444">
+        <h3>🔐 三级权限（安全的核心） <span class="en">Three Permission Levels</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>权限</th><th>含义</th><th>风险</th></tr>
+            <tr><td><b>Read Only 只读</b></td><td>只能看，不能改</td><td>最低 —— <b>新手默认用这个</b></td></tr>
+            <tr><td><b>Workspace Write 工作区写入</b></td><td>能在工作区内写文件</td><td>中 —— ⚠️ <b>注意：它只限制"写入边界"，AI 仍可能读到工作区之外的内容</b></td></tr>
+            <tr><td><b>Full Access 完全访问</b></td><td>几乎不受限</td><td><b>最高</b> ⚠️</td></tr>
+          </table>
+        </div>
+        <div class="ai-note danger">
+          <b>🚨 必须纠正学员的一个直觉误区：</b><br>
+          <b>Full Access 不是"高级版"，而是"风险最高的选项"。</b><br>
+          权限越高 ≠ 越强，只等于 <b>"AI 出错时能造成的破坏越大"</b>。<br>
+          官方安全须知里明确写了：<b>"Run the project with the least privileges and access required."</b>（用最小必要权限运行）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第5课 · 06 练习 -->
+  <section id="sec-a5-quiz" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>闯关练习<small>EXERCISES — 连线 + 25 题测验 + 读音</small></h2></div>
+
+      <div class="card">
+        <h3>🔗 练习 1 · 连线配对 <span class="en">Draw a Line — 点左边中文，再点右边英文/命令</span></h3>
+        <div class="match-wrap" id="matchBoxA5"></div>
+        <p class="parts-hint" id="matchMsgA5" style="margin-top:10px">已配对 0 / 10</p>
+      </div>
+
+      <div class="card">
+        <h3>🎯 练习 2 · 闯关练习 <span class="en">Quiz — 25 题 · 抽人回答</span></h3>
+        <div class="q-top">
+          <div class="q-progress"><i id="qBarA5" style="width:0%"></i></div>
+          <div id="quizBoxA5"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⌨️ 练习 3 · 命令速记 <span class="en">Command Recall</span></h3>
+        <p style="font-size:14px;color:var(--muted)">点击卡片翻开背面的说明——<b>合上再想一遍</b>。</p>
+        <div class="keyline" id="cmdBoxA5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第5课 · 07 总结 -->
+  <section id="sec-a5-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">07</div><h2>总结 · 知识树与安全须知<small>SUMMARY — KNOWLEDGE TREE &amp; SAFETY NOTICE</small></h2></div>
+
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Deploying DSH</span></h3>
+        <div class="tree">
+          <div class="tree-root">🤖 DSH 的部署</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>它是什么 What It Is</b>
+              <ul>
+                <li>开源 agent harness（智能体运行时） <span class="tz">不是模型，不是聊天壳</span></li>
+                <li>一切皆插件 everything-is-a-plugin <span class="tz">连 Web 界面、计划模式都是插件</span></li>
+                <li>底层基于 Cordis <span class="tz">插件框架</span></li>
+                <li>许可证 MIT <span class="tz">开源可商用</span></li>
+                <li>developer preview <span class="tz">⚠️ 官方声明"会有破坏性变更"</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>两条安装路径 Two Paths</b>
+              <ul>
+                <li>桌面版 <span class="tz">自带 Node，双击即用，推荐教师</span></li>
+                <li>npm 命令行 <span class="tz">536 包 / 3 分钟 / 453 MB（实测）</span></li>
+                <li><code class="k">npx @deepseek-ai/dsh web</code> <span class="tz">⭐ 官方 README 推荐</span></li>
+                <li><code class="k">npm install -g @deepseek-ai/dsh</code> <span class="tz">装成全局命令</span></li>
+                <li>系统要求 <span class="tz">Windows 10+ / macOS 13+（Apple 芯片）</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>启动与使用 Run &amp; Use</b>
+              <ul>
+                <li><code class="k">dsh web</code> <span class="tz">浏览器界面（默认 127.0.0.1:3080）</span></li>
+                <li><code class="k">dsh tui</code> <span class="tz">终端界面</span></li>
+                <li><code class="k">dsh headless "任务"</code> <span class="tz">一次性执行并退出</span></li>
+                <li><code class="k">dsh rescue</code> <span class="tz">配置坏了用它重建</span></li>
+                <li>工作区 = 文件边界 <span class="tz">⭐ 输入框灰了先查这里</span></li>
+                <li>会话 / Fork / <code class="k">/compact</code> <span class="tz">管理层上下文</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>安全与维护 Safety</b>
+              <ul>
+                <li>四级预设 <span class="tz">标准 / PTC / 极简 / 创造</span></li>
+                <li>计划模式 ≠ 预设 <span class="tz">两者正交，可任意组合</span></li>
+                <li>三级权限 <span class="tz">只读 / 工作区写入 / 完全访问</span></li>
+                <li><code class="k">~\.dsh</code> 目录 <span class="tz">配置、会话、密钥都在这</span></li>
+                <li>备份只需备份 <code class="k">~\.dsh</code> <span class="tz">但含密钥，别放公共网盘</span></li>
+                <li>nightly 通道 <span class="tz">⚠️ 演示前不要升级</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border:2px solid #ef4444">
+        <h3>🚨 官方安全须知（原文要点，务必讲给学生） <span class="en">Official Safety Notice — Must Read</span></h3>
+        <p style="font-size:14px;color:var(--muted)">官方 README 明确要求：<b>运行本项目前先阅读 SAFETY.md</b>。以下是原文要点。</p>
+        <div class="ai-note danger">
+          <b>① 实验性软件，未做安全审计。</b><br>
+          <span style="font-size:13.5px">"DeepSeek Harness is experimental developer-preview software. <b>It has not undergone a security audit</b> and must not be treated as secure or production-ready."</span>
+        </div>
+        <div class="ai-note danger">
+          <b>② 它能执行模型生成的代码和命令，能访问网络、进程、凭据和文件。</b><br>
+          <span style="font-size:13.5px">"Incorrect model output, defects, misconfiguration, malicious input, or untrusted plugins <b>may damage the host computer, modify or delete files, disclose data or credentials</b>."</span>
+        </div>
+        <div class="ai-note warn">
+          <b>③ 沙箱和权限控制能降低风险，但不能保证隔离。</b><br>
+          <span style="font-size:13.5px">"Sandboxing, approval prompts, and permission controls can reduce risk, but <b>they do not guarantee isolation or prevent damage</b>."</span>
+        </div>
+        <h4 style="font-size:15px;color:var(--primary-d);margin:18px 0 8px">官方的五条负责任使用建议（Responsible Use）</h4>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th>#</th><th>官方原文要点</th><th>课堂上怎么说</th></tr>
+            <tr><td>1</td><td>Run with the <b>least privileges and access</b> required</td><td>从<b>只读</b>开始，别一上来给完全访问</td></tr>
+            <tr><td>2</td><td><b>Prefer a disposable virtual machine, container, or dedicated environment</b></td><td>要试危险功能就用<b>虚拟机</b>，别在办公电脑上试</td></tr>
+            <tr><td>3</td><td><b>Keep backups</b> of files that the project can access</td><td>工作区里的东西<b>先备份</b>再让 AI 动手</td></tr>
+            <tr><td>4</td><td>Do not expose sensitive credentials unless you accept the risk</td><td><b>API Key 别乱放</b>，演示时别投屏</td></tr>
+            <tr><td>5</td><td><b>Review plugins, configuration, and proposed commands</b> before allowing them to run</td><td>AI 要执行命令时<b>先看懂再点允许</b></td></tr>
+          </table>
+        </div>
+        <p class="src-note">📖 来源：官方仓库 <code class="k">SAFETY.md</code>（github.com/deepseek-ai/deepseek-harness）。<br>
+        ⚠️ 官方同时声明：软件按 MIT 许可<b>不提供任何担保</b>，作者不对电脑损坏、数据丢失或泄露承担责任（"Use DeepSeek Harness at your own risk"）。</p>
+      </div>
+
+      <div class="card">
+        <h3>🚀 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① DSH 是<b>智能体运行时</b>，不是模型也不是聊天软件</span>
+          <span>② "一切皆插件"——287 个 @deepseek-ai/* 插件包（实测）</span>
+          <span>③ 官方推荐 <code class="k">npx @deepseek-ai/dsh web</code>；全局安装实测 536 包 / 3 分钟 / 453 MB</span>
+          <span>④ 启动后界面默认在 <code class="k">127.0.0.1:3080</code>；<b>终端窗口不能关</b></span>
+          <span>⑤ 输入框灰了 → <b>先查工作区选中没有</b></span>
+          <span>⑥ <b>Full Access 不是高级版，是风险最高的选项</b></span>
+          <span>⑦ 数据全在 <code class="k">~\.dsh</code>；备份它，但别忘里面有 API Key</span>
+          <span>⑧ 装插件需要 pnpm；<b>只用 Web 界面则不需要</b></span>
+        </div>
+        <div class="tip">🎮 <span>想巩固知识？回首页进入 <b>🎮 单词大作战</b>，选择「生成式AI」词库练习。</span></div>
+      </div>
+    </div>
+  </section>
