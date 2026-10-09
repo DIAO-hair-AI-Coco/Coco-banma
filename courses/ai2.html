@@ -1,0 +1,442 @@
+<!-- 生成式AI教程 · 第2课 · 01 导入 -->
+  <section id="sec-a2-intro" class="page">
+    <header class="lesson-hero" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#140b2e,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 生成式AI教程 · AI 2 · 认知基础</div>
+      <h1>正确认识 AI <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Understanding AI — What It Can and Cannot Do</em></h1>
+      <p class="sub">本课程最"反营销"的一章：不只讲 AI 多厉害，更要讲清它会在哪里翻车</p>
+      <div class="meta"><span>🧠 一句话讲透原理</span><span>⚠️ 7 件一定会错的事</span><span>🔬 三项研究证据</span><span>🚨 政策红线</span></div>
+    </header>
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">01</div><h2>导入 · 理解 AI 的总钥匙<small>THE ONE SENTENCE THAT EXPLAINS EVERYTHING</small></h2></div>
+
+      <div class="intro-qa">
+        <div class="qa-card">
+          <h4>🔑 大语言模型到底在做什么？</h4>
+          <p>说穿了只有一句话：<b>它在根据前面的内容，预测"下一个最可能出现的词"。</b></p>
+          <p>它<b>没有</b>在数据库里查答案，<b>没有</b>在脑子里"想"，<b>没有</b>一张事实核对表。
+             它做的是一件很纯粹的统计工作：<b>什么样的文字搭配在一起最合理？</b></p>
+          <div class="keyline"><span>predict 预测</span><span>token 词元</span><span>probability 概率</span></div>
+        </div>
+        <div class="qa-card ans">
+          <h4>💡 这一个原理，就解释了它的全部优缺点</h4>
+          <p>为什么它文笔那么好？——因为它见过海量文字。<br>
+             为什么它会一本正经地编造？——因为<b>它优化的是"像不像真的"，不是"是不是真的"</b>。<br>
+             为什么它不知道最近发生的事？——因为它的知识有截止日期。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🎬 亲手试一次：看 AI 是怎么"挑词"的 <span class="en">Interactive — How the Next Word Is Chosen</span></h3>
+        <p style="font-size:14px;color:var(--muted)">
+          下面这句话只剩最后一个词。<b>点一下按钮</b>，看模型是怎么在候选词里按概率挑选的。
+        </p>
+        <div id="nextWordDemo"></div>
+        <div class="ai-note info" style="margin-top:14px">
+          <b>🔍 看懂了这个动画，你就理解了 AI 的"性格"：</b><br>
+          它永远在<b>给候选词打分</b>，然后挑一个。所以——
+          ① 它答得<b>流利</b>不等于<b>正确</b>；
+          ② 同一个问题问两次，因为随机性，答案可能不一样；
+          ③ 当它"没学过"某个知识时，它<b>不会空着</b>，而会挑一个"看起来最合理"的词填上去——<b>这就是幻觉的根源</b>。
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🔑 本节课你将学会 <span class="en">Learning Goals</span></h3>
+        <div class="keyline">
+          <span>✅ 用一句话说清 AI 的工作原理</span>
+          <span>✅ 分清 AI 真正擅长的 8 件事</span>
+          <span>✅ 记住 AI 一定会错的 7 件事</span>
+          <span>✅ 理解幻觉为什么发生、教师能用的 7 招缓解</span>
+          <span>✅ 知道"AI 在你陌生的领域最危险"的道理</span>
+          <span>✅ 掌握数据安全红线与学术诚信判定</span>
+          <span>✅ 看懂三项研究证据，明白"用不好反而伤学习"</span>
+        </div>
+        <div class="typed" id="typedIntroA2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第2课 · 02 擅长与不擅长 -->
+  <section id="sec-a2-ability" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">02</div><h2>它擅长什么 · 它一定会错在哪里<small>STRENGTHS &amp; RELIABLE FAILURES</small></h2></div>
+
+      <div class="card">
+        <h3>✅ AI 真正擅长的 8 件事 <span class="en">Genuinely Good At</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:34px">#</th><th style="width:26%">能力</th><th>具体例子</th></tr>
+            <tr><td>1</td><td><b>文字加工与改写</b></td><td>把口语化的总结改写成正式通知；把长文压缩成 200 字摘要</td></tr>
+            <tr><td>2</td><td><b>结构化与格式化</b></td><td>把一堆杂乱信息整理成表格、清单、大纲</td></tr>
+            <tr><td>3</td><td><b>翻译与双语对照</b></td><td>中英互译、生成双语术语表（<b>专业术语必须人工核对</b>）</td></tr>
+            <tr><td>4</td><td><b>头脑风暴与发散</b></td><td>一个课题想出 20 个切入角度，你从中挑 3 个</td></tr>
+            <tr><td>5</td><td><b>模仿特定文风/格式</b></td><td>按你给的样例，套写出格式一致的 20 道题</td></tr>
+            <tr><td>6</td><td><b>解释与类比</b></td><td>"用初中生能懂的话解释什么是传动比"</td></tr>
+            <tr><td>7</td><td><b>代码与公式辅助</b></td><td>写脚本、写 Excel 公式、解释报错（<b>必须实测</b>）</td></tr>
+            <tr><td>8</td><td><b>扮演对话对象</b></td><td>模拟学生提问、模拟面试官、模拟家长沟通</td></tr>
+          </table>
+        </div>
+        <div class="ai-note ok">
+          <b>💡 共同点：</b>这些都是<b>"有初稿就行、由人来终审"</b>的任务。
+          <b>凡是需要人签字的产出，AI 都只适合做前半段。</b>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:5px solid #ef4444">
+        <h3>❌ AI 一定会错的 7 件事（必须讲透） <span class="en">Reliably BAD — 7 Failures</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:34px">#</th><th style="width:20%">不可靠之处</th><th style="width:34%">具体表现</th><th>应对</th></tr>
+            <tr><td>1</td><td><b>事实性幻觉</b></td><td>编造不存在的文献、法条、人名、数据，<b>而且格式看起来完全正确</b></td><td>凡是"具体事实"一律核对原始来源</td></tr>
+            <tr><td>2</td><td><b>计算不可靠</b></td><td>多位数乘除、长算式、统计计算可能算错</td><td>让它<b>写出计算过程</b>，或用 Excel 复算</td></tr>
+            <tr><td>3</td><td><b>时效性缺失</b></td><td>不知道最近发生的事，<b>而且不会主动说"我的知识到某年为止"</b></td><td>主动告知截止时间，或让它联网检索</td></tr>
+            <tr><td>4</td><td><b>专业细节错</b></td><td>行业术语、标准编号、参数范围容易张冠李戴</td><td><b>专业内容必须由专业教师终审</b></td></tr>
+            <tr><td>5</td><td><b>数学推导跳步</b></td><td>结论对过程错，或反过来</td><td>要求<b>逐步推导并自检</b></td></tr>
+            <tr><td>6</td><td><b>过度顺从（谄媚）</b></td><td>你一质疑它就改口道歉——<b>即使它原本是对的</b></td><td>别把"它认错了"当成"它真错了"</td></tr>
+            <tr><td>7</td><td><b>不懂装懂</b></td><td>对冷门领域照样洋洋洒洒</td><td>越熟悉越要拿它试；越陌生越要警惕</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="border:2px solid #ef4444">
+        <h3>⭐ 本章最重要的一句话 <span class="en">The Single Most Important Sentence</span></h3>
+        <div class="ai-note danger" style="font-size:16px;line-height:1.9;text-align:center;padding:22px">
+          <b>"AI 在你陌生的领域最危险 ——<br>因为你没有能力发现它在骗你。"</b>
+        </div>
+        <p style="font-size:14.5px;text-align:center;color:var(--muted)">
+          所以正确用法是：<b>用 AI 拓展你熟悉的领域，而不是替代你陌生的领域。</b>
+        </p>
+        <h4 style="font-size:15px;color:var(--primary-d);margin:20px 0 10px">用这张四象限图自检：你现在要做的事，落在哪一格？</h4>
+        <div id="quadrant"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第2课 · 03 幻觉专题 -->
+  <section id="sec-a2-hallu" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">03</div><h2>幻觉专题 · 它为什么会编<small>HALLUCINATION — WHY IT MAKES THINGS UP</small></h2></div>
+
+      <div class="card">
+        <h3>🔄 幻觉是怎么发生的（一张流程图看懂） <span class="en">How Hallucination Happens</span></h3>
+        <div id="halluFlow"></div>
+        <div class="ai-note info">
+          <b>关键点：</b>它<b>没有</b>"我不知道"这个默认动作。
+          在训练数据里，"我不知道"出现的概率，远远低于"一个看起来完整的答案"。
+          所以当它缺少知识时，它会<b>输出统计上最像正确答案的文字</b>——包括虚构的文献。
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📊 幻觉有多普遍？ <span class="en">How Common Is It</span></h3>
+        <div class="cards3">
+          <div class="c3 c">
+            <h5>🚨 最严重的场景</h5>
+            <ul>
+              <li>需要<b>精确引用</b>的场合</li>
+              <li>学术文献、法律条文、医学信息</li>
+              <li>具体数字、标准编号、日期</li>
+              <li>冷门专业领域</li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>⚠️ 中等风险</h5>
+            <ul>
+              <li>一般知识问答</li>
+              <li>计算与数据整理</li>
+              <li>时效性信息</li>
+              <li>多步骤推理</li>
+            </ul>
+          </div>
+          <div class="c3 a">
+            <h5>✅ 几乎无害</h5>
+            <ul>
+              <li>创意写作、头脑风暴</li>
+              <li>文字润色、格式转换</li>
+              <li>提纲与框架生成</li>
+              <li>（因为本来就不要求"真"）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ai-note warn">
+          <b>⚠️ 本课程刻意不给"幻觉率 X%"这样的数字。</b><br>
+          幻觉率<b>高度依赖任务类型与模型版本</b>，一个笼统的百分比会误导人。
+          如果要引用具体数据，请查权威评测机构当期发布的"<b>非幻觉率</b>"评测项，<b>不要使用来历不明的百分比</b>。
+        </div>
+      </div>
+
+      <div class="card" style="border-left:5px solid #22c55e">
+        <h3>🛠️ 教师可用的 7 招缓解技术 <span class="en">7 Practical Mitigations</span></h3>
+        <div class="deep-steps">
+          <div class="kv"><b>1</b><div><b>要求它先说"我不确定"。</b>在提示词里明确写："如果信息不足或不确定，请直接说『我不确定』，不要猜测。"<span class="zhs" style="display:block;color:var(--muted);font-size:13.5px;margin-top:3px">这一招成本最低、见效最快，应该写进你的每个模板里。</span></div></div>
+          <div class="kv"><b>2</b><div><b>要求逐条给出处，而且要求"我能点开"。</b>写"每个结论后附来源链接，链接必须是我能点开的"——<b>然后真的逐条点开验证</b>。<span class="zhs" style="display:block;color:var(--muted);font-size:13.5px;margin-top:3px">它编不下去的时候就会露馅。</span></div></div>
+          <div class="kv"><b>3</b><div><b>强制分步 + 自检。</b>写"先列推理步骤，再给结论，最后单独用一段复述你可能出错的地方"。</div></div>
+          <div class="kv"><b>4</b><div><b>把材料喂给它（最有效的一招）。</b>先上传课本或自己的讲义，并声明：<b>"以下材料是唯一依据，不得使用材料外的信息。"</b><span class="zhs" style="display:block;color:var(--muted);font-size:13.5px;margin-top:3px">原理上这叫 RAG 思路——让它"开卷答题"。第 3 章会讲这个术语。</span></div></div>
+          <div class="kv"><b>5</b><div><b>降低随机性。</b>出题、事实问答类任务，把温度（temperature）调到最低档。</div></div>
+          <div class="kv"><b>6</b><div><b>交叉验证。</b>同一问题分别问<b>两个不同厂商</b>的模型（比如 DeepSeek 与通义千问），<b>答案不一致的地方就是高风险点</b>，人工核查。</div></div>
+          <div class="kv"><b>7</b><div><b>让学生来找错。</b>把 AI 生成的一段讲解发给学生，让他们找出错误——<b>既练批判性思维，又让学生亲眼看到幻觉</b>。</div></div>
+        </div>
+        <div class="ai-note danger" style="margin-top:16px">
+          <b>🚨 第 8 招不可替代：人工终审。</b>
+          <b>任何进入正式教学材料、成绩、评语的内容，必须由教师本人核对。</b>
+          前 7 招是"降低概率"，这一条是"兜底"。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第2课 · 04 研究证据 -->
+  <section id="sec-a2-evidence" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">04</div><h2>研究怎么说 · 用不好会反过来伤学习<small>WHAT THE RESEARCH SAYS — THE EVIDENCE IS MIXED</small></h2></div>
+
+      <div class="ai-note warn">
+        <b>⚠️ 这一页是全课程最需要冷静的地方。</b>
+        关于 AI 对学习效果的影响，<b>目前的研究结论是混合的，不是一边倒的好消息</b>。
+        作为教师，你需要同时掌握两面的证据——<b>只讲好处是不负责任的，只讲坏处也不客观</b>。
+      </div>
+
+      <div class="card">
+        <h3>🔬 三项关键研究（把正面与反面放在一起看） <span class="en">Three Key Studies</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:22%">研究</th><th style="width:30%">怎么做的</th><th>发现了什么</th></tr>
+            <tr>
+              <td><b>✅ 世界银行<br>尼日利亚 RCT</b><br><span style="font-size:12px;color:var(--muted)">目前最硬的正面证据</span></td>
+              <td>公立高中，<b>六周内每周两次</b>，学生在<b>教师引导</b>下用<b>精心设计的提示词</b>与 ChatGPT 互动。教师负责"确保学生不跑偏、识别 AI 幻觉、防止过度依赖"。</td>
+              <td><b>总体学习增益约 0.3 个标准差，英语 0.24 个标准差</b>，相当于 <b>1.5–2 年的常规学习进步</b>，超过全球 80% 经严格评估的教育干预。学生六周平均仅投入 13 小时。<br>⚠️ <b>作者强调：这是"结构化提示词 + 课程对齐 + 教师支持 + 同伴学习 + AI"整个组合的效果，无法单独分离出聊天机器人的作用。</b></td>
+            </tr>
+            <tr>
+              <td><b>❌ Generative AI<br>Can Harm Learning</b><br><span style="font-size:12px;color:var(--muted)">Bastani 等</span></td>
+              <td>土耳其约 <b>1000 名高中生</b>的数学学习随机对照试验，<b>三组对照</b>：① 无设备（笔记与教科书）② 通用 LLM ③ <b>教育专用优化过的 LLM</b>。</td>
+              <td><b>无设备组与教育专用 LLM 组表现相当；而使用未优化通用 LLM 的学生表现更差。</b><br>结论指向：<b>必须把 LLM 针对教学目的专门定制；直接把通用聊天机器人丢给学生，会损害学习。</b></td>
+            </tr>
+            <tr>
+              <td><b>⚠️ MIT<br>Your Brain on ChatGPT</b><br><span style="font-size:12px;color:var(--muted)">脑电研究</span></td>
+              <td><b>54 名参与者</b>分三组（LLM 组 / 搜索引擎组 / 纯大脑组），各完成 3 次论文写作 + 第 4 次交换条件，历时 <b>4 个月</b>，用<b>脑电图（EEG）</b>记录脑活动。</td>
+              <td><b>脑连接强度随外部支持量系统性下降</b>——纯大脑组网络最强最广，搜索引擎组居中，<b>LLM 组整体耦合最弱</b>；LLM 组对作文的"<b>所有权感</b>"低，<b>连几分钟前自己刚写的作文都难以复述</b>。</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:5px solid #f59e0b">
+        <h3>⚠️ 引用 MIT 研究时必须同时说明的限制条件 <span class="en">Limitations You Must State</span></h3>
+        <p style="font-size:14px;color:var(--muted)">这一条很重要——<b>原作者自己要求媒体报道时必须带上这些限制</b>。我们照做。</p>
+        <div class="kv-list">
+          <li><b>尚未经同行评审。</b>上传预印本平台时还未完成同行评审，<b>应作初步结果谨慎对待</b>。</li>
+          <li><b>样本量小。</b>54 人，第 4 次会话仅 18 人；地理集中、性别不够平衡。</li>
+          <li><b>仅测试了 ChatGPT。</b>不能直接推广到其他模型。</li>
+          <li><b>结论是情境依赖的。</b>聚焦"教育场景下的论文写作"，可能不适用于其他任务。</li>
+          <li><b>未按子任务细分。</b>构思与写作没有分开分析。</li>
+          <li>⚠️ <b>原作者明确要求：不要使用"变笨""脑损伤""大脑萎缩""被动化"等词报道本研究。</b><span class="zhs">这一点特别值得讲给学生——<b>这是科学传播的规范</b>：不夸大、不煽动。</span></li>
+        </div>
+      </div>
+
+      <div class="card" style="border:2px solid var(--primary)">
+        <h3>⭐ 把三项研究放在一起，结论非常清楚 <span class="en">The Conclusion</span></h3>
+        <div class="ai-note ok" style="font-size:15.5px;line-height:1.95;text-align:center;padding:20px">
+          <b>决定结果是"增益"还是"损害"的，<br>不是 AI 本身，而是使用方式。</b>
+        </div>
+        <div class="cards3" style="margin-top:16px">
+          <div class="c3 a">
+            <h5>✅ 促进思考的用法</h5>
+            <ul>
+              <li>结构化提示词 + <b>教师引导</b></li>
+              <li>让 AI 写一版，<b>学生批判修改并说明改了哪里、为什么</b></li>
+              <li>让 AI <b>只给提示</b>，学生自己推</li>
+              <li>问 AI"这道题的<b>考点</b>是什么"，再自己做</li>
+              <li>把 AI 当<b>追问对象</b>，反复追问同一个概念</li>
+            </ul>
+          </div>
+          <div class="c3 c">
+            <h5>❌ 代替思考的用法</h5>
+            <ul>
+              <li>直接给答案，学生被动接受</li>
+              <li>让 AI 写作业直接交</li>
+              <li>问 AI"这题选什么"</li>
+              <li>用 AI 做完整项目，学生只看结果</li>
+              <li>把 AI 当"答案机器"</li>
+            </ul>
+          </div>
+          <div class="c3 b">
+            <h5>🎯 判断标准只有一句</h5>
+            <ul>
+              <li style="font-size:15px"><b>"关掉 AI，这个学生还能不能做到？"</b></li>
+              <li>能 → 学习发生了</li>
+              <li>不能 → 只是完成了任务</li>
+              <li><b>作业好看 ≠ 学习发生</b></li>
+            </ul>
+          </div>
+        </div>
+        <p class="src-note">📖 来源：世界银行博客（2025-06-25）；SSRN 4895486《Generative AI Can Harm Learning》；MIT Media Lab《Your Brain on ChatGPT》项目页。详见本课程附录的来源与核实说明。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第2课 · 05 安全与诚信 -->
+  <section id="sec-a2-safety" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">05</div><h2>数据安全与学术诚信<small>DATA SAFETY &amp; ACADEMIC INTEGRITY</small></h2></div>
+
+      <div class="ai-note danger">
+        <b>🚨 一个必须讲清楚的技术事实：</b><br>
+        <b>你粘贴的内容会离开你的电脑，传到服务商的服务器上。</b>
+        它可能被用于服务优化、可能被日志留存、可能在数据泄露事件中暴露。<br>
+        <b>"我只是试一下"不是理由——粘上去的那一刻就已经发出去了。</b>
+      </div>
+
+      <div class="card" style="border-left:5px solid #ef4444">
+        <h3>🚫 绝对不能粘进公共 AI 的内容 <span class="en">Never Paste These</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:26%">类别</th><th style="width:38%">例子</th><th>后果</th></tr>
+            <tr><td>🔴 <b>学生个人信息</b></td><td>姓名 + 身份证号、家庭住址、电话、成绩单、体检结果</td><td>违反《个人信息保护法》</td></tr>
+            <tr><td>🔴 <b>未公开的考试题/答案</b></td><td>命题中的试卷、标准答案</td><td><b>教育部文件明确禁止</b>；泄题事故</td></tr>
+            <tr><td>🔴 <b>商业秘密与合作资料</b></td><td>校企合作合同、未公开的技术方案</td><td>违约与侵权</td></tr>
+            <tr><td>🔴 <b>未发表的科研成果</b></td><td>论文初稿、专利交底书</td><td>可能丧失新颖性</td></tr>
+            <tr><td>🔴 <b>账号与凭据</b></td><td>密码、API Key、系统后台地址</td><td>被盗刷 / 入侵</td></tr>
+            <tr><td>🟡 <b>内部管理文件</b></td><td>会议纪要、人事安排</td><td>视单位规定</td></tr>
+          </table>
+        </div>
+        <div class="ai-note ok" style="margin-top:14px">
+          <b>✅ 教师的安全操作习惯（5 条）：</b><br>
+          ① <b>脱敏</b>：把学生姓名换成"学生 A/B/C"，去掉学号、身份证号；<br>
+          ② 用<b>学校/单位统一提供的账号</b>，不要用个人账号处理公务数据；<br>
+          ③ 关闭"用于模型训练"选项（多数产品在设置里可关）；<br>
+          ④ 涉及敏感数据时，用<b>本地部署</b>的模型（数据不出校园）；<br>
+          ⑤ 定期清理历史会话。
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ 中国的法规依据（可直接引用的文号） <span class="en">Chinese Regulations</span></h3>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:32%">法规 / 文件</th><th style="width:22%">关键时间</th><th>与教师最相关的要点</th></tr>
+            <tr><td><b>《生成式人工智能服务管理暂行办法》</b><br><span style="font-size:12px;color:var(--muted)">网信办令第 15 号，<b>七部门联合</b>（含教育部）</span></td><td><b>2023-08-15 施行</b></td><td>第十条：<b>防范未成年人过度依赖或沉迷</b>；第十一条：<b>保护输入信息与使用记录</b>；第二条：学校<b>内部自用不适用</b>本办法，但<b>对外提供就要合规</b></td></tr>
+            <tr><td><b>《中小学生成式人工智能使用指南（2025 年版）》</b><br><span style="font-size:12px;color:var(--muted)">教育部基础教育教学指导委员会</span></td><td><b>2025 年 5 月</b></td><td>⭐ <b>严禁师生在使用生成式 AI 工具时输入考试试题、个人身份信息等敏感数据</b>；学校需建立工具<b>"白名单"制度</b>；<b>禁止直接复制 AI 生成内容作为作业或考试答案</b></td></tr>
+            <tr><td><b>《人工智能生成合成内容标识办法》</b></td><td><b>2025-09-01 施行</b></td><td>AI 生成内容必须<b>显式标识 + 文件元数据隐式标识</b>。<b>"用 AI 生成内容不标注"本身可能构成违规。</b></td></tr>
+            <tr><td><b>《个人信息保护法》</b></td><td><b>2021-11-01 施行</b></td><td>处理<b>不满十四周岁未成年人</b>个人信息须取得<b>监护人同意</b>并制定专门规则；敏感个人信息须<b>单独同意</b></td></tr>
+          </table>
+        </div>
+        <p class="src-note">📎 各文件的完整条款请查阅官方原文（国务院公报、教育部官网、国家法律法规数据库）。<b>本课程只做原则性提示，不替代法律意见。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>🎓 学术诚信：什么算滥用？ <span class="en">What Counts as Misuse</span></h3>
+        <p style="font-size:14px;color:var(--muted)">建议与学生<b>明确约定规则</b>——与其"禁止使用"（学生照样会用），不如教他们"<b>合规使用 + 主动声明</b>"。</p>
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="vocab-table">
+            <tr><th style="width:40%">场景</th><th style="width:16%">建议判定</th><th>理由</th></tr>
+            <tr><td>用 AI 梳理思路、列提纲</td><td style="color:#16a34a;font-weight:800">✅ 允许</td><td>相当于用搜索引擎，属于学习辅助</td></tr>
+            <tr><td>用 AI 解释看不懂的概念</td><td style="color:#16a34a;font-weight:800">✅ 允许</td><td>相当于请教老师，是有效学习</td></tr>
+            <tr><td>用 AI 翻译后<b>自己逐句核对修改</b></td><td style="color:#16a34a;font-weight:800">✅ 允许</td><td>有实质性的学习行为</td></tr>
+            <tr><td>用 AI 但<b>主动声明</b>使用范围</td><td style="color:#16a34a;font-weight:800">✅ 鼓励</td><td>透明是学术诚信的基础</td></tr>
+            <tr><td>用 AI 生成作业<b>直接提交</b></td><td style="color:#dc2626;font-weight:800">❌ 禁止</td><td>未发生学习行为，无法评估真实水平（教育部文件明文禁止）</td></tr>
+            <tr><td>用 AI 伪造数据、编造参考文献</td><td style="color:#dc2626;font-weight:800">❌ 严禁</td><td>学术不端，性质更严重</td></tr>
+            <tr><td>用 AI 代考、代写论文</td><td style="color:#dc2626;font-weight:800">❌ 严禁</td><td>违反校规，可能涉及法律责任</td></tr>
+          </table>
+        </div>
+        <div class="ai-note info" style="margin-top:14px">
+          <b>📝 建议的《AI 使用声明》模板（可写进课程大纲）：</b><br>
+          <div style="margin-top:9px;padding:13px 15px;background:#fff;border:1px dashed #94a3b8;border-radius:10px;font-size:13.5px;line-height:1.9;color:#334155">
+            本作业使用了 AI 辅助，用于：<u>　　（如：梳理提纲 / 检查语法 / 翻译初稿）</u><br>
+            使用的工具与版本：<u>　　　　　　</u>　提示词大意：<u>　　　　　　</u><br>
+            AI 输出中<b>被采纳的部分</b>：<u>　　　　　　</u><br>
+            我做的<b>人工修改与核实</b>：<u>　　　　　　</u>
+          </div>
+          <span style="display:block;margin-top:9px">💡 <b>要求声明不是为了抓作弊，而是为了培养"透明使用"的习惯</b>——这本身就是 AI 素养的一部分。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生成式AI教程 · 第2课 · 06 总结 -->
+  <section id="sec-a2-summary" class="page">
+    <div class="page-inner">
+      <div class="sec-head"><div class="sec-num">06</div><h2>总结 · 知识树与自检清单<small>SUMMARY — KNOWLEDGE TREE &amp; SELF-CHECK</small></h2></div>
+
+      <div class="card">
+        <h3>🌳 知识树 <span class="en">Understanding AI</span></h3>
+        <div class="tree">
+          <div class="tree-root">🧠 正确认识 AI</div>
+          <div class="tree-branches">
+            <div class="tree-node">
+              <b>一句话原理 The Core Idea</b>
+              <ul>
+                <li>它在<b>预测下一个词</b> <span class="tz">不是查数据库，不是"想"</span></li>
+                <li>优化目标是"像不像真的" <span class="tz">不是"是不是真的" → 幻觉根源</span></li>
+                <li>没有"我不知道"的默认动作 <span class="tz">宁可编也不留空</span></li>
+                <li>输出有随机性 <span class="tz">同一问题两次答案可能不同</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>能力边界 Capability</b>
+              <ul>
+                <li>擅长 8 件事 <span class="tz">改写 / 结构化 / 翻译 / 发散 / 模仿 / 类比 / 代码 / 扮演</span></li>
+                <li>一定会错 7 件事 <span class="tz">幻觉 / 算错 / 过时 / 专业错 / 跳步 / 谄媚 / 装懂</span></li>
+                <li>⭐ 陌生领域最危险 <span class="tz">你没有能力发现它在骗你</span></li>
+                <li>正确姿势 <span class="tz">拓展熟悉的领域，而非替代陌生的领域</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>证据 Evidence</b>
+              <ul>
+                <li>世界银行 RCT <span class="tz">✅ 教师引导 + 结构化提示词 → 增益 0.3 SD</span></li>
+                <li>Can Harm Learning <span class="tz">❌ 通用 LLM 反而损害学习</span></li>
+                <li>MIT 脑电研究 <span class="tz">⚠️ 脑连接下降、所有权感低（预印本，限条件多）</span></li>
+                <li>⭐ 关键变量是"<b>怎么用</b>" <span class="tz">不是"用不用"</span></li>
+                <li>判断标准 <span class="tz">关掉 AI，学生还能不能做到？</span></li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <b>安全与诚信 Safety</b>
+              <ul>
+                <li>绝不粘贴 <span class="tz">学生信息 / 试题 / 秘密 / 未发表成果 / 凭据</span></li>
+                <li>七个缓解幻觉的招 + 人工终审 <span class="tz">第 8 招不可替代</span></li>
+                <li>法规依据 <span class="tz">暂行办法 / 使用指南 / 标识办法 / 个保法</span></li>
+                <li>学术诚信 <span class="tz">合规使用 + 主动声明</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🚀 核心要点 <span class="en">Key Points</span></h3>
+        <div class="keyline">
+          <span>① AI 是在<b>预测下一个词</b>，不是在查证事实</span>
+          <span>② 它优化"像不像真的"，所以会<b>一本正经地编</b></span>
+          <span>③ <b>它在你陌生的领域最危险</b></span>
+          <span>④ 缓解幻觉最有效的一招：<b>把材料喂给它，并限定"只能用材料"</b></span>
+          <span>⑤ <b>任何进入正式材料的 AI 输出必须人工核对</b></span>
+          <span>⑥ 研究证据是混合的：<b>用得好有增益，用得随意有损害</b></span>
+          <span>⑦ <b>关掉 AI，学生还能不能做到？</b>——这是唯一可靠的判断标准</span>
+          <span>⑧ 敏感数据三条红线：<b>学生信息、考试试题、账号凭据</b>，一律不粘贴</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>✍️ 课堂练习（建议都做一遍） <span class="en">Classroom Exercises</span></h3>
+        <div class="deep-steps">
+          <div class="kv"><b>1</b><div><b>找错练习（本课程最有效的练习）。</b>老师给出一段"AI 生成的、含 3 处事实错误"的文本，<b>让学生在 5 分钟内找出来</b>。<span class="zhs" style="display:block;color:var(--muted);font-size:13.5px;margin-top:3px">学生的反应通常从"AI 也会错？"变成"我以后要自己查一下"。</span></div></div>
+          <div class="kv"><b>2</b><div><b>交叉验证练习。</b>同一个问题问两个不同厂商的模型，<b>比较答案不一致的地方</b>，并讨论"哪个更可信、为什么"。</div></div>
+          <div class="kv"><b>3</b><div><b>脱敏改写练习。</b>给一段含学生真实姓名与学号的通知，让学生改写成<b>可以安全投喂 AI 的版本</b>。</div></div>
+          <div class="kv"><b>4</b><div><b>提示词对比练习。</b>同一个问题，一次直接问，一次加"请只根据我提供的材料回答，材料里没有的写『未提及』"，<b>对比两次结果的差异</b>。</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:5px solid var(--primary)">
+        <h3>📋 给教师的"用前自检"五问 <span class="en">Five Questions Before You Use AI</span></h3>
+        <div class="kv-list">
+          <li><b>① 这件事我熟不熟？</b>如果我不熟，我有没有能力发现它在骗我？<span class="zhs">越陌生越要警惕。</span></li>
+          <li><b>② 我要它给的是"初稿"还是"结论"？</b>初稿可以，结论必须我自己下。</li>
+          <li><b>③ 我要粘进去的东西里有没有敏感信息？</b>姓名、学号、试题、凭据——有就先脱敏或干脆不粘。</li>
+          <li><b>④ 它的输出会不会进入正式材料？</b>会的话，<b>我核对过了吗？来源点开了吗？</b></li>
+          <li><b>⑤ 这件事交给 AI 之后，学生还能学到东西吗？</b>如果答案是否定的，就该重新设计任务。</li>
+        </div>
+        <div class="tip">💡 <span><b>一句话总结本章：</b>AI 是一个博览群书、口才极好、但从不查证、也从不承认自己不懂的实习生。<b>你可以让它写初稿，但签字的人必须是你。</b></span></div>
+      </div>
+    </div>
+  </section>
