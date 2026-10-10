@@ -160,10 +160,5 @@ reflection_prompt <span style="color: Gray;">=</span> <span style="color: #a11;"
 <div class="rb-tw"><table class="reference vocab-table"> <thead> <tr> <th>模式</th> <th>核心机制</th> <th>优点</th> <th>缺点</th> </tr> </thead> <tbody> <tr> <td><strong>CoT</strong></td> <td>Step-by-Step 线性推理</td> <td>实现极简，显著提升基础推理准确度</td> <td>无法调用外部工具，容易一条道走到黑</td> </tr> <tr> <td><strong>ReAct</strong></td> <td>交替思考与行动闭环</td> <td>动态适应环境，能通过观测实时调整</td> <td>上下文容易随步骤累积而爆炸，迷失初衷</td> </tr> <tr> <td><strong>Plan-and-Execute</strong></td> <td>先拆解为子任务，再隔离执行</td> <td>极其适合长线复杂任务，上下文清晰</td> <td>面对突发变化（规划本身出错时）不够灵活</td> </tr> <tr> <td><strong>ToT / MCTS</strong></td> <td>树状搜索，评估回溯</td> <td>能解决最高难度的复杂逻辑问题</td> <td>计算成本极其高昂，Token 消耗呈指数级</td> </tr> <tr> <td><strong>Reflexion</strong></td> <td>基于失败反馈生成反思记忆</td> <td>具备自我纠错和持续进化的能力</td> <td>依赖明确的反馈信号（如代码编译器报错）</td> </tr> </tbody>
 </table></div> <!-- 其他扩展 --> 
       </div>
-      <div class="rb-src">
-        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
-        <a href="https://www.runoob.com/ai-agent/reasoning-planning.html" target="_blank" rel="noopener">reasoning-planning.html</a><br>
-        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
-      </div>
-    </div>
+</div>
   </section>
