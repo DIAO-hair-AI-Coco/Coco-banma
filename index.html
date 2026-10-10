@@ -13,6 +13,7 @@
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="css/agent.css">
+<link rel="stylesheet" href="css/katex.min.css">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>汽车专业英语 · 授课人：孔梦琳 · 发动机基本概念与运行原理 | 交互式双语动画课程</title>
 <style>
@@ -994,7 +995,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20261010b';
+const APP_V='20261010c';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
