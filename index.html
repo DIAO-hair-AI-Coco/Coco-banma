@@ -995,7 +995,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20261010c';
+const APP_V='20261010d';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
@@ -1096,7 +1096,7 @@ function openHome(){ showView('home'); }
 const SERIES_META={
   auto:{ icon:'🚗', name:'汽车专业英语', desc:'按 Chapter 单元逐课学习 · 爆炸图 + 3D 模型 + 双语动画', cls:'' },
   ai:  { icon:'🤖', name:'生成式AI教程', desc:'从 AI 发展史到提示词实战 · 含 DSH 部署实战截图 · 7 课成体系', cls:'ai' },
-  agent:{ icon:'🕹️', name:'AI Agent 教程（转载 · 临时）', desc:'菜鸟教程 runoob.com《AI Agent(智能体) 教程》全 14 章 · 文字 / 表格 / 图片完整转载', cls:'ai' }
+  agent:{ icon:'🕹️', name:'AI Agent 教程', desc:'', cls:'ai' }
 };
 function courseCardEl(c,i,seriesKey){
   const b=document.createElement('button');
@@ -1130,7 +1130,7 @@ function renderHome(){
     const sec=document.createElement('div');
     sec.className='series-sec'+(meta.cls?' '+meta.cls:'');
     sec.innerHTML='<div class="series-head"><span class="si">'+meta.icon+'</span>'
-      +'<div><div class="st">'+meta.name+'</div><div class="sd">'+meta.desc+'</div></div>'
+      +'<div><div class="st">'+meta.name+'</div>'+(meta.desc?'<div class="sd">'+meta.desc+'</div>':'')+'</div>'
       +'<span class="sc">共 '+grp.items.length+' 课</span></div>';
     const grid=document.createElement('div');
     grid.className='course-grid';
