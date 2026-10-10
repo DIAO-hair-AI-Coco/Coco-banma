@@ -12,6 +12,7 @@
 <meta property="og:site_name" content="汽车专业英语 · 授课人：孔梦琳">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/agent.css">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>汽车专业英语 · 授课人：孔梦琳 · 发动机基本概念与运行原理 | 交互式双语动画课程</title>
 <style>
@@ -884,7 +885,105 @@ const COURSES=[
     file:'courses/ai5.js', html:'courses/ai5.html',
     pages:['sec-a5-intro','sec-a5-arch','sec-a5-install1','sec-a5-install2','sec-a5-usage','sec-a5-summary'],
     tabs:['导入','它是什么','桌面版安装','命令行安装','使用与权限','总结与安全'],
-    bank:[{en:'agent harness',zh:'智能体运行时'},{en:'everything-is-a-plugin',zh:'一切皆插件'},{en:'profile',zh:'配置档'},{en:'workspace',zh:'工作区'},{en:'Read Only',zh:'只读权限'},{en:'Full Access',zh:'完全访问权限'},{en:'dsh web',zh:'启动浏览器界面'},{en:'dsh tui',zh:'启动终端界面'},{en:'dsh headless',zh:'一次性执行任务'},{en:'dsh rescue',zh:'重建配置档'},{en:'npm install -g',zh:'全局安装'},{en:'npx',zh:'免安装直接运行'},{en:'plugin',zh:'插件'},{en:'sandbox',zh:'沙箱'},{en:'credentials',zh:'凭据；密钥'},{en:'MCP',zh:'模型上下文协议'},{en:'nightly',zh:'每夜构建通道'},{en:'developer preview',zh:'开发者预览版'},{en:'terminal',zh:'终端'},{en:'port',zh:'端口'}] }
+    bank:[{en:'agent harness',zh:'智能体运行时'},{en:'everything-is-a-plugin',zh:'一切皆插件'},{en:'profile',zh:'配置档'},{en:'workspace',zh:'工作区'},{en:'Read Only',zh:'只读权限'},{en:'Full Access',zh:'完全访问权限'},{en:'dsh web',zh:'启动浏览器界面'},{en:'dsh tui',zh:'启动终端界面'},{en:'dsh headless',zh:'一次性执行任务'},{en:'dsh rescue',zh:'重建配置档'},{en:'npm install -g',zh:'全局安装'},{en:'npx',zh:'免安装直接运行'},{en:'plugin',zh:'插件'},{en:'sandbox',zh:'沙箱'},{en:'credentials',zh:'凭据；密钥'},{en:'MCP',zh:'模型上下文协议'},{en:'nightly',zh:'每夜构建通道'},{en:'developer preview',zh:'开发者预览版'},{en:'terminal',zh:'终端'},{en:'port',zh:'端口'}] },
+  { id:'agentm-intro', icon:'🤖', name:'1. AI Agent 简介',
+    en:'AI Agent Tutorial · Ch.1 · Introduction to AI Agents',
+    series:'agent',
+    desc:'在当今科技浪潮中，人工智能（AI）深度融入生活与工作的背后， AI Agent（智能体） 是支撑 从对话助手到自主任务程序 的核心概念——它不是单纯的聊天工具，而是能像 数字员工 一样…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-intro.js', html:'courses/agentm-intro.html',
+    pages:['sec-agentm-intro'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-agent-intro.html',
+    bank:[{en:'AI Agent',zh:'智能体'},{en:'LLM',zh:'大语言模型'},{en:'Planning',zh:'规划'},{en:'Tool use',zh:'工具使用'},{en:'Memory',zh:'记忆'},{en:'Autonomy',zh:'自主性'},{en:'ReAct',zh:'推理-行动循环'},{en:'Hallucination',zh:'幻觉'}] },
+  { id:'agentm-core', icon:'🧩', name:'2. AI Agent 核心组件',
+    en:'AI Agent Tutorial · Ch.2 · Core Components of an AI Agent',
+    series:'agent',
+    desc:'如果把一个 AI Agent 比作一家 智能餐厅 ，它是怎么把你的需求变成菜品端上来的呢？这离不开它的四大核心组件： 大脑、工具、记忆、规划 。 大脑： 负责听懂点单、判定目标、决定顺…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-core.js', html:'courses/agentm-core.html',
+    pages:['sec-agentm-core'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-agent-core.html',
+    bank:[{en:'Perception',zh:'感知'},{en:'Reasoning',zh:'推理'},{en:'Action',zh:'行动'},{en:'Memory',zh:'记忆'},{en:'Profile',zh:'画像'},{en:'Tool',zh:'工具'},{en:'Workflow',zh:'工作流'}] },
+  { id:'agentm-term', icon:'📖', name:'3. AI Agent 术语',
+    en:'AI Agent Tutorial · Ch.3 · AI Agent Terminology',
+    series:'agent',
+    desc:'随着大语言模型（LLM）与智能体（Agent）技术的快速发展，编程范式正在经历一场深刻的变革，Vibe Coding、Agentic Coding、Harness Engineer、L…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-term.js', html:'courses/agentm-term.html',
+    pages:['sec-agentm-term'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-terminology.html',
+    bank:[{en:'Agent',zh:'智能体'},{en:'Multi-Agent',zh:'多智能体'},{en:'Prompt',zh:'提示词'},{en:'Context',zh:'上下文'},{en:'Embedding',zh:'嵌入'},{en:'Vector',zh:'向量'},{en:'Orchestration',zh:'编排'}] },
+  { id:'agentm-work', icon:'⚙️', name:'4. AI Agent 工作原理',
+    en:'AI Agent Tutorial · Ch.4 · How AI Agents Work',
+    series:'agent',
+    desc:'在开始深入了解 AI Agent 之前，我们先来回答一个根本问题： 既然有 LLM，为什么还需要 Agent？ 想象一下，你有一位非常博学的朋友——他读过海量的书，能回答几乎所有问题，…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-work.js', html:'courses/agentm-work.html',
+    pages:['sec-agentm-work'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-agent-working-principle.html',
+    bank:[{en:'Thought',zh:'思考'},{en:'Action',zh:'行动'},{en:'Observation',zh:'观察'},{en:'Loop',zh:'循环'},{en:'Planner',zh:'规划器'},{en:'Executor',zh:'执行器'},{en:'Reflection',zh:'反思'}] },
+  { id:'agentm-arch', icon:'🏗️', name:'5. AI 底层架构',
+    en:'AI Agent Tutorial · Ch.5 · AI Underlying Architecture',
+    series:'agent',
+    desc:'下图展示了基础大模型到智能体应用的完整 AI 系统架构： 层级 核心组件 核心作用 典型能力 基础层（模型） LLM &amp; Token、Transformer 架构、Token …（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-arch.js', html:'courses/agentm-arch.html',
+    pages:['sec-agentm-arch'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-architecture.html',
+    bank:[{en:'Base Layer',zh:'基础层'},{en:'Model',zh:'模型'},{en:'Middleware',zh:'中间件'},{en:'Application',zh:'应用'},{en:'Token',zh:'词元'},{en:'Transformer',zh:'变换器架构'}] },
+  { id:'agentm-llm', icon:'🧠', name:'6. 大语言模型基础',
+    en:'AI Agent Tutorial · Ch.6 · Large Language Model Basics',
+    series:'agent',
+    desc:'大语言模型（Large Language Model，简称 LLM）是 AI Agent 的大脑，理解它是构建智能 Agent 的基础。 大语言模型之所以能与你对话、写文章、编程，本质…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-llm.js', html:'courses/agentm-llm.html',
+    pages:['sec-agentm-llm'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/ai-agent-llm.html',
+    bank:[{en:'Tokenization',zh:'分词'},{en:'Attention',zh:'注意力'},{en:'Transformer',zh:'变换器架构'},{en:'Parameter',zh:'参数'},{en:'Pre-training',zh:'预训练'},{en:'Fine-tuning',zh:'微调'},{en:'Inference',zh:'推理'}] },
+  { id:'agentm-mm', icon:'🖼️', name:'7. 大模型多模态',
+    en:'AI Agent Tutorial · Ch.7 · Multimodal Large Models',
+    series:'agent',
+    desc:'多模态（Multimodal）大模型让 AI 同时处理文本、图像、音频、视频等多种信息形式，是当前大模型最核心的发展方向之一。 本文从零开始讲解多模态的概念、发展过程、内部原理与典型能…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-mm.js', html:'courses/agentm-mm.html',
+    pages:['sec-agentm-mm'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/llm-multimodal.html',
+    bank:[{en:'Multimodal',zh:'多模态'},{en:'Vision',zh:'视觉'},{en:'Audio',zh:'音频'},{en:'Cross-modal',zh:'跨模态'},{en:'Alignment',zh:'对齐'},{en:'Modality',zh:'模态'}] },
+  { id:'agentm-prompt', icon:'✍️', name:'8. 提示词工程',
+    en:'AI Agent Tutorial · Ch.8 · Prompt Engineering',
+    series:'agent',
+    desc:'你有没有遇到过这种情况：明明给了 AI 一个问题，得到的回答却空泛、跑题、毫无用处？ 这不是 AI 的问题，往往是提问方式的问题。 提示词工程（Prompt Engineering）就…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-prompt.js', html:'courses/agentm-prompt.html',
+    pages:['sec-agentm-prompt'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/prompt-engineering.html',
+    bank:[{en:'Prompt Engineering',zh:'提示词工程'},{en:'Zero-shot',zh:'零样本'},{en:'Few-shot',zh:'少样本'},{en:'Chain-of-Thought',zh:'思维链'},{en:'Role Prompting',zh:'角色提示'},{en:'Constraint',zh:'约束'}] },
+  { id:'agentm-token', icon:'🎫', name:'9. Token (词元)',
+    en:'AI Agent Tutorial · Ch.9 · Token',
+    series:'agent',
+    desc:'你有没有好奇过，当你向 Deepseek、豆包、千问、ChatGPT 或 Claude 提问时，AI 是怎么读懂你的文字的？ 答案的核心，就是一个叫做 Token ，中文称之为 词元 …（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-token.js', html:'courses/agentm-token.html',
+    pages:['sec-agentm-token'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/token-intro.html',
+    bank:[{en:'Token',zh:'词元'},{en:'Tokenizer',zh:'分词器'},{en:'Context Window',zh:'上下文窗口'},{en:'Vocabulary',zh:'词表'},{en:'Byte Pair Encoding',zh:'字节对编码'}] },
+  { id:'agentm-reason', icon:'🧭', name:'10. 推理与规划',
+    en:'AI Agent Tutorial · Ch.10 · Reasoning and Planning',
+    series:'agent',
+    desc:'在构建自主 AI Agent 的过程中，如果说大语言模型（LLM）是 Agent 的大脑，工具调用（Tool Use）是手脚，那么 推理与规划（Reasoning &amp; Plan…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-reason.js', html:'courses/agentm-reason.html',
+    pages:['sec-agentm-reason'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/reasoning-planning.html',
+    bank:[{en:'Reasoning',zh:'推理'},{en:'Planning',zh:'规划'},{en:'Decomposition',zh:'任务分解'},{en:'Chain-of-Thought',zh:'思维链'},{en:'Tree of Thoughts',zh:'思维树'},{en:'ReAct',zh:'推理-行动'}] },
+  { id:'agentm-vector', icon:'🗂️', name:'11. 向量数据库',
+    en:'AI Agent Tutorial · Ch.11 · Vector Database',
+    series:'agent',
+    desc:'向量数据库（Vector Database）是一种专门用于存储、索引和检索高维向量数据的数据库系统。 你可以把它理解为：把意思相近的东西存在一起，并能快速找到和这个最像的那些东西。 与…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-vector.js', html:'courses/agentm-vector.html',
+    pages:['sec-agentm-vector'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/vector-database.html',
+    bank:[{en:'Vector Database',zh:'向量数据库'},{en:'Embedding',zh:'嵌入'},{en:'Similarity',zh:'相似度'},{en:'Index',zh:'索引'},{en:'Dimension',zh:'维度'},{en:'ANN',zh:'近似最近邻'}] },
+  { id:'agentm-rag', icon:'🔍', name:'12. RAG 与知识检索',
+    en:'AI Agent Tutorial · Ch.12 · RAG and Knowledge Retrieval',
+    series:'agent',
+    desc:'RAG（Retrieval-Augmented Generation，检索增强生成）是目前最主流的 LLM 落地架构之一。 RAG 的核心思想是： 让 LLM 在回答问题时，先从外部知…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-rag.js', html:'courses/agentm-rag.html',
+    pages:['sec-agentm-rag'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/retrieval-augmented-generation.html',
+    bank:[{en:'RAG',zh:'检索增强生成'},{en:'Retrieval',zh:'检索'},{en:'Chunking',zh:'分块'},{en:'Rerank',zh:'重排'},{en:'Grounding',zh:'接地'},{en:'Knowledge Base',zh:'知识库'}] },
+  { id:'agentm-ctx', icon:'🧵', name:'13. Agent 上下文工程',
+    en:'AI Agent Tutorial · Ch.13 · Agent Context Engineering',
+    series:'agent',
+    desc:'Agent 上下文工程 （Agent Context Engineering）是系统化设计和优化传递给 AI Agent 的上下文信息的技术实践，它的目标是让 Agent 在有限的上下…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-ctx.js', html:'courses/agentm-ctx.html',
+    pages:['sec-agentm-ctx'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/agent-context-engineering.html',
+    bank:[{en:'Context Engineering',zh:'上下文工程'},{en:'Compaction',zh:'压缩'},{en:'Summarization',zh:'摘要'},{en:'Context Window',zh:'上下文窗口'},{en:'Retrieval',zh:'检索'}] },
+  { id:'agentm-arch2', icon:'🏛️', name:'14. Agent 架构',
+    en:'AI Agent Tutorial · Ch.14 · Agent Architecture',
+    series:'agent',
+    desc:'Agent（智能体）是指能够自主感知环境、推理并采取行动以完成目标的 AI 系统。 本文从最简单的循环到多 Agent 协作，一文读懂六种主流架构的原理、图解与适用场景，帮助你在实际项…（转载自菜鸟教程 runoob.com）',
+    file:'courses/agentm-arch2.js', html:'courses/agentm-arch2.html',
+    pages:['sec-agentm-arch2'], tabs:['正文'], src:'https://www.runoob.com/ai-agent/agent-architecture.html',
+    bank:[{en:'Architecture',zh:'架构'},{en:'Orchestrator',zh:'编排器'},{en:'Sub-agent',zh:'子智能体'},{en:'Handoff',zh:'交接'},{en:'Guardrail',zh:'护栏'},{en:'Observability',zh:'可观测性'}] }
 ];
 const REG={};
 window.__COURSE_REGISTER=(id,mod)=>{ REG[id]=mod||{}; };
@@ -895,7 +994,7 @@ const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
 /* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20261009d';
+const APP_V='20261010b';
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
@@ -995,7 +1094,8 @@ function openHome(){ showView('home'); }
    未标 series 的课程归入默认专辑（汽车专业英语）。 */
 const SERIES_META={
   auto:{ icon:'🚗', name:'汽车专业英语', desc:'按 Chapter 单元逐课学习 · 爆炸图 + 3D 模型 + 双语动画', cls:'' },
-  ai:  { icon:'🤖', name:'生成式AI教程', desc:'从 AI 发展史到提示词实战 · 含 DSH 部署实战截图 · 7 课成体系', cls:'ai' }
+  ai:  { icon:'🤖', name:'生成式AI教程', desc:'从 AI 发展史到提示词实战 · 含 DSH 部署实战截图 · 7 课成体系', cls:'ai' },
+  agent:{ icon:'🕹️', name:'AI Agent 教程（转载 · 临时）', desc:'菜鸟教程 runoob.com《AI Agent(智能体) 教程》全 14 章 · 文字 / 表格 / 图片完整转载', cls:'ai' }
 };
 function courseCardEl(c,i,seriesKey){
   const b=document.createElement('button');
