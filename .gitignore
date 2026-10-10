@@ -1,0 +1,31 @@
+# ===== 大文件（视频等，绝不版本化） =====
+*.mp4
+*.mov
+*.avi
+*.webm
+video/
+
+# ===== 开发工具与中间产物 =====
+_tools/
+_chatgpt/
+_shots/
+_runoob/
+deploy/
+node_modules/
+__pycache__/
+*.pyc
+
+# ===== 日志 =====
+*.log
+
+# ===== 根目录散落的临时脚本 =====
+_*.js
+
+# ===== 本地 Windows 服务脚本（仅本机使用） =====
+*.bat
+*.vbs
+
+# ===== 内部文档与论文（不上传公开仓库） =====
+*.md
+!README.md
+*.docx
