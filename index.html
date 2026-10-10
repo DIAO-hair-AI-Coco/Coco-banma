@@ -12,8 +12,8 @@
 <meta property="og:site_name" content="汽车专业英语 · 授课人：孔梦琳">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="css/agent.css">
-<link rel="stylesheet" href="css/katex.min.css">
+<link rel="stylesheet" href="css/agent.css?v=b2e3e1fd">
+<link rel="stylesheet" href="css/katex.min.css?v=bcc7f601">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>汽车专业英语 · 授课人：孔梦琳 · 发动机基本概念与运行原理 | 交互式双语动画课程</title>
 <style>
@@ -994,13 +994,14 @@ const course=()=>COURSES[curCourse];
 const trackEl=()=>$('#track-'+course().id);
 const trackPages=()=>course().pages;
 /* 加载课程（先注入页面 HTML，再加载模块 JS） */
-/* 资源版本号：每次更新课程文件后 +1（或改日期），带在 URL 后强制绕过 Service Worker 缓存 */
-const APP_V='20261011a';
+/* 资源版本号：由部署脚本按文件内容哈希自动注入 window.__VERSIONS，无需手动维护 */
+window.__VERSIONS={"courses/agentm-arch.html":"5a0d0153","courses/agentm-arch.js":"3688b29a","courses/agentm-arch2.html":"5f5c54d1","courses/agentm-arch2.js":"418c1c8e","courses/agentm-core.html":"3351683e","courses/agentm-core.js":"a9071990","courses/agentm-ctx.html":"cc54e826","courses/agentm-ctx.js":"c7d281c5","courses/agentm-intro.html":"2e75e4e8","courses/agentm-intro.js":"233337c7","courses/agentm-llm.html":"fae8f69d","courses/agentm-llm.js":"4c5e279c","courses/agentm-mm.html":"941af532","courses/agentm-mm.js":"654e63e1","courses/agentm-prompt.html":"76f39dc4","courses/agentm-prompt.js":"d939c5d8","courses/agentm-rag.html":"3d60b60a","courses/agentm-rag.js":"bbbe7088","courses/agentm-reason.html":"7aa4bf71","courses/agentm-reason.js":"901d608d","courses/agentm-term.html":"1b27eb5a","courses/agentm-term.js":"13347e19","courses/agentm-token.html":"4311dc6c","courses/agentm-token.js":"a0edf079","courses/agentm-vector.html":"85dc0dcf","courses/agentm-vector.js":"8e319cd1","courses/agentm-work.html":"6d6359dd","courses/agentm-work.js":"0b949eb7","courses/ai2.html":"c544648a","courses/ai2.js":"b1e6ab2f","courses/ai3.html":"bab8c645","courses/ai3.js":"2aa40da8","courses/ai5.html":"503106f2","courses/ai5.js":"0b265d8c","courses/chassis.html":"5c32b947","courses/chassis.js":"f8cc9586","courses/efi.html":"1993c02f","courses/efi.js":"31199c4c","courses/engine.html":"d3fa3d9c","courses/engine.js":"c1e47b20","courses/lube.html":"90eab9f2","courses/lube.js":"a78ccdef","courses/piston.html":"d7b1db35","courses/piston.js":"501b7d97","courses/transmission.html":"a8638207","courses/transmission.js":"3e1b310c","css/agent.css":"b2e3e1fd","css/fonts/KaTeX_AMS-Regular.woff2":"34494743","css/fonts/KaTeX_Caligraphic-Bold.woff2":"5bfa49ca","css/fonts/KaTeX_Caligraphic-Regular.woff2":"9f8077e0","css/fonts/KaTeX_Fraktur-Bold.woff2":"f98f8927","css/fonts/KaTeX_Fraktur-Regular.woff2":"a5764c6e","css/fonts/KaTeX_Main-Bold.woff2":"31050a1b","css/fonts/KaTeX_Main-BoldItalic.woff2":"a4a4905b","css/fonts/KaTeX_Main-Italic.woff2":"c9b2b5ff","css/fonts/KaTeX_Main-Regular.woff2":"c884086c","css/fonts/KaTeX_Math-BoldItalic.woff2":"8fcb9d2d","css/fonts/KaTeX_Math-Italic.woff2":"db4883d0","css/fonts/KaTeX_SansSerif-Bold.woff2":"886e6179","css/fonts/KaTeX_SansSerif-Italic.woff2":"3d5fa3cb","css/fonts/KaTeX_SansSerif-Regular.woff2":"e45d5f4f","css/fonts/KaTeX_Script-Regular.woff2":"63b80959","css/fonts/KaTeX_Size1-Regular.woff2":"57fa5999","css/fonts/KaTeX_Size2-Regular.woff2":"ee187136","css/fonts/KaTeX_Size3-Regular.woff2":"19a7caad","css/fonts/KaTeX_Size4-Regular.woff2":"9bed17fb","css/fonts/KaTeX_Typewriter-Regular.woff2":"7a08883f","css/katex.min.css":"bcc7f601"};
+function fileVer(p){ const v=window.__VERSIONS[p]; return v?('?v='+v):''; }
 function loadCourse(c){
   if(c._ready)return Promise.resolve(c);
   if(c._p)return c._p;
   c._p=new Promise((res,rej)=>{
-    fetch(c.html+'?v='+APP_V).then(r=>{ if(!r.ok)throw new Error('html '+r.status); return r.text(); }).then(txt=>{
+    fetch(c.html+fileVer(c.html)).then(r=>{ if(!r.ok)throw new Error('html '+r.status); return r.text(); }).then(txt=>{
       let track=$('#track-'+c.id);
       if(!track){
         track=document.createElement('div');
@@ -1009,7 +1010,7 @@ function loadCourse(c){
       }
       track.innerHTML=txt;
       const s=document.createElement('script');
-      s.src=c.file+'?v='+APP_V;
+      s.src=c.file+fileVer(c.file);
       s.onload=()=>{ c._ready=true; res(c); };
       s.onerror=()=>rej(new Error('js'));
       document.head.appendChild(s);
