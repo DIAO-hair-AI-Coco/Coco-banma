@@ -1,0 +1,509 @@
+/* ==========================================================
+   AI Agent 教程（内容来源：菜鸟教程 runoob.com）
+   本文件只作用于 .rbx-* 容器内，不污染站点其它样式
+   ========================================================== */
+
+/* ---------- 正文基础排版 ---------- */
+.rbx{font-size:15px;line-height:1.95;color:var(--ink);word-break:break-word}
+.rbx>*:first-child{margin-top:0}
+.rbx h2{font-size:20px;font-weight:800;color:var(--primary-d);margin:30px 0 14px;padding-left:13px;border-left:5px solid var(--primary);line-height:1.45}
+.rbx h3{font-size:17px;font-weight:800;color:var(--ink);margin:24px 0 11px;padding-bottom:7px;border-bottom:2px solid var(--line)}
+.rbx h4{font-size:15.5px;font-weight:800;color:var(--primary-d);margin:18px 0 9px}
+.rbx h5{font-size:14.5px;font-weight:800;margin:14px 0 7px}
+.rbx p{margin:12px 0}
+.rbx ul,.rbx ol{margin:12px 0;padding-left:24px}
+.rbx li{margin:7px 0;line-height:1.9}
+.rbx ul li::marker{color:var(--primary)}
+.rbx ol li::marker{color:var(--primary);font-weight:800}
+.rbx strong,.rbx b{color:var(--primary-d);font-weight:800}
+.rbx a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+.rbx img{max-width:100%;height:auto;display:block;margin:16px auto;border-radius:11px;border:1px solid var(--line);background:#fff}
+.rbx hr{border:none;border-top:1px solid var(--line);margin:24px 0}
+.rbx blockquote{margin:16px 0;padding:12px 18px;border-left:5px solid var(--accent);background:var(--accent-l);border-radius:0 10px 10px 0;color:var(--ink)}
+.rbx code{background:rgba(37,99,235,.09);color:var(--primary-d);padding:2px 7px;border-radius:5px;font-family:Consolas,"Cascadia Mono",monospace;font-size:13.5px;word-break:break-all}
+.rbx pre{background:#0d1b36;color:#dbe7ff;padding:15px 18px;border-radius:12px;overflow-x:auto;font-family:Consolas,"Cascadia Mono",monospace;font-size:13.5px;line-height:1.75;margin:16px 0;border:1px solid #24365f}
+.rbx pre code{background:none;color:inherit;padding:0;font-size:inherit}
+.rbx .marked{background:linear-gradient(180deg,transparent 58%,rgba(251,191,36,.55) 58%);font-weight:700;padding:0 2px}
+.rbx .important{background:var(--primary-l);border-left:5px solid var(--primary);border-radius:0 10px 10px 0;padding:12px 16px;font-weight:800;color:var(--primary-d);font-size:15px}
+/* 表格横向滚动包裹 */
+.rb-tw{overflow-x:auto;margin:16px 0;-webkit-overflow-scrolling:touch}
+.rb-tw table{margin:0}
+/* 章内小徽章/标签（避开站点 .badge） */
+.rbx .tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--primary-l);color:var(--primary-d);margin:0 4px 4px 0}
+.rbx .tag.orange{background:#ffedd5;color:#9a3412}
+.rbx .tag.green{background:#dcfce7;color:#166534}
+.rbx .tag.purple{background:#ede9fe;color:#5b21b6}
+.rbx .tag.red{background:#fee2e2;color:#991b1b}
+/* 深色主题适配：正文里写死浅色背景的块 */
+[data-theme="dark"] .rbx img{background:#fff}
+[data-theme="dark"] .rbx .important{background:#132445;color:#93c5fd}
+[data-theme="dark"] .rbx blockquote{background:#2a2110;color:#fcd34d}
+
+/* ---------- 来源标注 ---------- */
+.rb-src{margin-top:30px;padding:14px 18px;border-radius:12px;background:var(--card);border:1px dashed var(--line);font-size:13px;line-height:1.85;color:var(--muted)}
+.rb-src b{color:var(--primary-d)}
+.rb-src a{color:var(--primary);word-break:break-all}
+.rb-src span{font-size:12.5px}
+
+/* ---------- 章头 ---------- */
+.rbh .badge{background:rgba(255,255,255,.16);color:#fff}
+.rbh h1 em{color:#c4b5fd}
+
+/* ==========================================================
+   以下为各章自带样式的「作用域化」版本
+   （原选择器一律加了 .rbx-xxx 前缀，不会影响站点其它页面）
+   ========================================================== */
+/* ===== AI Agent 简介 ===== */
+.rbx-agentmintro .tools-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+}.rbx-agentmintro .tool-item{
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}.rbx-agentmintro .tool-item:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}.rbx-agentmintro .tool-icon{
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}.rbx-agentmintro .tool-icon svg{
+    width: 24px;
+    height: 24px;
+}.rbx-agentmintro .tool-name{
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 4px;
+}.rbx-agentmintro .tool-desc{
+    font-size: 12px;
+    color: #9CA3AF;
+}
+
+.rbx-agentmintro .collab-section{
+    margin-top: 24px;
+}.rbx-agentmintro .collab-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+}.rbx-agentmintro .collab-diagram{
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+}
+
+.rbx-agentmintro .challenge-section{
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #e5e7eb;
+}.rbx-agentmintro .challenge-title{
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+}.rbx-agentmintro .challenge-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}.rbx-agentmintro .challenge-card{
+    background: #fff;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 16px;
+    border-left: 4px solid #EF4444;
+}.rbx-agentmintro .challenge-card h4{
+    margin: 0 0 8px 0;
+    color: #DC2626;
+    font-size: 15px;
+}.rbx-agentmintro .challenge-card p{
+    margin: 0;
+    font-size: 13px;
+    color: #6B7280;
+    line-height: 1.5;
+}.rbx-agentmintro .solution-card{
+    border-left-color: #10B981;
+    background: #f0fdf4;
+}.rbx-agentmintro .solution-card h4{
+    color: #059669;
+}
+
+.rbx-agentmintro .trend-section{
+    margin-top: 32px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+    border-radius: 12px;
+    padding: 28px;
+    color: #fff;
+}.rbx-agentmintro .trend-title{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}.rbx-agentmintro .trend-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}.rbx-agentmintro .trend-item{
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px;
+    backdrop-filter: blur(10px);
+}.rbx-agentmintro .trend-item h5{
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #60a5fa;
+}.rbx-agentmintro .trend-item p{
+    margin: 0;
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+
+/* ===== AI Agent 核心组件 ===== */
+.rbx-agentmcore .note-box{
+    background: #fffbea;
+    border: 1px solid #f0d060;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.93em;
+    color: #1a1a2e;
+    line-height: 1.8;
+font-size: 14px;
+  }.rbx-agentmcore .note-box strong{ color: #a06000; }.rbx-agentmcore .tag{
+    display: inline-block;
+    font-size: 0.78em;
+    font-family: monospace;
+    background: #eef2ff;
+    color: #3a4a8c;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 3px;
+    border: 1px solid #c9d2f5;
+  }.rbx-agentmcore .tag.orange{ background:#fff4e0; color:#a05000; border-color:#f6d08a; }.rbx-agentmcore .tag.green{ background:#eafaf1; color:#1a6b3a; border-color:#a9dfbf; }.rbx-agentmcore .tag.purple{ background:#f5effe; color:#5b2c8d; border-color:#c9a9e9; }.rbx-agentmcore .tag.red{ background:#fdf0f3; color:#8c1a2e; border-color:#f5a0b0; }
+
+
+
+/* ===== AI Agent 术语 ===== */
+
+
+/* ===== AI Agent 工作原理 ===== */
+
+
+/* ===== AI 底层架构 ===== */
+
+
+/* ===== 大语言模型基础 ===== */
+.rbx-agentmllm svg{
+  max-width: 100%;
+  height: auto;
+}.rbx-agentmllm{
+  --t: #666;
+}.rbx-agentmllm .c-gray rect{
+  fill: #f5f5f5;
+  stroke: #888;
+  stroke-width: 1;
+}.rbx-agentmllm .c-gray text{
+  fill: #333;
+}.rbx-agentmllm .c-purple rect{
+  fill: #f3e8ff;
+  stroke: #9333ea;
+  stroke-width: 1.5;
+}.rbx-agentmllm .c-purple text{
+  fill: #6b21a8;
+}.rbx-agentmllm .c-amber rect{
+  fill: #fef3c7;
+  stroke: #f59e0b;
+  stroke-width: 2;
+}.rbx-agentmllm .c-amber text{
+  fill: #92400e;
+}.rbx-agentmllm .c-teal rect{
+  fill: #ccfbf1;
+  stroke: #0d9488;
+  stroke-width: 1;
+}.rbx-agentmllm .c-teal text{
+  fill: #0f766e;
+}.rbx-agentmllm .c-coral rect{
+  fill: #ffe4e6;
+  stroke: #f43f5e;
+  stroke-width: 1;
+}.rbx-agentmllm .c-coral text{
+  fill: #be123c;
+}.rbx-agentmllm .th{
+  font-size: 16px;
+  font-weight: bold;
+  font-family: sans-serif;
+}.rbx-agentmllm .ts{
+  font-size: 12px;
+  fill: #666;
+  font-family: sans-serif;
+}.rbx-agentmllm .t{
+  font-size: 14px;
+  font-weight: bold;
+  fill: #333;
+  font-family: sans-serif;
+}
+
+.rbx-agentmllm .llm-think{
+    --bg:#fffaf3;                 
+    --fg:#3a2a1f;                 
+    --muted:#9c7a63;              
+    --line:#f4e7d8;               
+    --accent:#e85d24;             
+    --accent-soft:#fff1e3;        
+    --bar:#fcd9b6;                
+    --bar-top:#e85d24;            
+    --radius:16px;
+    --shadow:0 8px 32px rgba(120,60,20,.10), 0 1px 2px rgba(120,60,20,.05);
+    box-sizing:border-box;
+    max-width:680px;
+    margin:24px auto;
+    padding:20px 22px 18px;
+    background:var(--bg);
+    color:var(--fg);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.6;
+  }.rbx-agentmllm .llm-think *{box-sizing:border-box}.rbx-agentmllm .llm-think__header{display:flex;align-items:center;gap:10px;margin-bottom:14px}.rbx-agentmllm .llm-think__dot{
+    width:10px;height:10px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(232,93,36,.45);
+    animation:rbk_llmPulse 1.6s ease-out infinite;
+  }@keyframes rbk_llmPulse{
+    0%{box-shadow:0 0 0 0 rgba(232,93,36,.45)}
+    100%{box-shadow:0 0 0 14px rgba(232,93,36,0)}
+  }.rbx-agentmllm .llm-think__title{font-weight:600;font-size:15px;flex:1}.rbx-agentmllm .llm-think__cursor{display:inline-block;color:var(--muted);font-weight:400}.rbx-agentmllm .llm-think__btn{
+    border:1px solid var(--line);background:#fffaf3;color:var(--muted);
+    width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;
+    transition:.2s;
+  }.rbx-agentmllm .llm-think__btn:hover{color:var(--accent);border-color:var(--accent)}.rbx-agentmllm .llm-think__stage{
+    position:relative;
+    background:#fff5e8;border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;min-height:96px;
+  }.rbx-agentmllm .llm-think__hint{margin:0 0 6px;color:var(--muted);font-size:12px}.rbx-agentmllm .llm-think__text{font-size:18px;letter-spacing:.5px;word-break:break-all;min-height:30px}.rbx-agentmllm .llm-think__text .new{
+    background:linear-gradient(transparent 60%, var(--accent-soft) 60%);
+    animation:rbk_llmPop .35s ease;
+  }@keyframes rbk_llmPop{
+    from{opacity:0;transform:translateY(-4px)}
+    to{opacity:1;transform:none}
+  }.rbx-agentmllm .llm-think__caret{
+    display:inline-block;color:var(--accent);font-weight:700;
+    animation:rbk_llmBlink 1s steps(2) infinite;margin-left:2px;
+  }@keyframes rbk_llmBlink{50%{opacity:0}}.rbx-agentmllm .llm-think__panel{margin-top:14px}.rbx-agentmllm .llm-think__panel-title{
+    display:flex;justify-content:space-between;align-items:baseline;
+    color:var(--muted);font-size:12px;margin-bottom:8px;
+  }.rbx-agentmllm .llm-think__panel-sub{font-size:11px}.rbx-agentmllm .llm-think__candidates{margin:0;padding:0;display:grid;gap:6px}.rbx-agentmllm .llm-think__candidate{
+    position:relative;display:flex;align-items:center;gap:10px;
+    padding:8px 12px;border-radius:10px;background:#fdf1e1;
+    overflow:hidden;font-size:14px;
+    transition:background .25s;
+    list-style:none;
+  }.rbx-agentmllm .llm-think__candidate .bar{
+    position:absolute;inset:0 auto 0 0;width:0%;background:var(--bar);
+    opacity:.55;transition:width .35s ease;z-index:0;
+  }.rbx-agentmllm .llm-think__candidate.top .bar{background:var(--bar-top);opacity:.28}.rbx-agentmllm .llm-think__candidate.top{color:var(--accent);font-weight:600}.rbx-agentmllm .llm-think__candidate > *{position:relative;z-index:1}.rbx-agentmllm .llm-think__candidates .tok{
+    min-width:28px;text-align:center;
+    background:#fffaf3;border:1px solid var(--line);border-radius:6px;padding:2px 6px;
+  }.rbx-agentmllm .llm-think__candidates .prob{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted)}.rbx-agentmllm .llm-think__candidate.top .prob{color:var(--accent)}.rbx-agentmllm .llm-think__footer{
+    margin-top:12px;display:flex;justify-content:space-between;
+    color:var(--muted);font-size:12px;
+  }.rbx-agentmllm .llm-think__footer b{color:var(--fg);font-weight:600}@media (max-width:480px){.rbx-agentmllm .llm-think{padding:16px}.rbx-agentmllm .llm-think__text{font-size:16px}
+  }
+
+
+/* ===== 大模型多模态 ===== */
+
+
+/* ===== 提示词工程 ===== */
+.rbx-agentmprompt .pe-note{
+    background: #f0f9ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 15px;
+    color: #1e3a5f;
+}.rbx-agentmprompt .pe-note strong{ color: #1d4ed8; }.rbx-agentmprompt .pe-warn{
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 15px;
+    color: #7c2d12;
+}.rbx-agentmprompt .pe-warn strong{ color: #ea580c; }.rbx-agentmprompt .pe-danger{
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 15px;
+    color: #7f1d1d;
+}.rbx-agentmprompt .pe-danger strong{ color: #dc2626; }.rbx-agentmprompt .pe-success{
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 15px;
+    color: #14532d;
+}.rbx-agentmprompt .pe-success strong{ color: #16a34a; }.rbx-agentmprompt .pe-svg-wrap{
+    margin: 28px 0;
+    overflow: hidden;
+}
+
+
+/* ===== Token (词元) ===== */
+.rbx-agentmtoken{
+    --ink: #0f0e17;
+    --cream: #fffcf2;
+    --warm: #ff8906;
+    --accent: #f25f4c;
+    --teal: #0abfbc;
+    --muted: #a7a9be;
+    --surface: #e8e4d9;
+    --deep: #1a1a2e;
+  }.rbx-agentmtoken .demo-section{
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 10px;
+    margin: 0;
+  }.rbx-agentmtoken .demo-section h2{ color: var(--cream); }.rbx-agentmtoken .demo-section p{ color: var(--muted); }.rbx-agentmtoken .demo-section .section-num{ color: var(--warm); }.rbx-agentmtoken .demo-section .section-num::after{ background: rgba(255,137,6,0.2); }.rbx-agentmtoken .demo-section h2{ color: var(--cream); }.rbx-agentmtoken .demo-section p{ color: var(--muted); }.rbx-agentmtoken .demo-section .section-num{ color: var(--warm); }.rbx-agentmtoken .demo-section .section-num::after{ background: rgba(255,137,6,0.2); }.rbx-agentmtoken .token-display{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }.rbx-agentmtoken .token-row{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px 32px;
+  }.rbx-agentmtoken .token-label{
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }.rbx-agentmtoken .token-sentence{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 20px;
+    font-family: 'Noto Serif SC', serif;
+  }.rbx-agentmtoken .token-pieces{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }.rbx-agentmtoken .token-chip{
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform 0.2s;
+    cursor: default;
+    animation: rbk_popIn 0.4s ease backwards;
+  }.rbx-agentmtoken .token-chip:hover{ transform: translateY(-3px) scale(1.05); }.rbx-agentmtoken .tc-1{ background: rgba(255,137,6,0.2); color: #ffb347; border: 1px solid rgba(255,137,6,0.4); }.rbx-agentmtoken .tc-2{ background: rgba(10,191,188,0.15); color: #0abfbc; border: 1px solid rgba(10,191,188,0.35); }.rbx-agentmtoken .tc-3{ background: rgba(242,95,76,0.15); color: #f25f4c; border: 1px solid rgba(242,95,76,0.35); }.rbx-agentmtoken .tc-4{ background: rgba(167,120,218,0.15); color: #bf9fef; border: 1px solid rgba(167,120,218,0.35); }.rbx-agentmtoken .tc-5{ background: rgba(80,200,120,0.15); color: #6bcf8f; border: 1px solid rgba(80,200,120,0.35); }.rbx-agentmtoken .token-count{
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }.rbx-agentmtoken .token-count span{
+    color: var(--warm);
+    font-weight: 700;
+    font-size: 16px;
+  }.rbx-agentmtoken .arrow{ color: var(--muted); font-size: 20px; }@keyframes rbk_popIn{
+    from { opacity: 0; transform: scale(0.8) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }.rbx-agentmtoken .compare-section{ padding: 100px 0; background: var(--surface); }.rbx-agentmtoken .compare-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 48px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  }.rbx-agentmtoken .compare-col{ background: white; }.rbx-agentmtoken .compare-col.featured{ background: var(--ink); }.rbx-agentmtoken .compare-header{
+    padding: 32px 28px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }.rbx-agentmtoken .compare-col.featured .compare-header{ border-bottom-color: rgba(255,255,255,0.08); }.rbx-agentmtoken .compare-header-label{
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }.rbx-agentmtoken .compare-col.featured .compare-header-label{ color: var(--warm); }.rbx-agentmtoken .compare-header h3{
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }.rbx-agentmtoken .compare-col.featured .compare-header h3{ color: var(--cream); }.rbx-agentmtoken .compare-row{
+    padding: 18px 28px;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 72px;
+    justify-content: center;
+  }.rbx-agentmtoken .compare-col.featured .compare-row{ color: rgba(255,252,242,0.7); border-bottom-color: rgba(255,255,255,0.06); }.rbx-agentmtoken .compare-row .row-label{
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }.rbx-agentmtoken .compare-col.featured .compare-row .row-label{ color: rgba(255,137,6,0.7); }.rbx-agentmtoken .compare-row .row-value{ font-weight: 500; color: var(--ink); }.rbx-agentmtoken .compare-col.featured .compare-row .row-value{ color: var(--cream); }
+
+
+/* ===== 推理与规划 ===== */
+.rbx-agentmreason .th{ font-weight: bold; font-size: 14px; fill: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmreason .ts{ font-size: 12px; fill: #666; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmreason .c-gray rect{ fill: #f8f9fa; stroke: #ced4da; }.rbx-agentmreason .c-blue rect{ fill: #ebf8ff; stroke: #3182ce; }.rbx-agentmreason .c-amber rect{ fill: #fffaf0; stroke: #dd6b20; }.rbx-agentmreason .c-teal rect{ fill: #e6fffa; stroke: #319795; }
+
+.rbx-agentmreason .th{ font-weight: bold; font-size: 14px; fill: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmreason .ts{ font-size: 12px; fill: #666; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmreason .c-purple rect{ fill: #faf5ff; stroke: #805ad5; }.rbx-agentmreason .c-coral rect{ fill: #fff5f5; stroke: #e53e3e; }.rbx-agentmreason .c-gray rect{ fill: #f8f9fa; stroke: #ced4da; }
+
+
+/* ===== 向量数据库 ===== */
+
+
+/* ===== RAG 与知识检索 ===== */
+.rbx-agentmrag .th{ font-weight: bold; font-size: 14px; fill: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmrag .ts{ font-size: 12px; fill: #666; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmrag .c-gray rect{ fill: #f8f9fa; stroke: #ced4da; }.rbx-agentmrag .c-teal rect{ fill: #e6fffa; stroke: #319795; }.rbx-agentmrag .c-purple rect{ fill: #faf5ff; stroke: #805ad5; }.rbx-agentmrag .c-amber rect{ fill: #fffaf0; stroke: #dd6b20; }.rbx-agentmrag .c-coral rect{ fill: #fff5f5; stroke: #e53e3e; }
+
+.rbx-agentmrag .th{ font-weight: bold; font-size: 14px; fill: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmrag .ts{ font-size: 12px; fill: #666; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }.rbx-agentmrag .c-gray rect{ fill: #f8f9fa; stroke: #ced4da; }.rbx-agentmrag .c-teal rect{ fill: #e6fffa; stroke: #319795; }.rbx-agentmrag .c-purple rect{ fill: #faf5ff; stroke: #805ad5; }.rbx-agentmrag .c-amber rect{ fill: #fffaf0; stroke: #dd6b20; }.rbx-agentmrag .leader{ stroke: #999; stroke-dasharray: 4 2; stroke-width: 1.5; }
+
+
+/* ===== Agent 上下文工程 ===== */
+
+
+/* ===== Agent 架构 ===== */
+.rbx-agentmarch2{
+  --c-gray-fill:#f0eeea; --c-gray-s:#888780; --c-gray-t:#2c2c2a;
+  --c-teal-fill:#e0f4ee; --c-teal-s:#0f6e56; --c-teal-t:#085041;
+  --c-purple-fill:#eeedfe;--c-purple-s:#534ab7;--c-purple-t:#3c3489;
+  --c-coral-fill:#faece7;--c-coral-s:#993c1d;--c-coral-t:#712b13;
+  --c-amber-fill:#faeeda;--c-amber-s:#854f0b;--c-amber-t:#633806;
+  --c-blue-fill:#e6f1fb; --c-blue-s:#185fa5; --c-blue-t:#0c447c;
+  --c-green-fill:#eaf3de;--c-green-s:#3b6d11;--c-green-t:#27500a;
+  --arr: #888780;
+  --dash: #b8b6ae;
+  --text-3: #8a8780;
+  --border-2: #c8c6bc;
+}.rbx-agentmarch2 svg .th{font-family:sans-serif;font-size:14px;font-weight:500;}.rbx-agentmarch2 svg .ts{font-family:sans-serif;font-size:12px;font-weight:400;}.rbx-agentmarch2 svg .arr-line{fill:none;stroke:var(--arr);stroke-width:1.5;}.rbx-agentmarch2 svg .dash-line{fill:none;stroke:var(--dash);stroke-width:1.2;stroke-dasharray:5 4;}.rbx-agentmarch2 .diagram{background:#fafaf8;border:1px solid #e4e2da;border-radius:12px;padding:24px 16px 16px;margin:28px 0;overflow-x:auto;}.rbx-agentmarch2 .diagram-title{font-family:sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:#8a8780;margin-bottom:16px;text-align:center;}.rbx-agentmarch2 .badge{display:inline-block;font-family:sans-serif;font-size:11px;font-weight:500;padding:3px 9px;border-radius:12px;margin:0 4px 4px 0;vertical-align:middle;}.rbx-agentmarch2 .badge-easy{background:var(--c-teal-fill);color:var(--c-teal-t);border:1px solid var(--c-teal-s);}.rbx-agentmarch2 .badge-prod{background:var(--c-purple-fill);color:var(--c-purple-t);border:1px solid var(--c-purple-s);}.rbx-agentmarch2 .badge-adv{background:var(--c-coral-fill);color:var(--c-coral-t);border:1px solid var(--c-coral-s);}
