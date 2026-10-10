@@ -142,7 +142,7 @@
           <p style="color:var(--muted);font-size:13.5px">下面是本机实际打开该页面时的截图，红框区域才是我们要的：</p>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-download-harness.jpg" alt="DeepSeek 官方下载页实拍：上方是 DeepSeek Harness 全新桌面端，下方是 DeepSeek 客户端" loading="lazy">
+          <img src="img/ai/s5-download-harness.webp" alt="DeepSeek 官方下载页实拍：上方是 DeepSeek Harness 全新桌面端，下方是 DeepSeek 客户端" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实拍</span><b>官方下载页（www.deepseek.com/download/）</b><br>
             页面上有<b>两个完全不同的产品</b>：上面是 <b>DeepSeek Harness 全新桌面端</b>（本课要装的），下面是 <b>DeepSeek 客户端</b>（手机聊天 App）。<b>别下错。</b>
@@ -311,7 +311,7 @@
           <p><b>版本要求：</b><code class="k">^22.19.0 || &gt;=24.0.0</code>。本机是 v24.20.0，满足。</p>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-01-check.png" alt="终端截图：node --version 输出 v24.20.0，npm --version 输出 11.19.0" loading="lazy">
+          <img src="img/ai/s5-01-check.webp" alt="终端截图：node --version 输出 v24.20.0，npm --version 输出 11.19.0" loading="lazy">
           <figcaption class="shot-cap"><span class="n">实测截图</span><b>第 1 步 · 环境检查</b>——<code class="k">node --version</code> 与 <code class="k">npm --version</code> 的真实输出</figcaption>
         </figure>
         <div class="ai-note warn">
@@ -325,7 +325,7 @@
           <p>然后<b>等着</b>。实测要下载 <b>536 个包</b>，耗时约 <b>3 分钟</b>。</p>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-02-install.png" alt="终端截图：npm install -g @deepseek-ai/dsh 的真实输出，含 5 条 npm warn 警告，最后 added 536 packages in 3m" loading="lazy">
+          <img src="img/ai/s5-02-install.webp" alt="终端截图：npm install -g @deepseek-ai/dsh 的真实输出，含 5 条 npm warn 警告，最后 added 536 packages in 3m" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>第 2 步 · 安装过程（真实输出）</b><br>
             黄色的 <code class="k">npm warn</code> <b>不影响使用</b>，不用管。关键是最后一行绿色的 <b>added 536 packages in 3m</b>。
@@ -344,7 +344,7 @@
           <p><b>为什么要单独验证？</b>为了把<b>"安装失败"</b>和<b>"启动失败"</b>分开排查。如果这一步就报错，说明装的问题；如果这步过了、下一步报错，说明是配置或环境的问题。<b>分开排查能省一半时间。</b></p>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-03-version.png" alt="终端截图：dsh --version 输出 0.2.0-rc.2，并列出 npm 全局目录里的 dsh、dsh.cmd、dsh.ps1" loading="lazy">
+          <img src="img/ai/s5-03-version.webp" alt="终端截图：dsh --version 输出 0.2.0-rc.2，并列出 npm 全局目录里的 dsh、dsh.cmd、dsh.ps1" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>第 3 步 · 验证安装</b><br>
             输出 <b>0.2.0-rc.2</b> 就说明装好了。下方同时展示了 npm 全局目录里生成的三个入口文件。
@@ -357,7 +357,7 @@
           <p>这一步会揭示 DSH 的 <b>profile（配置档）体系</b>——这是理解它怎么工作的关键。</p>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-04-help.png" alt="终端截图：dsh --help 的真实输出，列出 --profile、--patch、--dump-config 等选项，以及 7 条 Examples" loading="lazy">
+          <img src="img/ai/s5-04-help.webp" alt="终端截图：dsh --help 的真实输出，列出 --profile、--patch、--dump-config 等选项，以及 7 条 Examples" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>第 4 步 · <code class="k">dsh --help</code>（真实输出）</b><br>
             注意最后那组 <b>Examples</b>——它们直接暴露了 DSH 的四种用法。
@@ -379,7 +379,7 @@
           <pre class="term"><span class="c">dsh --profile web --help</span></pre>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-05-webhelp.png" alt="终端截图：dsh --profile web --help 输出 --host、--no-open、--port、--trusted-host 等选项与示例" loading="lazy">
+          <img src="img/ai/s5-05-webhelp.webp" alt="终端截图：dsh --profile web --help 输出 --host、--no-open、--port、--trusted-host 等选项与示例" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>第 5 步 · web profile 的参数</b><br>
             最实用的三个：<code class="k">--port</code>（换端口）、<code class="k">--no-open</code>（不自动开浏览器）、<code class="k">--port 0</code>（让系统随便挑一个空闲端口）。
@@ -397,7 +397,7 @@
 <span class="c">dsh web</span></pre>
         </div></div>
         <figure class="shot">
-          <img src="img/ai/s5-06-launch.png" alt="终端截图：mkdir 与 dsh web 命令，输出 dsh web: http://127.0.0.1:3080，并列出换端口与不打开浏览器的替代命令" loading="lazy">
+          <img src="img/ai/s5-06-launch.webp" alt="终端截图：mkdir 与 dsh web 命令，输出 dsh web: http://127.0.0.1:3080，并列出换端口与不打开浏览器的替代命令" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>第 6 步 · 启动与三种替代写法</b><br>
             终端会打印出访问地址，浏览器会自动打开。
@@ -417,7 +417,7 @@
         <pre class="term"><span class="d"># 官方 README 的原话命令</span>
 <span class="c">npx @deepseek-ai/dsh web</span></pre>
         <figure class="shot">
-          <img src="img/ai/s5-07-npx.png" alt="终端截图：npx @deepseek-ai/dsh web 的完整过程，含确认提示、安装 536 个包、输出访问地址" loading="lazy">
+          <img src="img/ai/s5-07-npx.webp" alt="终端截图：npx @deepseek-ai/dsh web 的完整过程，含确认提示、安装 536 个包、输出访问地址" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>方式 A · npx 直接运行</b><br>
             第一次运行会问 <code class="k">Ok to proceed? (y)</code>，回车即可。之后会缓存，<b>下次启动快很多</b>。
@@ -438,7 +438,7 @@
         <p style="font-size:14px">尝试管理插件时：</p>
         <pre class="term"><span class="c">dsh plugin --profile web --help</span></pre>
         <figure class="shot">
-          <img src="img/ai/s5-08-gotcha.png" alt="终端截图：真实报错 'pnpm' is not recognized as an internal or external command，并给出解决办法 npm install -g pnpm" loading="lazy">
+          <img src="img/ai/s5-08-gotcha.webp" alt="终端截图：真实报错 'pnpm' is not recognized as an internal or external command，并给出解决办法 npm install -g pnpm" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>真实报错与解决办法</b><br>
             报错原文：<code class="k">'pnpm' is not recognized as an internal or external command</code>
@@ -461,7 +461,7 @@
         <h3>📦 装完之后，到底装进来什么？ <span class="en">Inspecting the Real Install</span></h3>
         <p style="font-size:14px;color:var(--muted)">这一步能让学生<b>亲眼看到"一切皆插件"不是宣传语</b>。</p>
         <figure class="shot">
-          <img src="img/ai/s5-09-structure.png" alt="终端截图：清点安装目录，177 个包、287 个 @deepseek-ai 插件包、占用 453 MB，并列出一串 dsh-tool-* 与 dsh-*-app 包名" loading="lazy">
+          <img src="img/ai/s5-09-structure.webp" alt="终端截图：清点安装目录，177 个包、287 个 @deepseek-ai 插件包、占用 453 MB，并列出一串 dsh-tool-* 与 dsh-*-app 包名" loading="lazy">
           <figcaption class="shot-cap">
             <span class="n">实测截图</span><b>安装结果清点（真实数字）</b><br>
             <b>177</b> 个直接依赖、<b>287</b> 个 <code class="k">@deepseek-ai/*</code> 插件包、总计 <b>453 MB</b>。
