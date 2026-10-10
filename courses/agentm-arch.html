@@ -1,0 +1,27 @@
+  <section id="sec-agentm-arch" class="page">
+    <header class="lesson-hero rbh" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#1a1033,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 AI Agent 教程 · 第 5 章</div>
+      <h1>AI 底层架构 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>AI Underlying Architecture</em></h1>
+      <p class="sub">AI Agent(智能体) 教程 · 第 5 / 14 章</p>
+    </header>
+    <div class="page-inner">
+      <div class="rbx rbx-agentmarch">
+ <p>
+下图展示了基础大模型到智能体应用的完整 AI 系统架构：</p>
+<p><img src="img/agent/1632bc97-9f34-43ec-8f6e-9abedf817470-ai-ar-9ca72b.png" alt="" loading="lazy"></p>
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr> <th>层级</th> <th>核心组件</th> <th>核心作用</th> <th>典型能力</th> </tr> </thead> <tbody> <tr> <td><strong>基础层（模型）</strong></td> <td>LLM &amp; Token、Transformer 架构、Token 化、注意力机制</td> <td>AI 的底层计算核心；负责文本理解、Token 预测、语言生成</td> <td>自然语言理解、文本生成、上下文建模、概率预测</td> </tr> <tr> <td><strong>上下文层（记忆）</strong></td> <td>Context Window、Prompt、Memory、RAG</td> <td>管理模型输入上下文；负责短期记忆、长期记忆、外部知识注入</td> <td>Prompt 控制、会话记忆、知识检索、上下文增强</td> </tr> <tr> <td><strong>能力扩展层（工具）</strong></td> <td>MCP、Tool Calling、API、Database</td> <td>让 AI 不止聊天；通过工具调用扩展真实世界操作能力</td> <td>联网搜索、代码执行、数据库查询、API 调用</td> </tr> <tr> <td><strong>智能体层（决策）</strong></td> <td>Agent、Explore、Plan、Act</td> <td>AI 自主决策大脑；负责目标理解、任务拆解、规划与闭环执行</td> <td>任务规划、多步骤推理、自主决策、闭环执行</td> </tr> <tr> <td><strong>应用层（行动）</strong></td> <td>Agent Skill、Workflow、Automation</td> <td>面向具体业务场景；将 Agent 能力封装为可落地产品</td> <td>自动化工作流、行业AI助手、企业智能系统、AI SaaS应用</td> </tr> </tbody>
+</table></div>
+<h3>核心名词释义</h3>
+<ul> <li><strong>Transformer</strong>：当前大模型核心架构，通过自注意力机制建立 Token 之间关联关系。</li> <li><strong>Token</strong>：模型处理文本最小单位，可为子词、单词、字符或符号。</li> <li><strong>Prompt</strong>：给到模型的输入指令，用来设定角色、控制行为、规范输出格式与目标。</li> <li><strong>RAG</strong>：检索增强生成，先检索外部专业知识库，再交由 LLM 整合生成精准答案。</li> <li><strong>MCP</strong>：模型上下文协议 ( Model Context protocol )，统一 AI 与工具、数据库、外部服务的通信标准。</li> <li><strong>Agent</strong>：在 LLM 基础上叠加<strong>目标+规划+执行</strong>能力的自主智能系统。</li> <li><strong>Tool Calling</strong>：模型主动识别需求、调用外部工具完成实际操作，不局限纯文本回复。</li> <li><strong>Memory</strong>：为 AI 提供短期会话记忆 + 长期持久记忆，解决上下文遗忘问题。</li>
+</ul>
+<h3>AI Agent 完整运行流程</h3>
+<ul> <li><strong>用户输入</strong>：用户下发指令 Prompt，进入上下文窗口 Context Window。</li> <li><strong>记忆增强</strong>：系统联动 Memory 会话记忆 + RAG 外部知识库，补充上下文与专业知识。</li> <li><strong>LLM 推理</strong>：通过 Transformer 架构对 Token 序列做注意力计算，进行语义理解与初步生成。</li> <li><strong>Agent 规划</strong>：智能体自主判断、拆解任务，决策是否需要多步骤执行或调用外部工具。</li> <li><strong>工具执行</strong>：基于 MCP 协议，调用 API、数据库、搜索引擎等外部能力完成实操。</li> <li><strong>输出结果</strong>：汇总工具返回数据与模型推理结果，整理后返回用户，同时写入记忆存档。</li>
+</ul> <!-- 其他扩展 --> 
+      </div>
+      <div class="rb-src">
+        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
+        <a href="https://www.runoob.com/ai-agent/ai-architecture.html" target="_blank" rel="noopener">ai-architecture.html</a><br>
+        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
+      </div>
+    </div>
+  </section>
