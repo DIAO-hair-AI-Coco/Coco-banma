@@ -1,0 +1,61 @@
+  <section id="sec-agentm-token" class="page">
+    <header class="lesson-hero rbh" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#1a1033,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 AI Agent 教程 · 第 9 章</div>
+      <h1>Token (词元) <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Token</em></h1>
+      <p class="sub">AI Agent(智能体) 教程 · 第 9 / 14 章</p>
+    </header>
+    <div class="page-inner">
+      <div class="rbx rbx-agentmtoken">
+ <blockquote><p>你有没有好奇过，当你向 Deepseek、豆包、千问、ChatGPT 或 Claude 提问时，AI 是怎么读懂你的文字的？</p>
+<p>答案的核心，就是一个叫做 <span class="marked">Token</span>，中文称之为 <span class="marked">词元</span>的概念。理解 Token，是走进 AI 世界的第一步。</p></blockquote> <h3>什么是 Token (词元)？</h3>
+<pre class="prettyprint">Token (词元) = AI 能理解的最小文本单位</pre>
+<p>
+我们可以把它理解成：AI 世界里的文字碎片或者 AI 世界的燃料。</p>
+<p>就像人类阅读时以词语为单位来理解意思，AI 也不会逐个字母地处理文字——它会先把文本切割成一块一块的碎片，每一块就叫做一个 Token（词元）。</p>
+<!-- Cutting animation SVG --> <svg viewBox="0 0 460 280" width="100%" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="cutGrad" x1="0%" y1="0%" x2="100%" y2="0%"> <stop offset="0%" stop-color="#ff8906" stop-opacity="0.3"></stop> <stop offset="100%" stop-color="#0abfbc" stop-opacity="0.3"></stop> </linearGradient> </defs> <!-- Background --> <rect width="460" height="280" rx="20" fill="#f5f3ee"></rect> <!-- Label --> <text x="30" y="36" font-family="monospace" font-size="11" fill="#a7a9be" letter-spacing="2">INPUT TEXT</text> <!-- Whole text bar --> <rect x="30" y="52" width="400" height="52" rx="12" fill="#e0ddd6"></rect> <text x="230" y="83" text-anchor="middle" font-family="monospace" font-size="16" fill="#555">"ChatGPT is amazing"</text> <!-- Arrow down --> <line x1="230" y1="114" x2="230" y2="142" stroke="#c0bdb6" stroke-width="2" stroke-dasharray="4 3"></line> <polygon points="230,148 224,138 236,138" fill="#c0bdb6"></polygon> <!-- Label --> <text x="30" y="172" font-family="monospace" font-size="11" fill="#a7a9be" letter-spacing="2">TOKENS</text> <!-- Token chips --> <rect x="30" y="186" width="66" height="36" rx="9" fill="rgba(255,137,6,0.18)" stroke="rgba(255,137,6,0.5)" stroke-width="1.5"></rect> <text x="63" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#cc6d00">Chat</text> <rect x="106" y="186" width="40" height="36" rx="9" fill="rgba(10,191,188,0.15)" stroke="rgba(10,191,188,0.5)" stroke-width="1.5"></rect> <text x="126" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#07908e">G</text> <rect x="156" y="186" width="40" height="36" rx="9" fill="rgba(242,95,76,0.15)" stroke="rgba(242,95,76,0.5)" stroke-width="1.5"></rect> <text x="176" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#c03020">PT</text> <rect x="206" y="186" width="30" height="36" rx="9" fill="rgba(167,120,218,0.15)" stroke="rgba(167,120,218,0.5)" stroke-width="1.5"></rect> <text x="221" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#8060b0">is</text> <rect x="246" y="186" width="80" height="36" rx="9" fill="rgba(80,200,120,0.15)" stroke="rgba(80,200,120,0.5)" stroke-width="1.5"></rect> <text x="286" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#30904f">amaz</text> <rect x="336" y="186" width="60" height="36" rx="9" fill="rgba(255,180,50,0.18)" stroke="rgba(255,180,50,0.5)" stroke-width="1.5"></rect> <text x="366" y="209" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#a07010">ing</text> <!-- Count --> <text x="30" y="258" font-family="monospace" font-size="13" fill="#888">共 <tspan fill="#ff8906" font-size="18" font-weight="700">6</tspan> 个 Token</text> </svg>
+<p>
+<strong>
+一个好用的比喻：</strong></p>
+<p>把一篇文章想象成一块比萨，你不会整块吞下去，也不会把它碾成粉末——而是切成一块一块，每块就是一个 Token。AI 就是这样吃进文字的：切块、理解、消化。</p>
+<p>
+Token 比单词更细，比字母更粗，是一种灵活的中间单位。</p>
+<hr>
+
+<h2>Token 长什么样？</h2><p>
+不同的文本，切分方式大相径庭。</p><p>常见词是一个 Token，复杂词会被拆开，标点也算 Token。</p> <section class="demo-section"> <div class="container"> <div class="token-display"> <!-- English sentence --> <div class="token-row"> <div class="token-label">英文句子</div> <div class="token-sentence">"Hello, world!"</div> <div class="token-pieces"> <span class="token-chip tc-1" style="animation-delay:0.05s">Hello</span> <span class="arrow">→</span> <span class="token-chip tc-2" style="animation-delay:0.1s">,</span> <span class="arrow">→</span> <span class="token-chip tc-3" style="animation-delay:0.15s">&nbsp;world</span> <span class="arrow">→</span> <span class="token-chip tc-4" style="animation-delay:0.2s">!</span> </div> <div class="token-count">共 <span>4</span> 个 Token</div> </div> <!-- Long word --> <div class="token-row"> <div class="token-label">复杂英文单词</div> <div class="token-sentence">"unbelievable"</div> <div class="token-pieces"> <span class="token-chip tc-1" style="animation-delay:0.05s">un</span> <span class="token-chip tc-2" style="animation-delay:0.1s">believ</span> <span class="token-chip tc-3" style="animation-delay:0.15s">able</span> </div> <div class="token-count">共 <span>3</span> 个 Token &nbsp;—— 长词会被拆分</div> </div> <!-- Chinese --> <div class="token-row"> <div class="token-label">中文句子</div> <div class="token-sentence">"你好，世界！"</div> <div class="token-pieces"> <span class="token-chip tc-1" style="animation-delay:0.05s">你好</span> <span class="token-chip tc-2" style="animation-delay:0.1s">，</span> <span class="token-chip tc-3" style="animation-delay:0.15s">世界</span> <span class="token-chip tc-4" style="animation-delay:0.2s">！</span> </div> <div class="token-count">共 <span>4</span> 个 Token &nbsp;—— 中文每字约消耗更多 Token</div> </div> </div> </div>
+</section> <hr>
+<h2><span class="marked">Token</span> 和 <span class="marked">字</span>、 <span class="marked">词</span> 有什么区别？</h2>
+<p>很多人会以为 Token = 单词，但其实<strong>并不完全是</strong>。</p>
+<p>Token 的划分遵循一套特殊的算法（比如 BPE，字节对编码），结果有时候很直觉，有时候却出人意料：</p>
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr> <th>文本</th> <th>Token 数量</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><code>cat</code></td> <td>1</td> <td>常见词，直接一个 Token</td> </tr> <tr> <td><code>unbelievable</code></td> <td>4</td> <td><code>un</code> + <code>believ</code> + <code>able</code> + …</td> </tr> <tr> <td><code>ChatGPT</code></td> <td>3</td> <td><code>Chat</code> + <code>G</code> + <code>PT</code></td> </tr> <tr> <td><code>你好</code></td> <td>约 2～3</td> <td>中文通常比英文消耗更多 Token</td> </tr> </tbody>
+</table></div> <blockquote><p><strong>结论：</strong> Token 比单词更细，比字母更粗，是一种灵活的中间单位。</p></blockquote>
+
+<div class="compare-grid"> <div class="compare-col"> <div class="compare-header"> <div class="compare-header-label">最细粒度</div> <h3>字符 / 字母</h3> </div> <div class="compare-row"> <div class="row-label">粒度</div> <div class="row-value">单个字母或汉字</div> </div> <div class="compare-row"> <div class="row-label">示例</div> <div class="row-value">H, e, l, l, o</div> </div> <div class="compare-row"> <div class="row-label">AI 是否使用</div> <div class="row-value">❌ 太细，信息密度低</div> </div> <div class="compare-row"> <div class="row-label">类比</div> <div class="row-value">把比萨碾成粉末</div> </div> </div> <div class="compare-col featured"> <div class="compare-header"> <div class="compare-header-label">✦ AI 实际使用</div> <h3>Token（词元）</h3> </div> <div class="compare-row"> <div class="row-label">粒度</div> <div class="row-value">词根、短词、字符组合</div> </div> <div class="compare-row"> <div class="row-label">示例</div> <div class="row-value">Hello / Chat·G·PT / un·believ·able</div> </div> <div class="compare-row"> <div class="row-label">AI 是否使用</div> <div class="row-value">✅ 高效，平衡信息密度</div> </div> <div class="compare-row"> <div class="row-label">类比</div> <div class="row-value">把比萨切成合适的一口大小</div> </div> </div> <div class="compare-col"> <div class="compare-header"> <div class="compare-header-label">最粗粒度</div> <h3>单词 / 句子</h3> </div> <div class="compare-row"> <div class="row-label">粒度</div> <div class="row-value">完整单词或句子</div> </div> <div class="compare-row"> <div class="row-label">示例</div> <div class="row-value">Hello, unbelievable</div> </div> <div class="compare-row"> <div class="row-label">AI 是否使用</div> <div class="row-value">❌ 太粗，处理不灵活</div> </div> <div class="compare-row"> <div class="row-label">类比</div> <div class="row-value">整块比萨一口塞进去</div> </div> </div> </div>
+<hr>
+<h2>Token 为什么重要？</h2>
+<h3>1. 它决定了 AI 能读多少</h3>
+<p>每个 AI 模型都有一个 <strong>上下文窗口（Context Window）</strong>，也就是它一次能处理的最大 Token 数量。比如：</p>
+<ul> <li>GPT-3.5：约 4,000 Token</li> <li>GPT-4 Turbo：约 128,000 Token</li> <li>Claude 3.5：约 200,000 Token</li>
+</ul>
+<p>超过这个限制，AI 就会记不住之前说的话，就像一个人的短期记忆装满了一样。</p>
+<h3>2. 它影响 API 的使用费用</h3>
+<p>调用 AI 接口（API）时，费用通常按 Token 数量计费。<strong>输入的文字 + AI 回复的文字</strong>，都会消耗 Token，所以写得越长，花费越多。</p>
+<h3>3. 它影响 AI 的回复速度</h3>
+<p>AI 生成文字时，是<strong>一个 Token 一个 Token 地输出</strong>的，所以回复越长，等待时间越久。</p>
+
+<hr>
+<h2>Token 的小知识</h2>
+<ul> <li><strong>1,000 个 Token ≈ 750 个英文单词</strong>，是一个常用的估算比例。</li> <li><strong>中文、日文、韩文</strong>等亚洲语言通常比英文消耗更多 Token，因为这些字符在编码上更复杂。</li> <li><strong>空格和标点</strong>也算 Token！不要以为只有文字才计数。</li> <li><strong>代码</strong>的 Token 消耗一般比自然语言少，因为编程语言结构紧凑。</li>
+</ul>
+<hr>
+<h2>总结</h2>
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr> <th>概念</th> <th>一句话解释</th> </tr> </thead> <tbody> <tr> <td>Token</td> <td>AI 处理文本的最小单位，介于字符和单词之间</td> </tr> <tr> <td>上下文窗口</td> <td>AI 一次能处理的最大 Token 数</td> </tr> <tr> <td>Token 计费</td> <td>API 调用按输入+输出的 Token 总量收费</td> </tr> <tr> <td>Token 生成</td> <td>AI 回复是逐 Token 产生的，越长越慢</td> </tr> </tbody>
+</table></div> <!-- 其他扩展 --> 
+      </div>
+      <div class="rb-src">
+        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
+        <a href="https://www.runoob.com/ai-agent/token-intro.html" target="_blank" rel="noopener">token-intro.html</a><br>
+        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
+      </div>
+    </div>
+  </section>
