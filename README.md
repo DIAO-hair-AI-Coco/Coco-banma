@@ -41,11 +41,12 @@ node _tools/build-version.mjs        # 只算哈希并注入，不上传
 本机 `github.com` 的 git 端点可能不可达，故用 **GitHub contents API** 上传（效果同 `git push`）：
 
 ```bash
-# Token 读取顺序：环境变量 GITHUB_TOKEN > _tools/.gh-token 文件 > 命令行第 2 参数
 node _tools/deploy.mjs "deploy: 站点更新"
 ```
 
-推送后 GitHub Actions 会自动跑 `.github/scripts/ci-check.mjs` 结构校验。
+流程：**内容哈希注入 → 本地结构校验门禁（不过就中止）→ 只上传有变化的文件 → 更新状态**。
+
+上传后 GitHub Actions 会自动再跑一次云端 `ci-check`（双保险）。
 
 ## 本地预览
 
