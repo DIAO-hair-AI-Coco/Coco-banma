@@ -1,0 +1,613 @@
+  <section id="sec-agentm-vector" class="page">
+    <header class="lesson-hero rbh" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#1a1033,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 AI Agent 教程 · 第 11 章</div>
+      <h1>向量数据库 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Vector Database</em></h1>
+      <p class="sub">AI Agent(智能体) 教程 · 第 11 / 14 章</p>
+    </header>
+    <div class="page-inner">
+      <div class="rbx rbx-agentmvector">
+ <link rel="stylesheet" href="https://static.jyshare.com/assets/libs/katex-0.15.2/dist/katex.min.css"> <p>向量数据库（Vector Database）是一种专门用于存储、索引和检索高维向量数据的数据库系统。</p>
+<p>你可以把它理解为：把意思相近的东西存在一起，并能快速找到和这个最像的那些东西。</p>
+<p>与传统数据库通过精确匹配来查询（<span class="marked">WHERE name = 'Alice'</span>）不同，向量数据库通过相似度来查询（找到和这张图最相似的 10 张图）。</p>
+
+<h3>一个直观的类比</h3>
+<p>想象一个图书馆的场景：</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>数据库类型</th><th>检索方式</th><th>类比</th></tr>
+<tr><td>传统数据库</td><td>按书号、书名精确检索</td><td>找一本指定编号的书</td></tr>
+<tr><td>向量数据库</td><td>按内容相关性检索</td><td>找"所有和《三体》风格类似的科幻小说"</td></tr>
+</tbody></table></div>
+
+<p>这种语义上的相似，正是向量数据库解决的核心问题。</p>
+
+<hr>
+
+<h2>为什么需要向量数据库</h2>
+<p>在深入技术细节之前，我们先理解向量数据库解决了什么问题。</p>
+
+<h3>传统数据库的局限</h3>
+<p>传统关系型数据库（MySQL、PostgreSQL）非常擅长处理结构化数据，但在面对以下需求时力不从心：</p>
+
+<ul>
+<li>图片搜索（找出视觉相似的图片）</li>
+<li>语义搜索（用户搜"苹果手机"，能找到"iPhone"的相关内容）</li>
+<li>推荐系统（找到"和你喜欢的歌曲风格类似的歌"）</li>
+<li>异常检测（找到"和正常行为差异最大的日志"）</li>
+</ul>
+
+<p>这些问题的共同特征是：需要理解内容的"含义"，而不是做字面匹配。</p>
+
+<h3>传统方案的问题</h3>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">用</span><span class="pln"> LIKE </span><span class="str">'%苹果%'</span><span class="pln"> </span><span class="pun">搜索</span><span class="pln"> </span><span class="pun">→</span><span class="pln"> </span><span class="pun">找不到</span><span class="pln"> </span><span class="str">"iPhone"</span><span class="pun">、</span><span class="str">"Apple"</span><span class="pln">
+</span><span class="pun">用全文索引搜索</span><span class="pln"> </span><span class="pun">→</span><span class="pln"> </span><span class="pun">找不到语义相关但用词不同的内容</span></pre>
+
+<h3>对比示意图</h3>
+<p>下面的图表直观展示了传统数据库和向量数据库在查询方式上的根本差异。</p>
+
+<svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="760" height="340" fill="#f8f9fa" rx="12"></rect> <text x="380" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">传统数据库 vs 向量数据库：查询方式对比</text> <rect x="20" y="50" width="340" height="270" fill="#fff" rx="10" stroke="#e0e0e0" stroke-width="1.5"></rect> <rect x="20" y="50" width="340" height="40" fill="#e74c3c" rx="10"></rect> <rect x="20" y="78" width="340" height="12" fill="#e74c3c"></rect> <text x="190" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">传统数据库（精确匹配）</text> <rect x="40" y="105" width="300" height="36" fill="#fdecea" rx="6" stroke="#e74c3c" stroke-width="1"></rect> <text x="190" y="125" text-anchor="middle" font-size="12" fill="#c0392b" font-style="italic">SELECT * WHERE name = '苹果手机'</text> <text x="55" y="165" font-size="11" fill="#555">匹配结果：</text> <rect x="40" y="172" width="300" height="28" fill="#fdecea" rx="5"></rect> <text x="55" y="191" font-size="12" fill="#e74c3c">√  苹果手机 Pro 128GB</text> <rect x="40" y="205" width="300" height="28" fill="#f5f5f5" rx="5"></rect> <text x="55" y="224" font-size="12" fill="#aaa">x  iPhone 15（未匹配）</text> <rect x="40" y="238" width="300" height="28" fill="#f5f5f5" rx="5"></rect> <text x="55" y="257" font-size="12" fill="#aaa">x  Apple 手机（未匹配）</text> <rect x="40" y="271" width="300" height="28" fill="#f5f5f5" rx="5"></rect> <text x="55" y="290" font-size="12" fill="#aaa">x  智能手机 iOS（未匹配）</text> <rect x="400" y="50" width="340" height="270" fill="#fff" rx="10" stroke="#e0e0e0" stroke-width="1.5"></rect> <rect x="400" y="50" width="340" height="40" fill="#2ecc71" rx="10"></rect> <rect x="400" y="78" width="340" height="12" fill="#2ecc71"></rect> <text x="570" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">向量数据库（语义相似）</text> <rect x="420" y="105" width="300" height="36" fill="#eafaf1" rx="6" stroke="#2ecc71" stroke-width="1"></rect> <text x="570" y="125" text-anchor="middle" font-size="12" fill="#27ae60" font-style="italic">search(embed("苹果手机"), top_k=4)</text> <text x="435" y="165" font-size="11" fill="#555">相似结果（含相似度）：</text> <rect x="420" y="172" width="300" height="28" fill="#eafaf1" rx="5"></rect> <text x="435" y="191" font-size="12" fill="#27ae60">√  苹果手机 Pro 128GB  0.98</text> <rect x="420" y="205" width="300" height="28" fill="#eafaf1" rx="5"></rect> <text x="435" y="224" font-size="12" fill="#27ae60">√  iPhone 15 0.95</text> <rect x="420" y="238" width="300" height="28" fill="#eafaf1" rx="5"></rect> <text x="435" y="257" font-size="12" fill="#27ae60">√  Apple 手机 0.93</text> <rect x="420" y="271" width="300" height="28" fill="#eafaf1" rx="5"></rect> <text x="435" y="290" font-size="12" fill="#27ae60">√  智能手机 iOS 0.87</text>
+</svg>
+
+<hr>
+
+<h2>核心概念：向量与嵌入</h2>
+<p>理解向量和嵌入是掌握向量数据库的第一步。</p>
+
+<h3>什么是向量（Vector）</h3>
+<p>在数学上，向量就是一组有序的数字。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">[</span><span class="lit">0.12</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">0.54</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.87</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.03</span><span class="pun">,</span><span class="pln"> </span><span class="pun">...,</span><span class="pln"> </span><span class="lit">0.61</span><span class="pun">]</span><span class="pln"> </span><span class="pun">←</span><span class="pln"> </span><span class="pun">这就是一个向量</span></pre>
+
+<p>在机器学习中，这组数字代表某个对象的语义特征，维度通常在 128 到 4096 之间。</p>
+
+<h3>什么是嵌入（Embedding）</h3>
+<p>嵌入（Embedding）是将现实世界的对象（文字、图片、音频等）转换成向量的过程和结果。</p>
+<p>这个转换由嵌入模型完成，其核心思想是：语义相近的对象，其向量在空间中的距离也更近。</p>
+
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="720" height="320" fill="#f8f9fa" rx="12"></rect> <text x="360" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a2e">嵌入（Embedding）过程示意</text> <rect x="20" y="55" width="130" height="50" rx="8" fill="#3498db" opacity="0.9"></rect> <text x="85" y="76" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">文本</text> <text x="85" y="94" text-anchor="middle" font-size="11" fill="#dce9f7">"今天天气真好"</text> <rect x="20" y="130" width="130" height="50" rx="8" fill="#9b59b6" opacity="0.9"></rect> <text x="85" y="151" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">图像</text> <text x="85" y="169" text-anchor="middle" font-size="11" fill="#e8d5f5">一张猫咪的照片</text> <rect x="20" y="205" width="130" height="50" rx="8" fill="#e67e22" opacity="0.9"></rect> <text x="85" y="226" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">音频</text> <text x="85" y="244" text-anchor="middle" font-size="11" fill="#fde8cc">一段音乐片段</text> <line x1="152" y1="80" x2="255" y2="155" stroke="#bbb" stroke-width="1.5" marker-end="url(#arrow1)"></line> <line x1="152" y1="155" x2="255" y2="165" stroke="#bbb" stroke-width="1.5" marker-end="url(#arrow1)"></line> <line x1="152" y1="230" x2="255" y2="175" stroke="#bbb" stroke-width="1.5" marker-end="url(#arrow1)"></line> <defs> <marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"> <path d="M0,0 L0,6 L8,3 z" fill="#bbb"></path> </marker> <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"> <path d="M0,0 L0,6 L8,3 z" fill="#2ecc71"></path> </marker> </defs> <rect x="255" y="115" width="150" height="90" rx="10" fill="#1a1a2e"></rect> <text x="330" y="150" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">嵌入模型</text> <text x="330" y="168" text-anchor="middle" font-size="10" fill="#aaa">Embedding Model</text> <text x="330" y="186" text-anchor="middle" font-size="10" fill="#f39c12">text-embedding-3</text> <text x="330" y="200" text-anchor="middle" font-size="10" fill="#f39c12">CLIP / ResNet ...</text> <line x1="407" y1="150" x2="450" y2="100" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrow2)"></line> <line x1="407" y1="160" x2="450" y2="160" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrow2)"></line> <line x1="407" y1="170" x2="450" y2="220" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrow2)"></line> <rect x="452" y="60" width="245" height="55" rx="8" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.2"></rect> <text x="465" y="79" font-size="10" fill="#888">文本向量 (1536维):</text> <text x="465" y="98" font-size="10.5" fill="#27ae60" font-family="monospace">[0.12, -0.54, 0.87, 0.03, ...]</text> <rect x="452" y="132" width="245" height="55" rx="8" fill="#f5eafb" stroke="#9b59b6" stroke-width="1.2"></rect> <text x="465" y="151" font-size="10" fill="#888">图像向量 (512维):</text> <text x="465" y="170" font-size="10.5" fill="#8e44ad" font-family="monospace">[-0.33, 0.71, 0.22, 0.95, ...]</text> <rect x="452" y="203" width="245" height="55" rx="8" fill="#fef5e7" stroke="#e67e22" stroke-width="1.2"></rect> <text x="465" y="222" font-size="10" fill="#888">音频向量 (256维):</text> <text x="465" y="241" font-size="10.5" fill="#ca6f1e" font-family="monospace">[0.66, -0.11, 0.48, -0.72, ...]</text> <text x="360" y="295" text-anchor="middle" font-size="11" fill="#888">Tip: 语义相近的对象，转换后的向量在空间中距离也更近</text>
+</svg>
+
+<h3>语义近则向量近</h3>
+<p>用一个 2D 简化示例来理解（实际是几百至几千维）：</p>
+
+<svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="500" height="420" fill="#f8f9fa" rx="12"></rect> <text x="250" y="28" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">向量空间中的语义聚类（二维示意）</text> <line x1="60" y1="370" x2="460" y2="370" stroke="#ccc" stroke-width="1.5"></line> <line x1="60" y1="370" x2="60" y2="50" stroke="#ccc" stroke-width="1.5"></line> <text x="465" y="374" font-size="10" fill="#aaa">x</text> <text x="58" y="45" font-size="10" fill="#aaa">y</text> <line x1="60" y1="50" x2="460" y2="50" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <line x1="60" y1="150" x2="460" y2="150" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <line x1="60" y1="250" x2="460" y2="250" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <line x1="160" y1="50" x2="160" y2="370" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <line x1="260" y1="50" x2="260" y2="370" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <line x1="360" y1="50" x2="360" y2="370" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"></line> <ellipse cx="150" cy="280" rx="65" ry="55" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5,3"></ellipse> <text x="150" y="348" text-anchor="middle" font-size="10" fill="#c0392b">动物类</text> <circle cx="120" cy="270" r="5" fill="#e74c3c"></circle> <text x="125" y="260" font-size="11" fill="#e74c3c">猫</text> <circle cx="170" cy="260" r="5" fill="#e74c3c"></circle> <text x="175" y="252" font-size="11" fill="#e74c3c">狗</text> <circle cx="140" cy="305" r="5" fill="#e74c3c"></circle> <text x="145" y="298" font-size="11" fill="#e74c3c">兔子</text> <circle cx="180" cy="290" r="5" fill="#e74c3c"></circle> <text x="185" y="285" font-size="11" fill="#e74c3c">熊</text> <ellipse cx="370" cy="140" rx="65" ry="55" fill="#eaf4fb" stroke="#3498db" stroke-width="1.5" stroke-dasharray="5,3"></ellipse> <text x="370" y="205" text-anchor="middle" font-size="10" fill="#2980b9">科技类</text> <circle cx="340" cy="130" r="5" fill="#3498db"></circle> <text x="347" y="124" font-size="11" fill="#3498db">电脑</text> <circle cx="390" cy="120" r="5" fill="#3498db"></circle> <text x="397" y="114" font-size="11" fill="#3498db">手机</text> <circle cx="355" cy="165" r="5" fill="#3498db"></circle> <text x="362" y="158" font-size="11" fill="#3498db">键盘</text> <circle cx="395" cy="155" r="5" fill="#3498db"></circle> <text x="402" y="148" font-size="11" fill="#3498db">显示器</text> <ellipse cx="280" cy="310" rx="60" ry="45" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="5,3"></ellipse> <text x="280" y="366" text-anchor="middle" font-size="10" fill="#27ae60">食物类</text> <circle cx="255" cy="300" r="5" fill="#2ecc71"></circle> <text x="262" y="294" font-size="11" fill="#27ae60">披萨</text> <circle cx="300" cy="295" r="5" fill="#2ecc71"></circle> <text x="307" y="288" font-size="11" fill="#27ae60">汉堡</text> <circle cx="265" cy="325" r="5" fill="#2ecc71"></circle> <text x="272" y="319" font-size="11" fill="#27ae60">面条</text> <circle cx="200" cy="255" r="8" fill="#f39c12" stroke="#fff" stroke-width="2"></circle> <text x="213" y="250" font-size="11" fill="#e67e22" font-weight="bold">查询：宠物</text> <line x1="200" y1="255" x2="120" y2="270" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,3"></line> <line x1="200" y1="255" x2="170" y2="260" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,3"></line> <text x="250" y="395" text-anchor="middle" font-size="10" fill="#888">查询"宠物"的向量，距离"猫""狗"更近，属于动物聚类</text>
+</svg>
+
+<blockquote><p>关键理解：向量空间中距离近的两个向量，其原始内容在语义上也更相近。这是向量数据库所有能力的基础。</p></blockquote>
+
+<hr>
+
+<h2>相似度计算方法</h2>
+<p>找到"最相似的向量"的核心是计算两个向量的距离或相似度。以下是三种最常用的方法。</p>
+
+<h3>余弦相似度（Cosine Similarity）</h3>
+<p>余弦相似度衡量两个向量的方向角，忽略长度。这是最常用的方法，尤其适合文本场景。</p>
+
+<p>公式：</p>
+<p class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>CosineSimilarity</mtext><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>A</mi><mo>⋅</mo><mi>B</mi></mrow><mrow><mi mathvariant="normal">∥</mi><mi>A</mi><mi mathvariant="normal">∥</mi><mi mathvariant="normal">∥</mi><mi>B</mi><mi mathvariant="normal">∥</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>A</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub></mrow><mrow><msqrt><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msubsup><mi>A</mi><mi>i</mi><mn>2</mn></msubsup></mrow></msqrt><msqrt><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msubsup><mi>B</mi><mi>i</mi><mn>2</mn></msubsup></mrow></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+\text{CosineSimilarity}(A, B)
+=
+\frac{A \cdot B}
+{\|A\|\|B\|}
+=
+\frac{\sum_{i=1}^{n} A_i B_i}
+{\sqrt{\sum_{i=1}^{n} A_i^2}\sqrt{\sum_{i=1}^{n} B_i^2}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">CosineSimilarity</span></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.2963em; vertical-align: -0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.3603em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord mathnormal">A</span><span class="mord">∥∥</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mord">∥</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.624em; vertical-align: -1.13em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.494em;"><span class="" style="top: -2.1727em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9373em;"><span class="svg-align" style="top: -3.2em;"><span class="pstrut" style="height: 3.2em;"></span><span class="mord" style="padding-left: 1em;"><span class="mop"><span class="mop op-symbol small-op" style="position: relative; top: 0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.8043em;"><span class="" style="top: -2.4003em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.2029em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2997em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7959em;"><span class="" style="top: -2.4231em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span class="" style="top: -3.0448em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2769em;"><span class=""></span></span></span></span></span></span></span></span><span class="" style="top: -2.8973em;"><span class="pstrut" style="height: 3.2em;"></span><span class="hide-tail" style="min-width: 1.02em; height: 1.28em;"><svg width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.3027em;"><span class=""></span></span></span></span></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9373em;"><span class="svg-align" style="top: -3.2em;"><span class="pstrut" style="height: 3.2em;"></span><span class="mord" style="padding-left: 1em;"><span class="mop"><span class="mop op-symbol small-op" style="position: relative; top: 0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.8043em;"><span class="" style="top: -2.4003em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.2029em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2997em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7959em;"><span class="" style="top: -2.4231em; margin-left: -0.0502em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span class="" style="top: -3.0448em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2769em;"><span class=""></span></span></span></span></span></span></span></span><span class="" style="top: -2.8973em;"><span class="pstrut" style="height: 3.2em;"></span><span class="hide-tail" style="min-width: 1.02em; height: 1.28em;"><svg width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.3027em;"><span class=""></span></span></span></span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.6897em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position: relative; top: 0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.8043em;"><span class="" style="top: -2.4003em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.2029em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2997em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0502em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.13em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<ul>
+<li>结果范围：-1 到 1，值越大越相似</li>
+<li>适用场景：文本语义搜索、文档相似度</li>
+</ul>
+
+<h3>欧氏距离（Euclidean Distance）</h3>
+<p>欧氏距离衡量两点之间的直线距离，距离越小越相似。</p>
+
+<p>公式：</p>
+<p class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><msqrt><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false">(</mo><msub><mi>A</mi><mi>i</mi></msub><mo>−</mo><msub><mi>B</mi><mi>i</mi></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+d(A,B)
+=
+\sqrt{\sum_{i=1}^{n}(A_i-B_i)^2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.1568em; vertical-align: -1.2777em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.8791em;"><span class="svg-align" style="top: -5.1168em;"><span class="pstrut" style="height: 5.1168em;"></span><span class="mord" style="padding-left: 1.056em;"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span class="" style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span class=""></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0502em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7401em;"><span class="" style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span class="" style="top: -3.8391em;"><span class="pstrut" style="height: 5.1168em;"></span><span class="hide-tail" style="min-width: 0.742em; height: 3.1968em;"><svg width="400em" height="3.1968em" viewBox="0 0 400000 3196" preserveAspectRatio="xMinYMin slice"><path d="M702 80H40000040
+H742v3062l-4 4-4 4c-.667.7 -2 1.5-4 2.5s-4.167 1.833-6.5 2.5-5.5 1-9.5 1
+h-12l-28-84c-16.667-52-96.667 -294.333-240-727l-212 -643 -85 170
+c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
+219 661 l218 661zM702 80H400000v40H742z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span class=""></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li>结果范围：0 到 ∞，值越小越相似</li>
+<li>适用场景：图像检索、地理位置相关应用</li>
+</ul>
+
+<h3>点积（Dot Product）</h3>
+<p>点积是向量相乘求和，结合了方向和长度信息。</p>
+
+<p>公式：</p>
+<p class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>⋅</mo><mi>B</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>A</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">
+A \cdot B
+=
+\sum_{i=1}^{n} A_i B_i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.9291em; vertical-align: -1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span class="" style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0502em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li>适用场景：推荐系统（向量已归一化时等价于余弦相似度）</li>
+</ul>
+
+<h3>三种方法对比</h3>
+
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="700" height="220" fill="#f8f9fa" rx="12"></rect> <text x="350" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">三种相似度计算方法对比</text> <rect x="15" y="38" width="670" height="30" fill="#1a1a2e" rx="6"></rect> <text x="100" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">方法</text> <text x="270" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">原理</text> <text x="430" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">结果含义</text> <text x="590" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">推荐场景</text> <rect x="15" y="70" width="670" height="42" fill="#eaf4fb" rx="4"></rect> <text x="100" y="97" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="bold">余弦相似度</text> <text x="270" y="90" text-anchor="middle" font-size="10" fill="#444">计算两向量夹角的余弦值</text> <text x="270" y="104" text-anchor="middle" font-size="10" fill="#444">关注方向，忽略大小</text> <text x="430" y="97" text-anchor="middle" font-size="10" fill="#444">[-1, 1]，越接近 1 越相似</text> <text x="590" y="97" text-anchor="middle" font-size="10" fill="#444">文本搜索、NLP 首选</text> <rect x="15" y="114" width="670" height="42" fill="#fef9ec" rx="4"></rect> <text x="100" y="141" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">欧氏距离</text> <text x="270" y="134" text-anchor="middle" font-size="10" fill="#444">两点之间的直线距离</text> <text x="270" y="148" text-anchor="middle" font-size="10" fill="#444">关注绝对位置差异</text> <text x="430" y="141" text-anchor="middle" font-size="10" fill="#444">[0, ∞)，越接近 0 越相似</text> <text x="590" y="141" text-anchor="middle" font-size="10" fill="#444">图像检索、坐标系数据</text> <rect x="15" y="158" width="670" height="42" fill="#eafaf1" rx="4"></rect> <text x="100" y="185" text-anchor="middle" font-size="11" fill="#27ae60" font-weight="bold">点积</text> <text x="270" y="178" text-anchor="middle" font-size="10" fill="#444">向量各分量乘积之和</text> <text x="270" y="192" text-anchor="middle" font-size="10" fill="#444">方向+长度综合考量</text> <text x="430" y="185" text-anchor="middle" font-size="10" fill="#444">值越大越相似（无固定范围）</text> <text x="590" y="185" text-anchor="middle" font-size="10" fill="#444">推荐系统、归一化场景</text>
+</svg>
+
+<h3>Python 代码示例</h3>
+<p>以下示例演示了三种相似度计算方法的 Python 实现：</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: Green;font-weight:bold;">import</span> numpy <span style="color: Green;font-weight:bold;">as</span> np<br>
+<br>
+<span style="color: #a50"># 余弦相似度：衡量方向相似性</span><br>
+<span style="color: Green;font-weight:bold;">def</span> cosine_similarity<span style="color: Olive;">(</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">)</span>:<br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> np.<span style="color: #05a;">dot</span><span style="color: Olive;">(</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">)</span> / <span style="color: Olive;">(</span>np.<span style="color: #05a;">linalg</span>.<span style="color: #05a;">norm</span><span style="color: Olive;">(</span>a<span style="color: Olive;">)</span> * np.<span style="color: #05a;">linalg</span>.<span style="color: #05a;">norm</span><span style="color: Olive;">(</span>b<span style="color: Olive;">)</span><span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 欧氏距离：衡量绝对位置差异</span><br>
+<span style="color: Green;font-weight:bold;">def</span> euclidean_distance<span style="color: Olive;">(</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">)</span>:<br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> np.<span style="color: #05a;">linalg</span>.<span style="color: #05a;">norm</span><span style="color: Olive;">(</span>a - b<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 点积：结合方向与长度</span><br>
+<span style="color: Green;font-weight:bold;">def</span> dot_product<span style="color: Olive;">(</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">)</span>:<br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> np.<span style="color: #05a;">dot</span><span style="color: Olive;">(</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 示例向量</span><br>
+v1 <span style="color: Gray;">=</span> np.<span style="color: #05a;">array</span><span style="color: Olive;">(</span><span style="color: Olive;">[</span><span style="color: Maroon;">0.12</span><span style="color: Gray;">,</span> -<span style="color: Maroon;">0.54</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.87</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.03</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span><br>
+v2 <span style="color: Gray;">=</span> np.<span style="color: #05a;">array</span><span style="color: Olive;">(</span><span style="color: Olive;">[</span><span style="color: Maroon;">0.10</span><span style="color: Gray;">,</span> -<span style="color: Maroon;">0.50</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.90</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.05</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span><br>
+v3 <span style="color: Gray;">=</span> np.<span style="color: #05a;">array</span><span style="color: Olive;">(</span><span style="color: Olive;">[</span>-<span style="color: Maroon;">0.80</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.20</span><span style="color: Gray;">,</span> -<span style="color: Maroon;">0.30</span><span style="color: Gray;">,</span> <span style="color: Maroon;">0.70</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span><br>
+<br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"v1 vs v2 余弦相似度: {cosine_similarity(v1, v2):.4f}"</span><span style="color: Olive;">)</span> &nbsp;<span style="color: #a50"># 约 0.9997（非常相似）</span><br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"v1 vs v3 余弦相似度: {cosine_similarity(v1, v3):.4f}"</span><span style="color: Olive;">)</span> &nbsp;<span style="color: #a50"># 约 -0.55（不相似）</span><br>
+
+</div>
+</div>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">v1 vs v2 </span><span class="pun">余弦相似度:</span><span class="pln"> </span><span class="lit">0.9997</span><span class="pln">
+v1 vs v3 </span><span class="pun">余弦相似度:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">0.5512</span></pre>
+
+<hr>
+
+<h2>向量索引算法</h2>
+<p>数据量大时（百万、亿级），对每一条数据做相似度计算（暴力检索）太慢。向量数据库使用专门的索引算法来加速查询。</p>
+
+<h3>暴力检索（Flat / Brute-force）</h3>
+<p>暴力检索遍历所有向量，逐一计算相似度。</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>维度</th><th>说明</th></tr>
+<tr><td>原理</td><td>遍历所有向量，逐一计算相似度</td></tr>
+<tr><td>优点</td><td>结果 100% 精确</td></tr>
+<tr><td>缺点</td><td>数据量大时极慢，O(n) 复杂度</td></tr>
+<tr><td>适用</td><td>数据量小于 10 万，对精度要求极高</td></tr>
+</tbody></table></div>
+
+<h3>IVF（倒排文件索引）</h3>
+
+<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="640" height="300" fill="#f8f9fa" rx="12"></rect> <text x="320" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">IVF 索引原理：先聚类，再在桶内搜索</text> <ellipse cx="110" cy="160" rx="80" ry="70" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"></ellipse> <circle cx="90" cy="140" r="4" fill="#e74c3c"></circle> <circle cx="120" cy="155" r="4" fill="#e74c3c"></circle> <circle cx="100" cy="175" r="4" fill="#e74c3c"></circle> <circle cx="130" cy="170" r="4" fill="#e74c3c"></circle> <circle cx="85" cy="185" r="4" fill="#e74c3c"></circle> <circle cx="107" cy="165" r="8" fill="#c0392b" stroke="#fff" stroke-width="2"></circle> <text x="107" y="200" text-anchor="middle" font-size="10" fill="#c0392b">簇 1 中心</text> <ellipse cx="320" cy="120" rx="85" ry="65" fill="#eaf4fb" stroke="#3498db" stroke-width="1.5"></ellipse> <circle cx="290" cy="100" r="4" fill="#3498db"></circle> <circle cx="340" cy="105" r="4" fill="#3498db"></circle> <circle cx="300" cy="130" r="4" fill="#3498db"></circle> <circle cx="350" cy="125" r="4" fill="#3498db"></circle> <circle cx="310" cy="145" r="4" fill="#3498db"></circle> <circle cx="360" cy="140" r="4" fill="#3498db"></circle> <circle cx="325" cy="118" r="8" fill="#2980b9" stroke="#fff" stroke-width="2"></circle> <text x="325" y="200" text-anchor="middle" font-size="10" fill="#2980b9">簇 2 中心</text> <ellipse cx="530" cy="200" rx="80" ry="65" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5"></ellipse> <circle cx="505" cy="185" r="4" fill="#2ecc71"></circle> <circle cx="550" cy="190" r="4" fill="#2ecc71"></circle> <circle cx="515" cy="215" r="4" fill="#2ecc71"></circle> <circle cx="555" cy="220" r="4" fill="#2ecc71"></circle> <circle cx="530" cy="230" r="4" fill="#2ecc71"></circle> <circle cx="531" cy="207" r="8" fill="#27ae60" stroke="#fff" stroke-width="2"></circle> <text x="531" y="280" text-anchor="middle" font-size="10" fill="#27ae60">簇 3 中心</text> <circle cx="290" cy="155" r="9" fill="#f39c12" stroke="#fff" stroke-width="2"></circle> <text x="270" y="175" font-size="11" fill="#e67e22" font-weight="bold">查询</text> <line x1="290" y1="155" x2="107" y2="165" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="5,3"></line> <text x="180" y="150" font-size="9" fill="#e74c3c">远</text> <line x1="290" y1="155" x2="325" y2="118" stroke="#2980b9" stroke-width="2" stroke-dasharray="5,3"></line> <text x="315" y="148" font-size="9" fill="#2980b9">近!</text> <line x1="290" y1="155" x2="531" y2="207" stroke="#2ecc71" stroke-width="1.2" stroke-dasharray="5,3"></line> <text x="420" y="168" font-size="9" fill="#2ecc71">远</text> <text x="320" y="295" text-anchor="middle" font-size="10" fill="#555">只在距离最近的簇 2 内做精确搜索，大幅减少计算量</text>
+</svg>
+
+<p>IVF 执行步骤：</p>
+<ol>
+<li>训练阶段：用 K-Means 将所有向量聚成 N 个簇，记录每个簇的中心</li>
+<li>查询阶段：先找出距离最近的几个簇的中心，再只在这些簇内做精确搜索</li>
+</ol>
+
+<h3>HNSW（分层导航小世界图）</h3>
+<p>HNSW 是目前最主流的向量索引算法，兼顾速度和精度。</p>
+
+<svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="680" height="360" fill="#f8f9fa" rx="12"></rect> <text x="340" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">HNSW 分层结构示意</text> <rect x="20" y="45" width="640" height="75" fill="#fef5e7" rx="8" stroke="#f39c12" stroke-width="1" stroke-dasharray="4,3"></rect> <text x="30" y="62" font-size="10" fill="#e67e22" font-weight="bold">第 2 层（最稀疏，长程跳转）</text> <circle cx="160" cy="92" r="12" fill="#f39c12" stroke="#fff" stroke-width="2"></circle> <text x="160" y="97" text-anchor="middle" font-size="10" fill="#fff">A</text> <circle cx="400" cy="92" r="12" fill="#f39c12" stroke="#fff" stroke-width="2"></circle> <text x="400" y="97" text-anchor="middle" font-size="10" fill="#fff">B</text> <line x1="172" y1="92" x2="388" y2="92" stroke="#f39c12" stroke-width="2"></line> <rect x="20" y="135" width="640" height="95" fill="#eaf4fb" rx="8" stroke="#3498db" stroke-width="1" stroke-dasharray="4,3"></rect> <text x="30" y="152" font-size="10" fill="#2980b9" font-weight="bold">第 1 层（中等密度，中程跳转）</text> <circle cx="100" cy="188" r="12" fill="#3498db" stroke="#fff" stroke-width="2"></circle> <text x="100" y="193" text-anchor="middle" font-size="10" fill="#fff">C</text> <circle cx="210" cy="180" r="12" fill="#3498db" stroke="#fff" stroke-width="2"></circle> <text x="210" y="185" text-anchor="middle" font-size="10" fill="#fff">A</text> <circle cx="330" cy="195" r="12" fill="#3498db" stroke="#fff" stroke-width="2"></circle> <text x="330" y="200" text-anchor="middle" font-size="10" fill="#fff">D</text> <circle cx="450" cy="182" r="12" fill="#3498db" stroke="#fff" stroke-width="2"></circle> <text x="450" y="187" text-anchor="middle" font-size="10" fill="#fff">B</text> <circle cx="560" cy="190" r="12" fill="#3498db" stroke="#fff" stroke-width="2"></circle> <text x="560" y="195" text-anchor="middle" font-size="10" fill="#fff">E</text> <line x1="112" y1="188" x2="198" y2="182" stroke="#3498db" stroke-width="1.5"></line> <line x1="222" y1="181" x2="318" y2="193" stroke="#3498db" stroke-width="1.5"></line> <line x1="342" y1="194" x2="438" y2="184" stroke="#3498db" stroke-width="1.5"></line> <line x1="462" y1="183" x2="548" y2="189" stroke="#3498db" stroke-width="1.5"></line> <rect x="20" y="245" width="640" height="95" fill="#eafaf1" rx="8" stroke="#2ecc71" stroke-width="1" stroke-dasharray="4,3"></rect> <text x="30" y="262" font-size="10" fill="#27ae60" font-weight="bold">第 0 层（最密集，精确搜索）</text> <circle cx="80" cy="295" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="80" y="299" text-anchor="middle" font-size="9" fill="#fff">F</text> <circle cx="140" cy="310" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="140" y="314" text-anchor="middle" font-size="9" fill="#fff">C</text> <circle cx="200" cy="285" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="200" y="289" text-anchor="middle" font-size="9" fill="#fff">A</text> <circle cx="270" cy="305" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="270" y="309" text-anchor="middle" font-size="9" fill="#fff">G</text> <circle cx="340" cy="288" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="340" y="292" text-anchor="middle" font-size="9" fill="#fff">D</text> <circle cx="410" cy="308" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="410" y="312" text-anchor="middle" font-size="9" fill="#fff">H</text> <circle cx="470" cy="285" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="470" y="289" text-anchor="middle" font-size="9" fill="#fff">B</text> <circle cx="540" cy="300" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="540" y="304" text-anchor="middle" font-size="9" fill="#fff">E</text> <circle cx="600" cy="285" r="10" fill="#2ecc71" stroke="#fff" stroke-width="2"></circle> <text x="600" y="289" text-anchor="middle" font-size="9" fill="#fff">I</text> <line x1="90" y1="295" x2="130" y2="308" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="150" y1="308" x2="190" y2="287" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="210" y1="287" x2="260" y2="303" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="280" y1="303" x2="330" y2="289" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="350" y1="289" x2="400" y2="306" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="420" y1="306" x2="460" y2="287" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="480" y1="285" x2="530" y2="298" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="550" y1="298" x2="590" y2="286" stroke="#2ecc71" stroke-width="1.2"></line> <line x1="160" y1="104" x2="210" y2="168" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2"></line> <line x1="400" y1="104" x2="450" y2="170" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2"></line> <line x1="210" y1="192" x2="200" y2="273" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2"></line> <line x1="450" y1="194" x2="470" y2="273" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2"></line> <text x="340" y="352" text-anchor="middle" font-size="10" fill="#888">查询时从顶层大步跳转定位区域，再逐层细化精确找到最近邻</text>
+</svg>
+
+<p>HNSW 核心思路：</p>
+<ul>
+<li>构建多层图结构，顶层稀疏，底层密集</li>
+<li>查询时从顶层入口开始，做"跳格游戏"：每层贪心地往更近的节点跳，再下探到下一层</li>
+<li>大幅减少需要比较的节点数，时间复杂度近似 O(log n)</li>
+</ul>
+
+<h3>其他常用索引</h3>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>索引类型</th><th>特点</th><th>适用场景</th></tr>
+<tr><td>Flat（暴力）</td><td>精确但慢</td><td>小数据集、精度优先</td></tr>
+<tr><td>IVF_Flat</td><td>聚类后精确搜索，速度快</td><td>中大规模，内存充足</td></tr>
+<tr><td>IVF_PQ</td><td>量化压缩，节省内存</td><td>超大规模，内存受限</td></tr>
+<tr><td>HNSW</td><td>速度快、精度高，内存占用高</td><td>最常用，推荐首选</td></tr>
+<tr><td>ScaNN</td><td>Google 出品，优化吞吐量</td><td>高并发生产环境</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2>主流向量数据库对比</h2>
+<p>以下是当前最主流的向量数据库横向对比，帮助你在不同场景下做出选择。</p>
+
+<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="720" height="380" fill="#f8f9fa" rx="12"></rect> <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">主流向量数据库横向对比</text> <rect x="15" y="38" width="690" height="30" fill="#1a1a2e" rx="6"></rect> <text x="90" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">数据库</text> <text x="195" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">类型</text> <text x="305" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">部署方式</text> <text x="420" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">特点</text> <text x="570" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">适用场景</text> <text x="672" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">难度</text> <rect x="15" y="70" width="690" height="46" fill="#fff" rx="3"></rect> <rect x="15" y="70" width="6" height="46" fill="#e74c3c" rx="3"></rect> <text x="90" y="89" text-anchor="middle" font-size="12" fill="#e74c3c" font-weight="bold">Chroma</text> <text x="90" y="106" text-anchor="middle" font-size="10" fill="#888">开源免费</text> <text x="195" y="97" text-anchor="middle" font-size="11" fill="#444">纯向量DB</text> <text x="305" y="89" text-anchor="middle" font-size="10" fill="#444">本地 / 云端</text> <text x="305" y="104" text-anchor="middle" font-size="10" fill="#444">嵌入式优先</text> <text x="420" y="89" text-anchor="middle" font-size="10" fill="#444">极简 API，Python 原生</text> <text x="420" y="104" text-anchor="middle" font-size="10" fill="#444">集成 LangChain 最方便</text> <text x="570" y="97" text-anchor="middle" font-size="10" fill="#444">RAG 原型、AI 应用开发</text> <text x="672" y="97" text-anchor="middle" font-size="11" fill="#2ecc71" font-weight="bold">入门</text> <rect x="15" y="118" width="690" height="46" fill="#fafafa" rx="3"></rect> <rect x="15" y="118" width="6" height="46" fill="#3498db" rx="3"></rect> <text x="90" y="137" text-anchor="middle" font-size="12" fill="#3498db" font-weight="bold">Qdrant</text> <text x="90" y="154" text-anchor="middle" font-size="10" fill="#888">开源免费</text> <text x="195" y="141" text-anchor="middle" font-size="11" fill="#444">纯向量DB</text> <text x="305" y="137" text-anchor="middle" font-size="10" fill="#444">本地 / Docker</text> <text x="305" y="152" text-anchor="middle" font-size="10" fill="#444">云服务</text> <text x="420" y="137" text-anchor="middle" font-size="10" fill="#444">Rust 实现，性能强劲</text> <text x="420" y="152" text-anchor="middle" font-size="10" fill="#444">支持过滤+向量混合检索</text> <text x="570" y="141" text-anchor="middle" font-size="10" fill="#444">生产级推荐，性能优先</text> <text x="672" y="141" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">中级</text> <rect x="15" y="166" width="690" height="46" fill="#fff" rx="3"></rect> <rect x="15" y="166" width="6" height="46" fill="#9b59b6" rx="3"></rect> <text x="90" y="185" text-anchor="middle" font-size="12" fill="#9b59b6" font-weight="bold">Weaviate</text> <text x="90" y="202" text-anchor="middle" font-size="10" fill="#888">开源免费</text> <text x="195" y="189" text-anchor="middle" font-size="11" fill="#444">多模态DB</text> <text x="305" y="185" text-anchor="middle" font-size="10" fill="#444">本地 / 云端</text> <text x="305" y="200" text-anchor="middle" font-size="10" fill="#444">SaaS</text> <text x="420" y="185" text-anchor="middle" font-size="10" fill="#444">GraphQL API，内置向量化</text> <text x="420" y="200" text-anchor="middle" font-size="10" fill="#444">多模态（文本+图像）</text> <text x="570" y="189" text-anchor="middle" font-size="10" fill="#444">多模态检索，知识图谱</text> <text x="672" y="189" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">中级</text> <rect x="15" y="214" width="690" height="46" fill="#fafafa" rx="3"></rect> <rect x="15" y="214" width="6" height="46" fill="#e67e22" rx="3"></rect> <text x="90" y="233" text-anchor="middle" font-size="12" fill="#e67e22" font-weight="bold">Milvus</text> <text x="90" y="250" text-anchor="middle" font-size="10" fill="#888">开源免费</text> <text x="195" y="237" text-anchor="middle" font-size="11" fill="#444">纯向量DB</text> <text x="305" y="233" text-anchor="middle" font-size="10" fill="#444">分布式部署</text> <text x="305" y="248" text-anchor="middle" font-size="10" fill="#444">Kubernetes</text> <text x="420" y="233" text-anchor="middle" font-size="10" fill="#444">LF AI 基金会项目</text> <text x="420" y="248" text-anchor="middle" font-size="10" fill="#444">大规模分布式，功能全面</text> <text x="570" y="237" text-anchor="middle" font-size="10" fill="#444">亿级数据，企业大规模</text> <text x="672" y="237" text-anchor="middle" font-size="11" fill="#e74c3c" font-weight="bold">进阶</text> <rect x="15" y="262" width="690" height="46" fill="#fff" rx="3"></rect> <rect x="15" y="262" width="6" height="46" fill="#27ae60" rx="3"></rect> <text x="90" y="281" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">Pinecone</text> <text x="90" y="298" text-anchor="middle" font-size="10" fill="#888">商业 SaaS</text> <text x="195" y="285" text-anchor="middle" font-size="11" fill="#444">托管向量DB</text> <text x="305" y="285" text-anchor="middle" font-size="10" fill="#444">纯云端</text> <text x="305" y="300" text-anchor="middle" font-size="10" fill="#444">全托管服务</text> <text x="420" y="281" text-anchor="middle" font-size="10" fill="#444">零运维，开箱即用</text> <text x="420" y="296" text-anchor="middle" font-size="10" fill="#444">免费套餐可用</text> <text x="570" y="285" text-anchor="middle" font-size="10" fill="#444">快速上线，无运维能力团队</text> <text x="672" y="285" text-anchor="middle" font-size="11" fill="#2ecc71" font-weight="bold">入门</text> <rect x="15" y="310" width="690" height="46" fill="#fafafa" rx="3"></rect> <rect x="15" y="310" width="6" height="46" fill="#2c3e50" rx="3"></rect> <text x="90" y="329" text-anchor="middle" font-size="12" fill="#2c3e50" font-weight="bold">pgvector</text> <text x="90" y="346" text-anchor="middle" font-size="10" fill="#888">开源插件</text> <text x="195" y="333" text-anchor="middle" font-size="11" fill="#444">PG 扩展</text> <text x="305" y="333" text-anchor="middle" font-size="10" fill="#444">已有 PostgreSQL</text> <text x="305" y="348" text-anchor="middle" font-size="10" fill="#444">环境直接用</text> <text x="420" y="333" text-anchor="middle" font-size="10" fill="#444">复用已有 PG 基础设施</text> <text x="420" y="348" text-anchor="middle" font-size="10" fill="#444">SQL 接口，上手最快</text> <text x="570" y="333" text-anchor="middle" font-size="10" fill="#444">已用 PG 的项目，轻量接入</text> <text x="672" y="333" text-anchor="middle" font-size="11" fill="#2ecc71" font-weight="bold">入门</text>
+</svg>
+
+<blockquote><p>新手建议：从 Chroma 或 pgvector 起步，前者适合 AI 应用原型，后者适合已有 PostgreSQL 的项目。</p></blockquote>
+
+<hr>
+
+<h2>快速上手：Python 示例</h2>
+<p>下面用 Chroma（最易入门）演示完整的增删改查流程。</p>
+
+<h3>安装</h3>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+pip <span style="color: #c20cb9; font-weight: bold;">install</span> chromadb openai<br>
+
+</div>
+</div>
+
+<h3>完整示例：构建一个文档语义搜索系统</h3>
+<p>以下代码从头到尾演示了如何使用 Chroma 构建一个基于语义的文档搜索系统。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: Green;font-weight:bold;">import</span> chromadb<br>
+<span style="color: Green;font-weight:bold;">from</span> chromadb.<span style="color: #05a;">utils</span> <span style="color: Green;font-weight:bold;">import</span> embedding_functions<br>
+<br>
+<span style="color: #a50"># ─── 1. 初始化客户端 ───────────────────────────────────────────</span><br>
+<span style="color: #a50"># 持久化到本地（推荐）</span><br>
+client <span style="color: Gray;">=</span> chromadb.<span style="color: #05a;">PersistentClient</span><span style="color: Olive;">(</span>path<span style="color: Gray;">=</span><span style="color: #a11;">"./my_vector_db"</span><span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 使用 OpenAI 嵌入模型（也可换成本地模型）</span><br>
+openai_ef <span style="color: Gray;">=</span> embedding_functions.<span style="color: #05a;">OpenAIEmbeddingFunction</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; api_key<span style="color: Gray;">=</span><span style="color: #a11;">"your-openai-api-key"</span><span style="color: Gray;">,</span> &nbsp; &nbsp; &nbsp; <span style="color: #a50"># 必填：替换为你的 API Key</span><br>
+&nbsp; &nbsp; model_name<span style="color: Gray;">=</span><span style="color: #a11;">"text-embedding-3-small"</span> &nbsp; <span style="color: #a50"># 1536 维，性价比高</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># ─── 2. 创建集合（类似关系库里的"表"）────────────────────────</span><br>
+collection <span style="color: Gray;">=</span> client.<span style="color: #05a;">get_or_create_collection</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; name<span style="color: Gray;">=</span><span style="color: #a11;">"my_documents"</span><span style="color: Gray;">,</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #a50"># 集合名称</span><br>
+&nbsp; &nbsp; embedding_function<span style="color: Gray;">=</span>openai_ef<span style="color: Gray;">,</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #a50"># 绑定嵌入函数</span><br>
+&nbsp; &nbsp; metadata<span style="color: Gray;">=</span><span style="color: Olive;">{</span><span style="color: #a11;">"hnsw:space"</span>: <span style="color: #a11;">"cosine"</span><span style="color: Olive;">}</span> &nbsp; &nbsp; &nbsp;<span style="color: #a50"># 使用余弦相似度</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># ─── 3. 插入文档 ──────────────────────────────────────────────</span><br>
+documents <span style="color: Gray;">=</span> <span style="color: Olive;">[</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"Python 是一种面向对象的解释型编程语言，广泛用于数据科学和 AI 开发"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"机器学习是人工智能的子领域，让计算机从数据中学习规律"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"深度学习使用多层神经网络，在图像识别和 NLP 任务中表现优异"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"向量数据库专门存储高维向量，支持语义相似度搜索"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"PostgreSQL 是功能强大的开源关系型数据库"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"Redis 是基于内存的高性能键值数据库，常用于缓存"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"Docker 容器化技术让应用可以在任何环境中一致运行"</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; <span style="color: #a11;">"Git 是分布式版本控制系统，是现代软件开发的基础工具"</span><span style="color: Gray;">,</span><br>
+<span style="color: Olive;">]</span><br>
+<br>
+ids <span style="color: Gray;">=</span> <span style="color: Olive;">[</span>f<span style="color: #a11;">"doc_{i}"</span> <span style="color: Green;font-weight:bold;">for</span> i <span style="color: Green;font-weight:bold;">in</span> <span style="color: Teal;">range</span><span style="color: Olive;">(</span><span style="color: Teal;">len</span><span style="color: Olive;">(</span>documents<span style="color: Olive;">)</span><span style="color: Olive;">)</span><span style="color: Olive;">]</span><br>
+<br>
+<span style="color: #a50"># 批量插入（Chroma 自动调用嵌入模型转为向量后存储）</span><br>
+collection.<span style="color: #05a;">add</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; documents<span style="color: Gray;">=</span>documents<span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; ids<span style="color: Gray;">=</span>ids<span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; metadatas<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: Olive;">{</span><span style="color: #a11;">"source"</span>: <span style="color: #a11;">"tutorial"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"index"</span>: i<span style="color: Olive;">}</span> <span style="color: Green;font-weight:bold;">for</span> i <span style="color: Green;font-weight:bold;">in</span> <span style="color: Teal;">range</span><span style="color: Olive;">(</span><span style="color: Teal;">len</span><span style="color: Olive;">(</span>documents<span style="color: Olive;">)</span><span style="color: Olive;">)</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"已插入 {len(documents)} 条文档"</span><span style="color: Olive;">)</span><br>
+
+</div>
+</div>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">已插入</span><span class="pln"> </span><span class="lit">8</span><span class="pln"> </span><span class="pun">条文档</span></pre>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: #a50"># ─── 4. 语义搜索 ──────────────────────────────────────────────</span><br>
+query <span style="color: Gray;">=</span> <span style="color: #a11;">"如何用 Python 做人工智能"</span><br>
+<br>
+results <span style="color: Gray;">=</span> collection.<span style="color: #05a;">query</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; query_texts<span style="color: Gray;">=</span><span style="color: Olive;">[</span>query<span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; n_results<span style="color: Gray;">=</span><span style="color: Maroon;">3</span><span style="color: Gray;">,</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #a50"># 返回最相似的 3 条</span><br>
+&nbsp; &nbsp; include<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"documents"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"distances"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"metadatas"</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"<span style="color: #000099; font-weight: bold;">\n</span>查询：{query}"</span><span style="color: Olive;">)</span><br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span><span style="color: #a11;">"-"</span> * <span style="color: Maroon;">50</span><span style="color: Olive;">)</span><br>
+<span style="color: Green;font-weight:bold;">for</span> i<span style="color: Gray;">,</span> <span style="color: Olive;">(</span>doc<span style="color: Gray;">,</span> dist<span style="color: Olive;">)</span> <span style="color: Green;font-weight:bold;">in</span> <span style="color: Teal;">enumerate</span><span style="color: Olive;">(</span><span style="color: Teal;">zip</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; results<span style="color: Olive;">[</span><span style="color: #a11;">"documents"</span><span style="color: Olive;">]</span><span style="color: Olive;">[</span><span style="color: Maroon;">0</span><span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; results<span style="color: Olive;">[</span><span style="color: #a11;">"distances"</span><span style="color: Olive;">]</span><span style="color: Olive;">[</span><span style="color: Maroon;">0</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><span style="color: Olive;">)</span>:<br>
+&nbsp; &nbsp; similarity <span style="color: Gray;">=</span> <span style="color: Maroon;">1</span> - dist &nbsp; <span style="color: #a50"># 余弦距离转相似度</span><br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"第 {i+1} 名（相似度 {similarity:.4f}）："</span><span style="color: Olive;">)</span><br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">" &nbsp;{doc}"</span><span style="color: Olive;">)</span><br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span><span style="color: Olive;">)</span><br>
+
+</div>
+</div>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">查询：如何用</span><span class="pln"> </span><span class="typ">Python</span><span class="pln"> </span><span class="pun">做人工智能</span><span class="pln">
+</span><span class="pun">--------------------------------------------------</span><span class="pln">
+</span><span class="pun">第</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">名（相似度</span><span class="pln"> </span><span class="lit">0.9231</span><span class="pun">）：</span><span class="typ">Python</span><span class="pln"> </span><span class="pun">是一种面向对象的解释型编程语言...</span><span class="pln">
+</span><span class="pun">第</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">名（相似度</span><span class="pln"> </span><span class="lit">0.8874</span><span class="pun">）：机器学习是人工智能的子领域...</span><span class="pln">
+</span><span class="pun">第</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="pun">名（相似度</span><span class="pln"> </span><span class="lit">0.8612</span><span class="pun">）：深度学习使用多层神经网络...</span></pre>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: #a50"># ─── 5. 带过滤条件的搜索（元数据过滤）───────────────────────</span><br>
+results_filtered <span style="color: Gray;">=</span> collection.<span style="color: #05a;">query</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; query_texts<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"数据库技术"</span><span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; n_results<span style="color: Gray;">=</span><span style="color: Maroon;">2</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; where<span style="color: Gray;">=</span><span style="color: Olive;">{</span><span style="color: #a11;">"source"</span>: <span style="color: #a11;">"tutorial"</span><span style="color: Olive;">}</span><span style="color: Gray;">,</span> &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #a50"># 只在 source=tutorial 的文档里搜索</span><br>
+&nbsp; &nbsp; include<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"documents"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"distances"</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># ─── 6. 更新文档 ──────────────────────────────────────────────</span><br>
+collection.<span style="color: #05a;">update</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; ids<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"doc_0"</span><span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; documents<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"Python 是目前最流行的编程语言，在 AI、数据分析、Web 开发中均有广泛应用"</span><span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; metadatas<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: Olive;">{</span><span style="color: #a11;">"source"</span>: <span style="color: #a11;">"tutorial"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"index"</span>: <span style="color: Maroon;">0</span><span style="color: Gray;">,</span> <span style="color: #a11;">"updated"</span>: <span style="color: Teal;">True</span><span style="color: Olive;">}</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># ─── 7. 删除文档 ──────────────────────────────────────────────</span><br>
+collection.<span style="color: #05a;">delete</span><span style="color: Olive;">(</span>ids<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"doc_7"</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span> &nbsp; <span style="color: #a50"># 删除 Git 相关文档</span><br>
+<br>
+<span style="color: #a50"># ─── 8. 查看集合统计 ──────────────────────────────────────────</span><br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>f<span style="color: #a11;">"当前集合文档数：{collection.count()}"</span><span style="color: Olive;">)</span><br>
+
+</div>
+</div>
+
+<h3>不使用第三方嵌入 API（纯本地）</h3>
+<p>如果你不想使用 OpenAI API，可以用本地嵌入模型完全离线运行。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: Green;font-weight:bold;">import</span> chromadb<br>
+<span style="color: Green;font-weight:bold;">from</span> sentence_transformers <span style="color: Green;font-weight:bold;">import</span> SentenceTransformer<br>
+<br>
+<span style="color: #a50"># 使用本地嵌入模型（无需 API Key，完全离线）</span><br>
+model <span style="color: Gray;">=</span> SentenceTransformer<span style="color: Olive;">(</span><span style="color: #a11;">"paraphrase-multilingual-MiniLM-L12-v2"</span><span style="color: Olive;">)</span> &nbsp;<span style="color: #a50"># 支持中文</span><br>
+<br>
+client <span style="color: Gray;">=</span> chromadb.<span style="color: #05a;">Client</span><span style="color: Olive;">(</span><span style="color: Olive;">)</span><br>
+collection <span style="color: Gray;">=</span> client.<span style="color: #05a;">create_collection</span><span style="color: Olive;">(</span><span style="color: #a11;">"local_demo"</span><span style="color: Olive;">)</span><br>
+<br>
+texts <span style="color: Gray;">=</span> <span style="color: Olive;">[</span><span style="color: #a11;">"今天天气很好"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"阳光明媚，适合出门"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"股市大涨了"</span><span style="color: Gray;">,</span> <span style="color: #a11;">"明天可能会下雨"</span><span style="color: Olive;">]</span><br>
+<br>
+<span style="color: #a50"># 手动生成向量后插入</span><br>
+embeddings <span style="color: Gray;">=</span> model.<span style="color: #05a;">encode</span><span style="color: Olive;">(</span>texts<span style="color: Olive;">)</span>.<span style="color: #05a;">tolist</span><span style="color: Olive;">(</span><span style="color: Olive;">)</span><br>
+collection.<span style="color: #05a;">add</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; embeddings<span style="color: Gray;">=</span>embeddings<span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; documents<span style="color: Gray;">=</span>texts<span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; ids<span style="color: Gray;">=</span><span style="color: Olive;">[</span>f<span style="color: #a11;">"id_{i}"</span> <span style="color: Green;font-weight:bold;">for</span> i <span style="color: Green;font-weight:bold;">in</span> <span style="color: Teal;">range</span><span style="color: Olive;">(</span><span style="color: Teal;">len</span><span style="color: Olive;">(</span>texts<span style="color: Olive;">)</span><span style="color: Olive;">)</span><span style="color: Olive;">]</span><br>
+<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 查询</span><br>
+query_embedding <span style="color: Gray;">=</span> model.<span style="color: #05a;">encode</span><span style="color: Olive;">(</span><span style="color: Olive;">[</span><span style="color: #a11;">"今天天气怎么样"</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span>.<span style="color: #05a;">tolist</span><span style="color: Olive;">(</span><span style="color: Olive;">)</span><br>
+results <span style="color: Gray;">=</span> collection.<span style="color: #05a;">query</span><span style="color: Olive;">(</span>query_embeddings<span style="color: Gray;">=</span>query_embedding<span style="color: Gray;">,</span> n_results<span style="color: Gray;">=</span><span style="color: Maroon;">2</span><span style="color: Olive;">)</span><br>
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">(</span>results<span style="color: Olive;">[</span><span style="color: #a11;">"documents"</span><span style="color: Olive;">]</span><span style="color: Olive;">)</span><br>
+<span style="color: #a50"># 输出: [['今天天气很好', '阳光明媚，适合出门']]</span><br>
+
+</div>
+</div>
+
+<h3>pgvector 示例（PostgreSQL 用户）</h3>
+<p>如果你的项目已经使用 PostgreSQL，pgvector 是最轻量的接入方式。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: #808080; font-style: italic;">-- 安装扩展</span><br>
+<span style="color: #993333; font-weight: bold;">CREATE</span> EXTENSION <span style="color: #993333; font-weight: bold;">IF</span> <span style="color: #993333; font-weight: bold;">NOT</span> <span style="color: #993333; font-weight: bold;">EXISTS</span> vector;<br>
+<br>
+<span style="color: #808080; font-style: italic;">-- 建表：存储文章标题及其向量（1536维）</span><br>
+<span style="color: #993333; font-weight: bold;">CREATE</span> <span style="color: #993333; font-weight: bold;">TABLE</span> articles <span style="color: #66cc66;">(</span><br>
+&nbsp; &nbsp; id &nbsp; &nbsp; &nbsp; SERIAL <span style="color: #993333; font-weight: bold;">PRIMARY</span> <span style="color: #993333; font-weight: bold;">KEY</span><span style="color: #66cc66;">,</span><br>
+&nbsp; &nbsp; title &nbsp; &nbsp;TEXT <span style="color: #993333; font-weight: bold;">NOT</span> <span style="color: #993333; font-weight: bold;">NULL</span><span style="color: #66cc66;">,</span><br>
+&nbsp; &nbsp; content &nbsp;TEXT<span style="color: #66cc66;">,</span><br>
+&nbsp; &nbsp; embedding vector<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1536</span><span style="color: #66cc66;">)</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">-- 向量列，1536 维</span><br>
+<span style="color: #66cc66;">)</span>;<br>
+<br>
+<span style="color: #808080; font-style: italic;">-- 创建 HNSW 索引加速查询</span><br>
+<span style="color: #993333; font-weight: bold;">CREATE</span> <span style="color: #993333; font-weight: bold;">INDEX</span> <span style="color: #993333; font-weight: bold;">ON</span> articles<br>
+<span style="color: #993333; font-weight: bold;">USING</span> hnsw <span style="color: #66cc66;">(</span>embedding vector_cosine_ops<span style="color: #66cc66;">)</span><br>
+<span style="color: #993333; font-weight: bold;">WITH</span> <span style="color: #66cc66;">(</span>m <span style="color: #66cc66;">=</span> <span style="color: #cc66cc;">16</span><span style="color: #66cc66;">,</span> ef_construction <span style="color: #66cc66;">=</span> <span style="color: #cc66cc;">64</span><span style="color: #66cc66;">)</span>;<br>
+<br>
+<span style="color: #808080; font-style: italic;">-- 插入数据（向量由应用层生成后传入）</span><br>
+<span style="color: #993333; font-weight: bold;">INSERT</span> <span style="color: #993333; font-weight: bold;">INTO</span> articles <span style="color: #66cc66;">(</span>title<span style="color: #66cc66;">,</span> embedding<span style="color: #66cc66;">)</span><br>
+<span style="color: #993333; font-weight: bold;">VALUES</span> <span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Python 入门指南'</span><span style="color: #66cc66;">,</span> <span style="color: #ff0000;">'[0.12, -0.54, 0.87, ...]'</span>::vector<span style="color: #66cc66;">)</span>;<br>
+<br>
+<span style="color: #808080; font-style: italic;">-- 语义搜索：找最相似的 5 篇文章</span><br>
+<span style="color: #993333; font-weight: bold;">SELECT</span> id<span style="color: #66cc66;">,</span> title<span style="color: #66cc66;">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #cc66cc;">1</span> <span style="color: #66cc66;">-</span> <span style="color: #66cc66;">(</span>embedding <span style="color: #66cc66;">&lt;=&gt;</span> <span style="color: #ff0000;">'[0.10, -0.50, 0.90, ...]'</span>::vector<span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">AS</span> similarity<br>
+<span style="color: #993333; font-weight: bold;">FROM</span> articles<br>
+<span style="color: #993333; font-weight: bold;">ORDER</span> <span style="color: #993333; font-weight: bold;">BY</span> embedding <span style="color: #66cc66;">&lt;=&gt;</span> <span style="color: #ff0000;">'[0.10, -0.50, 0.90, ...]'</span>::vector<br>
+<span style="color: #993333; font-weight: bold;">LIMIT</span> <span style="color: #cc66cc;">5</span>;<br>
+
+</div>
+</div>
+
+<blockquote><p>注意：&lt;=&gt; 是 pgvector 提供的向量距离运算符，用于计算余弦距离。用 1 减去余弦距离即得到余弦相似度。</p></blockquote>
+
+<hr>
+
+<h2>典型应用场景</h2>
+<p>向量数据库在 AI 时代的应用场景非常广泛，以下是六个最典型的场景概览。</p>
+
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="720" height="400" fill="#f8f9fa" rx="12"></rect> <text x="360" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a2e">向量数据库的典型应用场景</text> <rect x="20" y="45" width="210" height="160" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="20" y="45" width="210" height="5" rx="10" fill="#e74c3c"></rect> <text x="125" y="75" text-anchor="middle" font-size="18" fill="#e74c3c" font-weight="bold">RAG</text> <text x="125" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">RAG 知识库问答</text> <text x="35" y="116" font-size="10" fill="#555">将企业文档转换为向量，</text> <text x="35" y="130" font-size="10" fill="#555">用户提问时检索相关片段</text> <text x="35" y="144" font-size="10" fill="#555">交给 LLM 生成答案。</text> <text x="35" y="165" font-size="10" fill="#e74c3c">代表：ChatPDF、NotionAI</text> <text x="35" y="181" font-size="10" fill="#e74c3c">企业知识库助手</text> <rect x="250" y="45" width="210" height="160" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="250" y="45" width="210" height="5" rx="10" fill="#3498db"></rect> <text x="355" y="75" text-anchor="middle" font-size="18" fill="#3498db" font-weight="bold">推荐</text> <text x="355" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">个性化推荐系统</text> <text x="265" y="116" font-size="10" fill="#555">将用户行为、商品信息转为</text> <text x="265" y="130" font-size="10" fill="#555">向量，寻找"品味相似的用户</text> <text x="265" y="144" font-size="10" fill="#555">喜欢什么"来做推荐。</text> <text x="265" y="165" font-size="10" fill="#3498db">代表：Spotify 歌曲推荐</text> <text x="265" y="181" font-size="10" fill="#3498db">电商相关商品推荐</text> <rect x="490" y="45" width="210" height="160" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="490" y="45" width="210" height="5" rx="10" fill="#9b59b6"></rect> <text x="595" y="75" text-anchor="middle" font-size="18" fill="#9b59b6" font-weight="bold">图片</text> <text x="595" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">以图搜图</text> <text x="505" y="116" font-size="10" fill="#555">将图像编码为向量，</text> <text x="505" y="130" font-size="10" fill="#555">通过相似度搜索找出视觉</text> <text x="505" y="144" font-size="10" fill="#555">相近的图片，无需标签。</text> <text x="505" y="165" font-size="10" fill="#9b59b6">代表：Google 图片搜索</text> <text x="505" y="181" font-size="10" fill="#9b59b6">淘宝拍照搜商品</text> <rect x="20" y="225" width="210" height="155" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="20" y="225" width="210" height="5" rx="10" fill="#e67e22"></rect> <text x="125" y="255" text-anchor="middle" font-size="18" fill="#e67e22" font-weight="bold">检测</text> <text x="125" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">异常检测</text> <text x="35" y="296" font-size="10" fill="#555">正常行为被映射到聚集的</text> <text x="35" y="310" font-size="10" fill="#555">向量区域，异常行为的向量</text> <text x="35" y="324" font-size="10" fill="#555">远离正常区域即可检测。</text> <text x="35" y="345" font-size="10" fill="#e67e22">代表：网络入侵检测</text> <text x="35" y="361" font-size="10" fill="#e67e22">金融欺诈识别</text> <rect x="250" y="225" width="210" height="155" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="250" y="225" width="210" height="5" rx="10" fill="#27ae60"></rect> <text x="355" y="255" text-anchor="middle" font-size="18" fill="#27ae60" font-weight="bold">去重</text> <text x="355" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">内容去重 / 版权检测</text> <text x="265" y="296" font-size="10" fill="#555">通过向量相似度判断两段</text> <text x="265" y="310" font-size="10" fill="#555">内容是否高度相似，识别</text> <text x="265" y="324" font-size="10" fill="#555">抄袭或重复内容。</text> <text x="265" y="345" font-size="10" fill="#27ae60">代表：论文查重系统</text> <text x="265" y="361" font-size="10" fill="#27ae60">音乐版权检测</text> <rect x="490" y="225" width="210" height="155" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1.2"></rect> <rect x="490" y="225" width="210" height="5" rx="10" fill="#2c3e50"></rect> <text x="595" y="255" text-anchor="middle" font-size="18" fill="#2c3e50" font-weight="bold">人脸</text> <text x="595" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">人脸 / 生物特征识别</text> <text x="505" y="296" font-size="10" fill="#555">将人脸编码为特征向量，</text> <text x="505" y="310" font-size="10" fill="#555">在向量库中检索最相似的</text> <text x="505" y="324" font-size="10" fill="#555">已知人脸完成识别。</text> <text x="505" y="345" font-size="10" fill="#2c3e50">代表：人脸门禁系统</text> <text x="505" y="361" font-size="10" fill="#2c3e50">手机人脸解锁</text>
+</svg>
+
+<h3>RAG（检索增强生成）架构</h3>
+<p>RAG 是目前向量数据库最主要的应用场景之一。下面是其核心工作流程：</p>
+
+<svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="700" height="180" fill="#f8f9fa" rx="12"></rect> <text x="350" y="24" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">RAG 系统工作流程</text> <rect x="15" y="45" width="110" height="80" rx="8" fill="#e8f4f8" stroke="#3498db" stroke-width="1.5"></rect> <text x="70" y="72" text-anchor="middle" font-size="14" fill="#2980b9" font-weight="bold">Step 1</text> <text x="70" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#2980b9">用户提问</text> <text x="70" y="107" text-anchor="middle" font-size="9" fill="#555">"Python 怎么</text> <text x="70" y="120" text-anchor="middle" font-size="9" fill="#555">处理异常？"</text> <polygon points="128,85 145,78 145,92" fill="#aaa"></polygon> <rect x="148" y="45" width="110" height="80" rx="8" fill="#fef9ec" stroke="#f39c12" stroke-width="1.5"></rect> <text x="203" y="72" text-anchor="middle" font-size="14" fill="#e67e22" font-weight="bold">Step 2</text> <text x="203" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#e67e22">问题向量化</text> <text x="203" y="107" text-anchor="middle" font-size="9" fill="#555">Embedding 模型</text> <text x="203" y="120" text-anchor="middle" font-size="9" fill="#555">-&gt; [0.12, -0.54, ...]</text> <polygon points="261,85 278,78 278,92" fill="#aaa"></polygon> <rect x="281" y="45" width="110" height="80" rx="8" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5"></rect> <text x="336" y="72" text-anchor="middle" font-size="14" fill="#27ae60" font-weight="bold">Step 3</text> <text x="336" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">向量检索</text> <text x="336" y="107" text-anchor="middle" font-size="9" fill="#555">在向量DB中</text> <text x="336" y="120" text-anchor="middle" font-size="9" fill="#555">找最相似文档</text> <polygon points="394,85 411,78 411,92" fill="#aaa"></polygon> <rect x="414" y="45" width="110" height="80" rx="8" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"></rect> <text x="469" y="72" text-anchor="middle" font-size="14" fill="#c0392b" font-weight="bold">Step 4</text> <text x="469" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">LLM 生成</text> <text x="469" y="107" text-anchor="middle" font-size="9" fill="#555">检索内容+问题</text> <text x="469" y="120" text-anchor="middle" font-size="9" fill="#555">-&gt; Prompt -&gt; 答案</text> <polygon points="527,85 544,78 544,92" fill="#aaa"></polygon> <rect x="547" y="45" width="138" height="80" rx="8" fill="#f5eafb" stroke="#9b59b6" stroke-width="1.5"></rect> <text x="616" y="72" text-anchor="middle" font-size="14" fill="#8e44ad" font-weight="bold">Step 5</text> <text x="616" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#8e44ad">返回答案</text> <text x="616" y="107" text-anchor="middle" font-size="9" fill="#555">基于文档的</text> <text x="616" y="120" text-anchor="middle" font-size="9" fill="#555">准确、可溯源回答</text> <text x="350" y="162" text-anchor="middle" font-size="10" fill="#888">向量数据库在步骤 3 中承担核心角色：毫秒级找到最相关的知识片段</text>
+</svg>
+
+<hr>
+
+<h2>选型建议与最佳实践</h2>
+
+<h3>选型决策树</h3>
+<p>根据你的具体情况，按照以下决策树选择合适的向量数据库：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">你的情况是什么？</span><span class="pln">
+</span><span class="pun">│</span><span class="pln">
+</span><span class="pun">├───</span><span class="pln"> </span><span class="pun">已有</span><span class="pln"> </span><span class="typ">PostgreSQL</span><span class="pun">，且数据量</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">500</span><span class="pln"> </span><span class="pun">万</span><span class="pln">
+</span><span class="pun">│</span><span class="pln"> </span><span class="pun">└──&gt;</span><span class="pln"> </span><span class="pun">用</span><span class="pln"> pgvector</span><span class="pun">，无缝集成，零额外运维</span><span class="pln">
+</span><span class="pun">│</span><span class="pln">
+</span><span class="pun">├───</span><span class="pln"> </span><span class="pun">做</span><span class="pln"> AI</span><span class="pun">/</span><span class="pln">LLM </span><span class="pun">应用原型，快速验证</span><span class="pln">
+</span><span class="pun">│</span><span class="pln"> </span><span class="pun">└──&gt;</span><span class="pln"> </span><span class="pun">用</span><span class="pln"> </span><span class="typ">Chroma</span><span class="pun">，几行代码跑起来</span><span class="pln">
+</span><span class="pun">│</span><span class="pln">
+</span><span class="pun">├───</span><span class="pln"> </span><span class="pun">需要生产级部署，性能优先，数据量</span><span class="pln"> </span><span class="lit">500</span><span class="pln"> </span><span class="pun">万</span><span class="pln"> </span><span class="pun">~</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">亿</span><span class="pln">
+</span><span class="pun">│</span><span class="pln"> </span><span class="pun">└──&gt;</span><span class="pln"> </span><span class="pun">用</span><span class="pln"> </span><span class="typ">Qdrant</span><span class="pun">，</span><span class="typ">Rust</span><span class="pln"> </span><span class="pun">实现，性能强</span><span class="pln">
+</span><span class="pun">│</span><span class="pln">
+</span><span class="pun">├───</span><span class="pln"> </span><span class="pun">超大规模（&gt;</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">亿），有</span><span class="pln"> K8s </span><span class="pun">运维能力</span><span class="pln">
+</span><span class="pun">│</span><span class="pln"> </span><span class="pun">└──&gt;</span><span class="pln"> </span><span class="pun">用</span><span class="pln"> </span><span class="typ">Milvus</span><span class="pun">，分布式，功能最全</span><span class="pln">
+</span><span class="pun">│</span><span class="pln">
+</span><span class="pun">└───</span><span class="pln"> </span><span class="pun">团队没有运维能力，愿意付费</span><span class="pln"> </span><span class="pun">└──&gt;</span><span class="pln"> </span><span class="pun">用</span><span class="pln"> </span><span class="typ">Pinecone</span><span class="pln"> </span><span class="pun">云服务，开箱即用</span></pre>
+
+<h3>嵌入模型的选择</h3>
+<p>选择合适的嵌入模型是向量数据库应用的关键第一步。</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>需求</th><th>推荐模型</th></tr>
+<tr><td>中英文文本（高质量）</td><td>OpenAI <span class="marked">text-embedding-3-small</span></td></tr>
+<tr><td>中文文本（本地离线）</td><td><span class="marked">BAAI/bge-large-zh-v1.5</span></td></tr>
+<tr><td>多语言通用</td><td><span class="marked">paraphrase-multilingual-MiniLM-L12-v2</span></td></tr>
+<tr><td>图文多模态</td><td>OpenAI <span class="marked">CLIP</span> 系列</td></tr>
+</tbody></table></div>
+
+<h3>性能优化技巧</h3>
+
+<p>1. 批量插入：一次插入多条，避免频繁单条写入。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: #a50"># 推荐：批量插入</span><br>
+collection.<span style="color: #05a;">add</span><span style="color: Olive;">(</span>documents<span style="color: Gray;">=</span>docs_list<span style="color: Gray;">,</span> ids<span style="color: Gray;">=</span>ids_list<span style="color: Olive;">)</span><br>
+<br>
+<span style="color: #a50"># 不推荐：循环单条（每次都重新索引，效率极低）</span><br>
+<span style="color: #a50"># for doc, id in zip(docs_list, ids_list):</span><br>
+<span style="color: #a50"># &nbsp; &nbsp; collection.add(documents=[doc], ids=[id])</span><br>
+
+</div>
+</div>
+
+<p>2. 向量归一化：使用余弦相似度前，提前归一化向量可加速计算。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: Green;font-weight:bold;">import</span> numpy <span style="color: Green;font-weight:bold;">as</span> np<br>
+<br>
+<span style="color: Green;font-weight:bold;">def</span> normalize<span style="color: Olive;">(</span>v<span style="color: Olive;">)</span>:<br>
+&nbsp; &nbsp; <span style="color: #a11;">"""对向量做 L2 归一化，使模长为 1"""</span><br>
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> v / np.<span style="color: #05a;">linalg</span>.<span style="color: #05a;">norm</span><span style="color: Olive;">(</span>v<span style="color: Olive;">)</span><br>
+
+</div>
+</div>
+
+<p>3. 合理设置 n_results：不要无脑设置很大的 top_k，一般 RAG 场景 3~10 条足够。</p>
+
+<p>4. 善用元数据过滤：在搜索时配合 where 条件，缩小搜索范围。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+
+<span style="color: #a50"># 只在"技术文档"分类里搜索，缩小范围提升精度</span><br>
+collection.<span style="color: #05a;">query</span><span style="color: Olive;">(</span><br>
+&nbsp; &nbsp; query_texts<span style="color: Gray;">=</span><span style="color: Olive;">[</span><span style="color: #a11;">"Python 异常处理"</span><span style="color: Olive;">]</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; where<span style="color: Gray;">=</span><span style="color: Olive;">{</span><span style="color: #a11;">"category"</span>: <span style="color: #a11;">"tech_doc"</span><span style="color: Olive;">}</span><span style="color: Gray;">,</span><br>
+&nbsp; &nbsp; n_results<span style="color: Gray;">=</span><span style="color: Maroon;">5</span><br>
+<span style="color: Olive;">)</span><br>
+
+</div>
+</div>
+
+<p>5. 定期重建索引：数据量增长后，适时重建 HNSW 索引以维持查询性能。</p>
+
+<h3>常见踩坑</h3>
+<p>以下是初学者使用向量数据库时最容易遇到的问题及解决方案。</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>问题</th><th>说明</th><th>解决方案</th></tr>
+<tr><td>嵌入模型要统一</td><td>插入和查询必须用同一个模型</td><td>在配置文件中固定模型版本</td></tr>
+<tr><td>维度不匹配</td><td>换了模型但没重建集合</td><td>换模型时删除重建集合</td></tr>
+<tr><td>文本过长</td><td>大多数模型有 token 限制（512~8192）</td><td>超长文本先分块（chunking）</td></tr>
+<tr><td>相似度不准确</td><td>文本没有分块，语义被稀释</td><td>按段落或固定长度切分文档</td></tr>
+<tr><td>冷启动慢</td><td>数据量大时首次加载索引耗时</td><td>提前预热，或使用持久索引</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2>总结</h2>
+<p>让我们回顾本教程的核心知识点：</p>
+
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif" style="max-width:100%;height:auto;"> <rect width="700" height="200" fill="#1a1a2e" rx="12"></rect> <text x="350" y="32" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">Vector Database 核心知识点回顾</text> <rect x="20" y="55" width="122" height="120" rx="10" fill="#e74c3c" opacity="0.85"></rect> <text x="81" y="82" text-anchor="middle" font-size="16" fill="#fff" font-weight="bold">向量/嵌入</text> <text x="81" y="100" text-anchor="middle" font-size="9" fill="#fcc">把对象转为</text> <text x="81" y="114" text-anchor="middle" font-size="9" fill="#fcc">高维数字向量</text> <text x="81" y="128" text-anchor="middle" font-size="9" fill="#fcc">语义近则距离近</text> <text x="81" y="142" text-anchor="middle" font-size="9" fill="#fcc">是一切的基础</text> <rect x="152" y="55" width="122" height="120" rx="10" fill="#f39c12" opacity="0.85"></rect> <text x="213" y="82" text-anchor="middle" font-size="16" fill="#fff" font-weight="bold">相似度计算</text> <text x="213" y="100" text-anchor="middle" font-size="9" fill="#fde">余弦相似度</text> <text x="213" y="114" text-anchor="middle" font-size="9" fill="#fde">欧氏距离</text> <text x="213" y="128" text-anchor="middle" font-size="9" fill="#fde">点积</text> <text x="213" y="142" text-anchor="middle" font-size="9" fill="#fde">文本首选余弦</text> <rect x="284" y="55" width="122" height="120" rx="10" fill="#2ecc71" opacity="0.85"></rect> <text x="345" y="82" text-anchor="middle" font-size="16" fill="#fff" font-weight="bold">索引算法</text> <text x="345" y="100" text-anchor="middle" font-size="9" fill="#d5f5e3">HNSW 最主流</text> <text x="345" y="114" text-anchor="middle" font-size="9" fill="#d5f5e3">IVF 适合大规模</text> <text x="345" y="128" text-anchor="middle" font-size="9" fill="#d5f5e3">Flat 适合小数据</text> <text x="345" y="142" text-anchor="middle" font-size="9" fill="#d5f5e3">近似换速度</text> <rect x="416" y="55" width="122" height="120" rx="10" fill="#3498db" opacity="0.85"></rect> <text x="477" y="82" text-anchor="middle" font-size="16" fill="#fff" font-weight="bold">选型参考</text> <text x="477" y="100" text-anchor="middle" font-size="9" fill="#d6eaf8">入门：Chroma</text> <text x="477" y="114" text-anchor="middle" font-size="9" fill="#d6eaf8">生产：Qdrant</text> <text x="477" y="128" text-anchor="middle" font-size="9" fill="#d6eaf8">已有PG：pgvector</text> <text x="477" y="142" text-anchor="middle" font-size="9" fill="#d6eaf8">亿级：Milvus</text> <rect x="548" y="55" width="132" height="120" rx="10" fill="#9b59b6" opacity="0.85"></rect> <text x="614" y="82" text-anchor="middle" font-size="16" fill="#fff" font-weight="bold">核心应用</text> <text x="614" y="100" text-anchor="middle" font-size="9" fill="#e8daef">RAG 知识问答</text> <text x="614" y="114" text-anchor="middle" font-size="9" fill="#e8daef">个性化推荐</text> <text x="614" y="128" text-anchor="middle" font-size="9" fill="#e8daef">以图搜图</text> <text x="614" y="142" text-anchor="middle" font-size="9" fill="#e8daef">异常检测</text>
+</svg>
+
+<p>向量数据库是 AI 时代基础设施的重要一环。</p>
+<p>它解决了传统数据库无法处理的语义相似性搜索问题，是构建 RAG 系统、推荐系统、多模态搜索的核心组件。</p>
+
+<h3>学习路径建议</h3>
+
+<ol>
+<li>第一步：理解向量和嵌入的概念，运行本文的 Chroma 示例</li>
+<li>第二步：尝试用 LangChain + Chroma 构建一个简单的文档问答系统</li>
+<li>第三步：学习 HNSW 等索引算法，理解精度与速度的权衡</li>
+<li>第四步：根据实际项目需求，选择合适的向量数据库并在生产环境部署</li>
+</ol>
+
+<hr>
+
+<h2>参考资源</h2>
+
+<ul>
+<li><a target="_blank" href="https://docs.trychroma.com">Chroma 官方文档</a></li>
+<li><a target="_blank" href="https://qdrant.tech/documentation">Qdrant 官方文档</a></li>
+<li><a target="_blank" href="https://github.com/pgvector/pgvector">pgvector GitHub</a></li>
+<li><a target="_blank" href="https://milvus.io/docs">Milvus 官方文档</a></li>
+<li><a target="_blank" href="https://arxiv.org/abs/1603.09320">HNSW 论文原文</a></li>
+<li><a target="_blank" href="https://platform.openai.com/docs/guides/embeddings">OpenAI Embeddings 指南</a></li>
+<li><a target="_blank" href="https://huggingface.co/spaces/mteb/leaderboard">HuggingFace 文本嵌入排行榜（MTEB）</a></li>
+</ul> <!-- 其他扩展 --> 
+      </div>
+      <div class="rb-src">
+        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
+        <a href="https://www.runoob.com/ai-agent/vector-database.html" target="_blank" rel="noopener">vector-database.html</a><br>
+        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
+      </div>
+    </div>
+  </section>
