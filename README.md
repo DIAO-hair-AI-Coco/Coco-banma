@@ -24,8 +24,15 @@ img/              图片（已全转 WebP）
 audio/            单词发音（MP3）
 sw.js             Service Worker（网络优先 + 离线回退）
 manifest.json     PWA 清单
+server.py         本地服务器（0.0.0.0:8080，局域网可访问）
+install_service.bat / start_server.vbs   本地服务器随开机自启（需管理员）
 .github/          GitHub Actions CI
+_tools/           部署脚本 + 测试套件（不随仓库发布）
 ```
+
+> 📌 **整个文件夹是可移植的**：直接复制到任何电脑、任何盘符/目录都能用。
+> 所有脚本都用「相对自身位置」定位，没有写死盘符路径。
+> 新电脑接手请看 **[【新电脑接手说明】.md](【新电脑接手说明】.md)**。
 
 ## 资源版本号
 
