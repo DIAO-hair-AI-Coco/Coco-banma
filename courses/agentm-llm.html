@@ -12,7 +12,7 @@
 
 <p>简单来说，大语言模型是一个经过海量文本数据训练的深度学习模型，它能够理解和生成人类语言。大语言模型通过分析互联网上的海量文本，学习语言的统计规律，当收到输入时，根据学到的规律生成最合理的续写。</p>
 
-<p><img src="img/agent/runoob-llm-work-cb66c4.png" alt="" loading="lazy"></p>
+<p><img src="img/agent/runoob-llm-work-cb66c4.webp" alt="" loading="lazy"></p>
 
 <p>我们可以把大语言模型想象成一个<strong>极其用功、记忆力超群的学生</strong>：</p>
 <ul> <li><p><strong>学习阶段（训练）</strong>：它阅读了互联网上几乎所有公开的文本——书籍、文章、网页、代码等（数据量可达万亿单词级别）。在这个过程中，它不是在背诵，而是在学习一套极其复杂的语言规律。</p></li> <li><p><strong>应用阶段（推理）</strong>：当你向它提问或给出指令时，它就会运用学到的规律，一个字接一个字地生成出最合乎逻辑和语境的回答。</p></li>
@@ -23,7 +23,7 @@
 </ul>
 
 <p>下图展示了 LLM 逐词生成文本的过程——它每次只预测一个词，然后将这个新词纳入输入，继续预测下一个词，如此循环直到生成完整回答：</p>
-<p><img src="img/agent/d689a96f-f89a-4a55-83d7-fe5aa789d836-9d026c.png" alt="" loading="lazy"></p>
+<p><img src="img/agent/d689a96f-f89a-4a55-83d7-fe5aa789d836-9d026c.webp" alt="" loading="lazy"></p>
 <p>动画演示：</p>
 
 <div class="llm-think" id="llm-think-demo"> <div class="llm-think__header"> <div class="llm-think__title">大模型正在思考<span class="llm-think__cursor">…</span></div> </div> <div class="llm-think__stage"> <p class="llm-think__hint">每一步只做一件事：根据前文，猜下一个字</p> <div class="llm-think__text" aria-live="polite"><span class="">床</span><span class="">前</span><span class="">明</span><span class="new">月</span></div> <div class="llm-think__caret" aria-hidden="true">▌</div> </div> <div class="llm-think__panel"> <div class="llm-think__panel-title"> <span>下一个字的候选</span> <span class="llm-think__panel-sub">Top-5 概率</span> </div> <div class="llm-think__candidates" role="list"><div class="llm-think__candidate top" role="listitem"> <span class="bar" style="width: 66.5%;"></span> <span class="tok">月</span> <span class="label">最可能</span> <span class="prob">66.5%</span> </div><div class="llm-think__candidate" role="listitem"> <span class="bar" style="width: 14.5%;"></span> <span class="tok">啊</span> <span class="label">候选 2</span> <span class="prob">14.5%</span> </div><div class="llm-think__candidate" role="listitem"> <span class="bar" style="width: 11.5%;"></span> <span class="tok">好</span> <span class="label">候选 3</span> <span class="prob">11.5%</span> </div><div class="llm-think__candidate" role="listitem"> <span class="bar" style="width: 4.6%;"></span> <span class="tok">也</span> <span class="label">候选 4</span> <span class="prob">4.6%</span> </div><div class="llm-think__candidate" role="listitem"> <span class="bar" style="width: 3%;"></span> <span class="tok">了</span> <span class="label">候选 5</span> <span class="prob">3.0%</span> </div></div> </div> <div class="llm-think__footer"> <span class="llm-think__step">step <b data-step="">4</b></span> <span class="llm-think__pick">已选：<b data-pick="">月</b></span> </div>
@@ -47,7 +47,7 @@
 <ol> <li><strong>输入处理</strong>：你的话被拆分成词或字（Token），并转换成计算机能理解的数字（向量）。</li> <li><strong>理解上下文（核心）</strong>：<strong>自注意力机制（Self-Attention）</strong>开始工作。它让模型在处理句子中每一个词时，都能权衡句子中<strong>所有其他词</strong>的重要性。这个过程是<strong>并行</strong>的，速度极快。</li> <li><strong>生成与循环</strong>：模型基于对所有词的理解，计算出概率分布，预测下一个最可能出现的词。选中并输出这个词后，将其作为新的输入，重复整个过程，直到生成完整回答。</li>
 </ol>
 
-<p><img src="img/agent/llm-runoob-transf-scaled-21b80d.png" alt="" loading="lazy"></p>
+<p><img src="img/agent/llm-runoob-transf-scaled-21b80d.webp" alt="" loading="lazy"></p>
 
 <p>自注意力机制是 Transformer 最关键的创新。以句子"苹果的手机它的电池很大"为例，当模型处理<span class="marked">它</span>这个词时，自注意力机制会帮助模型判断<span class="marked">它</span>与<span class="marked">苹果</span>和<span class="marked">手机</span>高度相关。下图展示了这一过程中的注意力权重分布：</p>
 
@@ -205,13 +205,13 @@ client <span style="color: Gray;">=</span> OpenAI<span style="color: Olive;">(</
 我们需要开通阿里云百炼模型服务并获得 API-KEY。</p>
 <p>我们可以先使用阿里云主账号访问百炼模型服务平台：<a href="https://bailian.console.aliyun.com/cn-beijing/?userCode=i5mn5r7m&amp;tab=globalset#/efm/api_key" target="_blank">https://bailian.console.aliyun.com/</a>，然后点击右上角登录，登录成功后点击右上角的齿轮⚙️图标，选择 API key，然后复制 API key，如果没有也可以创建 API key：</p>
 
-<p><img src="img/agent/83536c84-3956-4679-ad14-99d53e697692-scaled-523b57.png" alt="" loading="lazy"></p>
+<p><img src="img/agent/83536c84-3956-4679-ad14-99d53e697692-scaled-523b57.webp" alt="" loading="lazy"></p>
 
-<p><img src="img/agent/p994209-8e5ed9.png" alt="" loading="lazy"></p>
+<p><img src="img/agent/p994209-8e5ed9.webp" alt="" loading="lazy"></p>
 
 <p>
 开通阿里云百炼不会产生费用，仅模型调用（超出免费额度后）、模型部署、模型调优会产生相应计费。</p>
-<p>现在要使用 API，都需要按 token 来计费，还好都不贵，我们可以先购买个最便宜的包：<a href="https://www.aliyun.com/minisite/goods?userCode=i5mn5r7m" target="_blank">阿里云百炼大模型服务平台</a>。</p> <p><a href="https://www.aliyun.com/minisite/goods?userCode=i5mn5r7m" target="_blank"><img src="img/agent/f9be5f87-2ed0-4d85-b2a4-ad8542312d6f-ed1485.png" alt="" loading="lazy"></a></p>
+<p>现在要使用 API，都需要按 token 来计费，还好都不贵，我们可以先购买个最便宜的包：<a href="https://www.aliyun.com/minisite/goods?userCode=i5mn5r7m" target="_blank">阿里云百炼大模型服务平台</a>。</p> <p><a href="https://www.aliyun.com/minisite/goods?userCode=i5mn5r7m" target="_blank"><img src="img/agent/f9be5f87-2ed0-4d85-b2a4-ad8542312d6f-ed1485.webp" alt="" loading="lazy"></a></p>
 
 <blockquote>
 <p>也可以直接使用百炼与方舟的 Coding Plan 套餐：<a href="https://www.runoob.com/claude-code/coding-plan.html" target="_blank">https://www.runoob.com/claude-code/coding-plan.html</a>。</p> </blockquote> <hr>
