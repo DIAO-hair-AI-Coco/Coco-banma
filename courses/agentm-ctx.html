@@ -1,0 +1,203 @@
+  <section id="sec-agentm-ctx" class="page">
+    <header class="lesson-hero rbh" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#1a1033,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 AI Agent 教程 · 第 13 章</div>
+      <h1>Agent 上下文工程 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Agent Context Engineering</em></h1>
+      <p class="sub">AI Agent(智能体) 教程 · 第 13 / 14 章</p>
+    </header>
+    <div class="page-inner">
+      <div class="rbx rbx-agentmctx">
+ <p><code>Agent 上下文工程</code>（Agent Context Engineering）是系统化设计和优化传递给 AI Agent 的上下文信息的技术实践，它的目标是让 Agent 在有限的上下文窗口内获得最有效的信息，从而提升任务执行的准确性、效率和可靠性。</p> <p>AI Agent 不像传统程序那样有固定的执行逻辑，它的行为完全取决于接收到的上下文——包括系统提示、工具描述、历史对话和外部检索到的信息。</p>
+<p>上下文工程的核心在于回答一个问题：<strong>在这轮调用中，Agent 最需要知道什么？</strong></p>
+<p><img src="img/agent/7b17136f-4dd7-4e53-9713-d2d86df536ac-a3905d.webp" alt="" loading="lazy"></p>
+
+<blockquote><p>上下文工程不是一次性的提示词编写，而是贯穿 Agent 系统开发、测试和运维全生命周期的持续优化过程。</p></blockquote> <h3>核心要素</h3>
+<p>Agent 上下文由以下几个层次构成：</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>层次</th><th>内容</th><th>特点</th></tr>
+<tr><td>系统提示（System Prompt）</td><td>角色定义、行为规则、输出格式要求</td><td>每次调用都会携带，相对稳定</td></tr>
+<tr><td>工具定义（Tool Definitions）</td><td>可用工具的名称、参数和功能描述</td><td>占用大量 token，需要精简</td></tr>
+<tr><td>历史记录（History）</td><td>当前会话的对话和工具调用记录</td><td>持续增长，需要截断或摘要策略</td></tr>
+<tr><td>检索上下文（Retrieved Context）</td><td>从外部知识库或代码库中检索的内容</td><td>按需注入，需要相关性排序</td></tr>
+<tr><td>用户输入（User Input）</td><td>用户当前的指令或问题</td><td>不可控，但可以通过澄清来优化</td></tr>
+</tbody></table></div> <hr>
+
+<h2>核心实践</h2>
+
+<h3>上下文预算管理</h3>
+<p>将上下文窗口视为一个有限的「预算」，合理分配给不同类型的上下文。</p>
+<p>不是所有信息都值得占据上下文空间，每一条上下文都应该有明确的 ROI。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">上下文预算分配建议（以</span><span class="pln"> </span><span class="lit">200K</span><span class="pln"> token </span><span class="pun">窗口为例）：</span><span class="pln">
+
+</span><span class="pun">系统提示　　██████████　</span><span class="lit">10</span><span class="pun">%　（</span><span class="lit">20K</span><span class="pln"> token</span><span class="pun">）</span><span class="pln">
+</span><span class="pun">工具定义　　████████████████　</span><span class="lit">20</span><span class="pun">%　（</span><span class="lit">40K</span><span class="pln"> token</span><span class="pun">）</span><span class="pln">
+</span><span class="pun">检索上下文　████████████████████　</span><span class="lit">25</span><span class="pun">%　（</span><span class="lit">50K</span><span class="pln"> token</span><span class="pun">）</span><span class="pln">
+</span><span class="pun">历史记录　　████████████████████████　</span><span class="lit">30</span><span class="pun">%　（</span><span class="lit">60K</span><span class="pln"> token</span><span class="pun">）</span><span class="pln">
+</span><span class="pun">用户输入　　████████　</span><span class="lit">5</span><span class="pun">%~</span><span class="lit">10</span><span class="pun">%　（</span><span class="lit">10</span><span class="pun">-</span><span class="lit">20K</span><span class="pln"> token</span><span class="pun">）</span><span class="pln">
+</span><span class="pun">预留缓冲　　████　</span><span class="lit">5</span><span class="pun">%　（</span><span class="lit">10K</span><span class="pln"> token</span><span class="pun">）</span></pre>
+
+<p>实际比例应根据 Agent 的具体任务类型动态调整。</p>
+<p>如果 Agent 主要做代码生成，检索上下文的比例可以调高。</p>
+<p>如果 Agent 是多轮对话助手，历史记录的预算应优先保证。</p>
+
+<h3>系统提示的工程化</h3>
+<p>系统提示是 Agent 行为的基石，需要遵循结构化编写原则。</p>
+
+<p><strong>编写原则：</strong></p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>原则</th><th>说明</th><th>示例</th></tr>
+<tr><td>分层组织</td><td>将指令按角色、规则、流程、格式分块</td><td>使用 Markdown 标题分隔</td></tr>
+<tr><td>正面表述</td><td>告诉 Agent 应该怎么做，而非不怎么做</td><td>「保持回答简洁」优于「不要啰嗦」</td></tr>
+<tr><td>提供示例</td><td>用 few-shot 示例代替长篇描述</td><td>输出格式示例比文字描述更高效</td></tr>
+<tr><td>优先级明确</td><td>当规则冲突时，Agent 应遵循哪条</td><td>「安全规则优先于效率要求」</td></tr>
+<tr><td>去除冗余</td><td>删除从未被触发的规则和重复说明</td><td>定期审查并精简系统提示</td></tr>
+</tbody></table></div>
+
+<p>以下是一个结构化系统提示的示例骨架：</p> <pre class="prettyprint prettyprinted" style=""><span class="com">## 角色</span><span class="pln">
+</span><span class="pun">你是一名</span><span class="pln"> </span><span class="typ">Python</span><span class="pln"> </span><span class="pun">代码审查助手。</span><span class="pln">
+
+</span><span class="com">## 核心规则</span><span class="pln">
+</span><span class="pun">-</span><span class="pln"> </span><span class="pun">每个问题附上修复建议</span><span class="pln">
+</span><span class="pun">-</span><span class="pln"> </span><span class="pun">按严重程度排序输出</span><span class="pln">
+</span><span class="pun">-</span><span class="pln"> </span><span class="pun">不确定时标注「待确认」</span><span class="pln">
+
+</span><span class="com">## 工作流程</span><span class="pln">
+</span><span class="lit">1.</span><span class="pln"> </span><span class="pun">分析代码变更</span><span class="pln">
+</span><span class="lit">2.</span><span class="pln"> </span><span class="pun">按严重程度分类问题</span><span class="pln">
+</span><span class="lit">3.</span><span class="pln"> </span><span class="pun">逐一输出问题与建议</span><span class="pln">
+
+</span><span class="com">## 输出格式</span><span class="pln">
+</span><span class="pun">**问题**：[问题描述]</span><span class="pln">
+</span><span class="pun">**严重程度**：[高/中/低]</span><span class="pln">
+</span><span class="pun">**建议**：[修复建议]</span></pre>
+
+<h3>工具描述的优化</h3>
+<p>工具描述往往占据上下文的最大比重，但很多工具从未被实际调用。</p>
+
+<p>优化策略包括：</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>策略</th><th>方法</th><th>效果</th></tr>
+<tr><td>工具精简</td><td>移除与当前任务无关的工具定义</td><td>减少 30%~50% 的工具上下文</td></tr>
+<tr><td>描述精炼</td><td>每个工具只用一句话说明用途和参数</td><td>提升模型对工具的理解准确度</td></tr>
+<tr><td>参数约束</td><td>在描述中明确参数的使用场景和限制</td><td>减少工具调用中的参数错误</td></tr>
+<tr><td>分组注册</td><td>按任务阶段动态注册不同的工具集</td><td>避免工具过多导致的「选择困难」</td></tr>
+</tbody></table></div>
+
+<blockquote><p>工具定义不为零即是负担。每个保留的工具都需要在描述质量和 token 成本之间做权衡。</p></blockquote>
+
+<h3>历史记录的压缩策略</h3>
+<p>多轮对话中，历史记录快速增长并占据上下文。</p>
+<p>需要选择合适的压缩策略来平衡上下文完整性和窗口限制。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">常见历史压缩策略对比：</span><span class="pln">
+
+</span><span class="pun">策略 方法 适用场景</span><span class="pln">
+</span><span class="pun">─────────────────────────────────────────────────</span><span class="pln">
+</span><span class="pun">滑动窗口 保留最近</span><span class="pln"> N </span><span class="pun">轮完整记录 短对话、实时交互</span><span class="pln">
+</span><span class="pun">阶梯摘要 每轮做一次增量摘要 长对话、客服场景</span><span class="pln">
+</span><span class="pun">分层摘要 近期保留完整、远期做摘要　　文档生成、复杂任务</span><span class="pln">
+</span><span class="pun">关键轮标记　　标记重要轮次，其余丢弃 调试、分步执行任务</span></pre>
+
+<p>分层摘要是最常用的策略：最近 3-5 轮保持完整，更早的对话用结构化摘要代替。</p>
+
+<p>结构化摘要应包含原对话的关键信息：用户目标是什么，Agent 做了什么，产生了什么输出，遇到了什么错误。</p>
+
+<h3>检索上下文的质量控制</h3>
+<p>当 Agent 依赖外部知识库时，检索到的上下文质量直接决定输出质量。</p>
+
+<p>提高检索上下文质量的关键点：</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>环节</th><th>常见问题</th><th>改进方法</th></tr>
+<tr><td>查询改写</td><td>用户输入不够精确</td><td>让 Agent 先改写查询再检索</td></tr>
+<tr><td>相关性过滤</td><td>检索结果中包含无关内容</td><td>设置相关性阈值，不足时主动提示</td></tr>
+<tr><td>来源标注</td><td>Agent 无法判断信息可信度</td><td>附上来源路径和更新时间</td></tr>
+<tr><td>长度裁剪</td><td>检索结果占用过多上下文</td><td>按段落截取，保留最相关片段</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2>常见模式</h2>
+
+<h3>渐进式披露</h3>
+<p>不一次性把所有信息塞进上下文，而是根据执行阶段逐步披露。</p>
+
+<p>初始上下文只包含系统提示和当前阶段的必要工具，当 Agent 完成当前阶段后，再注入下一阶段的工具和规则。</p>
+
+<p>这种模式将上下文的「密度」控制在合理范围内，避免 Agent 被无关信息干扰。</p>
+
+<h3>上下文压缩链</h3>
+<p>当一个任务需要处理大量数据时，用链式调用拆分为多个步骤，每步只保留关键中间结果。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">步骤</span><span class="lit">1</span><span class="pun">：读取全部日志文件</span><span class="pln"> </span><span class="pun">→</span><span class="pln"> </span><span class="pun">输出</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">错误数量，时间范围，错误类型列表</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">步骤</span><span class="lit">2</span><span class="pun">：基于步骤</span><span class="lit">1</span><span class="pun">的输出，分析</span><span class="pln"> </span><span class="typ">Top</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="pun">错误</span><span class="pln"> </span><span class="pun">→</span><span class="pln"> </span><span class="pun">输出</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">根因分析，修复建议</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">步骤</span><span class="lit">3</span><span class="pun">：基于步骤</span><span class="lit">2</span><span class="pun">的输出，生成修复</span><span class="pln"> PR </span><span class="pun">→</span><span class="pln"> </span><span class="pun">输出</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> PR </span><span class="pun">标题，描述，代码变更</span><span class="pln"> </span><span class="pun">}</span></pre>
+
+<p>每条链路的输入都是上一步精炼后的摘要，而非原始数据，使得上下文始终保持可控大小。</p>
+
+<h3>上下文水印</h3>
+<p>在上下文的关键位置放置「水印」标记，帮助监控和诊断 Agent 行为。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pun">上下文水印示例：</span><span class="pln">
+
+</span><span class="pun">&lt;</span><span class="pln">system</span><span class="pun">-</span><span class="pln">reminder</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">当前使用的上下文策略版本：</span><span class="pln">v2</span><span class="pun">.</span><span class="lit">3</span><span class="pln">
+</span><span class="pun">检索到的文档来源：</span><span class="pln">docs</span><span class="pun">/</span><span class="pln">api</span><span class="pun">-</span><span class="pln">reference</span><span class="pun">/</span><span class="pln"> </span><span class="pun">共</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="pun">个文件</span><span class="pln">
+</span><span class="pun">已消耗上下文：</span><span class="lit">85</span><span class="pun">,</span><span class="lit">000</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">200</span><span class="pun">,</span><span class="lit">000</span><span class="pln"> tokens
+</span><span class="pun">&lt;/</span><span class="pln">system</span><span class="pun">-</span><span class="pln">reminder</span><span class="pun">&gt;</span></pre>
+
+<p>这些水印不会直接影响 Agent 行为，但在调试时可以快速定位上下文注入是否按预期执行。</p>
+<hr>
+
+<h2>评估与迭代</h2>
+
+<p>上下文工程的效果需要通过评估来验证，不能仅凭感觉判断。</p>
+
+<p>常用的评估维度：</p>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>维度</th><th>评估方式</th><th>关键指标</th></tr>
+<tr><td>任务完成率</td><td>在标准测试集上运行 Agent</td><td>成功率、失败原因分布</td></tr>
+<tr><td>上下文效率</td><td>统计每次调用的上下文使用量</td><td>平均 token 消耗、上下文利用率</td></tr>
+<tr><td>工具调用质量</td><td>分析工具调用的准确率和参数正确率</td><td>无效调用占比、重试次数</td></tr>
+<tr><td>响应一致性</td><td>相同输入多次测试</td><td>输出稳定性、格式合规率</td></tr>
+</tbody></table></div>
+
+<p>上下文工程不是一次性配置，而是需要建立「测试 → 分析 → 优化 → 再测试」的迭代循环。</p>
+<hr>
+
+<h2>注意事项</h2>
+
+<blockquote><p>上下文窗口不是越大越好。过多的上下文会导致模型在关键信息上的注意力被稀释，反而降低输出质量。</p></blockquote>
+
+<blockquote><p>盲目增加规则可能让系统提示变得臃肿且自相矛盾。每新增一条规则，都需要审查是否与已有规则冲突。</p></blockquote>
+
+<p>工具定义的修改可能影响已有 Agent 的行为，修改后需要在典型场景下做回归测试。</p>
+<p>历史记录压缩策略需要根据 Agent 的任务特征来选择，一个策略不可能在所有场景中都表现最优。</p>
+<p>上下文中的敏感信息（API 密钥、内部路径等）会在工具调用和日志中传播，需要做好脱敏处理。</p>
+<hr>
+
+<h2>相关概念</h2>
+
+<div class="rb-tw"><table class="reference vocab-table">
+<tbody><tr><th>概念</th><th>说明</th></tr>
+<tr><td>Prompt Engineering</td><td>专注于单次调用的提示词设计和优化</td></tr>
+<tr><td>Context Window</td><td>模型能够一次性处理的 token 上限</td></tr>
+<tr><td>Token</td><td>模型处理文本的最小语义单元</td></tr>
+<tr><td>RAG（检索增强生成）</td><td>通过外部检索来扩充上下文的架构模式</td></tr>
+<tr><td>Few-shot Prompting</td><td>在上下文中提供示例来引导模型输出</td></tr>
+<tr><td>Chain-of-Thought</td><td>让模型在上下文中展现推理过程</td></tr>
+</tbody></table></div> <!-- 其他扩展 --> 
+      </div>
+      <div class="rb-src">
+        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
+        <a href="https://www.runoob.com/ai-agent/agent-context-engineering.html" target="_blank" rel="noopener">agent-context-engineering.html</a><br>
+        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
+      </div>
+    </div>
+  </section>
