@@ -1,0 +1,113 @@
+  <section id="sec-agentm-core" class="page">
+    <header class="lesson-hero rbh" style="background:radial-gradient(900px 480px at 70% -10%,#7c3aed 0%,transparent 58%),linear-gradient(160deg,#1a1033,#241447 55%,#0d2b4a)">
+      <div class="badge">🤖 AI Agent 教程 · 第 2 章</div>
+      <h1>AI Agent 核心组件 <span class="teacher">👩‍🏫 孔梦琳</span><br><em>Core Components of an AI Agent</em></h1>
+      <p class="sub">AI Agent(智能体) 教程 · 第 2 / 14 章</p>
+    </header>
+    <div class="page-inner">
+      <div class="rbx rbx-agentmcore">
+ <p>如果把一个 AI Agent 比作一家<strong>智能餐厅</strong>，它是怎么把你的需求变成菜品端上来的呢？这离不开它的四大核心组件：<strong>大脑、工具、记忆、规划</strong>。</p>
+
+<ul> <li><strong>大脑：</strong>负责听懂点单、判定目标、决定顺序，是餐厅的指挥中心。</li> <li><strong>工具：</strong>负责实际动手，包括切配、烹饪、采购等动作，把决策转成可执行操作。</li> <li><strong>记忆：</strong>负责记录顾客偏好、当前步骤、已处理内容，保证流程不混乱、不重复。</li> <li><strong>规划：</strong>负责把整道菜拆成步骤，确定先后关系，确保任务按流程推进到完成。</li>
+</ul>
+<p><img src="img/agent/agent-components-e4da16.webp" alt="" loading="lazy"></p>
+<hr>
+<h2>整体架构</h2>
+
+<p>下图展示了 AI Agent 五大层次组件及其协作关系。感知层接收外部输入，大脑负责理解与决策，规划层将任务分解，工具层负责执行，记忆层则贯穿始终，为所有环节提供状态支撑。</p>
+<p><img src="img/agent/AI-runoob-2333Agent-50725a.png" alt="" loading="lazy"></p>
+
+<hr>
+
+<h2>0、感知层 (Perception) —— 餐厅的前台</h2> <blockquote> <p><strong>角色</strong>：负责接待顾客，理解来自外部世界的所有输入。</p> <p>Agent 在行动之前，必须先"看到"和"听到"外部信息。现代 Agent 已经不限于纯文本输入，而是具备<strong>多模态感知</strong>能力：</p> <ul> <li><strong>文本输入</strong>：用户的自然语言指令、文档内容、代码。</li> <li><strong>图像 / 视频</strong>：截图、设计稿、图表，Agent 可以直接"看图"理解。</li> <li><strong>结构化数据</strong>：表格、JSON、数据库查询结果。</li> <li><strong>环境状态</strong>：在计算机操作类 Agent 中，当前屏幕状态、网页 DOM 结构等。</li> <li><strong>工具返回结果</strong>：上一步工具调用的输出，会作为新的感知输入进入下一轮循环。</li> </ul> <p>感知层的输入经过整合，形成 Agent 的"当前上下文"，送入大脑进行理解和决策。</p></blockquote> <hr>
+
+<h2>1、大脑 (Brain) —— 也就是大模型</h2> <blockquote> <p><strong>角色</strong>：餐厅的<strong>主厨兼经理</strong>。</p> <p>这是 Agent 最核心的部分（比如 GPT-4、Claude、DeepSeek、通义千问）。</p> <ul> <li>它负责<strong>听懂</strong>你想吃什么（理解意图）。</li> <li>它负责<strong>指挥</strong>其他人干活（决策）。</li> <li>如果没有它，整个餐厅就瘫痪了。</li> </ul></blockquote> <h3>大脑做的三件核心事</h3>
+
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr><th>能力</th><th>说明</th><th>对应餐厅类比</th></tr> </thead> <tbody> <tr><td>意图理解</td><td>解析用户输入，明确目标是什么</td><td>听懂顾客点了什么</td></tr> <tr><td>推理决策</td><td>综合上下文和记忆，判断下一步该做什么</td><td>主厨决定先处理哪道菜</td></tr> <tr><td>工具调用判断</td><td>判断是否需要调用外部工具，选择哪个工具、传入什么参数</td><td>决定用哪口锅、让谁去买食材</td></tr> </tbody>
+</table></div>
+
+<div class="note-box"> <strong>关键概念：</strong>大脑的"智力天花板"决定了整个 Agent 的上限。同一套工具和规划框架，接入能力更强的基础模型，任务完成质量往往有质的飞跃。
+</div>
+
+<hr>
+
+<h2>2、工具 (Tools) —— 厨房里的设备</h2> <blockquote> <p><strong>角色</strong>：<strong>厨具和帮手</strong>。</p> <p>光有主厨（大脑）是不够的，还得有锅碗瓢盆才能做菜。对于 AI Agent 来说，工具就是能把决策转化为真实动作的执行单元。</p></blockquote> <p>工具可以按照用途分为四大类：</p> <div class="rb-tw"><table class="reference vocab-table"> <thead> <tr><th>类别</th><th>常见工具</th><th>作用</th></tr> </thead> <tbody> <tr> <td><strong>信息获取</strong></td> <td>联网搜索、网页抓取、文档读取、数据库查询</td> <td>获取 Agent 自身知识之外的实时或专业信息</td> </tr> <tr> <td><strong>计算执行</strong></td> <td>代码解释器、数学计算引擎、沙箱环境</td> <td>处理需要精确计算或程序逻辑的任务</td> </tr> <tr> <td><strong>内容生成</strong></td> <td>图像生成、语音合成、文档导出</td> <td>产出非文本形式的内容</td> </tr> <tr> <td><strong>系统交互</strong></td> <td>API 接口、邮件、日历、文件操作、消息发送</td> <td>与外部系统、服务和真实世界进行交互</td> </tr> </tbody>
+</table></div>
+
+<p>常见工具举例：</p>
+<ul> <li><strong>联网搜索</strong> <span class="tag">信息获取</span>（像去菜市场买新鲜食材）</li> <li><strong>代码解释器</strong> <span class="tag orange">计算执行</span>（像精密的烤箱，处理复杂计算）</li> <li><strong>画图工具</strong> <span class="tag green">内容生成</span>（像摆盘师，负责美观）</li> <li><strong>API 接口</strong> <span class="tag purple">系统交互</span>（像外卖小哥，连接外部世界）</li>
+</ul>
+
+<div class="note-box"> <strong>函数调用（Function Calling）：</strong>现代大模型通过"函数调用"机制来使用工具。开发者预先定义工具的名称与参数说明，模型在推理时会以结构化 JSON 的形式输出"我要调用哪个工具、传什么参数"，由外部程序负责真正执行并把结果返回给模型。
+</div>
+
+<hr>
+
+<h2>3、记忆 (Memory) —— 顾客记录本</h2> <blockquote> <p><strong>角色</strong>：<strong>服务员的记性</strong>。</p> <p>你肯定不喜欢每次去餐厅都要重新报一遍：我不吃香菜！</p></blockquote> <p>Agent 的记忆分为以下几种类型：</p>
+
+<ul> <li><strong>短期记忆（In-Context Memory）</strong>：即当前对话的上下文窗口。记住刚才你说了啥（比如你刚点了鱼，下一句说"要微辣"，它知道是指鱼）。受限于模型的上下文长度，通常在 8K 到 200K token 之间。</li> <li><strong>长期记忆（External Memory）</strong>：记住你的长期偏好（比如你是素食主义者，或者你的家庭住址）。通常通过<strong>向量数据库</strong>（如 Pinecone、Milvus、Chroma）实现持久化存储。</li> <li><strong>情节记忆（Episodic Memory）</strong>：对历史任务执行过程的记录，包括"上次遇到这种情况我是怎么处理的"，帮助 Agent 从过去的经验中学习。</li> <li><strong>语义记忆（Semantic Memory）</strong>：抽象的知识和事实，通常来自预训练阶段已经内化的内容，也可通过 RAG（检索增强生成）动态补充。</li>
+</ul>
+
+<h3>RAG：让 Agent 拥有"外挂知识库"</h3>
+
+<p><strong>检索增强生成（Retrieval-Augmented Generation，RAG）</strong> 是目前最主流的长期记忆实现方案。其核心流程如下：</p>
+
+<svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:16px auto;"> <defs> <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"> <path d="M0,0 L0,6 L8,3 z" fill="#555"></path> </marker> </defs> <rect x="10" y="28" width="110" height="44" rx="8" fill="#dbeeff" stroke="#5b9bd5" stroke-width="1.2"></rect> <text x="65" y="50" text-anchor="middle" font-size="12" fill="#1a4a8a" font-weight="bold">用户提问</text> <text x="65" y="65" text-anchor="middle" font-size="10" fill="#2a5a9a">Query</text> <line x1="120" y1="50" x2="148" y2="50" stroke="#555" stroke-width="1.3" marker-end="url(#arr2)"></line> <rect x="150" y="28" width="130" height="44" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"></rect> <text x="215" y="50" text-anchor="middle" font-size="12" fill="#1a5a2a" font-weight="bold">向量化检索</text> <text x="215" y="65" text-anchor="middle" font-size="10" fill="#2a7a3a">Embedding + Search</text> <line x1="280" y1="50" x2="308" y2="50" stroke="#555" stroke-width="1.3" marker-end="url(#arr2)"></line> <rect x="310" y="28" width="120" height="44" rx="8" fill="#f5effe" stroke="#8e44ad" stroke-width="1.2"></rect> <text x="370" y="50" text-anchor="middle" font-size="12" fill="#5b1a8a" font-weight="bold">召回相关内容</text> <text x="370" y="65" text-anchor="middle" font-size="10" fill="#7a30b0">Top-K Chunks</text> <line x1="430" y1="50" x2="458" y2="50" stroke="#555" stroke-width="1.3" marker-end="url(#arr2)"></line> <rect x="460" y="28" width="130" height="44" rx="8" fill="#fdecea" stroke="#e94560" stroke-width="1.2"></rect> <text x="525" y="50" text-anchor="middle" font-size="12" fill="#a01030" font-weight="bold">注入上下文生成</text> <text x="525" y="65" text-anchor="middle" font-size="10" fill="#c0304a">LLM + Context</text> <line x1="590" y1="50" x2="618" y2="50" stroke="#555" stroke-width="1.3" marker-end="url(#arr2)"></line> <rect x="620" y="28" width="70" height="44" rx="8" fill="#fff8ec" stroke="#f6a623" stroke-width="1.2"></rect> <text x="655" y="50" text-anchor="middle" font-size="12" fill="#8a4800" font-weight="bold">回答</text> <text x="655" y="65" text-anchor="middle" font-size="10" fill="#a05800">Answer</text>
+</svg>
+
+<hr>
+
+<h2>4、规划 (Planning) —— 烹饪流程单</h2> <blockquote> <p><strong>角色</strong>：<strong>后厨的出餐 SOP</strong>。</p> <p>当你点了一份佛跳墙，主厨不会乱做，而是会在脑子里生成一个清单：</p></blockquote> <ol> <li>先备料（鲍鱼、海参…）</li> <li>再熬汤</li> <li>最后慢炖</li>
+</ol>
+
+<p>Agent 也是一样。当你给它一个复杂任务（比如"写一份竞品分析报告"），它会自己拆解：</p>
+<ul> <li>第一步：去搜集竞品 A、B、C 的资料。</li> <li>第二步：对比它们的价格和功能。</li> <li>第三步：把对比结果写成文章。</li> <li>第四步：检查一遍有没有错别字。</li>
+</ul>
+
+<h3>主流规划策略</h3>
+
+<p>规划策略决定了 Agent 如何"思考"再"行动"，不同策略的推理深度与适用场景不同：</p>
+
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr><th>策略</th><th>全称</th><th>核心思路</th><th>适用场景</th></tr> </thead> <tbody> <tr> <td><strong>CoT</strong></td> <td>Chain-of-Thought</td> <td>在给出答案前，先一步步写出推理过程</td> <td>数学推理、逻辑分析</td> </tr> <tr> <td><strong>ReAct</strong></td> <td>Reasoning + Acting</td> <td>交替进行"推理"与"行动"，每次行动后根据结果再推理</td> <td>需要工具调用的动态任务</td> </tr> <tr> <td><strong>ToT</strong></td> <td>Tree-of-Thoughts</td> <td>同时探索多条推理分支，从中选择最优路径</td> <td>复杂决策、创意任务</td> </tr> <tr> <td><strong>Reflection</strong></td> <td>自我反思</td> <td>任务完成后，Agent 对自身输出进行批判性审查并修正</td> <td>代码生成、长文写作</td> </tr> </tbody>
+</table></div>
+
+<div class="note-box"> <strong>ReAct 示例：</strong> Agent 接到任务"查明天北京天气并发送提醒" → <strong>思考</strong>：需要先查天气 → <strong>行动</strong>：调用天气 API → <strong>观察</strong>：返回"明天有雨" → <strong>思考</strong>：条件成立，需要写提醒 → <strong>行动</strong>：调用发送消息工具 → 任务完成。
+</div>
+
+<hr>
+
+<h2>5、Agent 运行循环 (Agent Loop)</h2>
+
+<p>以上各组件并非孤立存在，它们组成一个持续迭代的<strong>感知—思考—行动—观察</strong>闭环，这就是"Agent Loop"。Agent 不断重复这个循环，直到任务完成或达到终止条件。</p>
+
+<svg viewBox="0 0 660 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:20px auto;"> <defs> <marker id="loopArr" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"> <path d="M0,0 L0,7 L8,3.5 z" fill="#555"></path> </marker> </defs> <rect x="10" y="80" width="110" height="60" rx="9" fill="#dbeeff" stroke="#5b9bd5" stroke-width="1.5"></rect> <text x="65" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a4a8a">感知</text> <text x="65" y="124" text-anchor="middle" font-size="10" fill="#2a5a9a">接收输入 / 环境状态</text> <rect x="165" y="80" width="110" height="60" rx="9" fill="#fdecea" stroke="#e94560" stroke-width="1.5"></rect> <text x="220" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#a01030">思考</text> <text x="220" y="124" text-anchor="middle" font-size="10" fill="#c0304a">LLM 推理 / 规划分解</text> <rect x="320" y="80" width="110" height="60" rx="9" fill="#fff8ec" stroke="#f6a623" stroke-width="1.5"></rect> <text x="375" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#8a4800">行动</text> <text x="375" y="124" text-anchor="middle" font-size="10" fill="#a05800">调用工具 / 执行操作</text> <rect x="475" y="80" width="110" height="60" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"></rect> <text x="530" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a5a2a">观察</text> <text x="530" y="124" text-anchor="middle" font-size="10" fill="#2a7a3a">获取结果 / 更新记忆</text> <rect x="230" y="170" width="200" height="36" rx="8" fill="#f5f5f5" stroke="#aaa" stroke-width="1" stroke-dasharray="5,3"></rect> <text x="330" y="193" text-anchor="middle" font-size="11" fill="#555">任务完成 / 达到终止条件</text> <line x1="120" y1="110" x2="161" y2="110" stroke="#555" stroke-width="1.4" marker-end="url(#loopArr)"></line> <line x1="275" y1="110" x2="316" y2="110" stroke="#555" stroke-width="1.4" marker-end="url(#loopArr)"></line> <line x1="430" y1="110" x2="471" y2="110" stroke="#555" stroke-width="1.4" marker-end="url(#loopArr)"></line> <path d="M 530 80 Q 530 28 65 28 Q 65 50 65 80" stroke="#8e44ad" stroke-width="1.5" fill="none" marker-end="url(#loopArr)" stroke-dasharray="5,3"></path> <text x="297" y="20" text-anchor="middle" font-size="10" fill="#8e44ad">继续循环（任务未完成）</text> <line x1="530" y1="140" x2="430" y2="170" stroke="#aaa" stroke-width="1.2" marker-end="url(#loopArr)" stroke-dasharray="4,2"></line>
+</svg>
+
+<p>这个循环让 Agent 具备了<strong>在失败时自我纠错</strong>的能力：如果某一步工具调用返回了错误或意外结果，"观察"阶段会将这个信息反馈给大脑，大脑在下一轮"思考"时就会调整策略。</p>
+
+<hr>
+
+<h2>总结</h2>
+
+<p>当你对 Agent 说：<strong>帮我查一下明天北京的天气，如果是雨天，帮我写个提醒发给小王。</strong></p>
+
+<p>Agent 内部是这样运转的：</p>
+
+<ol> <li><strong>感知层</strong>：接收到自然语言指令，识别出关键实体"北京"、"明天"、"小王"。</li> <li><strong>大脑</strong>：听到指令，分析出两个条件任务：查天气，若下雨则发提醒。</li> <li><strong>规划</strong>：先查天气 → 判断是否下雨 → (如果是) 写提醒 → 发送。</li> <li><strong>工具</strong>：调用"天气查询工具"，获取到结果——明天有雨。</li> <li><strong>记忆</strong>：去通讯录（记忆库）里查询"小王"的联系方式。</li> <li><strong>工具</strong>：调用"发送消息工具"，把提醒发出去。</li> <li><strong>观察</strong>：确认消息发送成功，任务完成，循环终止。</li>
+</ol>
+
+<p>运行过程示意图：</p>
+<p><img src="img/agent/ai-agent-core-runoob-2-7d42b6.png" alt="" loading="lazy"></p>
+
+<h3>五大组件一览</h3>
+
+<div class="rb-tw"><table class="reference vocab-table"> <thead> <tr><th>组件</th><th>餐厅类比</th><th>核心职责</th><th>关键技术</th></tr> </thead> <tbody> <tr> <td><strong>感知层</strong></td> <td>前台接待</td> <td>接收多模态输入，构建上下文</td> <td>多模态模型、OCR、ASR</td> </tr> <tr> <td><strong>大脑</strong></td> <td>主厨兼经理</td> <td>理解意图、推理决策、调用指令</td> <td>LLM、Function Calling</td> </tr> <tr> <td><strong>规划</strong></td> <td>出餐 SOP</td> <td>任务分解、步骤排序、自我反思</td> <td>ReAct、CoT、ToT、Reflection</td> </tr> <tr> <td><strong>工具</strong></td> <td>厨具与帮手</td> <td>执行具体操作，连接外部世界</td> <td>搜索 / 代码 / API / 文件系统</td> </tr> <tr> <td><strong>记忆</strong></td> <td>顾客记录本</td> <td>管理上下文、存储长期知识</td> <td>向量数据库、RAG、上下文窗口</td> </tr> </tbody>
+</table></div> <!-- 其他扩展 --> 
+      </div>
+      <div class="rb-src">
+        📖 <b>内容来源</b>：菜鸟教程 runoob.com《AI Agent(智能体) 教程》→
+        <a href="https://www.runoob.com/ai-agent/ai-agent-core.html" target="_blank" rel="noopener">ai-agent-core.html</a><br>
+        <span>本页为教学用途转载，版权归原作者所有；图片与版式已本地化保存。</span>
+      </div>
+    </div>
+  </section>
